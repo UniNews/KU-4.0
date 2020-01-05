@@ -18,9 +18,9 @@ export default class App extends React.Component {
   }
 
   async componentDidMount() {
-    Font.loadAsync({
-      "Kanit-Regular": require('./app/assets/fonts/Kanit-Medium.ttf'),
-      "Kanit-Light": require('./app/assets/fonts/Kanit-Light.ttf'),
+    await Font.loadAsync({
+      'Kanit-Regular': require('./app/assets/fonts/Kanit-Medium.ttf'),
+      'Kanit-Light': require('./app/assets/fonts/Kanit-Light.ttf'),
     });
     this.setState({ fontLoaded: true })
   }
