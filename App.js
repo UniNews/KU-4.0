@@ -5,6 +5,8 @@ import { createStore, applyMiddleware } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import reducers from './app/reducers/index';
 import * as Font from 'expo-font';
+import styles from './app/assets/css/styles'
+import { View } from 'react-native'
 
 const store = createStore(reducers, applyMiddleware(thunkMiddleware));
 
@@ -31,7 +33,9 @@ export default class App extends React.Component {
     }
     return (
       <Provider store={store}>
-        <AppNavigator />
+        <View style={styles.container}>
+          <AppNavigator />
+        </View>
       </Provider>
     );
   }

@@ -7,11 +7,11 @@ class NewsView extends React.Component {
     constructor(props) {
         super(props);
     }
-
+    
     render() {
         return (
             <View style={styles.containter}>
-                <Text>News!</Text>
+                <Text>Header</Text>
             </View>
         );
     }

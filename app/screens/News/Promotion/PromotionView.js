@@ -11,7 +11,7 @@ class PromotionView extends React.Component {
     render() {
         return (
             <View style={styles.containter}>
-                <Text>Recommendation!</Text>
+                <Text>Promotions!</Text>
             </View>
         );
     }

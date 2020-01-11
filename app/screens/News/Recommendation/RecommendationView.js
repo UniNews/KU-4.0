@@ -7,7 +7,6 @@ class RecommendationView extends React.Component {
     constructor(props) {
         super(props);
     }
-
     render() {
         return (
             <View style={styles.containter}>
