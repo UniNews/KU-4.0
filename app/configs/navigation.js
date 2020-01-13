@@ -19,9 +19,7 @@ const newsTab = createMaterialTopTabNavigator({
   Promotion: PromotionScreen,
   University: UniversityScreen
 }, {
-  tabBarComponent:  props => (
-    <NewsTabBackground {...props} />
-  ),
+  tabBarComponent:  NewsTabBackground,
   tabBarPosition: 'top',
   swipeEnabled: true,
   backBehavior: 'none',

@@ -10,13 +10,12 @@ class NewsTabView extends React.Component {
     }
 
     render() {
-        const navigation = JSON.stringify(this.props.navigation.state.routes)
         const arrayRoutes = this.props.navigation.state.routes
         var topTabsList = [];
 
         for(let i = 0; i < arrayRoutes.length ; i++){
             topTabsList.push(
-                <Text style={styles.iconText}>
+                <Text key={arrayRoutes[i].key} style={styles.iconText}>
                     {arrayRoutes[i].routeName}
                 </Text>
             )
