@@ -3,7 +3,7 @@ import { createAppContainer } from 'react-navigation'
 import { createBottomTabNavigator ,createMaterialTopTabNavigator } from 'react-navigation-tabs'
 import { createStackNavigator } from 'react-navigation-stack'
 import { FontAwesome } from '@expo/vector-icons'
-import NewsScreen from '../screens/News/'
+import NewsTabBackground from '../components/NewsTabBackground'
 import NotificationScreen from '../screens/Notification/'
 import ScheduleScreen from '../screens/Schedule/'
 import ProfileScreen from '../screens/Profile/'
@@ -17,21 +17,21 @@ const newsTab = createMaterialTopTabNavigator({
   Club: ClubScreen,
   Recommendation: RecommendationScreen,
   Promotion: PromotionScreen,
-  University: UniversityScreen,
+  University: UniversityScreen
 }, {
+  tabBarComponent:  props => (
+    <NewsTabBackground {...props} />
+  ),
+  tabBarPosition: 'top',
+  swipeEnabled: true,
+  backBehavior: 'none',
   tabBarOptions: {
     scrollEnabled: true,
     labelStyle: {
-      fontSize: 12,
-    },
-    style: {
-      backgroundColor: 'tomato',
-    },
-    indicatorStyle: {
-      backgroundColor: '#fff'
+      fontSize: 80,
     }
   },
-});
+})
 
 newsTab.navigationOptions = {
   header: null
@@ -82,34 +82,6 @@ const TabNavigator = createBottomTabNavigator({
       }
     },
   }
-);
-
-// const newStack = createStackNavigator({
-//   News: newsNavigation,
-// })
-// const newsNavigation = createMaterialTopTabNavigator(
-//   {
-//     'ชมรม':ClubScreen,
-//     'แนะนำ':RecommendationScreen,
-//     'มหาลัย':UniversityScreen,
-//     'โปรโมชั่น':PromotionScreen
-//   },
-//   {
-//     initialRouteName: 'ชมรม' ,
-//     defaultNavigationOptions: ({ navigation }) => {
-//       return {
-//         tabBarOptions:{
-//           style: {
-//             backgroundColor: 'black',
-//             elevation: 0, // remove shadow on Android
-//             shadowOpacity: 0, // remove shadow on iOS,
-//             borderWidth:1,
-//             borderColor:'#ccc',
-//             scrollEnabled:true
-//           }
-//         }
-//       }
-//     }      
-//   })
+)
 
 export default createAppContainer(TabNavigator)
