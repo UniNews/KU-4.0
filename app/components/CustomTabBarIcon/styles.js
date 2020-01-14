@@ -5,5 +5,9 @@ export default StyleSheet.create({
     textStyle: {
         fontSize: 15,
         color: 'white',
+    },
+    textFocuse:{
+        fontSize: 15,
+        color: 'black'
     }
 });

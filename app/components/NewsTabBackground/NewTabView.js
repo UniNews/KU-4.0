@@ -30,7 +30,7 @@ class NewsTabView extends React.Component {
                                     index={index}
                                 />
                             </View>
-                            );
+                            )
                             }
                         )}
                     </View>
