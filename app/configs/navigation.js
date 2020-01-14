@@ -1,11 +1,13 @@
 import React from 'react';
 import { createAppContainer } from 'react-navigation';
 import { createBottomTabNavigator } from 'react-navigation-tabs';
+import { createStackNavigator } from 'react-navigation-stack';
 import { FontAwesome } from '@expo/vector-icons';
 import NewsScreen from '../screens/News/'
 import NotificationScreen from '../screens/Notification/'
 import ScheduleScreen from '../screens/Schedule/'
 import ProfileScreen from '../screens/Profile/'
+import LoginScreen from '../screens/Login/'
 import Constants from '../configs/constants';
 
 const TabNavigator = createBottomTabNavigator({
@@ -52,4 +54,17 @@ const TabNavigator = createBottomTabNavigator({
   }
 );
 
-export default createAppContainer(TabNavigator);
+const AuthStack = createStackNavigator({
+  Login: {
+    screen: LoginScreen
+  },
+  // Policy: {
+  //   screen: PolicyScreen
+  // }
+}, {
+  initialRouteName: 'Login',
+  headerMode: 'none',
+}
+);
+
+export default createAppContainer(AuthStack);
