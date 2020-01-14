@@ -8,6 +8,10 @@ export default StyleSheet.create({
     },
     textFocuse:{
         fontSize: 15,
-        color: 'black'
+        color: 'white'
+    }
+    ,textNormal:{
+        color:'rgba(255, 255, 255, 0.5)',
+        fontSize: 15
     }
 });

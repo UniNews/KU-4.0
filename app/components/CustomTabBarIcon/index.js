@@ -32,9 +32,9 @@ export default class CustomTabBarIcon extends React.Component {
             >
             <View> 
                 <View>
-                    <FontAwesome name={icon} style={focused ? styles.textFocuse: styles.textStyle}/>
+                    <FontAwesome name={icon} style={focused ? styles.textFocuse: styles.textNormal}/>
                 </View>
-                <Text style={focused ? styles.textFocuse: styles.textStyle}>{routeName}</Text>
+                <Text style={focused ? styles.textFocuse: styles.textNormal}>{routeName}</Text>
             </View>
         </TouchableWithoutFeedback>
     );
