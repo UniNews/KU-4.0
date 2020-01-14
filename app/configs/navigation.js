@@ -14,10 +14,10 @@ import PromotionScreen from '../screens/News/Promotion/'
 import Constants from '../configs/constants'
 
 const newsTab = createMaterialTopTabNavigator({
-  Club: ClubScreen,
-  Recommendation: RecommendationScreen,
-  Promotion: PromotionScreen,
-  University: UniversityScreen
+  'สำหรับคุณ': RecommendationScreen,
+  'มหาลัย': UniversityScreen,
+  'โปรโมชั่น': PromotionScreen,
+  'ชมรม': ClubScreen
 }, {
   tabBarComponent:  NewsTabBackground,
   tabBarPosition: 'top',

@@ -16,5 +16,8 @@ export default StyleSheet.create({
     iconText: {
         fontSize: 15,
         color: 'white',
+    },
+    linearGradient:{
+        height:105
     }
 });
