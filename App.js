@@ -5,8 +5,17 @@ import { createStore, applyMiddleware } from 'redux';
 import thunkMiddleware from 'redux-thunk';
 import reducers from './app/reducers/index';
 import * as Font from 'expo-font';
+import { StyleSheet, View } from 'react-native';
+import Constants from 'expo-constants';
 
 const store = createStore(reducers, applyMiddleware(thunkMiddleware));
+
+const styles = StyleSheet.create({
+  container: {
+    paddingTop: Constants.statusBarHeight,
+    flex: 1
+  },
+});
 
 export default class App extends React.Component {
 
@@ -31,7 +40,9 @@ export default class App extends React.Component {
     }
     return (
       <Provider store={store}>
-        <AppNavigator />
+        <View style={styles.container}>
+          <AppNavigator />
+        </View>
       </Provider>
     );
   }
