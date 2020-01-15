@@ -8,6 +8,7 @@ const mapStateToProps = state => {
         article: state.newsReducer.news,
         error: state.newsReducer.loading,
         completed: state.newsReducer.news,
+        text:''
     }
 };
 
