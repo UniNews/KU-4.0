@@ -1,18 +1,19 @@
 import { connect } from 'react-redux';
 import LoginView from './LoginView';
-import { getNewsRecommendation } from '../../reducers/NewsReducer/actions';
+import { login } from '../../reducers/UserReducer/actions';
 
 const mapStateToProps = state => {
     return {
-        loading: state.newsReducer.loading,
-        article: state.newsReducer.news,
-        error: state.newsReducer.loading,
-        completed: state.newsReducer.news,
+        loading: state.userReducer.loading,
+        user: state.userReducer.user,
+        error: state.userReducer.error,
+        completed: state.userReducer.completed,
+        accessToken: state.userReducer.accessToken
     }
 };
 
 const mapDispatchToProps = {
-    getNewsRecommendation
+    login
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginView);
