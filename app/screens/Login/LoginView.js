@@ -11,9 +11,24 @@ class LoginView extends React.Component {
         this.state = {
             username: '',
             password: '',
+            isHide:true
         }
     }
-
+    renderIcons() {
+        if (this.state.isHide) {
+            return (
+                <TouchableWithoutFeedback onPress={() => this.setState({isHide:!this.state.isHide})}>
+                    <FontAwesome name="eye" size={20} color="#B3C1B8"/>
+                </TouchableWithoutFeedback>
+            )
+        } else {
+            return (
+                <TouchableWithoutFeedback onPress={() => this.setState({isHide:!this.state.isHide})}>
+                    <FontAwesome name="eye-slash" size={20} color="#B3C1B8"/>
+                </TouchableWithoutFeedback>
+            )
+        }
+    }
     render() {
         return (
             <LinearGradient colors={['#465859','#588E57']} style={styles.linearGradient} >
@@ -39,13 +54,14 @@ class LoginView extends React.Component {
                         style={styles.widthInput}
                         placeholder="รหัสผ่าน"
                         placeholderTextColor="white"
+                        secureTextEntry={this.state.isHide}
                         onChangeText={(text) => this.setState({password:text})}
                         value={this.state.text}>
                     </TextInput>
-                    <FontAwesome name="eye" size={20} color="#B3C1B8"/>
+                    {this.renderIcons()}
                 </View>
                 <View>
-                    <TouchableWithoutFeedback onPress={() => Alert.alert('Login')}>
+                    <TouchableWithoutFeedback onPress={() => Alert.alert('login')}>
                         <View style={styles.myButton}>
                             <Text style={styles.textButton}>เข้าสู่ระบบ</Text>
                         </View>
