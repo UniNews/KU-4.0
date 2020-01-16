@@ -1,9 +1,9 @@
 import React from 'react'
 import { createAppContainer } from 'react-navigation'
-import { createBottomTabNavigator ,createMaterialTopTabNavigator } from 'react-navigation-tabs'
+import { createBottomTabNavigator, createMaterialTopTabNavigator } from 'react-navigation-tabs'
 import { createStackNavigator } from 'react-navigation-stack'
 import { FontAwesome } from '@expo/vector-icons'
-import NewsTabBackground from '../components/NewsTabBackground'
+import NewsTab from '../components/NewsTab'
 import NotificationScreen from '../screens/Notification/'
 import ScheduleScreen from '../screens/Schedule/'
 import ProfileScreen from '../screens/Profile/'
@@ -19,27 +19,26 @@ const newsTab = createMaterialTopTabNavigator({
   'โปรโมชั่น': PromotionScreen,
   'ชมรม': ClubScreen
 }, {
-  tabBarComponent:  NewsTabBackground,
-  tabBarPosition: 'top',
+  tabBarComponent: NewsTab,
   swipeEnabled: true,
-  backBehavior: 'none',
   tabBarOptions: {
     scrollEnabled: true,
-    labelStyle: {
-      fontSize: 80,
-    }
   },
 })
 
-newsTab.navigationOptions = {
-  header: null
-}
-const newsTabStack = createStackNavigator({
+const newsStack = createStackNavigator({
   Home: newsTab
-})
+},
+  {
+    headerMode: 'none',
+    navigationOptions: {
+      headerVisible: false,
+    }
+  }
+)
 
 const TabNavigator = createBottomTabNavigator({
-  'หน้าหลัก':newsTabStack,
+  'หน้าหลัก': newsStack,
   'ปฏิทิน': ScheduleScreen,
   'แจ้งเตือน': NotificationScreen,
   'โปรไฟล์': ProfileScreen

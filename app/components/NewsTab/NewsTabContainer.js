@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import NewsTabView from './NewTabView';
+import NewsTabView from './NewsTabView';
 
 const mapStateToProps = state => {
     return {
