@@ -1,5 +1,5 @@
 import React from 'react'
-import { createAppContainer } from 'react-navigation'
+import { createAppContainer, createSwitchNavigator } from 'react-navigation'
 import { createBottomTabNavigator, createMaterialTopTabNavigator } from 'react-navigation-tabs'
 import { createStackNavigator } from 'react-navigation-stack'
 import { FontAwesome } from '@expo/vector-icons'
@@ -12,6 +12,7 @@ import UniversityScreen from '../screens/News/University/'
 import RecommendationScreen from '../screens/News/Recommendation'
 import PromotionScreen from '../screens/News/Promotion/'
 import Constants from '../configs/constants'
+import LoginScreen from '../screens/Login/'
 
 const newsTab = createMaterialTopTabNavigator({
   'สำหรับคุณ': RecommendationScreen,
@@ -81,4 +82,26 @@ const TabNavigator = createBottomTabNavigator({
   }
 )
 
-export default createAppContainer(TabNavigator)
+const AuthStack = createStackNavigator({
+  Login: {
+    screen: LoginScreen
+  },
+  // Policy: {
+  //   screen: PolicyScreen
+  // }
+}, {
+  initialRouteName: 'Login',
+  headerMode: 'none',
+}
+);
+
+export default createAppContainer(createSwitchNavigator(
+  {
+    Auth: {
+      screen: AuthStack
+    },
+    Main: {
+      screen: TabNavigator
+    },
+  }
+));
