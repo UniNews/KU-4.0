@@ -14,6 +14,11 @@ class LoginView extends React.Component {
             isHide:true
         }
     }
+    componentDidUpdate(prevProps) {
+        if (this.props.user) {
+            this.props.navigation.navigate('News');
+        }
+    }
     renderIcons() {
         if (this.state.isHide) {
             return (
@@ -61,7 +66,10 @@ class LoginView extends React.Component {
                     {this.renderIcons()}
                 </View>
                 <View>
-                    <TouchableWithoutFeedback onPress={() => Alert.alert('login')}>
+                    <TouchableWithoutFeedback onPress={() => {
+                        this.props.login({"grant_type":"password","username":this.state.username, "password":this.state.password})
+                        Alert.alert(JSON.stringify(this.props.user))
+                        }}>
                         <View style={styles.myButton}>
                             <Text style={styles.textButton}>เข้าสู่ระบบ</Text>
                         </View>

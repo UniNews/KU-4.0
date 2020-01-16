@@ -1,6 +1,5 @@
 import { StyleSheet } from 'react-native';
 import Constants from '../../configs/constants';
-import { Button } from 'native-base';
 
 export default StyleSheet.create({
     linearGradient: {
