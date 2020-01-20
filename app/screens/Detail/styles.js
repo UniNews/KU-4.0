@@ -49,7 +49,7 @@ export default StyleSheet.create({
         paddingBottom: 17,
         borderBottomColor:'#DCDCDC',
         borderBottomWidth:1,
-        //height: 124
+        minHeight: 124
     },
     commentHeader: {
         marginVertical: 14,
