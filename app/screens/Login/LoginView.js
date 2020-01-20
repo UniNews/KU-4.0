@@ -2,7 +2,7 @@ import React from 'react'
 import { Text, TextInput, View, TouchableWithoutFeedback, Alert } from 'react-native'
 import styles from './styles'
 import { LinearGradient } from 'expo-linear-gradient'
-import { FontAwesome } from '@expo/vector-icons';
+import { FontAwesome } from '@expo/vector-icons'
 
 class LoginView extends React.Component {
 

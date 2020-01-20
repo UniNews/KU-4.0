@@ -13,6 +13,7 @@ import RecommendationScreen from '../screens/News/Recommendation'
 import PromotionScreen from '../screens/News/Promotion/'
 import Constants from '../configs/constants'
 import LoginScreen from '../screens/Login/'
+import DetailScreen from '../screens/Detail'
 
 const newsTab = createMaterialTopTabNavigator({
   'สำหรับคุณ': RecommendationScreen,
@@ -28,7 +29,8 @@ const newsTab = createMaterialTopTabNavigator({
 })
 
 const newsStack = createStackNavigator({
-  Home: newsTab
+  Home: newsTab,
+  Detail: DetailScreen
 },
   {
     headerMode: 'none',
