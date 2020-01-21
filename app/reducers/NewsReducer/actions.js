@@ -1,5 +1,5 @@
 import * as types from './actionTypes';
-import service from '../../utils/news';
+import service from '../../services/news';
 
 const fetch_news = () => {
     return { type: types.FETCH_NEWS };

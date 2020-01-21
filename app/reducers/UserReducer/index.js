@@ -9,7 +9,7 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
-        case types.FETCH_USER:
+        case types.USER_LOADING:
             return {
                 ...state,
                 loading: true,
@@ -33,6 +33,8 @@ const reducer = (state = initialState, action) => {
                 error: true,
                 completed: true
             };
+        case types.LOGOUT:
+            return initialState;
         default:
             return state;
     }
