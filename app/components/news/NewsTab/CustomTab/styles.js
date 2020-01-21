@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import Constants from '../../configs/constants';
+import { BOLD_FONT, REGULAR_FONT } from '../../../../assets/css/typography';
 
 export default StyleSheet.create({
     textStyle: {
@@ -12,10 +12,10 @@ export default StyleSheet.create({
         borderColor: 'transparent',
         borderBottomColor: 'white',
         borderWidth: 1,
-        fontFamily: Constants.BOLD_FONT
+        fontFamily: BOLD_FONT
     },
     textNormal: {
         color: 'rgba(255, 255, 255, 0.5)',
-        fontFamily: Constants.REGULAR_FONT
+        fontFamily: REGULAR_FONT
     }
 });

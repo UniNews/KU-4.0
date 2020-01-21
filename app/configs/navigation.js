@@ -3,15 +3,16 @@ import { createAppContainer } from 'react-navigation'
 import { createBottomTabNavigator, createMaterialTopTabNavigator } from 'react-navigation-tabs'
 import { createStackNavigator } from 'react-navigation-stack'
 import { FontAwesome } from '@expo/vector-icons'
-import NewsTab from '../components/NewsTab'
+import NewsTab from '../components/news/NewsTab'
 import NotificationScreen from '../screens/Notification/'
 import ScheduleScreen from '../screens/Schedule/'
 import ProfileScreen from '../screens/Profile/'
 import ClubScreen from '../screens/News/Club/'
 import UniversityScreen from '../screens/News/University/'
-import RecommendationScreen from '../screens/News/Recommendation'
+import RecommendationScreen from '../screens/News/Recommendation/'
 import PromotionScreen from '../screens/News/Promotion/'
-import Constants from '../configs/constants'
+import { PRIMARY_COLOR, SECONDARY_COLOR } from '../assets/css/color'
+import { BOLD_FONT } from '../assets/css/typography'
 
 const newsTab = createMaterialTopTabNavigator({
   'สำหรับคุณ': RecommendationScreen,
@@ -20,7 +21,7 @@ const newsTab = createMaterialTopTabNavigator({
   'ชมรม': ClubScreen
 }, {
   tabBarComponent: NewsTab,
-  swipeEnabled: true,
+  swipeEnabled: false,
   tabBarOptions: {
     scrollEnabled: true,
   },
@@ -69,10 +70,10 @@ const TabNavigator = createBottomTabNavigator({
       },
     }),
     tabBarOptions: {
-      activeTintColor: Constants.PRIMARY_COLOR,
-      inactiveTintColor: Constants.SECONDARY_COLOR,
+      activeTintColor: PRIMARY_COLOR,
+      inactiveTintColor: SECONDARY_COLOR,
       labelStyle: {
-        fontFamily: Constants.BOLD_FONT
+        fontFamily: BOLD_FONT
       },
       style: {
         height: 52,

@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import Constants from '../../configs/constants';
+import { BOLD_FONT } from '../../../assets/css/typography';
 
 export default StyleSheet.create({
     headContainer: {
@@ -9,14 +9,13 @@ export default StyleSheet.create({
         alignItems: 'center'
     },
     logo: {
-        fontFamily: Constants.BOLD_FONT,
+        fontFamily: BOLD_FONT,
         fontSize: 30,
         color: 'white',
     },
     listContainer: {
         flexDirection: 'row',
         alignItems: 'stretch',
-
     },
     listItem: {
         flex: 1
