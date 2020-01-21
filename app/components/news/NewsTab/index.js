@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, View } from 'react-native';
 import styles from './styles';
 import { LinearGradient } from 'expo-linear-gradient'
-import CustomTab from '../CustomTab'
+import CustomTab from './CustomTab'
 import PropTypes from 'prop-types';
 import { FontAwesome } from '@expo/vector-icons'
 

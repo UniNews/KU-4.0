@@ -1,10 +1,13 @@
 import { StyleSheet } from 'react-native';
-import Constants from '../../../configs/constants';
+import { wp } from '../../../assets/javascripts/spacing'
+
 
 export default StyleSheet.create({
     containter: {
         flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
+    },
+    sectionContainer: {
+        paddingTop: wp(3),
+        paddingHorizontal: wp(2)
     }
 });
