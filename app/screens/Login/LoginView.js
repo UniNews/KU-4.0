@@ -2,7 +2,8 @@ import React from 'react'
 import { Text, TextInput, View, TouchableOpacity, TouchableWithoutFeedback } from 'react-native'
 import styles from './styles'
 import { LinearGradient } from 'expo-linear-gradient'
-import { FontAwesome } from '@expo/vector-icons';
+import { FontAwesome } from '@expo/vector-icons'
+import DropdownAlert from 'react-native-dropdownalert'
 import PropTypes from 'prop-types';
 
 class LoginView extends React.Component {
@@ -17,8 +18,7 @@ class LoginView extends React.Component {
     }
     componentDidUpdate(prevProps) {
         if (this.props.user) {
-            console.log(this.props.user)
-            this.props.navigation.navigate('Main');
+            this.props.navigation.navigate('Main')
         }
     }
     renderHideIcon() {
@@ -64,11 +64,17 @@ class LoginView extends React.Component {
                             value={this.state.text}>
                         </TextInput>
                         {this.renderHideIcon()}
-
                     </View>
                     <View style={styles.buttonContainer}>
-                        <TouchableOpacity style={styles.buttonContainer} onPress={() => {
-                            login(username, password)
+                        <TouchableOpacity style={styles.buttonContainer} onPress={ () => {
+                            login(username, password).then(()=>{
+                                // console.log(vm,'vm')
+                                // console.log(this,'this')
+                                console.log(this.props.error)
+                                if(this.props.error === true) {
+                                    this.dropDownAlertRef.alertWithType('error', 'Error', 'Wrong username or password')
+                                }
+                            })
                         }}>
                             <View style={styles.button}>
                                 <Text style={styles.textButton}>เข้าสู่ระบบ</Text>
@@ -77,6 +83,7 @@ class LoginView extends React.Component {
                     </View>
                 </View>
                 <Text style={styles.policyText}>นโยบายคุ้มครอง</Text>
+                <DropdownAlert ref={ref => this.dropDownAlertRef = ref} />
             </LinearGradient>
         );
     }
