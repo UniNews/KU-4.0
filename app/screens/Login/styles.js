@@ -60,7 +60,9 @@ export default StyleSheet.create({
         backgroundColor: '#F0F0F0',
         borderRadius: 30,
         width: 200,
-        padding: 15
+        paddingHorizontal: 60,
+        flexDirection: 'row',
+        paddingVertical:15
     },
     textButton: {
         color: '#69C4BF',

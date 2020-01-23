@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, TextInput, View, TouchableOpacity, TouchableWithoutFeedback } from 'react-native'
+import { Text, TextInput, View, TouchableOpacity, TouchableWithoutFeedback, ActivityIndicator } from 'react-native'
 import styles from './styles'
 import { LinearGradient } from 'expo-linear-gradient'
 import { FontAwesome } from '@expo/vector-icons'
@@ -28,6 +28,23 @@ class LoginView extends React.Component {
                 <FontAwesome style={styles.icon} name={isHide ? 'eye' : 'eye-slash'} size={20} color='white' />
             </TouchableWithoutFeedback>
         )
+    }
+    renderLoading() {
+        const { loading } = this.props
+        if (loading) {
+            return (
+                <View style={styles.button}>
+                    <Text style={styles.textButton}>เข้าสู่ระบบ</Text>
+                    <ActivityIndicator size="small" color="#69C4BF" />
+                </View>
+            )
+        } else {
+            return (
+                <View style={styles.button}>
+                    <Text style={styles.textButton}>เข้าสู่ระบบ</Text>
+                </View>
+            )
+        }
     }
     render() {
         const { isHide, username, password } = this.state
@@ -68,24 +85,19 @@ class LoginView extends React.Component {
                     <View style={styles.buttonContainer}>
                         <TouchableOpacity style={styles.buttonContainer} onPress={ () => {
                             login(username, password).then(()=>{
-                                // console.log(vm,'vm')
-                                // console.log(this,'this')
-                                console.log(this.props.error)
                                 if(this.props.error === true) {
                                     this.dropDownAlertRef.alertWithType('error', 'Error', 'Wrong username or password')
                                 }
                             })
                         }}>
-                            <View style={styles.button}>
-                                <Text style={styles.textButton}>เข้าสู่ระบบ</Text>
-                            </View>
+                            { this.renderLoading() }
                         </TouchableOpacity>
                     </View>
                 </View>
                 <Text style={styles.policyText}>นโยบายคุ้มครอง</Text>
-                <DropdownAlert ref={ref => this.dropDownAlertRef = ref} />
+                <DropdownAlert errorColor="yellow" ref={ref => this.dropDownAlertRef = ref} />
             </LinearGradient>
-        );
+        )
     }
 }
 
