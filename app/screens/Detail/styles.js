@@ -1,118 +1,66 @@
 import { StyleSheet } from 'react-native';
-import Constants from '../../configs/constants';
+import { PRIMARY_COLOR } from '../../assets/css/color'
 
 export default StyleSheet.create({
     container: {
-        flex:1
+        // flex: 1
     },
     newsImage: {
-        width:390,
         height: 250,
+        width: null,
         resizeMode: 'cover'
     },
-    titleSubText: {
-        fontStyle: 'normal',
-        fontWeight: 'normal',
-        fontSize: 14,
-        lineHeight: 17,
+    topIconContainer: {
         alignItems: 'center',
-        color: '#474747',
-    },
-    titleMajorText: {
-        fontStyle: 'normal',
-        fontWeight: 'bold',
-        fontSize: 24,
-        lineHeight: 36,
-        alignItems: 'center',
-    },
-    marginBorder: {
-        marginTop: 15,
-        borderLeftColor:'#40C5BE',
-        borderLeftWidth: 3,
-        marginLeft:21,
-        paddingLeft: 9
-    },
-    marginBorderUnder: {
-        marginTop: 15,
-        borderLeftColor:'#40C5BE',
-        marginLeft:21,
-        flexDirection:'row',
-        alignItems:'center'
-    },
-    dateText: {
-        marginLeft: 5
-    },
-    newsinfo: {
-        marginHorizontal: 19,
-        borderLeftColor:'#474747',
-        marginTop: 7,
-        paddingBottom: 17,
-        borderBottomColor:'#DCDCDC',
-        borderBottomWidth:1,
-        minHeight: 124
-    },
-    commentHeader: {
-        marginVertical: 14,
-        marginHorizontal: 19,
-        borderLeftColor:'#40C5BE',
-        borderLeftWidth: 2,
-        paddingLeft:9,
-        flexDirection:'row',
-        justifyContent:'space-between'
-    },
-    fontHeader: {
-        fontStyle: 'normal',
-        fontWeight: 'bold',
-        fontSize: 14,
-        lineHeight: 17,
-        alignItems: 'center'
-    },
-    commentHeaderRow: {
-        flexDirection:'row',
-        alignItems:'center'
-    },
-    gapButton: {
-        marginLeft:10
+        flexDirection: 'row-reverse',
+        padding: 10
     },
     heartIcon: {
-        position: 'absolute',
-        left: '89%',
-        top: '1%'
+        paddingHorizontal: 16
     },
-    plusButton: {
-        position: 'absolute',
-        left: '96.5%',
-        top: '1.5%',
+    posterText: {
+        fontSize: 15,
+        fontFamily: 'Kanit-Light'
     },
-    imageAvatar: {
-        width: 50,
-        height: 50,
-        borderRadius: 30
+    titleText: {
+        fontSize: 25,
+        fontFamily: 'Kanit-Regular'
     },
-    commentLayout: {
-        marginVertical: 14,
-        marginHorizontal: 19,
-        paddingLeft:9,
-        flexDirection:'row',
-        justifyContent:'space-between'
+    innerTitleContainer: {
+        paddingHorizontal: 10
     },
-    directionRow: {
-        flexDirection:'row'
+    titleContainer: {
+        borderLeftColor: PRIMARY_COLOR,
+        borderLeftWidth: 4,
     },
-    avatarName:{
-        fontStyle: 'normal',
-        fontWeight: 'bold',
-        fontSize: 14,
+    dateIconContainer: {
+        paddingTop: 5,
+        flexDirection: 'row',
+        alignItems: 'center'
     },
-    commentDate: {
-        fontSize: 11,
-        color: '#9B9B9B',
-        marginBottom: 4
+    dateText: {
+        paddingLeft: 5,
+        fontSize: 13,
+        fontFamily: 'Kanit-Light',
     },
-    commentmessage: {
-        fontSize: 14
+    newsInfoText: {
+        fontFamily: 'Kanit-Light',
+        fontSize: 15
     },
-    gapComment :{
-        marginLeft:10
+    commentHeaderRow: {
+        flexDirection: 'row',
+        alignItems: 'center'
+    },
+    gapButton: {
+        marginLeft: 10
+    },
+    hr: {
+        marginVertical: 20
+    },
+    innerCommentContainer: {
+        paddingVertical: 10
+    },
+    commentContainer: {
+        paddingTop: 5
     }
 });
