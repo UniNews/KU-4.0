@@ -57,8 +57,8 @@ class RecommendationView extends React.Component {
                 <SliderBox
                     sliderBoxHeight={200}
                     data={images}
-                    onPressed={index =>
-                        console.warn(`image ${index} pressed`)
+                    onPressed={id =>
+                        this.props.navigation.navigate('Detail', { id })
                     }
                 />
                 <View style={styles.sectionContainer}>
@@ -66,14 +66,14 @@ class RecommendationView extends React.Component {
                         () => console.log('CLICKED')
                     } />
                     <SilderNews data={ENTRIES2} onPressed={
-                        id => console.log(id)
+                        id => this.props.navigation.navigate('Detail', { id })
                     } />
                     <Hr />
                 </View >
                 <View style={styles.sectionContainer}>
                     <SectionHeader title={'โปรโมชั่นสำหรับคุณ'} subtitle={'เพิ่มเติม'} />
                     <SilderNews data={ENTRIES2} onPressed={
-                        id => console.log(id)
+                        id => this.props.navigation.navigate('Detail', { id })
                     } />
                 </View>
             </ScrollView>
