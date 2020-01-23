@@ -8,7 +8,6 @@ const mapStateToProps = state => {
         user: state.userReducer.user,
         error: state.userReducer.error,
         completed: state.userReducer.completed,
-        accessToken: state.userReducer.accessToken
     }
 };
 

@@ -1,98 +1,81 @@
 import { StyleSheet } from 'react-native';
-import Constants from '../../configs/constants';
+import { wp, viewportWidth } from '../../assets/javascripts/spacing'
+import { BOLD_FONT, REGULAR_FONT } from '../../assets/css/typography'
+const textInputContainerHorizontalMargin = viewportWidth - wp(20);
 
 export default StyleSheet.create({
-    linearGradient: {
-        flex:1,
-        justifyContent: 'center',
+    container: {
+        flex: 1,
+        flexDirection: 'column',
+        justifyContent: 'space-around',
         alignItems: 'center',
     },
     logoText: {
-        fontStyle: 'normal',
-        fontWeight: 'bold',
-        fontSize: 48,
-        lineHeight: 59,
-        alignItems: 'center',
-        color: '#FFFFFF',
-        bottom: 210,
-        fontFamily:'Kanit-Regular'
+        fontSize: 50,
+        color: 'white',
+        fontFamily: BOLD_FONT
     },
-    underLogoText: {
-        fontStyle: 'normal',
+    caption: {
         fontSize: 25,
-        lineHeight: 30,
-        alignItems: 'center',
-        color: '#FFFFFF',
-        bottom: 200,
-        fontFamily:'Kanit-Light'
+        color: 'white',
+        fontFamily: REGULAR_FONT
     },
     headLogin: {
-        fontStyle: 'normal',
-        fontWeight: 'bold',
-        fontSize: 25,
-        lineHeight: 30,
-        alignItems: 'center',
-        color: '#FFFFFF',
-        bottom: 90,
-        fontFamily:'Kanit-Regular'
+        marginBottom: 15,
+        fontSize: 27,
+        color: 'white',
+        fontFamily: BOLD_FONT
     },
-    row: {
-        flexDirection: 'row'
+    logoContainer: {
+        alignItems: 'center'
     },
-    secondLogo: {
-        color: '#AFEEEE'
+    logoTextContainer: {
+        flexDirection: 'row',
     },
-    searchSection: {
+    secondLogoText: {
+        color: '#80FFF8'
+    },
+    textInputContainer: {
+        marginVertical: 5,
         flexDirection: 'row',
         alignItems: 'center',
-        backgroundColor: '#DFDEDE',
-        opacity: 0.3,
+        backgroundColor: '#FFFFFF60',
         borderRadius: 10,
-        height: 40,
-        width: 300,
-        bottom: 70  
+        height: 50,
+        width: textInputContainerHorizontalMargin
+    },
+    inputContainer: {
+        alignItems: 'center',
     },
     icon: {
         marginHorizontal: 10
     },
-    gapInput: {
-        marginBottom: 10
+    textInput: {
+        flex: 1,
+        fontSize: 16,
+        fontFamily: REGULAR_FONT,
+        color: 'white'
     },
-    widthInput: {
-        width: 230
-    },
-    myButton: {
-        paddingHorizontal: 20,
-        paddingVertical: 15,
-        backgroundColor:'#F0F0F0',
-        borderRadius: 27.5,
-        width: 250,
-        bottom: 40
+    button: {
+        backgroundColor: '#F0F0F0',
+        borderRadius: 30,
+        width: 200,
+        padding: 15
     },
     textButton: {
-        color:'#69C4BF',
+        color: '#69C4BF',
         textAlign: 'center',
-        fontSize: 16,
-        fontFamily:'Kanit-Light'
+        fontSize: 17,
+        fontFamily: BOLD_FONT
     },
-    underButton: {
+    policyText: {
         textAlign: 'center',
-        fontStyle: 'normal',
-        fontWeight: 'bold',
         fontSize: 14,
-        letterSpacing: 0.1,
         color: '#FFFFFF',
         textDecorationLine: 'underline',
-        bottom: 30,
-        fontFamily:'Kanit-Regular'
+        fontFamily: REGULAR_FONT
     },
-    lastText: {
-        top: 180,
-        fontWeight: 'bold',
-        fontSize: 14,
-        lineHeight: 16,
-        fontFamily:'Kanit-Regular',
-        letterSpacing: 0.1,
-        color: '#FFFFFF'
+    buttonContainer: {
+        marginTop: 15
     }
 });
