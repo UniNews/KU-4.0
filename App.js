@@ -7,13 +7,30 @@ import reducers from './app/reducers/index';
 import * as Font from 'expo-font';
 import { View, StyleSheet } from 'react-native'
 import Constants from 'expo-constants';
+import DropdownAlert from 'react-native-dropdownalert'
+import { AlertHelper } from './app/configs/alertHelper';
+import { BOLD_FONT, REGULAR_FONT } from './app/assets/css/typography'
 
 const store = createStore(reducers, applyMiddleware(thunkMiddleware));
 
 const styles = StyleSheet.create({
-  container: {
+  appContainer: {
     paddingTop: Constants.statusBarHeight,
-    flex: 1
+    flex: 1,
+  },
+  alertContainer: {
+    paddingTop: Constants.statusBarHeight,
+    padding: 10
+  },
+  alertTitle: {
+    fontSize: 16,
+    fontFamily: BOLD_FONT,
+    color: 'white'
+  },
+  alertMessage: {
+    fontSize: 14,
+    fontFamily: REGULAR_FONT,
+    color: 'white'
   }
 })
 
@@ -39,11 +56,17 @@ export default class App extends React.Component {
       return null
     }
     return (
-      <Provider store={store}>
-        <View style={styles.container}>
+      <View style={styles.appContainer}>
+        <Provider store={store}>
           <AppNavigator />
-        </View>
-      </Provider>
+        </Provider>
+        <DropdownAlert
+          defaultContainer={styles.alertContainer}
+          ref={ref => AlertHelper.setDropDown(ref)}
+          titleStyle={styles.alertTitle}
+          messageStyle={styles.alertMessage}
+        />
+      </View>
     );
   }
 }

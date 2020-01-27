@@ -1,10 +1,11 @@
 import React from 'react'
-import { Text, TextInput, View, TouchableOpacity, TouchableWithoutFeedback, ActivityIndicator } from 'react-native'
+import { Text, TextInput, View, TouchableOpacity, TouchableWithoutFeedback, ActivityIndicator, KeyboardAvoidingView } from 'react-native'
 import styles from './styles'
 import { LinearGradient } from 'expo-linear-gradient'
 import { FontAwesome } from '@expo/vector-icons'
-import DropdownAlert from 'react-native-dropdownalert'
 import PropTypes from 'prop-types';
+import { AlertHelper } from '../../configs/alertHelper';
+import KeyboardSpacer from 'react-native-keyboard-spacer';
 
 class LoginView extends React.Component {
 
@@ -16,11 +17,17 @@ class LoginView extends React.Component {
             isHide: true
         }
     }
+
     componentDidUpdate(prevProps) {
-        if (this.props.user) {
+        const { user, error } = this.props
+        if (user) {
             this.props.navigation.navigate('Main')
+            AlertHelper.alert('info', 'ล็อกอินสำเร็จ', 'สวัสดีคุณ ' + user.name)
         }
+        else if (error && prevProps.error != error)
+            AlertHelper.alert('error', 'เกิดข้อผิดพลาด', 'บัญชีผู้ใช้ หรือรหัสผ่านไม่ถูกต้อง')
     }
+
     renderHideIcon() {
         const { isHide } = this.state
         return (
@@ -29,26 +36,20 @@ class LoginView extends React.Component {
             </TouchableWithoutFeedback>
         )
     }
-    renderLoading() {
+
+    renderButton() {
         const { loading } = this.props
-        if (loading) {
-            return (
-                <View style={styles.button}>
-                    <Text style={styles.textButton}>เข้าสู่ระบบ</Text>
-                    <ActivityIndicator size="small" color="#69C4BF" />
-                </View>
-            )
-        } else {
-            return (
-                <View style={styles.button}>
-                    <Text style={styles.textButton}>เข้าสู่ระบบ</Text>
-                </View>
-            )
-        }
+        return <View style={styles.button}>
+            {
+                loading ? <ActivityIndicator size='small' color='#69C4BF' />
+                    : <Text style={styles.textButton}>เข้าสู่ระบบ</Text>
+            }
+        </View >
     }
+
     render() {
         const { isHide, username, password } = this.state
-        const { login } = this.props
+        const { login, loading } = this.props
         return (
             <LinearGradient colors={['#465859', '#588E57']} style={styles.container} >
                 <View style={styles.logoContainer}>
@@ -83,19 +84,15 @@ class LoginView extends React.Component {
                         {this.renderHideIcon()}
                     </View>
                     <View style={styles.buttonContainer}>
-                        <TouchableOpacity style={styles.buttonContainer} onPress={ () => {
-                            login(username, password).then(()=>{
-                                if(this.props.error === true) {
-                                    this.dropDownAlertRef.alertWithType('error', 'Error', 'Wrong username or password')
-                                }
-                            })
+                        <TouchableOpacity disabled={loading} onPress={() => {
+                            login(username, password)
                         }}>
-                            { this.renderLoading() }
+                            {this.renderButton()}
                         </TouchableOpacity>
                     </View>
                 </View>
+                <KeyboardSpacer topSpacing={-120} />
                 <Text style={styles.policyText}>นโยบายคุ้มครอง</Text>
-                <DropdownAlert errorColor="yellow" ref={ref => this.dropDownAlertRef = ref} />
             </LinearGradient>
         )
     }

@@ -59,10 +59,9 @@ export default StyleSheet.create({
     button: {
         backgroundColor: '#F0F0F0',
         borderRadius: 30,
+        justifyContent: 'center',
         width: 200,
-        paddingHorizontal: 60,
-        flexDirection: 'row',
-        paddingVertical:15
+        height: 55
     },
     textButton: {
         color: '#69C4BF',
@@ -78,6 +77,6 @@ export default StyleSheet.create({
         fontFamily: REGULAR_FONT
     },
     buttonContainer: {
-        marginTop: 15
+        marginTop: 15,
     }
 });

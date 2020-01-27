@@ -5,16 +5,13 @@ import { LinearGradient } from 'expo-linear-gradient'
 import CustomTab from './CustomTab'
 import PropTypes from 'prop-types';
 import { FontAwesome } from '@expo/vector-icons'
-import DropdownAlert from 'react-native-dropdownalert'
 
 class NewsTabView extends React.Component {
 
     constructor(props) {
         super(props);
     }
-    componentDidMount (prevProp){
-        this.dropDownAlertRef.alertWithType('success', 'Success', 'Login is complete.')
-    }
+
     render() {
         const { navigation } = this.props
         const routes = navigation.state.routes
@@ -41,7 +38,6 @@ class NewsTabView extends React.Component {
                     }
                     )}
                 </View>
-                <DropdownAlert ref={ref => this.dropDownAlertRef = ref} />
             </LinearGradient>
         );
     }
