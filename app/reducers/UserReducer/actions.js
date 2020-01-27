@@ -19,9 +19,9 @@ const logout = () => {
 }
 
 export function login(username, password) {
-    return (dispatch) => {
-        dispatch(userLoading());
-        service.login(username, password)
+    return async (dispatch) => {
+        dispatch(userLoading())
+        await service.login(username, password)
             .then((res) => {
                 const user = res;
                 const payload = jwtDecode(user.id_token)
