@@ -56,13 +56,6 @@ export default StyleSheet.create({
         fontFamily: REGULAR_FONT,
         color: 'white'
     },
-    button: {
-        backgroundColor: '#F0F0F0',
-        borderRadius: 30,
-        justifyContent: 'center',
-        width: 200,
-        height: 55
-    },
     textButton: {
         color: '#69C4BF',
         textAlign: 'center',
@@ -77,6 +70,10 @@ export default StyleSheet.create({
         fontFamily: REGULAR_FONT
     },
     buttonContainer: {
+        width: 200,
+        height: 55,
+        backgroundColor: '#F0F0F0',
+        justifyContent: 'center',
         marginTop: 15,
     }
 });

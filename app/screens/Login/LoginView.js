@@ -6,6 +6,7 @@ import { FontAwesome } from '@expo/vector-icons'
 import PropTypes from 'prop-types';
 import { AlertHelper } from '../../configs/alertHelper';
 import KeyboardSpacer from 'react-native-keyboard-spacer';
+import Button from '../../components/commons/Button'
 
 class LoginView extends React.Component {
 
@@ -39,12 +40,8 @@ class LoginView extends React.Component {
 
     renderButton() {
         const { loading } = this.props
-        return <View style={styles.button}>
-            {
-                loading ? <ActivityIndicator size='small' color='#69C4BF' />
-                    : <Text style={styles.textButton}>เข้าสู่ระบบ</Text>
-            }
-        </View >
+        return loading ? <ActivityIndicator size='small' color='#69C4BF' />
+            : <Text style={styles.textButton}>เข้าสู่ระบบ</Text>
     }
 
     render() {
@@ -83,13 +80,11 @@ class LoginView extends React.Component {
                         </TextInput>
                         {this.renderHideIcon()}
                     </View>
-                    <View style={styles.buttonContainer}>
-                        <TouchableOpacity disabled={loading} onPress={() => {
-                            login(username, password)
-                        }}>
-                            {this.renderButton()}
-                        </TouchableOpacity>
-                    </View>
+                    <Button rounded customStyle={styles.buttonContainer} disabled={loading} onPress={() => {
+                        login(username, password)
+                    }}>
+                        {this.renderButton()}
+                    </Button>
                 </View>
                 <KeyboardSpacer topSpacing={-120} />
                 <Text style={styles.policyText}>นโยบายคุ้มครอง</Text>
