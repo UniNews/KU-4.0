@@ -15,6 +15,8 @@ import LoginScreen from '../screens/Login/'
 import DetailScreen from '../screens/Detail'
 import { PRIMARY_COLOR, SECONDARY_COLOR } from '../assets/css/color'
 import { BOLD_FONT } from '../assets/css/typography'
+import ProfileSetting from '../screens/Setting/Profile'
+import FollowingSetting from '../screens/Setting/Following'
 
 const newsTab = createMaterialTopTabNavigator({
   'สำหรับคุณ': RecommendationScreen,
@@ -41,11 +43,24 @@ const newsStack = createStackNavigator({
   }
 )
 
+const profileStack = createStackNavigator({
+  Main: ProfileScreen,
+  ProfileSetting: ProfileSetting,
+  FollowingSetting: FollowingSetting
+},
+  {
+    headerMode: 'none',
+    navigationOptions: {
+      headerVisible: false,
+    }
+  }
+)
+
 const TabNavigator = createBottomTabNavigator({
   'หน้าหลัก': newsStack,
   'ปฏิทิน': ScheduleScreen,
   'แจ้งเตือน': NotificationScreen,
-  'โปรไฟล์': ProfileScreen
+  'โปรไฟล์': profileStack
 },
   {
     initialRouteName: 'หน้าหลัก',
