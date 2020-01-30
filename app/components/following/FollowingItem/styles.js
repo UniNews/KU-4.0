@@ -23,7 +23,7 @@ export default StyleSheet.create({
         borderRadius: 70 / 2,
     },
     nameText: {
-        fontSize: 16,
+        fontSize: 15,
         paddingHorizontal: 20,
         fontFamily: BOLD_FONT
     },
@@ -36,7 +36,7 @@ export default StyleSheet.create({
         backgroundColor: '#F0F0F0',
     },
     followingText: {
-        fontSize: 15,
+        fontSize: 14,
         color: PRIMARY_COLOR,
         fontFamily: BOLD_FONT
     }
