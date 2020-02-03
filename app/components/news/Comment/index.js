@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, Image } from 'react-native'
+import { View, Text, Image, TouchableOpacity, TouchableWithoutFeedback } from 'react-native'
 import styles from './styles'
 import PropTypes from 'prop-types';
 import { FontAwesome } from '@expo/vector-icons'
@@ -10,27 +10,51 @@ class Comment extends Component {
         super(props)
     }
 
+    onLikePressedHandler = () => {
+        const { onLikePressed, data } = this.props
+        if (onLikePressed)
+            onLikePressed(data.commentId)
+    }
+
+    onProfilePressedHandler = () => {
+        const { onProfilePressed, data } = this.props
+        if (onProfilePressed)
+            onProfilePressed(data.profileId)
+    }
+
     render() {
-        const { user, date, message } = this.props
+        const { data } = this.props
         return (
             <View style={styles.commentContainer}>
-                <View style={styles.commentInfoContainer}>
+                <TouchableWithoutFeedback onPress={
+                    this.onProfilePressedHandler
+                }>
                     <Image
                         style={styles.imageAvatar}
-                        source={{ uri: 'https://scontent.fbkk22-3.fna.fbcdn.net/v/t1.0-1/c0.0.820.820a/66686017_1125283600997160_4542151837934944256_n.jpg?_nc_cat=110&_nc_ohc=X4ovrI8YYLcAX9k8MI_&_nc_ht=scontent.fbkk22-3.fna&_nc_tp=1003&oh=a1f840ed4a1c6371eeb21242ffd1ea41&oe=5E90FC5F' }}
+                        source={{ uri: data.imgUrl }}
                     />
-                    <View style={styles.gapComment}>
-                        <View style={styles.head}>
-                            <Text style={styles.avatarName}>
-                                {user}
+                </TouchableWithoutFeedback>
+                <View style={styles.gapComment}>
+                    <View style={styles.head}>
+                        <Text style={styles.avatarName}>
+                            {data.profileName}
+                            <Text style={styles.commentDate}>
+                                {' • ' + data.date}
                             </Text>
-                            <FontAwesome style={styles.iconE} name='ellipsis-v' size={15} color='black' />
-                        </View>
-                        <Text style={styles.commentDate}>
-                            {date}
                         </Text>
-                        <Text style={styles.commentMessage}>
-                            {message}
+                        <FontAwesome style={styles.icon} name='ellipsis-v' size={15} color='black' />
+                    </View>
+                    <Text style={styles.commentMessage}>
+                        {data.message}
+                    </Text>
+                    <View style={styles.likeContainer}>
+                        <TouchableOpacity onPress={
+                            this.onLikePressedHandler
+                        }>
+                            <FontAwesome name='heart-o' size={15} color='grey' />
+                        </TouchableOpacity>
+                        <Text style={styles.likeIconText}>
+                            {data.likeCount + ' ถูกใจ'}
                         </Text>
                     </View>
                 </View>
@@ -40,9 +64,29 @@ class Comment extends Component {
 }
 
 Comment.propTypes = {
-    user: PropTypes.string,
-    date: PropTypes.string,
-    message: PropTypes.string
+    data: PropTypes.shape({
+        profileName: PropTypes.string,
+        date: PropTypes.string,
+        message: PropTypes.string,
+        likeCount: PropTypes.number,
+        imgUrl: PropTypes.string,
+        commentId: PropTypes.string,
+        profileId: PropTypes.string
+    }).isRequired,
+    onProfilePressed: PropTypes.func,
+    onLikePressed: PropTypes.func
 };
+
+Comment.defaultProps = {
+    data: {
+        profileName: '',
+        date: '',
+        message: '',
+        likeCount: 0,
+        imgUrl: '',
+        commentId: '',
+        profileId: ''
+    },
+}
 
 export default Comment;

@@ -2,8 +2,8 @@ import { StyleSheet } from 'react-native';
 import { PRIMARY_COLOR } from '../../assets/css/color'
 import { wp, viewportWidth } from '../../assets/javascripts/spacing'
 import { REGULAR_FONT } from '../../assets/css/typography'
-const textInputContainerHorizontalMargin = viewportWidth - wp(20);
 
+const textInputContainerHorizontalMargin = viewportWidth - wp(20);
 export default StyleSheet.create({
     container: {
         // flex: 1
@@ -59,15 +59,6 @@ export default StyleSheet.create({
     },
     hr: {
         marginVertical: 20
-    },
-    innerCommentContainer: {
-        paddingVertical: 10
-    },
-    commentContainer: {
-        paddingTop: 5
-    },
-    pd_20: {
-        padding: 20
     },
     textInputContainer: {
         marginVertical: 5,
