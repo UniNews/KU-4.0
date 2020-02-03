@@ -19,7 +19,7 @@ class DetailView extends React.Component {
     }
 
     render() {
-        console.log(this.props.navigation.state.params.id)
+        //console.log(this.props.navigation.state.params.id)
 
         var comments = [];
         for (let i = 0; i < 2; i++) {

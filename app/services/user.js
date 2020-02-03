@@ -13,5 +13,8 @@ export default {
         })
             .then(response => response.data)
             .catch(error => error)
+    },
+    getProfile: ()=>{
+        return axios.get(`${constants.API_URL}/profile`)
     }
 }

@@ -1,6 +1,5 @@
 import * as types from './actionTypes';
 import service from '../../services/user';
-const jwtDecode = require("jwt-decode")
 import axios from 'axios'
 
 const userLoading = () => {
@@ -23,13 +22,13 @@ export function login(username, password) {
     return (dispatch) => {
         dispatch(userLoading())
         service.login(username, password)
-            .then((res) => {
+            .then(async (res) => {
                 const user = res;
-                const payload = jwtDecode(user.id_token)
                 axios.defaults.headers.common['Authorization'] = `Bearer ${user.access_token}`
-                dispatch(userOk(payload))
+                const payload = await service.getProfile()
+                console.log(payload.data,'payload')
+                dispatch(userOk(payload.data))
             }).catch(err => {
-
                 dispatch(userFail())
             }
             );
