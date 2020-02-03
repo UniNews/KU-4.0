@@ -1,6 +1,7 @@
 import * as types from './actionTypes';
 import service from '../../services/user';
 const jwtDecode = require("jwt-decode")
+import axios from 'axios'
 
 const userLoading = () => {
     return { type: types.USER_LOADING };
@@ -19,24 +20,26 @@ const logout = () => {
 }
 
 export function login(username, password) {
-    return async (dispatch) => {
+    return (dispatch) => {
         dispatch(userLoading())
-        await service.login(username, password)
+        service.login(username, password)
             .then((res) => {
                 const user = res;
                 const payload = jwtDecode(user.id_token)
-                console.log(res)
-                dispatch(userOk({
-                    ...payload,
-                    'access_token': user.access_token
-                }))
-            }).catch(err => dispatch(userFail()));
+                axios.defaults.headers.common['Authorization'] = `Bearer ${user.access_token}`
+                dispatch(userOk(payload))
+            }).catch(err => {
+
+                dispatch(userFail())
+            }
+            );
     };
 }
 
 export function logoutUser() {
     return (dispatch) => {
         dispatch(userLoading());
+        delete axios.defaults.headers.common['Authorization']
         dispatch(logout());
     };
 }
