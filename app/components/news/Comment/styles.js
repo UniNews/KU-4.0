@@ -1,34 +1,54 @@
 import { StyleSheet } from 'react-native';
+import { PRIMARY_COLOR } from '../../../assets/css/color'
+import { BOLD_FONT, REGULAR_FONT } from '../../../assets/css/typography'
 
 export default StyleSheet.create({
     imageAvatar: {
-        width: 50,
-        height: 50,
-        borderRadius: 30
+        width: 60,
+        height: 60,
+        borderRadius: 60 / 2,
     },
     commentContainer: {
         flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center'
-    },
-    commentInfoContainer: {
-        flexDirection: 'row',
-        alignItems: 'center'
+        alignItems: 'center',
+        paddingVertical: 10,
+        paddingHorizontal: 15,
     },
     avatarName: {
-        fontFamily: 'Kanit-Regular',
+        fontFamily: BOLD_FONT,
         fontSize: 15,
     },
     commentDate: {
-        fontSize: 13,
-        fontFamily: 'Kanit-Light',
+        fontSize: 14,
+        fontFamily: REGULAR_FONT,
         color: 'grey',
     },
     commentMessage: {
-        fontFamily: 'Kanit-Light',
-        fontSize: 15
+        fontFamily: REGULAR_FONT,
+        fontSize: 14
     },
     gapComment: {
-        paddingLeft: 10
+        padding: 10,
+        marginLeft: 15,
+        borderRadius: 10,
+        backgroundColor: 'white',
+        flex: 1,
+    },
+    head: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+    },
+    icon: {
+        alignSelf: 'center'
+    },
+    likeContainer: {
+        alignItems: 'center',
+        paddingTop: 5,
+        flexDirection: 'row',
+    },
+    likeIconText: {
+        paddingLeft: 5,
+        fontSize: 13,
+        fontFamily: REGULAR_FONT,
     },
 });
