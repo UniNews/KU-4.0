@@ -92,7 +92,7 @@ class SliderBox extends Component {
           borderTopRightRadius={2}
           data={data}
           ref={c => (this._ref = c)}
-          loop={circleLoop || false}
+          loop={circleLoop || true}
           enableSnap={true}
           autoplay={autoplay || false}
           itemWidth={parentWidth || width}
