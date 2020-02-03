@@ -1,5 +1,8 @@
 import { StyleSheet } from 'react-native';
 import { PRIMARY_COLOR } from '../../assets/css/color'
+import { wp, viewportWidth } from '../../assets/javascripts/spacing'
+import { REGULAR_FONT } from '../../assets/css/typography'
+const textInputContainerHorizontalMargin = viewportWidth - wp(20);
 
 export default StyleSheet.create({
     container: {
@@ -23,26 +26,21 @@ export default StyleSheet.create({
         fontFamily: 'Kanit-Light'
     },
     titleText: {
-        fontSize: 20,
+        fontSize: 25,
         fontFamily: 'Kanit-Regular'
     },
     innerTitleContainer: {
         paddingHorizontal: 10
     },
     titleContainer: {
-        flexDirection: 'row'
+        borderLeftColor: PRIMARY_COLOR,
+        borderLeftWidth: 4,
     },
     dateIconContainer: {
         paddingTop: 5,
         flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between'
+        alignItems: 'center'
     },
-    dateFormat :{
-        flexDirection: 'row',
-        alignItems: 'center',
-    }
-    ,
     dateText: {
         paddingLeft: 5,
         fontSize: 13,
@@ -68,9 +66,23 @@ export default StyleSheet.create({
     commentContainer: {
         paddingTop: 5
     },
-    imageAvatar: {
-        width: 70,
-        height: 70,
-        borderRadius: 40,
+    pd_20: {
+        padding: 20
     },
+    textInputContainer: {
+        marginVertical: 5,
+        flexDirection: 'row',
+        backgroundColor: 'white',
+        borderRadius: 10,
+        height: 50,
+        width: textInputContainerHorizontalMargin
+    },
+    inputContainer: {
+        alignItems: 'center',
+    },
+    textInputs: {
+        fontSize: 16,
+        fontFamily: REGULAR_FONT,
+        color: 'white'
+    }
 });

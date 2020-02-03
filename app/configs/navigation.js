@@ -17,6 +17,7 @@ import { PRIMARY_COLOR, SECONDARY_COLOR } from '../assets/css/color'
 import { BOLD_FONT } from '../assets/css/typography'
 import ProfileSetting from '../screens/Setting/Profile'
 import FollowingSetting from '../screens/Setting/Following'
+import CommentScreen from '../screens/Comment'
 
 const newsTab = createMaterialTopTabNavigator({
   'สำหรับคุณ': RecommendationScreen,
@@ -33,7 +34,8 @@ const newsTab = createMaterialTopTabNavigator({
 
 const newsStack = createStackNavigator({
   Home: newsTab,
-  Detail: DetailScreen
+  Detail: DetailScreen,
+  Comment: CommentScreen
 },
   {
     headerMode: 'none',

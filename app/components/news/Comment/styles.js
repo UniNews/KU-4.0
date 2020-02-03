@@ -4,16 +4,18 @@ export default StyleSheet.create({
     imageAvatar: {
         width: 50,
         height: 50,
-        borderRadius: 30
+        borderRadius: 30,
+        marginRight: 10
     },
     commentContainer: {
         flexDirection: 'row',
-        justifyContent: 'space-between',
         alignItems: 'center'
     },
     commentInfoContainer: {
         flexDirection: 'row',
-        alignItems: 'center'
+        alignItems: 'center',
+        margin:10,
+        marginVertical:5
     },
     avatarName: {
         fontFamily: 'Kanit-Regular',
@@ -29,6 +31,17 @@ export default StyleSheet.create({
         fontSize: 15
     },
     gapComment: {
-        paddingLeft: 10
+        paddingLeft: 18,
+        borderRadius: 10,
+        backgroundColor: 'white',
+        width: '83%'
     },
+    head: {
+        flexDirection: 'row',
+        justifyContent: 'space-between'
+    },
+    iconE: {
+        right:15,
+        top: 7
+    }
 });

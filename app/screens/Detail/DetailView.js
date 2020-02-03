@@ -1,11 +1,9 @@
 import React from 'react'
-import { Text, View, ImageBackground, Image, Linking, ScrollView } from 'react-native'
+import { Text, View, ImageBackground, Image, Linking, ScrollView , TouchableOpacity } from 'react-native'
 import styles from './styles'
 import Hyperlink from 'react-native-hyperlink'
-import { Ionicons, FontAwesome } from '@expo/vector-icons'
+import { Ionicons, FontAwesome, MaterialIcons } from '@expo/vector-icons'
 import Hr from '../../components/commons/Hr'
-import SectionHeader from '../../components/commons/SectionHeader'
-import Comment from '../../components/news/Comment'
 
 class DetailView extends React.Component {
 
@@ -20,15 +18,6 @@ class DetailView extends React.Component {
 
     render() {
         console.log(this.props.navigation.state.params.id)
-
-        var comments = [];
-        for (let i = 0; i < 2; i++) {
-            comments.push(
-                <View key={i} style={styles.innerCommentContainer}>
-                    <Comment key={i} user={'Jimmy'} date={'23 July'} message={'kuy'} />
-                </View>
-            )
-        }
         return (
             <ScrollView style={styles.container} >
                 <ImageBackground style={styles.newsImage}
@@ -40,18 +29,29 @@ class DetailView extends React.Component {
                 </ImageBackground>
                 <View style={{ padding: 20 }}>
                     <View style={styles.titleContainer}>
-                        <View style={styles.innerTitleContainer}>
-                            <Text style={styles.posterText}>
-                                สำนักคอมฯ
-                        </Text>
-                            <Text style={styles.titleText}>
-                                CPSK SPORT WEEK 2019
-                        </Text>
-                            <View style={styles.dateIconContainer}>
-                                <FontAwesome name='calendar' size={15} color='grey' />
-                                <Text style={styles.dateText}>
-                                    5 นาทีที่แล้ว
-                        </Text>
+                        <Image
+                            style={styles.imageAvatar}
+                            source={{ uri: 'https://scontent.fbkk22-3.fna.fbcdn.net/v/t1.0-1/c0.0.820.820a/66686017_1125283600997160_4542151837934944256_n.jpg?_nc_cat=110&_nc_ohc=X4ovrI8YYLcAX9k8MI_&_nc_ht=scontent.fbkk22-3.fna&_nc_tp=1003&oh=a1f840ed4a1c6371eeb21242ffd1ea41&oe=5E90FC5F' }}
+                        />
+                        <View>
+                            <View style={styles.innerTitleContainer}>
+                                <Text style={styles.posterText}>
+                                    สำนักคอมฯ
+                            </Text>
+                                <Text style={styles.titleText}>
+                                    CPSK SPORT WEEK 2019
+                            </Text>
+                                <View style={styles.dateIconContainer}>
+                                    <View style={styles.dateFormat}>
+                                        <FontAwesome name='calendar' size={15} color='grey' />
+                                        <Text style={styles.dateText}>
+                                            5 นาทีที่แล้ว
+                                        </Text>
+                                    </View>
+                                    <TouchableOpacity onPress={()=>this.props.navigation.navigate('Comment')}>
+                                        <MaterialIcons name='message' size={23} color='black' />
+                                    </TouchableOpacity>
+                                </View>
                             </View>
                         </View>
                     </View>
@@ -62,15 +62,9 @@ class DetailView extends React.Component {
                             การแข่งขันเพื่อหาตัวแทนภาควิชาไปแข่งในงาน ENIAC #16
                             โดยในปีนี้เราจัดการแข่งขันด้วยกันถึง 5 เกม
                             https://www.facebook.com/groups/753581421377564/?ref=share
-                    </Text>
+                        </Text>
                     </Hyperlink>
                     <Hr style={styles.hr} />
-                    <SectionHeader title={'ความคิดเห็นล่าสุด'} subtitle={'เพิ่มเติม'} onPressed={
-                        () => console.log('CLICKED')
-                    } />
-                    <View style={styles.commentContainer}>
-                        {comments}
-                    </View>
                 </View>
 
             </ScrollView>

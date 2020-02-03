@@ -20,9 +20,12 @@ class Comment extends Component {
                         source={{ uri: 'https://scontent.fbkk22-3.fna.fbcdn.net/v/t1.0-1/c0.0.820.820a/66686017_1125283600997160_4542151837934944256_n.jpg?_nc_cat=110&_nc_ohc=X4ovrI8YYLcAX9k8MI_&_nc_ht=scontent.fbkk22-3.fna&_nc_tp=1003&oh=a1f840ed4a1c6371eeb21242ffd1ea41&oe=5E90FC5F' }}
                     />
                     <View style={styles.gapComment}>
-                        <Text style={styles.avatarName}>
-                            {user}
-                        </Text>
+                        <View style={styles.head}>
+                            <Text style={styles.avatarName}>
+                                {user}
+                            </Text>
+                            <FontAwesome style={styles.iconE} name='ellipsis-v' size={15} color='black' />
+                        </View>
                         <Text style={styles.commentDate}>
                             {date}
                         </Text>
@@ -31,7 +34,6 @@ class Comment extends Component {
                         </Text>
                     </View>
                 </View>
-                <FontAwesome name='ellipsis-v' size={15} color='black' />
             </View>
         )
     }
