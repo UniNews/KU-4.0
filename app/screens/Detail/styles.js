@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native';
-import { PRIMARY_COLOR } from '../../assets/css/color'
+import { PRIMARY_COLOR, SECONDARY_COLOR } from '../../assets/css/color'
+import { BOLD_FONT, REGULAR_FONT } from '../../assets/css/typography'
 
 export default StyleSheet.create({
     container: {
@@ -20,36 +21,35 @@ export default StyleSheet.create({
     },
     posterText: {
         fontSize: 15,
-        fontFamily: 'Kanit-Light'
+        fontFamily: REGULAR_FONT
     },
     titleText: {
         fontSize: 20,
-        fontFamily: 'Kanit-Regular'
+        fontFamily: BOLD_FONT
     },
     innerTitleContainer: {
-        paddingHorizontal: 10
+        marginHorizontal: 10
     },
     titleContainer: {
         flexDirection: 'row'
     },
-    dateIconContainer: {
+    textIconContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingHorizontal: 5
+    },
+    iconContainer: {
         paddingTop: 5,
         flexDirection: 'row',
-        alignItems: 'center',
         justifyContent: 'space-between'
     },
-    dateFormat :{
-        flexDirection: 'row',
-        alignItems: 'center',
-    }
-    ,
-    dateText: {
+    iconText: {
         paddingLeft: 5,
         fontSize: 13,
-        fontFamily: 'Kanit-Light',
+        fontFamily: REGULAR_FONT,
     },
     newsInfoText: {
-        fontFamily: 'Kanit-Light',
+        fontFamily: REGULAR_FONT,
         fontSize: 15
     },
     commentHeaderRow: {
@@ -60,17 +60,22 @@ export default StyleSheet.create({
         marginLeft: 10
     },
     hr: {
-        marginVertical: 20
+        marginVertical: 15
     },
     innerCommentContainer: {
         paddingVertical: 10
     },
-    commentContainer: {
-        paddingTop: 5
+    commentIconContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
     },
     imageAvatar: {
         width: 70,
         height: 70,
-        borderRadius: 40,
+        borderRadius: 70 / 2,
     },
+    descriptionHeaderText: {
+        fontFamily: BOLD_FONT,
+        fontSize: 15
+    }
 });
