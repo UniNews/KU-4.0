@@ -76,12 +76,12 @@ class NewsCard extends Component {
 
 NewsCard.propTypes = {
     data: PropTypes.shape({
-        newsId: PropTypes.number.isRequired,
+        newsId: PropTypes.string.isRequired,
         title: PropTypes.string.isRequired,
         imgUrl: PropTypes.string.isRequired,
         user: PropTypes.string.isRequired,
         date: PropTypes.string.isRequired,
-        profileId: PropTypes.number.isRequired,
+        profileId: PropTypes.string.isRequired,
     }).isRequired,
     onNewsPressed: PropTypes.func,
     onProfilePressed: PropTypes.func,
