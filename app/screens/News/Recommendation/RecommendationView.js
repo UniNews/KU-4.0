@@ -2,14 +2,21 @@ import React from 'react';
 import { ScrollView, View } from 'react-native';
 import styles from './styles';
 import SliderBox from '../../../components/news/PaginationSlider';
-import SilderNews from '../../../components/news/Slider';
 import SectionHeader from '../../../components/commons/SectionHeader'
 import Hr from '../../../components/commons/Hr'
+import NewsCard from '../../../components/news/NewsCard'
 
 class RecommendationView extends React.Component {
 
     constructor(props) {
         super(props);
+    }
+
+    getNews = (newsId) => {
+        this.props.navigation.navigate('Detail', { newsId })
+    }
+
+    getProfile = (profileId) => {
     }
 
     render() {
@@ -19,37 +26,23 @@ class RecommendationView extends React.Component {
             'https://source.unsplash.com/1024x768/?girl',
             'https://source.unsplash.com/1024x768/?tree',
         ]
-        const ENTRIES2 = [
+        const ENTRIES1 = [
             {
-                title: 'Favourites landscapes 1',
-                subtitle: 'Lorem ipsum dolor sit amet',
-                illustration: 'https://i.imgur.com/SsJmZ9jl.jpg'
+                title: 'งานเกษตรแฟร์ ไปรษณีย์ไทย แคร์สิ่งแวดล้อม เพียงโหลดapp Kaset Fair',
+                date: '10 นาทีที่แล้ว',
+                user: 'Kasetsart University',
+                imgUrl: 'https://scontent.fbkk22-3.fna.fbcdn.net/v/t1.0-9/83776261_10158088881237451_5791383985540038656_o.jpg?_nc_cat=110&_nc_oc=AQmBfiDFxm6E8mCzgZiujlOEqOdZ_GAiXNn7hu8nXoo337EBHC00x0_Y_ACZZ8HbcRU&_nc_ht=scontent.fbkk22-3.fna&oh=787dc7dda65e57add44477cd89967a20&oe=5EDC0ACB',
+                newsId: 1,
+                profileId: 1,
             },
             {
-                title: 'Favourites landscapes 2',
-                subtitle: 'Lorem ipsum dolor sit amet et nuncat mergitur',
-                illustration: 'https://i.imgur.com/5tj6S7Ol.jpg'
+                title: 'งานเกษตรแฟร์ ไปรษณีย์ไทย แคร์สิ่งแวดล้อม เพียงโหลดapp Kaset Fair',
+                date: '10 นาทีที่แล้ว',
+                user: 'Kasetsart University',
+                imgUrl: 'https://scontent.fbkk22-3.fna.fbcdn.net/v/t1.0-9/83776261_10158088881237451_5791383985540038656_o.jpg?_nc_cat=110&_nc_oc=AQmBfiDFxm6E8mCzgZiujlOEqOdZ_GAiXNn7hu8nXoo337EBHC00x0_Y_ACZZ8HbcRU&_nc_ht=scontent.fbkk22-3.fna&oh=787dc7dda65e57add44477cd89967a20&oe=5EDC0ACB',
+                newsId: 2,
+                profileId: 2,
             },
-            {
-                title: 'Favourites landscapes 3',
-                subtitle: 'Lorem ipsum dolor sit amet et nuncat',
-                illustration: 'https://i.imgur.com/pmSqIFZl.jpg'
-            },
-            {
-                title: 'Favourites landscapes 4',
-                subtitle: 'Lorem ipsum dolor sit amet et nuncat mergitur',
-                illustration: 'https://i.imgur.com/cA8zoGel.jpg'
-            },
-            {
-                title: 'Favourites landscapes 5',
-                subtitle: 'Lorem ipsum dolor sit amet',
-                illustration: 'https://i.imgur.com/pewusMzl.jpg'
-            },
-            {
-                title: 'Favourites landscapes 6',
-                subtitle: 'Lorem ipsum dolor sit amet et nuncat',
-                illustration: 'https://i.imgur.com/l49aYS3l.jpg'
-            }
         ];
 
         return (
@@ -61,20 +54,27 @@ class RecommendationView extends React.Component {
                         this.props.navigation.navigate('Detail', { id })
                     }
                 />
-                <View style={styles.sectionContainer}>
-                    <SectionHeader title={'ข่าวใกล้ๆคุณ'} subtitle={'เพิ่มเติม'} onPressed={
-                        () => console.log('CLICKED')
-                    } />
-                    <SilderNews data={ENTRIES2} onPressed={
-                        id => this.props.navigation.navigate('Detail', { id })
-                    } />
-                    <Hr />
-                </View >
+
                 <View style={styles.sectionContainer}>
                     <SectionHeader title={'โปรโมชั่นสำหรับคุณ'} subtitle={'เพิ่มเติม'} />
-                    <SilderNews data={ENTRIES2} onPressed={
-                        id => this.props.navigation.navigate('Detail', { id })
-                    } />
+                    <ScrollView style={styles.newsScrollView} showsHorizontalScrollIndicator={false} horizontal={true}>
+                        {ENTRIES1.map((news) => {
+                            return (
+                                <NewsCard style={styles.newsCardContainer} key={news.newsId} onNewsPressed={this.getNews} onProfilePressed={this.getProfile} data={news} />
+                            )
+                        })}
+                    </ScrollView>
+                </View>
+                <Hr />
+                <View style={styles.sectionContainer}>
+                    <SectionHeader title={'โปรโมชั่นสำหรับคุณ'} subtitle={'เพิ่มเติม'} />
+                    <ScrollView style={styles.newsScrollView} showsHorizontalScrollIndicator={false} horizontal={true}>
+                        {ENTRIES1.map((news) => {
+                            return (
+                                <NewsCard style={styles.newsCardContainer} key={news.newsId} onNewsPressed={this.getNews} onProfilePressed={this.getProfile} data={news} />
+                            )
+                        })}
+                    </ScrollView>
                 </View>
             </ScrollView>
         );
