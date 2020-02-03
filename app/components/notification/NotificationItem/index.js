@@ -68,7 +68,7 @@ NotificationItem.propTypes = {
         profileId: PropTypes.number.isRequired,
         profileName: PropTypes.string.isRequired,
         profileImg: PropTypes.string.isRequired,
-        newsId: PropTypes.string.isRequired,
+        newsId: PropTypes.number.isRequired,
         description: PropTypes.string.isRequired,
     }).isRequired,
     onProfilePressed: PropTypes.func,
