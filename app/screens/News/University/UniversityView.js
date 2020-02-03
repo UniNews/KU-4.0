@@ -1,34 +1,43 @@
 import React from 'react';
-import { Text, ScrollView, View, TouchableOpacity, Image } from 'react-native';
+import { ScrollView } from 'react-native';
 import styles from './styles';
 import NewsCard from '../../../components/news/NewsCard'
-
-const ENTRIES1 = [
-    {
-        title: 'งานเกษตรแฟร์ ไปรษณีย์ไทย แคร์สิ่งแวดล้อม เพียงโหลดapp Kaset Fair',
-        date: '10 นาทีที่แล้ว',
-        user: 'Kasetsart University',
-        imgUrl: 'https://scontent.fbkk22-3.fna.fbcdn.net/v/t1.0-9/83776261_10158088881237451_5791383985540038656_o.jpg?_nc_cat=110&_nc_oc=AQmBfiDFxm6E8mCzgZiujlOEqOdZ_GAiXNn7hu8nXoo337EBHC00x0_Y_ACZZ8HbcRU&_nc_ht=scontent.fbkk22-3.fna&oh=787dc7dda65e57add44477cd89967a20&oe=5EDC0ACB',
-        newsId: 1,
-        profileId: 1,
-    },
-    {
-        title: 'งานเกษตรแฟร์ ไปรษณีย์ไทย แคร์สิ่งแวดล้อม เพียงโหลดapp Kaset Fair',
-        date: '10 นาทีที่แล้ว',
-        user: 'Kasetsart University',
-        imgUrl: 'https://scontent.fbkk22-3.fna.fbcdn.net/v/t1.0-9/83776261_10158088881237451_5791383985540038656_o.jpg?_nc_cat=110&_nc_oc=AQmBfiDFxm6E8mCzgZiujlOEqOdZ_GAiXNn7hu8nXoo337EBHC00x0_Y_ACZZ8HbcRU&_nc_ht=scontent.fbkk22-3.fna&oh=787dc7dda65e57add44477cd89967a20&oe=5EDC0ACB',
-        newsId: 2,
-        profileId: 2,
-    },
-];
-
+import newsService from '../../../services/news'
 
 class UniversityView extends React.Component {
 
     constructor(props) {
         super(props);
+        this.state = {
+            news: [],
+            error: false
+        }
     }
 
+    componentDidMount() {
+        newsService.getUniversityNews()
+            .then((res) => {
+                const newsData = res.data
+                let newsArray = []
+                for (const news of newsData) {
+                    const newsObject = {
+                        title: news.title,
+                        date: news.createdAt,
+                        user: news.user.displayName,
+                        imgUrl: news.imageURL[0],
+                        newsId: news._id,
+                        profileId: news.user._id,
+                    }
+                    newsArray.push(newsObject)
+                }
+                this.setState({
+                    news: newsArray,
+                    error: false
+                })
+            }).catch((err) => {
+                this.setState({ error: true })
+            })
+    }
 
     getNews = (newsId) => {
         this.props.navigation.navigate('Detail', { newsId })
@@ -39,9 +48,10 @@ class UniversityView extends React.Component {
     }
 
     render() {
+        const { news } = this.state
         return (
             <ScrollView style={styles.containter}>
-                {ENTRIES1.map((news) => {
+                {news.map((news) => {
                     return (
                         <NewsCard style={styles.newsCardContainer} key={news.newsId} onNewsPressed={this.getNews} onProfilePressed={this.getProfile} data={news} />
                     )
