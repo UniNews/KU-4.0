@@ -3,10 +3,6 @@ import ProfileView from './ProfileView';
 
 const mapStateToProps = state => {
     return {
-        loading: state.newsReducer.loading,
-        article: state.newsReducer.news,
-        error: state.newsReducer.loading,
-        completed: state.newsReducer.news,
     }
 };
 
