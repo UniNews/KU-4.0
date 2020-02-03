@@ -28,7 +28,7 @@ class ProfileSettingView extends React.Component {
                             แก้ไขโปรไฟล์
                             </Text>
                         <Image
-                            source={{ uri: 'https://scontent.fbkk2-5.fna.fbcdn.net/v/t1.0-1/c0.0.820.820a/66686017_1125283600997160_4542151837934944256_n.jpg?_nc_cat=110&_nc_oc=AQmNpBihC6kLplVjqVJTIrCFMMm59mZi4qLk9VaYlJEaVjaWaGnRNVpvjGEXBl3tINA&_nc_ht=scontent.fbkk2-5.fna&oh=326e11cf10014a155dd953be098951f0&oe=5E90FC5F' }}
+                            source={{ uri: this.props.user.avatarURl }}
                             style={styles.avatar}
                         />
                     </LinearGradient>
@@ -37,18 +37,8 @@ class ProfileSettingView extends React.Component {
                     <TouchableWithoutFeedback>
                         <View style={styles.settingContainer}>
                             <View>
-                                <Text style={styles.settingTitleText}>ชื่อจริง</Text>
-                                <Text style={styles.settingValueText}>Jamie</Text>
-                            </View>
-                            <Feather name={'chevron-right'} size={20} color={'gray'} />
-                        </View>
-                    </TouchableWithoutFeedback>
-                    <Hr />
-                    <TouchableWithoutFeedback>
-                        <View style={styles.settingContainer}>
-                            <View>
-                                <Text style={styles.settingTitleText}>นามสกุล</Text>
-                                <Text style={styles.settingValueText}>Sathira</Text>
+                                <Text style={styles.settingTitleText}>ชื่อผู้ใช้</Text>
+                                <Text style={styles.settingValueText}>{this.props.user.displayName}</Text>
                             </View>
                             <Feather name={'chevron-right'} size={20} color={'gray'} />
                         </View>
@@ -58,7 +48,7 @@ class ProfileSettingView extends React.Component {
                         <View style={styles.settingContainer}>
                             <View>
                                 <Text style={styles.settingTitleText}>คณะ</Text>
-                                <Text style={styles.settingValueText}>วิศวะซอฟแวร์ และความรู้</Text>
+                                <Text style={styles.settingValueText}>{this.props.user.description}</Text>
                             </View>
                         </View>
                     </TouchableWithoutFeedback>

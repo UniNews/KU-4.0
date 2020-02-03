@@ -25,7 +25,7 @@ class ProfileView extends React.Component {
     }
 
     render() {
-        console.log(this.props.user,"ss")
+        console.log(this.props.user)
         const { language } = this.state
         return (
             <View style={styles.containter}>
@@ -33,14 +33,14 @@ class ProfileView extends React.Component {
                     <LinearGradient style={styles.linearGradient} start={{ x: 0, y: 0 }} end={{ x: 0, y: 0.8 }} colors={['#465859', '#588E57']}>
                         <View style={styles.innerHeadContainer}>
                             <Image
-                                source={{ uri: 'https://scontent.fbkk2-5.fna.fbcdn.net/v/t1.0-1/c0.0.820.820a/66686017_1125283600997160_4542151837934944256_n.jpg?_nc_cat=110&_nc_oc=AQmNpBihC6kLplVjqVJTIrCFMMm59mZi4qLk9VaYlJEaVjaWaGnRNVpvjGEXBl3tINA&_nc_ht=scontent.fbkk2-5.fna&oh=326e11cf10014a155dd953be098951f0&oe=5E90FC5F' }}
+                                source={{ uri: this.props.user.avatarURl }}
                                 style={styles.avatar}
                             />
                             <Text style={styles.name}>
-                                Jame Sathira
+                                {this.props.user.displayName}
                             </Text>
                             <Text style={styles.faculty}>
-                                ซอฟแวร์ และความรู้
+                                {this.props.user.description}
                             </Text>
                         </View>
                     </LinearGradient>

@@ -3,7 +3,7 @@ import FollowingView from './FollowingView';
 
 const mapStateToProps = state => {
     return {
-
+        user: state.userReducer.user
     }
 };
 
