@@ -36,7 +36,8 @@ const newsTab = createMaterialTopTabNavigator({
 const newsStack = createStackNavigator({
   Home: newsTab,
   Detail: DetailScreen,
-  Comment: CommentScreen
+  Comment: CommentScreen,
+  ProfileDetail: StoreProfileScreen
 },
   {
     headerMode: 'none',
