@@ -6,7 +6,8 @@ import { FontAwesome } from '@expo/vector-icons'
 import NewsTab from '../components/news/NewsTab'
 import NotificationScreen from '../screens/Notification/'
 import ScheduleScreen from '../screens/Schedule/'
-import ProfileScreen from '../screens/Profile/'
+import UserProfileScreen from '../screens/Profile/User'
+import StoreProfileScreen from '../screens/Profile/Store'
 import ClubScreen from '../screens/News/Club/'
 import UniversityScreen from '../screens/News/University/'
 import RecommendationScreen from '../screens/News/Recommendation/'
@@ -46,9 +47,10 @@ const newsStack = createStackNavigator({
 )
 
 const profileStack = createStackNavigator({
-  Main: ProfileScreen,
+  Main: UserProfileScreen,
   ProfileSetting: ProfileSetting,
-  FollowingSetting: FollowingSetting
+  FollowingSetting: FollowingSetting,
+  ProfileDetail: StoreProfileScreen
 },
   {
     headerMode: 'none',
