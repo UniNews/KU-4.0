@@ -32,6 +32,12 @@ class DetailView extends React.Component {
         navigation.goBack()
     }
 
+    getProfile = () => {
+        const { navigation } = this.props
+        const profileId = this.props.navigation.state.params.newsId
+        navigation.navigate('ProfileDetail', { profileId })
+    }
+
     likeNews = (id) => {
         console.log(id)
     }
@@ -62,10 +68,12 @@ class DetailView extends React.Component {
             )
         else {
             return (
-                <Image
-                    style={styles.imageAvatar}
-                    source={{ uri: this.state.news.user.avatarURl }}
-                />
+                <TouchableWithoutFeedback onPress={this.getProfile}>
+                    <Image
+                        style={styles.imageAvatar}
+                        source={{ uri: this.state.news.user.avatarURl }}
+                    />
+                </TouchableWithoutFeedback>
             )
         }
     }
