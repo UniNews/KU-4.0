@@ -16,5 +16,9 @@ export default {
     },
     getProfile: ()=>{
         return axios.get(`${constants.API_URL}/profile`)
+    },
+    getUserById: (id)=>{
+        return axios.get(`${constants.API_URL}/users/${id}`).then(response => response.data)
+        .catch(error => error)
     }
 }
