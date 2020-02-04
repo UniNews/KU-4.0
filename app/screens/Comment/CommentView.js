@@ -3,6 +3,7 @@ import { View, ScrollView } from 'react-native'
 import styles from './styles'
 import Header from '../../components/commons/Header'
 import Comment from '../../components/news/Comment'
+import StatusBar from '../../components/commons/StatusBar'
 
 const comments = [
     {
@@ -36,6 +37,7 @@ class CommentView extends React.Component {
     render() {
         return (
             <View>
+                <StatusBar />
                 <Header title={'ความคิดเห็น'} />
                 <ScrollView style={styles.container} >
                     <View style={styles.innerCommentContainer}>

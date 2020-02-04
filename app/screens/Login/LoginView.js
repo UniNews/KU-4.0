@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, TextInput, View, TouchableOpacity, TouchableWithoutFeedback, ActivityIndicator, KeyboardAvoidingView } from 'react-native'
+import { Text, TextInput, View, TouchableWithoutFeedback, ActivityIndicator } from 'react-native'
 import styles from './styles'
 import { LinearGradient } from 'expo-linear-gradient'
 import { FontAwesome } from '@expo/vector-icons'

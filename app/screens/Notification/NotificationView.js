@@ -3,6 +3,7 @@ import { View } from 'react-native'
 import styles from './styles'
 import Header from '../../components/commons/Header'
 import NotificationItem from '../../components/notification/NotificationItem'
+import StatusBar from '../../components/commons/StatusBar'
 
 const notifications = [
     {
@@ -40,6 +41,7 @@ class NotificationView extends React.Component {
     render() {
         return (
             <View style={styles.containter}>
+                <StatusBar />
                 <Header title={'การแจ้งเตือน'} />
                 {notifications.map((notification) => {
                     return (

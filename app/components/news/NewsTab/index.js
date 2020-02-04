@@ -5,6 +5,7 @@ import { LinearGradient } from 'expo-linear-gradient'
 import CustomTab from './CustomTab'
 import PropTypes from 'prop-types';
 import { FontAwesome } from '@expo/vector-icons'
+import StatusBar from '../../commons/StatusBar'
 
 class NewsTabView extends React.Component {
 
@@ -16,29 +17,31 @@ class NewsTabView extends React.Component {
         const { navigation } = this.props
         const routes = navigation.state.routes
         return (
-            <LinearGradient start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} colors={['#465859', '#588E57']}>
-                <View style={styles.headContainer}>
-                    <Text style={styles.logo}>
-                        KU 4.0
+            <View>
+                <StatusBar />
+                <LinearGradient start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} colors={['#465859', '#588E57']}>
+                    <View style={styles.headContainer}>
+                        <Text style={styles.logo}>
+                            KU 4.0
                     </Text>
-                    <FontAwesome name="search" color="white" size={21} />
-                </View>
-
-                <View style={styles.listContainer}>
-                    {routes.map((route, index) => {
-                        return (
-                            <View key={route.key} style={styles.listItem}>
-                                <CustomTab
-                                    routeName={route.routeName}
-                                    onPress={() => this.navigationHandler(route.routeName)}
-                                    focused={navigation.state.index === index}
-                                />
-                            </View>
-                        )
-                    }
-                    )}
-                </View>
-            </LinearGradient>
+                        <FontAwesome name="search" color="white" size={21} />
+                    </View>
+                    <View style={styles.listContainer}>
+                        {routes.map((route, index) => {
+                            return (
+                                <View key={route.key} style={styles.listItem}>
+                                    <CustomTab
+                                        routeName={route.routeName}
+                                        onPress={() => this.navigationHandler(route.routeName)}
+                                        focused={navigation.state.index === index}
+                                    />
+                                </View>
+                            )
+                        }
+                        )}
+                    </View>
+                </LinearGradient>
+            </View>
         );
     }
 

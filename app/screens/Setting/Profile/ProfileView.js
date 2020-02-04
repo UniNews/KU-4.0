@@ -4,6 +4,7 @@ import { Feather } from '@expo/vector-icons'
 import styles from './styles'
 import { LinearGradient } from 'expo-linear-gradient'
 import Hr from '../../../components/commons/Hr'
+import StatusBar from '../../../components/commons/StatusBar'
 
 class ProfileSettingView extends React.Component {
 
@@ -19,6 +20,7 @@ class ProfileSettingView extends React.Component {
     render() {
         return (
             <View style={styles.containter}>
+                <StatusBar />
                 <View style={styles.headContainer}>
                     <LinearGradient style={styles.linearGradient} start={{ x: 0, y: 0 }} end={{ x: 0, y: 1 }} colors={['#465859', '#588E57']}>
                         <TouchableWithoutFeedback onPress={this.goBack}>

@@ -5,6 +5,7 @@ import Hyperlink from 'react-native-hyperlink'
 import { FontAwesome, Feather } from '@expo/vector-icons'
 import Hr from '../../components/commons/Hr'
 import Header from '../../components/commons/Header'
+import StatusBar from '../../components/commons/StatusBar'
 
 class DetailView extends React.Component {
 
@@ -30,6 +31,7 @@ class DetailView extends React.Component {
         console.log(this.props.navigation.state.params.id)
         return (
             <View>
+                <StatusBar />
                 <Header title={'ข่าวมหาลัย'} leftIconComponent={
                     <TouchableWithoutFeedback onPress={this.goBack}>
                         <Feather color='white' size={28} name={'chevron-left'} />
