@@ -34,7 +34,7 @@ class DetailView extends React.Component {
 
     getProfile = () => {
         const { navigation } = this.props
-        const profileId = this.props.navigation.state.params.newsId
+        const profileId = this.state.news.user._id
         navigation.navigate('ProfileDetail', { profileId })
     }
 
