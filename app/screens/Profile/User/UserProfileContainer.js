@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import ProfileView from './ProfileView';
+import UserProfileView from './UserProfileView';
 
 const mapStateToProps = state => {
     return {
@@ -11,4 +11,4 @@ const mapDispatchToProps = {
 
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProfileView);
+export default connect(mapStateToProps, mapDispatchToProps)(UserProfileView);

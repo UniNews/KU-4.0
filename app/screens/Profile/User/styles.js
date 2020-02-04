@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native'
-import { viewportWidth, wp } from '../../assets/javascripts/spacing'
-import { BOLD_FONT, REGULAR_FONT } from '../../assets/css/typography'
+import { viewportWidth, wp } from '../../../assets/javascripts/spacing'
+import { BOLD_FONT, REGULAR_FONT } from '../../../assets/css/typography'
 
 const circleWidth = viewportWidth + wp(50)
 export default StyleSheet.create({

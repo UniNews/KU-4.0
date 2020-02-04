@@ -3,10 +3,11 @@ import { Text, View, Image, TouchableWithoutFeedback } from 'react-native'
 import { Feather } from '@expo/vector-icons'
 import styles from './styles'
 import { LinearGradient } from 'expo-linear-gradient'
-import Hr from '../../components/commons/Hr'
-import Switch from '../../components/commons/Switch'
+import Hr from '../../../components/commons/Hr'
+import Switch from '../../../components/commons/Switch'
+import StatusBar from '../../../components/commons/StatusBar'
 
-class ProfileView extends React.Component {
+class UserProfileView extends React.Component {
 
     constructor(props) {
         super(props)
@@ -29,6 +30,7 @@ class ProfileView extends React.Component {
         const { language } = this.state
         return (
             <View style={styles.containter}>
+                <StatusBar />
                 <View style={styles.headContainer}>
                     <LinearGradient style={styles.linearGradient} start={{ x: 0, y: 0 }} end={{ x: 0, y: 0.8 }} colors={['#465859', '#588E57']}>
                         <View style={styles.innerHeadContainer}>
@@ -71,10 +73,10 @@ class ProfileView extends React.Component {
                     <Text style={styles.settingText}>ภาษา</Text>
                     <View style={styles.flagContainer}>
                         <TouchableWithoutFeedback onPress={() => this.changeLanguage('th')}>
-                            <Image style={language == 'th' ? styles.flagImage : [styles.flagImage, styles.isFocused]} source={require('../../assets/imgs/thai.jpg')} />
+                            <Image style={language == 'th' ? styles.flagImage : [styles.flagImage, styles.isFocused]} source={require('../../../assets/imgs/thai.jpg')} />
                         </TouchableWithoutFeedback>
                         <TouchableWithoutFeedback onPress={() => this.changeLanguage('eng')}>
-                            <Image style={language == 'eng' ? styles.flagImage : [styles.flagImage, styles.isFocused]} source={require('../../assets/imgs/eng.jpg')} />
+                            <Image style={language == 'eng' ? styles.flagImage : [styles.flagImage, styles.isFocused]} source={require('../../../assets/imgs/eng.jpg')} />
                         </TouchableWithoutFeedback>
                     </View>
                 </View>
@@ -87,4 +89,4 @@ class ProfileView extends React.Component {
     }
 }
 
-export default ProfileView
+export default UserProfileView
