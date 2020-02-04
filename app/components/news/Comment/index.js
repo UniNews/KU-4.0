@@ -24,6 +24,7 @@ class Comment extends Component {
     }
 
     render() {
+        console.log(this.props.data)
         const { data } = this.props
         return (
             <View style={styles.commentContainer}>
@@ -32,21 +33,21 @@ class Comment extends Component {
                 }>
                     <Image
                         style={styles.imageAvatar}
-                        source={{ uri: data.imgUrl }}
+                        source={{ uri: data.user.avatarURl }}
                     />
                 </TouchableWithoutFeedback>
                 <View style={styles.gapComment}>
                     <View style={styles.head}>
                         <Text style={styles.avatarName}>
-                            {data.profileName}
+                            {data.user.displayName}
                             <Text style={styles.commentDate}>
-                                {' • ' + convertTimestamptoDate(data.date)}
+                                {' • ' + convertTimestamptoDate(data.createdAt)}
                             </Text>
                         </Text>
                         <FontAwesome style={styles.icon} name='ellipsis-v' size={15} color='black' />
                     </View>
                     <Text style={styles.commentMessage}>
-                        {data.message}
+                        {data.text}
                     </Text>
                     <View style={styles.likeContainer}>
                         <TouchableOpacity onPress={
@@ -55,7 +56,7 @@ class Comment extends Component {
                             <FontAwesome name='heart-o' size={15} color='grey' />
                         </TouchableOpacity>
                         <Text style={styles.likeIconText}>
-                            {data.likeCount + ' ถูกใจ'}
+                            {data.like.length + ' ถูกใจ'}
                         </Text>
                     </View>
                 </View>
