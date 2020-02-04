@@ -42,42 +42,6 @@ class DetailView extends React.Component {
         console.log(id)
     }
 
-    renderImage() {
-        if (this.state.news === null)
-            return (
-                <ImageBackground style={styles.newsImage}
-                    source={require('../../assets/imgs/testdetail.png')} >
-                </ImageBackground>
-            )
-        else {
-            return (
-                <ImageBackground style={styles.newsImage}
-                    source={{ uri: this.state.news.imageURL[0] || "" }} >
-                </ImageBackground>
-            )
-        }
-    }
-
-    renderImageAvartar() {
-        if (this.state.news === null)
-            return (
-                <Image
-                    style={styles.imageAvatar}
-                    source={{ uri: 'https://scontent.fbkk22-3.fna.fbcdn.net/v/t1.0-1/c0.0.820.820a/66686017_1125283600997160_4542151837934944256_n.jpg?_nc_cat=110&_nc_ohc=X4ovrI8YYLcAX9k8MI_&_nc_ht=scontent.fbkk22-3.fna&_nc_tp=1003&oh=a1f840ed4a1c6371eeb21242ffd1ea41&oe=5E90FC5F' }}
-                />
-            )
-        else {
-            return (
-                <TouchableWithoutFeedback onPress={this.getProfile}>
-                    <Image
-                        style={styles.imageAvatar}
-                        source={{ uri: this.state.news.user.avatarURl }}
-                    />
-                </TouchableWithoutFeedback>
-            )
-        }
-    }
-
     render() {
         return (
             <View>
@@ -88,34 +52,39 @@ class DetailView extends React.Component {
                     </TouchableWithoutFeedback>}
                 />
                 <ScrollView style={styles.container} >
-                    {this.renderImage()}
+                    <ImageBackground style={styles.newsImage}
+                        source={{ uri: this.state.news ? this.state.news.imageURL[0] : '' }} >
+                    </ImageBackground>
                     <View style={{ padding: 15 }}>
                         <View style={styles.titleContainer}>
-                            {this.renderImageAvartar()}
-                            <View>
-                                <View style={styles.innerTitleContainer}>
-                                    <Text style={styles.posterText}>
-                                        {this.state.news ? this.state.news.user.displayName : ""}
-                                    </Text>
-                                    <Text style={styles.titleText}>
-                                        {this.state.news ? this.state.news.title : ""}
-                                    </Text>
-                                    <View style={styles.iconContainer}>
-                                        <View style={styles.textIconContainer}>
-                                            <FontAwesome name='calendar' size={15} color='grey' />
-                                            <Text style={styles.iconText}>
-                                                {this.state.news ? this.state.news.createdAt : ""}
-                                            </Text>
-                                        </View>
-                                        <TouchableOpacity
-                                            onPress={() => this.props.navigation.navigate('Comment', { newsId: this.props.navigation.state.params.newsId })}
-                                            style={styles.textIconContainer}>
-                                            <FontAwesome name='commenting-o' size={18} color='grey' />
-                                            <Text style={styles.iconText}>
-                                                {this.state.news ? this.state.news.comments.length : ""} ความเห็น
-                                            </Text>
-                                        </TouchableOpacity>
+                            <TouchableWithoutFeedback onPress={this.getProfile}>
+                                <Image
+                                    style={styles.imageAvatar}
+                                    source={{ uri: this.state.news ? this.state.news.user.avatarURl : '' }}
+                                />
+                            </TouchableWithoutFeedback>
+                            <View style={styles.innerTitleContainer}>
+                                <Text style={styles.posterText}>
+                                    {this.state.news ? this.state.news.user.displayName : ""}
+                                </Text>
+                                <Text style={styles.titleText}>
+                                    {this.state.news ? this.state.news.title : ""}
+                                </Text>
+                                <View style={styles.iconContainer}>
+                                    <View style={styles.textIconContainer}>
+                                        <FontAwesome name='calendar' size={15} color='grey' />
+                                        <Text style={styles.iconText}>
+                                            {this.state.news ? this.state.news.createdAt : ""}
+                                        </Text>
                                     </View>
+                                    <TouchableOpacity
+                                        onPress={() => this.props.navigation.navigate('Comment', { newsId: this.props.navigation.state.params.newsId })}
+                                        style={styles.textIconContainer}>
+                                        <FontAwesome name='commenting-o' size={18} color='grey' />
+                                        <Text style={styles.iconText}>
+                                            {this.state.news ? this.state.news.comments.length : ""} ความเห็น
+                                            </Text>
+                                    </TouchableOpacity>
                                 </View>
                             </View>
                         </View>
@@ -124,7 +93,7 @@ class DetailView extends React.Component {
                             <Text style={styles.descriptionHeaderText}>
                                 รายละเอียด
                     </Text>
-                            <Hyperlink linkStyle={{ textDecorationLine: 'underline', color: 'green', fontFamily: 'Kanit-Regular' }} onPress={(url, text) => Linking.openURL(url)}>
+                            <Hyperlink style={{ paddingBottom: 100 }} linkStyle={{ textDecorationLine: 'underline', color: 'green', fontFamily: 'Kanit-Regular' }} onPress={(url, text) => Linking.openURL(url)}>
                                 <Text style={styles.newsInfoText}>
                                     {this.state.news ? this.state.news.description : ""}
                                 </Text>

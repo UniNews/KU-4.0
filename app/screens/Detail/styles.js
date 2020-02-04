@@ -28,10 +28,11 @@ export default StyleSheet.create({
         fontFamily: BOLD_FONT
     },
     innerTitleContainer: {
-        marginHorizontal: 10
+        flex: 1,
+        marginLeft: 10,
     },
     titleContainer: {
-        flexDirection: 'row'
+        flexDirection: 'row',
     },
     textIconContainer: {
         flexDirection: 'row',
@@ -41,7 +42,7 @@ export default StyleSheet.create({
     iconContainer: {
         paddingTop: 5,
         flexDirection: 'row',
-        justifyContent: 'space-between'
+        // justifyContent: 'space-between'
     },
     iconText: {
         paddingLeft: 5,
