@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { View, Text, Image, TouchableWithoutFeedback } from 'react-native'
 import styles from './styles'
 import PropTypes from 'prop-types';
+import { convertTimestamptoDate } from '../../../assets/javascripts/date'
 
 class NewsCard extends Component {
 
@@ -63,7 +64,7 @@ class NewsCard extends Component {
                             >
                                 {data.user}
                                 <Text style={styles.date}>
-                                    {` • ${data.date}`}
+                                    {` • ${convertTimestamptoDate(data.date)}`}
                                 </Text>
                             </Text>
                         </TouchableWithoutFeedback>

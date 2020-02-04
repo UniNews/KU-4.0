@@ -7,6 +7,7 @@ import Hr from '../../components/commons/Hr'
 import Header from '../../components/commons/Header'
 import StatusBar from '../../components/commons/StatusBar'
 import newsService from '../../services/news'
+import { convertTimestamptoDate } from '../../assets/javascripts/date'
 
 class DetailView extends React.Component {
 
@@ -43,6 +44,7 @@ class DetailView extends React.Component {
     }
 
     render() {
+
         return (
             <View>
                 <StatusBar />
@@ -74,7 +76,7 @@ class DetailView extends React.Component {
                                     <View style={styles.textIconContainer}>
                                         <FontAwesome name='calendar' size={15} color='grey' />
                                         <Text style={styles.iconText}>
-                                            {this.state.news ? this.state.news.createdAt : ""}
+                                            {this.state.news ? convertTimestamptoDate(this.state.news.createdAt) : ""}
                                         </Text>
                                     </View>
                                     <TouchableOpacity

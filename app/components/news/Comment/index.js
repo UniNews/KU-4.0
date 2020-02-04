@@ -3,6 +3,7 @@ import { View, Text, Image, TouchableOpacity, TouchableWithoutFeedback } from 'r
 import styles from './styles'
 import PropTypes from 'prop-types';
 import { FontAwesome } from '@expo/vector-icons'
+import { convertTimestamptoDate } from '../../../assets/javascripts/date'
 
 class Comment extends Component {
 
@@ -39,7 +40,7 @@ class Comment extends Component {
                         <Text style={styles.avatarName}>
                             {data.profileName}
                             <Text style={styles.commentDate}>
-                                {' • ' + data.date}
+                                {' • ' + convertTimestamptoDate(data.date)}
                             </Text>
                         </Text>
                         <FontAwesome style={styles.icon} name='ellipsis-v' size={15} color='black' />
