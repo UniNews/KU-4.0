@@ -15,7 +15,7 @@ const store = createStore(reducers, applyMiddleware(thunkMiddleware));
 
 const styles = StyleSheet.create({
   appContainer: {
-    paddingTop: Constants.statusBarHeight,
+    // paddingTop: Constants.statusBarHeight,
     flex: 1,
   },
   alertContainer: {
