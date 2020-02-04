@@ -18,7 +18,7 @@ export default StyleSheet.create({
         alignSelf: 'flex-start',
         width: 70,
         height: 70,
-        borderRadius: 70 / 2,
+        // borderRadius: 70 / 2,
     },
     profileNameText: {
         fontSize: 15,
