@@ -5,7 +5,7 @@ import Hyperlink from 'react-native-hyperlink'
 import { FontAwesome, Feather } from '@expo/vector-icons'
 import Hr from '../../components/commons/Hr'
 import Header from '../../components/commons/Header'
-import newsService from '../../services/news' 
+import newsService from '../../services/news'
 
 class DetailView extends React.Component {
 
@@ -15,13 +15,15 @@ class DetailView extends React.Component {
             username: '',
             password: '',
             isHide: true,
-            news:null
+            news: null
         }
     }
 
-    async componentDidMount(){
-        const result = await newsService.getNewsById(this.props.navigation.state.params.newsId)
-        this.setState({news: result})
+    componentDidMount() {
+        newsService.getNewsById(this.props.navigation.state.params.newsId).then(
+            (result) =>
+                this.setState({ news: result })
+        )
     }
 
     goBack = () => {
@@ -34,31 +36,31 @@ class DetailView extends React.Component {
     }
 
     renderImage() {
-        if(this.state.news===null)
+        if (this.state.news === null)
             return (
                 <ImageBackground style={styles.newsImage}
-                        source={require('../../assets/imgs/testdetail.png')} >
+                    source={require('../../assets/imgs/testdetail.png')} >
                 </ImageBackground>
             )
-        else{
-            return(
+        else {
+            return (
                 <ImageBackground style={styles.newsImage}
-                        source={{uri:this.state.news.imageURL[0] || ""}} >
+                    source={{ uri: this.state.news.imageURL[0] || "" }} >
                 </ImageBackground>
             )
         }
     }
 
     renderImageAvartar() {
-        if(this.state.news===null)
+        if (this.state.news === null)
             return (
                 <Image
                     style={styles.imageAvatar}
                     source={{ uri: 'https://scontent.fbkk22-3.fna.fbcdn.net/v/t1.0-1/c0.0.820.820a/66686017_1125283600997160_4542151837934944256_n.jpg?_nc_cat=110&_nc_ohc=X4ovrI8YYLcAX9k8MI_&_nc_ht=scontent.fbkk22-3.fna&_nc_tp=1003&oh=a1f840ed4a1c6371eeb21242ffd1ea41&oe=5E90FC5F' }}
                 />
             )
-        else{
-            return(
+        else {
+            return (
                 <Image
                     style={styles.imageAvatar}
                     source={{ uri: this.state.news.user.avatarURl }}
@@ -76,31 +78,31 @@ class DetailView extends React.Component {
                     </TouchableWithoutFeedback>}
                 />
                 <ScrollView style={styles.container} >
-                    { this.renderImage() }
+                    {this.renderImage()}
                     <View style={{ padding: 15 }}>
                         <View style={styles.titleContainer}>
-                            { this.renderImageAvartar() }
+                            {this.renderImageAvartar()}
                             <View>
                                 <View style={styles.innerTitleContainer}>
                                     <Text style={styles.posterText}>
-                                        {this.state.news ? this.state.news.user.displayName : "" }        
+                                        {this.state.news ? this.state.news.user.displayName : ""}
                                     </Text>
                                     <Text style={styles.titleText}>
-                                        { this.state.news ? this.state.news.title: ""}
+                                        {this.state.news ? this.state.news.title : ""}
                                     </Text>
                                     <View style={styles.iconContainer}>
                                         <View style={styles.textIconContainer}>
                                             <FontAwesome name='calendar' size={15} color='grey' />
                                             <Text style={styles.iconText}>
-                                            { this.state.news ? this.state.news.createdAt: ""}
+                                                {this.state.news ? this.state.news.createdAt : ""}
                                             </Text>
                                         </View>
                                         <TouchableOpacity
-                                            onPress={() => this.props.navigation.navigate('Comment',{newsId:this.props.navigation.state.params.newsId})}
+                                            onPress={() => this.props.navigation.navigate('Comment', { newsId: this.props.navigation.state.params.newsId })}
                                             style={styles.textIconContainer}>
                                             <FontAwesome name='commenting-o' size={18} color='grey' />
                                             <Text style={styles.iconText}>
-                                                { this.state.news ? this.state.news.comments.length: ""} ความเห็น
+                                                {this.state.news ? this.state.news.comments.length : ""} ความเห็น
                                             </Text>
                                         </TouchableOpacity>
                                     </View>
@@ -114,7 +116,7 @@ class DetailView extends React.Component {
                     </Text>
                             <Hyperlink linkStyle={{ textDecorationLine: 'underline', color: 'green', fontFamily: 'Kanit-Regular' }} onPress={(url, text) => Linking.openURL(url)}>
                                 <Text style={styles.newsInfoText}>
-                                    {this.state.news? this.state.news.description:""}
+                                    {this.state.news ? this.state.news.description : ""}
                                 </Text>
                             </Hyperlink>
                         </View>
