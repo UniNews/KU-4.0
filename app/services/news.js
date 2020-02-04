@@ -15,5 +15,10 @@ export default {
     },
     getClubNews: () => {
         return axios.get(`${constants.API_URL}/news/club`)
+    },
+    getNewsById: (id) => {
+        return axios.get(`${constants.API_URL}/news/${id}`)
+            .then(response => response.data)
+            .catch(error => error)
     }
 }

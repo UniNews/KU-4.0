@@ -26,7 +26,6 @@ class UserProfileView extends React.Component {
     }
 
     render() {
-        console.log(this.props.user)
         const { language } = this.state
         return (
             <View style={styles.containter}>

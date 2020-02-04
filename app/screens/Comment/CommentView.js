@@ -4,6 +4,7 @@ import styles from './styles'
 import Header from '../../components/commons/Header'
 import Comment from '../../components/news/Comment'
 import StatusBar from '../../components/commons/StatusBar'
+import newsService from '../../services/news'
 
 const comments = [
     {
@@ -23,6 +24,13 @@ class CommentView extends React.Component {
         console.log(commentId)
     }
 
+    async componentDidMount() {
+        newsService.getNewsById(this.props.navigation.state.params.newsId).then(
+            (result) =>
+                this.setState({ comments: result.comments })
+        )
+    }
+
     getProfile = (profileId) => {
         console.log(profileId)
     }
@@ -30,7 +38,8 @@ class CommentView extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            text: ''
+            text: '',
+            comments: []
         }
     }
 
@@ -41,7 +50,7 @@ class CommentView extends React.Component {
                 <Header title={'ความคิดเห็น'} />
                 <ScrollView style={styles.container} >
                     <View style={styles.innerCommentContainer}>
-                        {comments.map((comment) => {
+                        {this.state.comments.map((comment) => {
                             return (
                                 <Comment key={comment.commentId} onProfilePressed={this.getProfile} onLikePressed={this.likeComment} data={comment} />
                             )
@@ -49,7 +58,7 @@ class CommentView extends React.Component {
                     </View>
                 </ScrollView>
             </View>
-        );
+        )
     }
 }
 
