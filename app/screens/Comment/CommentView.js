@@ -22,6 +22,11 @@ class CommentView extends React.Component {
         console.log(commentId)
     }
 
+    async componentDidMount(){
+        const result = await newsService.getNewsById(this.props.navigation.state.params.newsId)
+        this.setState({news: result})
+    }
+
     getProfile = (profileId) => {
         console.log(profileId)
     }
@@ -29,22 +34,45 @@ class CommentView extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            text: ''
+            text: '',
+            news:[]
         }
     }
-
-    render() {
-        return (
-            <View>
-                <Header title={'ความคิดเห็น'} />
-                <ScrollView style={styles.container} >
+    
+    renderComponentComment(){
+        if(this.state.news)
+            if(this.state.news.comments){
+                return (
                     <View style={styles.innerCommentContainer}>
-                        {comments.map((comment) => {
+                        {this.state.news.comments.map((comment) => {
                             return (
                                 <Comment key={comment.commentId} onProfilePressed={this.getProfile} onLikePressed={this.likeComment} data={comment} />
                             )
                         })}
                     </View>
+                )
+                    }
+            else
+                return
+        else 
+            return (
+                <View style={styles.innerCommentContainer}>
+                        {comments.map((comment) => {
+                            return (
+                                <Comment key={comment.commentId} onProfilePressed={this.getProfile} onLikePressed={this.likeComment} data={comment} />
+                            )
+                        })}
+                </View>
+            )
+}
+
+    render() {
+        console.log(this.props.navigation.state.params.newsId)
+        return (
+            <View>
+                <Header title={'ความคิดเห็น'} />
+                <ScrollView style={styles.container} >
+                    {this.renderComponentComment()}
                 </ScrollView>
             </View>
         );

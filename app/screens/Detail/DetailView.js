@@ -5,6 +5,7 @@ import Hyperlink from 'react-native-hyperlink'
 import { FontAwesome, Feather } from '@expo/vector-icons'
 import Hr from '../../components/commons/Hr'
 import Header from '../../components/commons/Header'
+import newsService from '../../services/news' 
 
 class DetailView extends React.Component {
 
@@ -13,8 +14,14 @@ class DetailView extends React.Component {
         this.state = {
             username: '',
             password: '',
-            isHide: true
+            isHide: true,
+            news:null
         }
+    }
+
+    async componentDidMount(){
+        const result = await newsService.getNewsById(this.props.navigation.state.params.newsId)
+        this.setState({news: result})
     }
 
     goBack = () => {
@@ -26,8 +33,41 @@ class DetailView extends React.Component {
         console.log(id)
     }
 
+    renderImage() {
+        if(this.state.news===null)
+            return (
+                <ImageBackground style={styles.newsImage}
+                        source={require('../../assets/imgs/testdetail.png')} >
+                </ImageBackground>
+            )
+        else{
+            return(
+                <ImageBackground style={styles.newsImage}
+                        source={{uri:this.state.news.imageURL[0] || ""}} >
+                </ImageBackground>
+            )
+        }
+    }
+
+    renderImageAvartar() {
+        if(this.state.news===null)
+            return (
+                <Image
+                    style={styles.imageAvatar}
+                    source={{ uri: 'https://scontent.fbkk22-3.fna.fbcdn.net/v/t1.0-1/c0.0.820.820a/66686017_1125283600997160_4542151837934944256_n.jpg?_nc_cat=110&_nc_ohc=X4ovrI8YYLcAX9k8MI_&_nc_ht=scontent.fbkk22-3.fna&_nc_tp=1003&oh=a1f840ed4a1c6371eeb21242ffd1ea41&oe=5E90FC5F' }}
+                />
+            )
+        else{
+            return(
+                <Image
+                    style={styles.imageAvatar}
+                    source={{ uri: this.state.news.user.avatarURl }}
+                />
+            )
+        }
+    }
+
     render() {
-        console.log(this.props.navigation.state.params.id)
         return (
             <View>
                 <Header title={'ข่าวมหาลัย'} leftIconComponent={
@@ -36,47 +76,33 @@ class DetailView extends React.Component {
                     </TouchableWithoutFeedback>}
                 />
                 <ScrollView style={styles.container} >
-                    <ImageBackground style={styles.newsImage}
-                        source={require('../../assets/imgs/testdetail.png')} >
-                    </ImageBackground>
+                    { this.renderImage() }
                     <View style={{ padding: 15 }}>
                         <View style={styles.titleContainer}>
-                            <Image
-                                style={styles.imageAvatar}
-                                source={{ uri: 'https://scontent.fbkk22-3.fna.fbcdn.net/v/t1.0-1/c0.0.820.820a/66686017_1125283600997160_4542151837934944256_n.jpg?_nc_cat=110&_nc_ohc=X4ovrI8YYLcAX9k8MI_&_nc_ht=scontent.fbkk22-3.fna&_nc_tp=1003&oh=a1f840ed4a1c6371eeb21242ffd1ea41&oe=5E90FC5F' }}
-                            />
+                            { this.renderImageAvartar() }
                             <View>
                                 <View style={styles.innerTitleContainer}>
                                     <Text style={styles.posterText}>
-                                        สำนักคอมฯ
+                                        {this.state.news ? this.state.news.user.displayName : "" }        
                                     </Text>
                                     <Text style={styles.titleText}>
-                                        CPSK SPORT WEEK 2019
+                                        { this.state.news ? this.state.news.title: ""}
                                     </Text>
                                     <View style={styles.iconContainer}>
                                         <View style={styles.textIconContainer}>
                                             <FontAwesome name='calendar' size={15} color='grey' />
                                             <Text style={styles.iconText}>
-                                                5 นาทีที่แล้ว
-                                        </Text>
+                                            { this.state.news ? this.state.news.createdAt: ""}
+                                            </Text>
                                         </View>
                                         <TouchableOpacity
-                                            onPress={() => this.props.navigation.navigate('Comment')}
+                                            onPress={() => this.props.navigation.navigate('Comment',{newsId:this.props.navigation.state.params.newsId})}
                                             style={styles.textIconContainer}>
                                             <FontAwesome name='commenting-o' size={18} color='grey' />
                                             <Text style={styles.iconText}>
-                                                5 ความคิดเห็น
-                                        </Text>
+                                                { this.state.news ? this.state.news.comments.length: ""} ความเห็น
+                                            </Text>
                                         </TouchableOpacity>
-                                        <TouchableOpacity
-                                            onPress={() => this.likeNews('id')}
-                                            style={styles.textIconContainer}>
-                                            <FontAwesome name='heart-o' size={18} color='grey' />
-                                            <Text style={styles.iconText}>
-                                                5 ถูกใจ
-                                        </Text>
-                                        </TouchableOpacity>
-
                                     </View>
                                 </View>
                             </View>
@@ -88,18 +114,8 @@ class DetailView extends React.Component {
                     </Text>
                             <Hyperlink linkStyle={{ textDecorationLine: 'underline', color: 'green', fontFamily: 'Kanit-Regular' }} onPress={(url, text) => Linking.openURL(url)}>
                                 <Text style={styles.newsInfoText}>
-                                    🌈หาร้านอร่อยๆทานกับครอบครัว ทานกับเพื่อน หรือเปิดโต๊ะแชร์ ก็ควรมาที่นี่น้า ที่บุญตงกี่ เพราะตอนนี้เค้ามีแบบบุฟเฟ่ต์ กินกันให้เต็มอิ่มไปเลยจ้า
-
-            🎈ราคาก็ดีงาม จันทร์-พฤหัส 499 บาท
-            ศุกร์-อาทิตย์ 599 บาท
-
-            👉กดจองโปรพิเศษของ Hungry Hub ผ่านลิ้งค์นี้เท่าน้านนน
-            Link: http://bit.ly/2CzlJbO
-
-            🥰เมนูที่แนะนำเลยนะจ้ะ มาแล้วต้องสั่งน้า
-
-            🌟ไก่บุญตงกี่ เนื้อนุ่มหอม น้ำซอสที่ราด ทานคู่กับข้าวมันรสดี กินแล้วพริ้มมาก
-                        </Text>
+                                    {this.state.news? this.state.news.description:""}
+                                </Text>
                             </Hyperlink>
                         </View>
                     </View>
