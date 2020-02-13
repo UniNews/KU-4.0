@@ -28,7 +28,7 @@ class StoreProfileView extends React.Component {
         const result = await userService.getUserById(this.props.navigation.state.params.profileId)
         this.setState(
             {
-                user:result
+                user: result
             }
         )
     }
@@ -38,7 +38,7 @@ class StoreProfileView extends React.Component {
         return (
             <View style={styles.containter}>
                 <StatusBar />
-                <Header title={this.state.user ?this.state.user.displayName: ""} leftIconComponent={
+                <Header title={this.state.user ? this.state.user.displayName : ""} leftIconComponent={
                     <TouchableWithoutFeedback onPress={this.goBack}>
                         <Feather color='white' size={28} name={'chevron-left'} />
                     </TouchableWithoutFeedback>}
@@ -48,7 +48,7 @@ class StoreProfileView extends React.Component {
                     source={{ uri: 'https://lh4.googleusercontent.com/proxy/ZYuIbIo6tgvt8h5IS-gX4wHFOYfIruWTkJKjvRflWKXFlVP5t4Vk0ofvYmimYlxfUG2sVSzOeIcwwfc61i8HlS2vug-R-sewwgdbqpI1zao0lDYC-LDeJNojlFFL' }}>
                     <LinearGradient colors={['rgba(0,0,0,0)', 'rgba(0,0,0,0.4)']} style={styles.profileInfoContainer}>
                         <Image
-                            source={{ uri: this.state.user ? this.state.user.avatarURl:'https://scontent.fbkk22-2.fna.fbcdn.net/v/t1.0-9/11914947_628986903870394_7886924598746503503_n.jpg?_nc_cat=109&_nc_oc=AQkdDLwzEglbB6WwJS7sOgMFIkLoiHO8Ge4xBiFU5-vqrwuktU5koS9bC4UVGnzNApM&_nc_ht=scontent.fbkk22-2.fna&oh=25eeb22f8a3da030c7aad542c3c8ef0e&oe=5ED92CF1' }}
+                            source={{ uri: this.state.user ? this.state.user.avatarURl : 'https://scontent.fbkk22-2.fna.fbcdn.net/v/t1.0-9/11914947_628986903870394_7886924598746503503_n.jpg?_nc_cat=109&_nc_oc=AQkdDLwzEglbB6WwJS7sOgMFIkLoiHO8Ge4xBiFU5-vqrwuktU5koS9bC4UVGnzNApM&_nc_ht=scontent.fbkk22-2.fna&oh=25eeb22f8a3da030c7aad542c3c8ef0e&oe=5ED92CF1' }}
                             style={styles.avatar}
                         />
                         <Button customStyle={following ? styles.followingButtonContainer : styles.notFollowingButtonContainer} rounded onPress={() => this.setState({ following: !following })}>
@@ -57,7 +57,7 @@ class StoreProfileView extends React.Component {
                         <View style={styles.followContainer}>
                             <View style={styles.amount1Container}>
                                 <Text style={styles.numberText}>
-                                    234
+                                    5
                                 </Text>
                                 <Text style={styles.indicatorText}>
                                     โพสต์
@@ -65,7 +65,7 @@ class StoreProfileView extends React.Component {
                             </View>
                             <View style={styles.amount2Container}>
                                 <Text style={styles.numberText}>
-                                    {this.state.user?this.state.user.follower.length:""}
+                                    3
                                 </Text>
                                 <Text style={styles.indicatorText}>
                                     ผู้ติดตาม
@@ -77,21 +77,21 @@ class StoreProfileView extends React.Component {
                 <View style={styles.settingContainer}>
                     <View>
                         <Text style={styles.settingTitleText}>ชื่อชมรม</Text>
-                        <Text style={styles.settingValueText}>{this.state.user ?this.state.user.displayName: ""}</Text>
+                        <Text style={styles.settingValueText}>{this.state.user ? this.state.user.displayName : ""}</Text>
                     </View>
                 </View>
                 <Hr />
                 <View style={styles.settingContainer}>
                     <View>
                         <Text style={styles.settingTitleText}>คำอธิบาย</Text>
-                        <Text style={styles.settingValueText}>{this.state.user ?this.state.user.description: ""}</Text>
+                        <Text style={styles.settingValueText}>{this.state.user ? this.state.user.description : ""}</Text>
                     </View>
                 </View>
                 <Hr />
                 <View style={styles.settingContainer}>
                     <View>
                         <Text style={styles.settingTitleText}>แท็ก</Text>
-                        <Text style={styles.settingValueText}>{this.state.user ?this.state.user.category: ""}</Text>
+                        <Text style={styles.settingValueText}>{this.state.user ? this.state.user.category : ""}</Text>
                     </View>
                 </View>
                 <Hr />

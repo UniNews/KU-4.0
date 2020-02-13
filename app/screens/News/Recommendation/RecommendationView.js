@@ -29,7 +29,7 @@ class RecommendationView extends React.Component {
         const ENTRIES1 = [
             {
                 title: 'CPSK E-SPORT WEEK 2019 การแข่งขันเพื่อหาตัวแทนภาควิชาไปแข่งในงาน ENIAC #16 โดยในปีนี้เราจัดการแข่งขันด้วยกันถึง 5 เกม',
-                date: '1580819468',
+                date: '2020-01-30T09:38:20.898+00:00',
                 user: 'CPE30 & SKE14',
                 imgUrl: 'https://scontent.fbkk11-1.fna.fbcdn.net/v/t1.0-9/80691891_1798624946938448_2257699926223880192_n.jpg?_nc_cat=102&_nc_oc=AQmJ0rHR0_BmC2QmIegAodJ2ja4ePEhY7bipbxurTuh-zUdy0r9eaCAqBAdVS3MdXHY&_nc_ht=scontent.fbkk11-1.fna&oh=77755394e7c6b88ceeeead47e843f4d9&oe=5ED0A121',
                 newsId: '1',
@@ -37,7 +37,7 @@ class RecommendationView extends React.Component {
             },
             {
                 title: 'ขอเชิญพี่ทุกท่านร่วมงาน CPSK Byenior 2020',
-                date: '10 นาทีที่แล้ว',
+                date: '2020-01-30T09:38:20.898+00:00',
                 user: 'CPE30 & SKE14',
                 imgUrl: 'https://scontent.fbkk11-1.fna.fbcdn.net/v/t1.0-9/82455162_2650962754951104_1823354414769897472_o.jpg?_nc_cat=100&_nc_oc=AQnbCb-nUl-v2ktZq6MktcrFTEtsIJeICaVnhAEJ3ZW28lWXMkfT6KdjmL_IA3my7DA&_nc_ht=scontent.fbkk11-1.fna&oh=dfcba49dfc3321aad780dac2f8f9ebc1&oe=5EC3E1FB',
                 newsId: '2',
@@ -48,7 +48,7 @@ class RecommendationView extends React.Component {
         const ENTRIES2 = [
             {
                 title: 'แจกหน้ากากอนามัยสำหรับนิสิตมหาวิทยาลัยเกษตรศาสตร์',
-                date: '1580819468',
+                date: '2020-01-30T09:38:20.898+00:00',
                 user: 'Kasetsart University',
                 imgUrl: 'https://scontent.fbkk11-1.fna.fbcdn.net/v/t1.0-9/83660591_3004694642894240_1009796547010887680_o.jpg?_nc_cat=102&_nc_oc=AQmFmXiA4FwodBhO10BsbxSi1SAsVXB9oHLzDGuZl21gGnM-JaqaPQJ5QeQNlqSR2tE&_nc_ht=scontent.fbkk11-1.fna&oh=441217e8ca2714b4713a83cbc99c4abf&oe=5EBF0F7D',
                 newsId: '1',
@@ -56,7 +56,7 @@ class RecommendationView extends React.Component {
             },
             {
                 title: 'หนุ่มหล่อ บอกต่อ งานเกษตรแฟร์ 2019 !!!!',
-                date: '10 นาทีที่แล้ว',
+                date: '2020-01-30T09:38:20.898+00:00',
                 user: 'Kasetsart University',
                 imgUrl: 'https://scontent.fbkk11-1.fna.fbcdn.net/v/t1.0-9/83803508_572276910169434_6315681337831325696_o.jpg?_nc_cat=106&_nc_oc=AQnC2lmRbDzc8ZD3YNHEL3nzmOIgTORsdOPcnC5RxZiKFFLk3VtK8xSCmMZo188D_GY&_nc_ht=scontent.fbkk11-1.fna&oh=603d3fe2cb8e226417543f92c5e939f4&oe=5EBA282A',
                 newsId: '2',

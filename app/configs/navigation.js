@@ -27,7 +27,7 @@ const newsTab = createMaterialTopTabNavigator({
   'ชมรม': ClubScreen
 }, {
   tabBarComponent: NewsTab,
-  swipeEnabled: false,
+  swipeEnabled: true,
   tabBarOptions: {
     scrollEnabled: true,
   },

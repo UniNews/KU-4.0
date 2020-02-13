@@ -19,9 +19,9 @@ class Header extends Component {
       <Text style={styles.title}>
         {title}
       </Text>
-      <View style={styles.right}>
+      {/* <View style={styles.right}>
         {rightIconComponent}
-      </View>
+      </View> */}
     </LinearGradient>
   }
 }
