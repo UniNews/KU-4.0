@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { View, Text, Image, TouchableOpacity, TouchableWithoutFeedback } from 'react-native'
 import styles from './styles'
 import PropTypes from 'prop-types';
-import { FontAwesome } from '@expo/vector-icons'
+import { FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons'
 import { convertTimestamptoDate } from '../../../assets/javascripts/date'
 
 class Comment extends Component {
@@ -14,17 +14,16 @@ class Comment extends Component {
     onLikePressedHandler = () => {
         const { onLikePressed, data } = this.props
         if (onLikePressed)
-            onLikePressed(data.commentId)
+            onLikePressed(data._id)
     }
 
     onProfilePressedHandler = () => {
         const { onProfilePressed, data } = this.props
         if (onProfilePressed)
-            onProfilePressed(data.profileId)
+            onProfilePressed(data.user._id)
     }
 
     render() {
-        console.log(this.props.data)
         const { data } = this.props
         return (
             <View style={styles.commentContainer}>
@@ -44,7 +43,7 @@ class Comment extends Component {
                                 {' • ' + convertTimestamptoDate(data.createdAt)}
                             </Text>
                         </Text>
-                        <FontAwesome style={styles.icon} name='ellipsis-v' size={15} color='black' />
+                        <MaterialCommunityIcons style={styles.icon} name='dots-vertical' size={15} color='black' />
                     </View>
                     <Text style={styles.commentMessage}>
                         {data.text}
@@ -67,27 +66,31 @@ class Comment extends Component {
 
 Comment.propTypes = {
     data: PropTypes.shape({
-        profileName: PropTypes.string,
-        date: PropTypes.string,
-        message: PropTypes.string,
-        likeCount: PropTypes.number,
-        imgUrl: PropTypes.string,
-        commentId: PropTypes.string,
-        profileId: PropTypes.string
+        user: PropTypes.shape({
+            avatarURl: PropTypes.string,
+            displayName: PropTypes.string,
+            _id: PropTypes.string
+        })
     }).isRequired,
     onProfilePressed: PropTypes.func,
-    onLikePressed: PropTypes.func
+    onLikePressed: PropTypes.func,
+    createdAt: PropTypes.string,
+    text: PropTypes.string,
+    like: PropTypes.array,
+    _id: PropTypes.string
 };
 
 Comment.defaultProps = {
     data: {
-        profileName: '',
-        date: '',
-        message: '',
-        likeCount: 0,
-        imgUrl: '',
-        commentId: '',
-        profileId: ''
+        user: {
+            avatarURl: null,
+            displayName: ''
+        },
+        createdAt: '',
+        text: '',
+        like: '',
+        profileId: null,
+        commentId: null,
     },
 }
 

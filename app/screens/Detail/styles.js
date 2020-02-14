@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
-import { PRIMARY_COLOR, SECONDARY_COLOR } from '../../assets/css/color'
 import { BOLD_FONT, REGULAR_FONT } from '../../assets/css/typography'
+import { wp } from '../../assets/javascripts/spacing'
 
 export default StyleSheet.create({
     container: {
@@ -78,5 +78,8 @@ export default StyleSheet.create({
     descriptionHeaderText: {
         fontFamily: BOLD_FONT,
         fontSize: 15
-    }
+    },
+    loader: {
+        paddingVertical: wp(60)
+    },
 });

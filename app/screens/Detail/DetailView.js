@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, View, ImageBackground, Image, Linking, ScrollView, TouchableOpacity, TouchableWithoutFeedback } from 'react-native'
+import { Text, View, ImageBackground, Image, Linking, ScrollView, TouchableOpacity, TouchableWithoutFeedback, ActivityIndicator } from 'react-native'
 import styles from './styles'
 import Hyperlink from 'react-native-hyperlink'
 import { FontAwesome, Feather } from '@expo/vector-icons'
@@ -8,23 +8,37 @@ import Header from '../../components/commons/Header'
 import StatusBar from '../../components/commons/StatusBar'
 import newsService from '../../services/news'
 import { convertTimestamptoDate } from '../../assets/javascripts/date'
+import { PRIMARY_COLOR } from '../../assets/css/color'
 
 class DetailView extends React.Component {
 
     constructor(props) {
         super(props)
         this.state = {
-            username: '',
-            password: '',
-            isHide: true,
-            news: null
+            news: {
+                imageURL: [],
+                avatarURl: '',
+                user: {
+                    displayName: '',
+                    avatarURl: null
+                },
+                title: '',
+                createdAt: '',
+                comments: [],
+                description: ''
+            },
+            isLoading: true
         }
     }
 
     componentDidMount() {
-        newsService.getNewsById(this.props.navigation.state.params.newsId).then(
+        const newsId = this.props.navigation.state.params.newsId
+        newsService.getNewsById(newsId).then(
             (result) =>
-                this.setState({ news: result })
+                this.setState({
+                    news: result,
+                    isLoading: false
+                })
         )
     }
 
@@ -35,74 +49,82 @@ class DetailView extends React.Component {
 
     getProfile = () => {
         const { navigation } = this.props
-        const profileId = this.state.news.user._id
+        const { news } = this.state
+        const profileId = news.user._id
         navigation.navigate('ProfileDetail', { profileId })
     }
 
-    likeNews = (id) => {
-        console.log(id)
+    getComments = () => {
+        const newsId = this.props.navigation.state.params.newsId
+        this.props.navigation.navigate('Comment', { newsId: newsId })
     }
 
     render() {
-
+        const { news, isLoading } = this.state
         return (
             <View>
                 <StatusBar />
                 <Header title={'ข่าวมหาลัย'} leftIconComponent={
-                    <TouchableWithoutFeedback onPress={this.goBack}>
-                        <Feather color='white' size={28} name={'chevron-left'} />
-                    </TouchableWithoutFeedback>}
+                    <Feather color='white' onPress={this.goBack} size={28} name={'chevron-left'} />
+                }
                 />
-                <ScrollView style={styles.container} >
-                    <ImageBackground style={styles.newsImage}
-                        source={{ uri: this.state.news ? this.state.news.imageURL[0] : '' }} >
-                    </ImageBackground>
-                    <View style={{ padding: 15 }}>
-                        <View style={styles.titleContainer}>
-                            <TouchableWithoutFeedback onPress={this.getProfile}>
-                                <Image
-                                    style={styles.imageAvatar}
-                                    source={{ uri: this.state.news ? this.state.news.user.avatarURl : '' }}
-                                />
-                            </TouchableWithoutFeedback>
-                            <View style={styles.innerTitleContainer}>
-                                <Text style={styles.posterText}>
-                                    {this.state.news ? this.state.news.user.displayName : ""}
-                                </Text>
-                                <Text style={styles.titleText}>
-                                    {this.state.news ? this.state.news.title : ""}
-                                </Text>
-                                <View style={styles.iconContainer}>
-                                    <View style={styles.textIconContainer}>
-                                        <FontAwesome name='calendar' size={15} color='grey' />
-                                        <Text style={styles.iconText}>
-                                            {this.state.news ? convertTimestamptoDate(this.state.news.createdAt) : ""}
+                {
+                    !isLoading ?
+                        <ScrollView style={styles.container} >
+                            <ImageBackground style={styles.newsImage}
+                                source={{ uri: news.imageURL.length > 0 ? news.imageURL[0] : null }} >
+                            </ImageBackground>
+                            <View style={{ padding: 15 }}>
+                                <View style={styles.titleContainer}>
+                                    <TouchableWithoutFeedback onPress={this.getProfile}>
+                                        <Image
+                                            style={styles.imageAvatar}
+                                            source={{ uri: news.user.avatarURl }}
+                                        />
+                                    </TouchableWithoutFeedback>
+                                    <View style={styles.innerTitleContainer}>
+                                        <Text style={styles.posterText}>
+                                            {news.user.displayName}
                                         </Text>
-                                    </View>
-                                    <TouchableOpacity
-                                        onPress={() => this.props.navigation.navigate('Comment', { newsId: this.props.navigation.state.params.newsId })}
-                                        style={styles.textIconContainer}>
-                                        <FontAwesome name='commenting-o' size={18} color='grey' />
-                                        <Text style={styles.iconText}>
-                                            {this.state.news ? this.state.news.comments.length : ""} ความเห็น
+                                        <Text style={styles.titleText}>
+                                            {news.title}
+                                        </Text>
+                                        <View style={styles.iconContainer}>
+                                            <View style={styles.textIconContainer}>
+                                                <FontAwesome name='calendar' size={15} color='grey' />
+                                                <Text style={styles.iconText}>
+                                                    {convertTimestamptoDate(news.createdAt)}
+                                                </Text>
+                                            </View>
+                                            <TouchableOpacity
+                                                onPress={this.getComments}
+                                                style={styles.textIconContainer}>
+                                                <FontAwesome name='commenting-o' size={18} color='grey' />
+                                                <Text style={styles.iconText}>
+                                                    {news.comments.length} ความเห็น
                                             </Text>
-                                    </TouchableOpacity>
+                                            </TouchableOpacity>
+                                        </View>
+                                    </View>
+                                </View>
+                                <Hr style={styles.hr} />
+                                <View>
+                                    <Text style={styles.descriptionHeaderText}>
+                                        รายละเอียด
+                    </Text>
+                                    <Hyperlink style={{ paddingBottom: 100 }} linkStyle={{ textDecorationLine: 'underline', color: 'green', fontFamily: 'Kanit-Regular' }} onPress={(url, text) => Linking.openURL(url)}>
+                                        <Text style={styles.newsInfoText}>
+                                            {news.description}
+                                        </Text>
+                                    </Hyperlink>
                                 </View>
                             </View>
+                        </ScrollView>
+                        :
+                        <View style={styles.loader}>
+                            <ActivityIndicator color={PRIMARY_COLOR} size='large' />
                         </View>
-                        <Hr style={styles.hr} />
-                        <View>
-                            <Text style={styles.descriptionHeaderText}>
-                                รายละเอียด
-                    </Text>
-                            <Hyperlink style={{ paddingBottom: 100 }} linkStyle={{ textDecorationLine: 'underline', color: 'green', fontFamily: 'Kanit-Regular' }} onPress={(url, text) => Linking.openURL(url)}>
-                                <Text style={styles.newsInfoText}>
-                                    {this.state.news ? this.state.news.description : ""}
-                                </Text>
-                            </Hyperlink>
-                        </View>
-                    </View>
-                </ScrollView>
+                }
             </View>
         );
     }

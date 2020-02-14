@@ -1,22 +1,12 @@
 import React from 'react'
-import { View, ScrollView } from 'react-native'
+import { View, ScrollView, ActivityIndicator } from 'react-native'
 import styles from './styles'
 import Header from '../../components/commons/Header'
 import Comment from '../../components/news/Comment'
 import StatusBar from '../../components/commons/StatusBar'
 import newsService from '../../services/news'
-
-const comments = [
-    {
-        profileName: 'Jimmy',
-        date: '23 July',
-        message: 'สวย!',
-        imgUrl: 'https://scontent.fbkk10-1.fna.fbcdn.net/v/t1.0-1/66686017_1125283600997160_4542151837934944256_n.jpg?_nc_cat=110&_nc_oc=AQl1i71AeZzg18p2f7lW0rqgQSyyz6Y6zZyOXocid2DdwqTzEdOGUXI-QgEKR7MKINo&_nc_ht=scontent.fbkk10-1.fna&oh=8fafec244b8e66f0682a9bf95b2afeca&oe=5EDB98FB',
-        likeCount: 2,
-        profileId: '',
-        commentId: '',
-    }
-]
+import { PRIMARY_COLOR } from '../../assets/css/color'
+import { Feather } from '@expo/vector-icons'
 
 class CommentView extends React.Component {
 
@@ -24,10 +14,27 @@ class CommentView extends React.Component {
         console.log(commentId)
     }
 
-    async componentDidMount() {
+    goBack = () => {
+        const { navigation } = this.props
+        navigation.goBack()
+    }
+
+    constructor(props) {
+        super(props)
+        this.state = {
+            comments: [],
+            isLoading: true
+        }
+    }
+
+    componentDidMount() {
         newsService.getNewsById(this.props.navigation.state.params.newsId).then(
-            (result) =>
-                this.setState({ comments: result.comments })
+            (result) => {
+                this.setState({
+                    comments: result.comments,
+                    isLoading: false
+                })
+            }
         )
     }
 
@@ -35,28 +42,30 @@ class CommentView extends React.Component {
         console.log(profileId)
     }
 
-    constructor(props) {
-        super(props)
-        this.state = {
-            text: '',
-            comments: []
-        }
-    }
-
     render() {
+        const { comments, isLoading } = this.state
         return (
             <View>
                 <StatusBar />
-                <Header title={'ความคิดเห็น'} />
-                <ScrollView style={styles.container} >
-                    <View style={styles.innerCommentContainer}>
-                        {this.state.comments.map((comment) => {
-                            return (
-                                <Comment key={comment.commentId} onProfilePressed={this.getProfile} onLikePressed={this.likeComment} data={comment} />
-                            )
-                        })}
-                    </View>
-                </ScrollView>
+                <Header title={'ความคิดเห็น'} leftIconComponent={
+                    <Feather color='white' onPress={this.goBack} size={28} name={'chevron-left'} />
+                } />
+                {
+                    !isLoading ?
+                        <ScrollView style={styles.container} >
+                            <View style={styles.innerCommentContainer}>
+                                {comments.map((comment) => {
+                                    return (
+                                        <Comment key={comment._id} onProfilePressed={this.getProfile} onLikePressed={this.likeComment} data={comment} />
+                                    )
+                                })}
+                            </View>
+                        </ScrollView>
+                        :
+                        <View style={styles.loader}>
+                            <ActivityIndicator color={PRIMARY_COLOR} size='large' />
+                        </View>
+                }
             </View>
         )
     }
