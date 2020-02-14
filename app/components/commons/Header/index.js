@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, TouchableWithoutFeedback } from 'react-native';
 import styles from './styles';
 import PropTypes from 'prop-types';
 import { LinearGradient } from 'expo-linear-gradient'
-import { Feather } from '@expo/vector-icons'
 
 class Header extends Component {
   constructor(props) {
@@ -13,9 +12,15 @@ class Header extends Component {
   render() {
     const { leftIconComponent, rightIconComponent, title } = this.props
     return <LinearGradient style={styles.linearGradient} start={{ x: 0, y: 0 }} end={{ x: 0.8, y: 0 }} colors={['#465859', '#588E57']}>
-      <View style={styles.left}>
-        {leftIconComponent}
-      </View>
+      {
+        leftIconComponent ?
+          <View style={styles.left}>
+            <TouchableWithoutFeedback onPress={leftIconComponent.props.onPress}>
+              {leftIconComponent}
+            </TouchableWithoutFeedback>
+          </View>
+          : null
+      }
       <Text style={styles.title}>
         {title}
       </Text>

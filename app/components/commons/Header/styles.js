@@ -12,7 +12,7 @@ export default StyleSheet.create({
         fontSize: 20,
         color: 'white',
         textAlign: 'center',
-        flex: 1
+        flex: 1,
     },
     left: {
         textAlign: 'left',
@@ -20,6 +20,6 @@ export default StyleSheet.create({
     },
     right: {
         textAlign: 'right',
-        flex: 1,
+        position: 'absolute'
     }
 });
