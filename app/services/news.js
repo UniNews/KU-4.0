@@ -4,8 +4,6 @@ import axios from 'axios';
 export default {
     getNewsRecommendation: (id) => {
         return axios.get(`${constants.API_URL}/news/${id}`)
-            .then(response => response.data)
-            .catch(error => error)
     },
     getUniversityNews: () => {
         return axios.get(`${constants.API_URL}/news/universities`)
@@ -18,7 +16,13 @@ export default {
     },
     getNewsById: (id) => {
         return axios.get(`${constants.API_URL}/news/${id}`)
-            .then(response => response.data)
-            .catch(error => error)
+    },
+    postComment: (newsId, msg) => {
+        const json = {
+            text: msg
+        }
+        return axios.post(`${constants.API_URL}/news/${newsId}/comments`, json, {
+            headers: { 'Content-Type': 'application/json' }
+        })
     }
 }
