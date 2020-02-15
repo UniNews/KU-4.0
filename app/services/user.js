@@ -11,8 +11,6 @@ export default {
         return axios.post(`${constants.API_URL}/token`, json, {
             headers: { 'Content-Type': 'application/json' }
         })
-            .then(response => response.data)
-            .catch(error => error)
     },
     getProfile: ()=>{
         return axios.get(`${constants.API_URL}/profile`)

@@ -36,7 +36,7 @@ class DetailView extends React.Component {
         newsService.getNewsById(newsId).then(
             (result) =>
                 this.setState({
-                    news: result,
+                    news: result.data,
                     isLoading: false
                 })
         )

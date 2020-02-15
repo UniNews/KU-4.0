@@ -23,10 +23,9 @@ export function login(username, password) {
         dispatch(userLoading())
         service.login(username, password)
             .then(async (res) => {
-                const user = res;
+                const user = res.data;
                 axios.defaults.headers.common['Authorization'] = `Bearer ${user.access_token}`
                 const payload = await service.getProfile()
-                console.log(payload.data, 'payload')
                 dispatch(userOk(payload.data))
             }).catch(err => {
                 dispatch(userFail())
