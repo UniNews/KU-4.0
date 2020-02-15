@@ -47,6 +47,15 @@ const newsStack = createStackNavigator({
   }
 )
 
+newsStack.navigationOptions = ({ navigation }) => {
+  let tabBarVisible = true
+  if (navigation.state.index == 2) // check if the route is Comment
+    tabBarVisible = false
+  return {
+    tabBarVisible,
+  }
+}
+
 const profileStack = createStackNavigator({
   Main: UserProfileScreen,
   ProfileSetting: ProfileSetting,
@@ -116,7 +125,7 @@ const AuthStack = createStackNavigator({
   initialRouteName: 'Login',
   headerMode: 'none',
 }
-);
+)
 
 export default createAppContainer(createSwitchNavigator(
   {
@@ -127,4 +136,4 @@ export default createAppContainer(createSwitchNavigator(
       screen: TabNavigator
     },
   }
-));
+))

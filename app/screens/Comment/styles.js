@@ -1,12 +1,15 @@
 import { StyleSheet } from 'react-native';
-import { PRIMARY_COLOR } from '../../assets/css/color'
+import { PRIMARY_COLOR, SECONDARY_COLOR } from '../../assets/css/color'
 import { wp, viewportWidth } from '../../assets/javascripts/spacing'
 import { REGULAR_FONT } from '../../assets/css/typography'
 const textInputContainerHorizontalMargin = viewportWidth - wp(20);
 
 export default StyleSheet.create({
     container: {
-        // flex: 1
+        flex: 1
+    },
+    keyboardAvoidContainer: {
+        flex: 1,
     },
     newsImage: {
         height: 250,
@@ -68,15 +71,37 @@ export default StyleSheet.create({
         height: 50,
         width: textInputContainerHorizontalMargin
     },
-    inputContainer: {
-        alignItems: 'center',
-    },
     textInputs: {
         fontSize: 16,
         fontFamily: REGULAR_FONT,
         color: 'white'
     },
     loader: {
-        paddingVertical: wp(60)
+        flex: 1,
+        justifyContent: 'center'
     },
+    commentContainer: {
+        // marginBottom: 190
+    },
+    inputContainer: {
+        borderTopWidth: 1,
+        borderColor: 'rgb(242, 242, 242)',
+        backgroundColor: 'white',
+        flexDirection: 'row',
+        alignItems: 'center',
+        padding: 10,
+    },
+    textInputField: {
+        marginRight: 10,
+        flex: 1,
+        paddingLeft: 20,
+        height: 40,
+        borderRadius: 20,
+        backgroundColor: 'rgb(242, 242, 242)',
+        fontSize: 15,
+        fontFamily: REGULAR_FONT,
+    },
+    disableIcon: {
+        opacity: 0.5
+    }
 });
