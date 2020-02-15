@@ -16,7 +16,8 @@ export default StyleSheet.create({
     },
     left: {
         textAlign: 'left',
-        position: 'absolute'
+        position: 'absolute',
+        zIndex:1
     },
     right: {
         textAlign: 'right',
