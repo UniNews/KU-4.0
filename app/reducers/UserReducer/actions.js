@@ -42,3 +42,29 @@ export function logoutUser() {
         dispatch(logout());
     };
 }
+
+export function loginByFacebook () {
+    return (dispatch) => {
+        dispatch(userLoading());
+        service.loginByFacebook().then((user) => {
+            console.log(user,'ssssss')
+            dispatch(userOk(user))
+        }).catch(err => {
+            console.log(err)
+            dispatch(userFail())
+        });
+    }   
+}
+
+export function loginByGoogle () {
+    return (dispatch) => {
+        dispatch(userLoading());
+        service.loginByGoogle().then((user) => {
+            console.log(user,'ssssss')
+            dispatch(userOk(user))
+        }).catch(err => {
+            console.log(err)
+            dispatch(userFail())
+        });
+    }   
+}

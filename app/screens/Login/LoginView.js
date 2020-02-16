@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, TextInput, View, TouchableWithoutFeedback, ActivityIndicator } from 'react-native'
+import { Text, TextInput, View, TouchableWithoutFeedback, ActivityIndicator,TouchableOpacity } from 'react-native'
 import styles from './styles'
 import { LinearGradient } from 'expo-linear-gradient'
 import { FontAwesome } from '@expo/vector-icons'
@@ -46,7 +46,7 @@ class LoginView extends React.Component {
 
     render() {
         const { isHide, username, password } = this.state
-        const { login, loading } = this.props
+        const { login, loading, loginByFacebook, loginByGoogle } = this.props
         return (
             <LinearGradient colors={['#465859', '#588E57']} style={styles.container} >
                 <View style={styles.logoContainer}>
@@ -88,6 +88,20 @@ class LoginView extends React.Component {
                 </View>
                 <KeyboardSpacer topSpacing={-120} />
                 <Text style={styles.policyText}>นโยบายคุ้มครอง</Text>
+                <TouchableOpacity onPress={() => {
+                    loginByFacebook()
+                }}>
+                    <View>
+                        <FontAwesome name='facebook' size={30} color='white'></FontAwesome>
+                    </View>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => {
+                    loginByGoogle()
+                }}>
+                    <View>
+                        <FontAwesome name='google' size={30} color='white'></FontAwesome>
+                    </View>
+                </TouchableOpacity>
             </LinearGradient>
         )
     }
