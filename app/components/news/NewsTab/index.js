@@ -6,6 +6,7 @@ import CustomTab from './CustomTab'
 import PropTypes from 'prop-types';
 import { FontAwesome } from '@expo/vector-icons'
 import StatusBar from '../../commons/StatusBar'
+import { PRIMARY_COLOR, SECONDARY_COLOR, KU_PRIMARY_COLOR, KU_SECONDARY_COLOR } from '../../../assets/css/color';
 
 class NewsTabView extends React.Component {
 
@@ -19,7 +20,7 @@ class NewsTabView extends React.Component {
         return (
             <View>
                 <StatusBar />
-                <LinearGradient start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} colors={['#465859', '#588E57']}>
+                <LinearGradient start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} colors={[KU_PRIMARY_COLOR, KU_SECONDARY_COLOR]}>
                     <View style={styles.headContainer}>
                         <Text style={styles.logo}>
                             KU 4.0
