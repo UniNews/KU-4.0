@@ -18,6 +18,7 @@ export default StyleSheet.create({
         alignItems: 'stretch',
     },
     listItem: {
-        flex: 1
+        flex: 1,
+        paddingBottom: 3,
     }
 });
