@@ -7,6 +7,7 @@ import PropTypes from 'prop-types';
 import { AlertHelper } from '../../configs/alertHelper';
 import KeyboardSpacer from 'react-native-keyboard-spacer';
 import Button from '../../components/commons/Button'
+import { KU_PRIMARY_COLOR, KU_SECONDARY_COLOR } from '../../assets/css/color'
 
 class LoginView extends React.Component {
 
@@ -48,7 +49,7 @@ class LoginView extends React.Component {
         const { isHide, username, password } = this.state
         const { login, loading } = this.props
         return (
-            <LinearGradient colors={['#465859', '#588E57']} style={styles.container} >
+            <LinearGradient colors={[KU_PRIMARY_COLOR, KU_SECONDARY_COLOR]} style={styles.container} >
                 <View style={styles.logoContainer}>
                     <View style={styles.logoTextContainer}>
                         <Text style={styles.logoText}>KU </Text>
@@ -80,7 +81,7 @@ class LoginView extends React.Component {
                         </TextInput>
                         {this.renderHideIcon()}
                     </View>
-                    <Button rounded customStyle={styles.buttonContainer} disabled={loading} onPress={() => {
+                    <Button rounded style={styles.buttonContainer} disabled={loading} onPress={() => {
                         login(username, password)
                     }}>
                         {this.renderButton()}
