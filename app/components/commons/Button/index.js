@@ -9,22 +9,20 @@ class Button extends Component {
   }
 
   render() {
-    const { children, rounded, outlined, customStyle, ...restProps } = this.props
+    const { children, rounded, outlined, style, ...restProps } = this.props
     let inlineStyle = []
     if (rounded)
       inlineStyle = inlineStyle.concat(styles.roundBorder)
     if (outlined)
       inlineStyle = inlineStyle.concat(styles.outlined)
-    if (customStyle)
-      inlineStyle = inlineStyle.concat(customStyle)
+    if (style)
+      inlineStyle = inlineStyle.concat(style)
     else
       inlineStyle = inlineStyle.concat(styles.defaultStyle)
 
     return (
       <TouchableOpacity style={inlineStyle} {...restProps}>
-        <View>
-          {children}
-        </View>
+        {children}
       </TouchableOpacity>
     )
   }
