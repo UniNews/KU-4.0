@@ -9,7 +9,6 @@ import { PRIMARY_COLOR, SECONDARY_COLOR } from '../../assets/css/color'
 import { Feather, FontAwesome } from '@expo/vector-icons'
 
 class CommentView extends React.Component {
-    isMounted = false
 
     constructor(props) {
         super(props)
@@ -24,19 +23,16 @@ class CommentView extends React.Component {
 
 
     componentWillUnmount() {
-        this._isMounted = false
     }
 
     componentDidMount() {
-        this._isMounted = true
         const newsId = this.props.navigation.state.params.newsId
         newsService.getNewsById(newsId).then(
             (result) => {
-                if (this._isMounted)
-                    this.setState({
-                        comments: result.data.comments,
-                        fetching: false,
-                    })
+                this.setState({
+                    comments: result.data.comments,
+                    fetching: false,
+                })
             }
         )
     }
