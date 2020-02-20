@@ -1,21 +1,21 @@
-import * as types from './actionTypes';
-import service from '../../services/user';
+import * as types from './actionTypes'
+import service from '../../services/user'
 import axios from 'axios'
 
 const userLoading = () => {
-    return { type: types.USER_LOADING };
+    return { type: types.USER_LOADING }
 }
 
 const userOk = (payload) => {
-    return { type: types.USER_OK, payload };
+    return { type: types.USER_OK, payload }
 }
 
 const userFail = () => {
-    return { type: types.USER_FAIL };
+    return { type: types.USER_FAIL }
 }
 
 const logout = () => {
-    return { type: types.LOGOUT };
+    return { type: types.LOGOUT }
 }
 
 export function login(username, password) {
@@ -30,14 +30,36 @@ export function login(username, password) {
             }).catch(err => {
                 dispatch(userFail())
             }
-            );
-    };
+            )
+    }
 }
 
 export function logoutUser() {
     return (dispatch) => {
-        dispatch(userLoading());
+        dispatch(userLoading())
         delete axios.defaults.headers.common['Authorization']
-        dispatch(logout());
-    };
+        dispatch(logout())
+    }
+}
+
+export function loginByFacebook() {
+    return (dispatch) => {
+        dispatch(userLoading())
+        service.loginByFacebook().then((user) => {
+            dispatch(userOk(user))
+        }).catch(err => {
+            dispatch(userFail())
+        })
+    }
+}
+
+export function loginByGoogle() {
+    return (dispatch) => {
+        dispatch(userLoading())
+        service.loginByGoogle().then((user) => {
+            dispatch(userOk(user))
+        }).catch(err => {
+            dispatch(userFail())
+        })
+    }
 }

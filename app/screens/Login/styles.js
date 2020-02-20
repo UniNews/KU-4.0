@@ -7,8 +7,12 @@ export default StyleSheet.create({
     container: {
         flex: 1,
         flexDirection: 'column',
-        justifyContent: 'space-around',
+        justifyContent: 'space-between',
         alignItems: 'center',
+    },
+    innerContainer: {
+        flex: 1,
+        justifyContent: 'space-around'
     },
     logoText: {
         fontSize: 50,
@@ -62,12 +66,11 @@ export default StyleSheet.create({
         fontSize: 17,
         fontFamily: BOLD_FONT
     },
-    policyText: {
-        textAlign: 'center',
-        fontSize: 14,
+    underlineText: {
+        fontSize: 15,
         color: '#FFFFFF',
         textDecorationLine: 'underline',
-        fontFamily: REGULAR_FONT
+        fontFamily: BOLD_FONT
     },
     buttonContainer: {
         width: 200,
@@ -75,5 +78,63 @@ export default StyleSheet.create({
         backgroundColor: '#F0F0F0',
         justifyContent: 'center',
         marginTop: 15,
+    },
+    bottomContainer: {
+        backgroundColor: 'white',
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        width: viewportWidth,
+        padding: 15,
+    },
+    facebookButton: {
+        backgroundColor: '#3b5998',
+        borderRadius: 5,
+        elevation: 3,
+    },
+    facebookContainer: {
+        paddingVertical: 7,
+        width: 130,
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        alignItems: 'center',
+    },
+    facebookText: {
+        color: 'white',
+        fontSize: 15,
+        fontFamily: BOLD_FONT
+    },
+    googleButton: {
+        backgroundColor: '#DB4437',
+        borderRadius: 5,
+        elevation: 3,
+    },
+    googleContainer: {
+        paddingVertical: 7,
+        width: 120,
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        alignItems: 'center',
+    },
+    googleText: {
+        color: 'white',
+        fontSize: 15,
+        fontFamily: BOLD_FONT
+    },
+    bottomText: {
+        color: 'white',
+        fontSize: 15,
+        fontFamily: BOLD_FONT,
+        textAlign: 'center',
+        paddingVertical: 5
+    },
+    regularText: {
+        color: 'white',
+        fontSize: 15,
+        fontFamily: REGULAR_FONT,
+    },
+    registerContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        alignSelf: 'center'
     }
 });
