@@ -24,5 +24,10 @@ export default {
         return axios.post(`${constants.API_URL}/news/${newsId}/comments`, json, {
             headers: { 'Content-Type': 'application/json' }
         })
+    },
+    likeComment: (commentId) => {
+        return axios.post(`${constants.API_URL}/news/${commentId}/like`, {
+            headers: { 'Content-Type': 'application/json' }
+        })
     }
 }
