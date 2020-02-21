@@ -48,40 +48,6 @@ class LatestView extends React.Component {
 
     constructor(props) {
         super(props)
-        this.state = {
-            tags: [
-                {
-                    onFocusIconName: 'comments',
-                    iconName: 'comments-o',
-                    isPressed: false,
-                    text: 'ทั่วไป'
-                },
-                {
-                    onFocusIconName: 'heart',
-                    iconName: 'heart-o',
-                    isPressed: false,
-                    text: 'ความรัก'
-                },
-                {
-                    onFocusIconName: 'heart',
-                    iconName: 'heart-o',
-                    isPressed: false,
-                    text: 'ความรัก'
-                },
-                {
-                    onFocusIconName: 'heart',
-                    iconName: 'heart-o',
-                    isPressed: false,
-                    text: 'ความรัก'
-                },
-            ]
-        }
-    }
-
-    onIconPressed = (index) => {
-        const tags = [...this.state.tags]
-        tags[index] = { ...tags[index], isPressed: !tags[index].isPressed }
-        this.setState({ tags })
     }
 
     onThreadPressed = (newsId) => {
@@ -89,19 +55,8 @@ class LatestView extends React.Component {
     }
 
     render() {
-        const { tags } = this.state
         return (
             <View style={styles.containter}>
-                <ScrollView style={styles.tagContainer} showsHorizontalScrollIndicator={false} horizontal={true}>
-                    {tags.map((tag, index) => {
-                        return (
-                            <Button onPress={() => this.onIconPressed(index)} key={index} style={[styles.tagButton, tag.isPressed ? styles.focusTagButton : styles.notFocusTagButton]} rounded >
-                                <FontAwesome name={tag.isPressed ? tag.onFocusIconName : tag.iconName} size={20} color={tag.isPressed ? 'white' : 'grey'} />
-                                <Text style={[styles.tagText, tag.isPressed ? styles.focusTagText : styles.notFocusTagText]}>{tag.text}</Text>
-                            </Button>
-                        )
-                    })}
-                </ScrollView>
                 <ScrollView contentContainerStyle={styles.threadContainer}>
                     {DATA.map((thread) => {
                         return (
