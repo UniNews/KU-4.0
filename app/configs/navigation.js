@@ -4,6 +4,7 @@ import { createBottomTabNavigator, createMaterialTopTabNavigator } from 'react-n
 import { createStackNavigator } from 'react-navigation-stack'
 import { FontAwesome } from '@expo/vector-icons'
 import NewsTab from '../components/news/NewsTab'
+import CommunityTab from '../components/community/CommunityTab'
 import NotificationScreen from '../screens/Notification/'
 import UserProfileScreen from '../screens/Profile/User'
 import StoreProfileScreen from '../screens/Profile/Store'
@@ -62,7 +63,7 @@ const communityTab = createMaterialTopTabNavigator({
   'ล่าสุด': LatestCommunity,
   'กำลังฮิต': HottestComminity,
 }, {
-  tabBarComponent: NewsTab,
+  tabBarComponent: CommunityTab,
   swipeEnabled: true,
   tabBarOptions: {
     scrollEnabled: true,
