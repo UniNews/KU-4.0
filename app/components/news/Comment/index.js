@@ -84,7 +84,8 @@ Comment.propTypes = {
   createdAt: PropTypes.string,
   text: PropTypes.string,
   like: PropTypes.array,
-  _id: PropTypes.string
+  _id: PropTypes.string,
+  liked: PropTypes.bool
 };
 
 Comment.defaultProps = {
@@ -98,7 +99,8 @@ Comment.defaultProps = {
     like: "",
     profileId: null,
     commentId: null
-  }
+  },
+  liked: false
 };
 
 export default Comment;

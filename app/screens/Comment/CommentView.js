@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import {
   View,
   ScrollView,
@@ -6,14 +6,14 @@ import {
   KeyboardAvoidingView,
   TextInput,
   RefreshControl
-} from "react-native";
-import styles from "./styles";
-import Header from "../../components/commons/Header";
-import Comment from "../../components/news/Comment";
-import StatusBar from "../../components/commons/StatusBar";
-import newsService from "../../services/news";
-import { PRIMARY_COLOR, SECONDARY_COLOR } from "../../assets/css/color";
-import { Feather, FontAwesome } from "@expo/vector-icons";
+} from 'react-native';
+import styles from './styles';
+import Header from '../../components/commons/Header';
+import Comment from '../../components/news/Comment';
+import StatusBar from '../../components/commons/StatusBar';
+import newsService from '../../services/news';
+import { PRIMARY_COLOR, SECONDARY_COLOR } from '../../assets/css/color';
+import { Feather, FontAwesome } from '@expo/vector-icons';
 
 class CommentView extends React.Component {
   constructor(props) {
@@ -21,13 +21,13 @@ class CommentView extends React.Component {
     this.state = {
       comments: [],
       fetching: true,
-      msg: "",
+      msg: '',
       refreshing: false,
       posting: false
     };
   }
 
-  componentWillUnmount() {}
+  componentWillUnmount() { }
 
   componentDidMount() {
     const newsId = this.props.navigation.state.params.newsId;
@@ -77,7 +77,7 @@ class CommentView extends React.Component {
         this.setState({
           comments: result.data.comments,
           posting: false,
-          msg: ""
+          msg: ''
         });
       });
     });
@@ -111,19 +111,19 @@ class CommentView extends React.Component {
       <View style={styles.container}>
         <StatusBar />
         <Header
-          title={"ความคิดเห็น"}
+          title={'ความคิดเห็น'}
           leftIconComponent={
             <Feather
-              color="white"
+              color='white'
               onPress={this.goBack}
               size={28}
-              name={"chevron-left"}
+              name={'chevron-left'}
             />
           }
         />
         <KeyboardAvoidingView
           style={styles.keyboardAvoidContainer}
-          behavior="height"
+          behavior='height'
         >
           {!fetching ? (
             <ScrollView
@@ -148,30 +148,30 @@ class CommentView extends React.Component {
               })}
             </ScrollView>
           ) : (
-            <View style={styles.loader}>
-              <ActivityIndicator color={PRIMARY_COLOR} size="large" />
-            </View>
-          )}
+              <View style={styles.loader}>
+                <ActivityIndicator color={PRIMARY_COLOR} size='large' />
+              </View>
+            )}
           <View style={styles.inputContainer}>
             <TextInput
               editable={!posting}
               onChangeText={text => this.setState({ msg: text })}
               value={msg}
-              placeholderTextColor={"grey"}
+              placeholderTextColor={'grey'}
               style={styles.textInputField}
-              placeholder={"เขียนความคิดเห็น..."}
+              placeholder={'เขียนความคิดเห็น...'}
             />
             {posting ? (
               <ActivityIndicator color={PRIMARY_COLOR} size={25} />
             ) : (
-              <FontAwesome
-                style={this.state.msg === "" ? styles.disableIcon : null}
-                color={PRIMARY_COLOR}
-                size={25}
-                name={"send"}
-                onPress={this.postComment}
-              />
-            )}
+                <FontAwesome
+                  style={this.state.msg === '' ? styles.disableIcon : null}
+                  color={PRIMARY_COLOR}
+                  size={25}
+                  name={'send'}
+                  onPress={this.postComment}
+                />
+              )}
           </View>
         </KeyboardAvoidingView>
       </View>
