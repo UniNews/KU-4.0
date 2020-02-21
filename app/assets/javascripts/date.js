@@ -10,6 +10,7 @@ export function convertTimestamptoDate(timestamp) {
     } else {
         return moments.calendar(null, {
             lastDay: '[เมื่อวาน] HH:mm น.',
+            lastWeek: 'DD ' + monthNamesThai[moments.month()] + ' YYYY | HH:mm น.',
             sameElse: 'DD ' + monthNamesThai[moments.month()] + ' YYYY | HH:mm น.'
         })
     }
