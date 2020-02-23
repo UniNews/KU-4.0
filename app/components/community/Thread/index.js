@@ -38,13 +38,13 @@ class Thread extends Component {
                         <View style={styles.nameContainer}>
                             <Text style={styles.nameText}>
                                 {data.user.displayName}
-                                <Text style={styles.dateText}>
-                                    {` • ${convertTimestamptoDate(data.createdAt)}`}
-                                </Text>
                             </Text>
                             <MaterialCommunityIcons style={styles.icon} name='dots-vertical' size={15} color='black' />
                         </View>
-                        <Text style={styles.title}>
+                        <Text style={styles.dateText}>
+                            {convertTimestamptoDate(data.createdAt)}
+                        </Text>
+                        <Text style={styles.descriptionText}>
                             {data.description}
                         </Text>
                         <View style={styles.bottomContainer}>

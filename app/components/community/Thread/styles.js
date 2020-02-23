@@ -11,15 +11,16 @@ export default StyleSheet.create({
     },
     nameText: {
         color: KU_SECONDARY_COLOR,
-        fontFamily: BOLD_FONT
+        fontFamily: BOLD_FONT,
     },
     dateText: {
         fontFamily: REGULAR_FONT,
         color: 'grey',
+        fontSize: 13,
     },
-    title: {
+    descriptionText: {
+        paddingVertical: 5,
         fontFamily: REGULAR_FONT,
-        fontSize: 14
     },
     innerContainer: {
         margin: 10,
@@ -34,7 +35,7 @@ export default StyleSheet.create({
         flexDirection: 'row',
     },
     iconContainer: {
-        paddingRight: 5,
+        paddingRight: 10,
         alignItems: 'center',
         flexDirection: 'row',
     },
