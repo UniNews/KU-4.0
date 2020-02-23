@@ -10,15 +10,11 @@ class HottestView extends React.Component {
 
 
     componentDidMount() {
-        communityService.getCommunityHottest()
+        communityService.getHottestCommunities()
             .then((res) => {
                 const newsData = res.data
-                let newsArray = []
-                for (const news of newsData) {
-                    newsArray.push(news)
-                }
                 this.setState({
-                    communities: newsArray,
+                    communities: newsData,
                     error: false
                 })
             }).catch((err) => {
@@ -54,8 +50,8 @@ class HottestView extends React.Component {
                     text: 'ความรัก'
                 },
             ],
-            communities:[],
-            error:false
+            communities: [],
+            error: false
         }
     }
 

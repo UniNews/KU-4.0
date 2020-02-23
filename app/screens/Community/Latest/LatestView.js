@@ -10,21 +10,18 @@ class LatestView extends React.Component {
 
 
     componentDidMount() {
-        communityService.getCommunityLatest()
+        communityService.getLatestCommunities()
             .then((res) => {
                 const newsData = res.data
-                let newsArray = []
-                for (const news of newsData) {
-                    newsArray.push(news)
-                }
                 this.setState({
-                    communities: newsArray,
+                    communities: newsData,
                     error: false
                 })
             }).catch((err) => {
                 this.setState({ error: true })
             })
     }
+    
     constructor(props) {
         super(props)
         this.state = {
@@ -54,8 +51,8 @@ class LatestView extends React.Component {
                     text: 'ความรัก'
                 },
             ],
-            communities:[],
-            error:false
+            communities: [],
+            error: false
         }
     }
 
