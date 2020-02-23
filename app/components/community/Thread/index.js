@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity, TouchableWithoutFeedback } from 'react-na
 import { FontAwesome, MaterialCommunityIcons, } from '@expo/vector-icons'
 import styles from './styles'
 import PropTypes from 'prop-types';
+import { convertTimestamptoDate } from '../../../assets/javascripts/date'
 
 class Thread extends Component {
 
@@ -37,13 +38,13 @@ class Thread extends Component {
                         <View style={styles.nameContainer}>
                             <Text style={styles.nameText}>
                                 {data.user.displayName}
-                                <Text style={styles.dateText}>
-                                    {` • ${data.createdAt}`}
-                                </Text>
                             </Text>
                             <MaterialCommunityIcons style={styles.icon} name='dots-vertical' size={15} color='black' />
                         </View>
-                        <Text style={styles.title}>
+                        <Text style={styles.dateText}>
+                            {convertTimestamptoDate(data.createdAt)}
+                        </Text>
+                        <Text style={styles.descriptionText}>
                             {data.description}
                         </Text>
                         <View style={styles.bottomContainer}>
@@ -54,7 +55,7 @@ class Thread extends Component {
                                     <FontAwesome name='heart-o' size={15} color='grey' />
                                 </TouchableOpacity>
                                 <Text style={styles.numberText}>
-                                    {data.likes ? data.likes.length : 0}
+                                    {data.like ? data.like.length : 0}
                                 </Text>
                                 <Text style={styles.indicatorText}>
                                     {` ถูกใจ`}

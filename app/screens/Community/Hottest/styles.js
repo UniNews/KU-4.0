@@ -4,7 +4,7 @@ import { PRIMARY_COLOR } from '../../../assets/css/color';
 
 export default StyleSheet.create({
     containter: {
-        flex: 1,
+        // flex: 1,
     },
     threadContainer: {
         paddingBottom: 10

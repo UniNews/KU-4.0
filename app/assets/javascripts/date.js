@@ -9,8 +9,9 @@ export function convertTimestamptoDate(timestamp) {
         return moments.startOf('hour').fromNow()
     } else {
         return moments.calendar(null, {
-            lastDay: '[เมื่อวาน] HH:mm น.',
-            sameElse: 'DD ' + monthNamesThai[moments.month()] + ' YYYY | HH:mm น.'
+            lastDay: '[เมื่อวาน] HH:mm',
+            lastWeek: 'DD ' + monthNamesThai[moments.month()] + ' เวลา HH:mm',
+            sameElse: 'DD ' + monthNamesThai[moments.month()] + ' เวลา HH:mm'
         })
     }
 }

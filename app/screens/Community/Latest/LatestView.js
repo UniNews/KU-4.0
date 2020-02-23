@@ -4,50 +4,30 @@ import styles from './styles'
 import Button from '../../../components/commons/Button'
 import { FontAwesome } from '@expo/vector-icons'
 import Thread from '../../../components/community/Thread'
-
-const DATA = [
-    {
-        _id: '0',
-        user: {
-            avatarURL: '',
-            displayName: 'Jamie',
-            _id: '0'
-        },
-        description: 'จบแล๊ว~',
-        createdAt: '23 June',
-        likes: [],
-        comments: []
-    },
-    {
-        _id: '1',
-        user: {
-            avatarURL: '',
-            displayName: 'Jamie',
-            _id: '0'
-        },
-        description: 'จบแล้ว',
-        createdAt: '23 June',
-        likes: [],
-        comments: []
-    },
-    {
-        _id: '2',
-        user: {
-            avatarURL: '',
-            displayName: 'Jamie',
-            _id: '0'
-        },
-        description: 'จบแล้ว',
-        createdAt: '23 June',
-        likes: [],
-        comments: []
-    },
-]
+import communityService from '../../../services/communities'
 
 class LatestView extends React.Component {
 
+    componentDidMount() {
+        communityService.getLatestCommunities()
+            .then((res) => {
+                console.log(res.data)
+                const newsData = res.data
+                this.setState({
+                    communities: newsData,
+                    error: false
+                })
+            }).catch((err) => {
+                this.setState({ error: true })
+            })
+    }
+
     constructor(props) {
         super(props)
+        this.state = {
+            communities: [],
+            error: false
+        }
     }
 
     onThreadPressed = (newsId) => {
@@ -55,10 +35,11 @@ class LatestView extends React.Component {
     }
 
     render() {
+        const { communities } = this.state
         return (
             <View style={styles.containter}>
                 <ScrollView contentContainerStyle={styles.threadContainer}>
-                    {DATA.map((thread) => {
+                    {communities.map((thread) => {
                         return (
                             <Thread key={thread._id} data={thread} onThreadPressed={this.onThreadPressed} />
                         )
