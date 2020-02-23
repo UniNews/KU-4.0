@@ -2,10 +2,10 @@ import constants from '../configs/constants';
 import axios from 'axios';
 
 export default {
-    getCommunityLatest: () => {
+    getLatestCommunities: () => {
         return axios.get(`${constants.API_URL}/communities/latest`)
     },
-    getCommunityHottest: () => {
+    getHottestCommunities: () => {
         return axios.get(`${constants.API_URL}/communities/hottest`)
     },
     getPromotionsNews: () => {
