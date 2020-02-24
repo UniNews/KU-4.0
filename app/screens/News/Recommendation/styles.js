@@ -14,10 +14,9 @@ export default StyleSheet.create({
         paddingVertical: 15
     },
     newsCardContainer: {
-        flex: 1,
         width: itemWidth,
         height: slideHeight,
-        paddingHorizontal: itemHorizontalMargin,
+        marginHorizontal: itemHorizontalMargin,
     },
     sectionContainer: {
         paddingTop: wp(3),
