@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, Image, TouchableWithoutFeedback } from 'react-native'
+import { View, Text, Image, TouchableOpacity, TouchableWithoutFeedback } from 'react-native'
 import styles from './styles'
 import PropTypes from 'prop-types';
 import { convertTimestamptoDate } from '../../../assets/javascripts/date'
@@ -29,7 +29,6 @@ class NewsCard extends Component {
             inlineStyle = style
         else
             inlineStyle = styles.cardContainer
-
         return (
             <TouchableWithoutFeedback
                 activeOpacity={1}
@@ -38,39 +37,42 @@ class NewsCard extends Component {
                 }
                 {...restProps}
             >
-                <View style={inlineStyle}
-                >
-
-                    <View style={[styles.imageContainer]}>
-                        <Image
-                            source={{ uri: data.imgUrl }}
-                            style={styles.image}
-                        />
-                    </View>
-                    <View style={[styles.textContainer]}>
-                        <Text
-                            style={[styles.title]}
-                            numberOfLines={2}
-                        >
-                            {data.title}
-                        </Text>
-                        <TouchableWithoutFeedback onPress={() => {
-                            this.onProfilePressedHandler(data.profileId)
-                        }
-                        }>
+                <View style={[inlineStyle, styles.paddingShadow]}>
+                    <View style={styles.shadow} >
+                        <View style={[styles.imageContainer]}>
+                            <Image
+                                source={{ uri: data.imgUrl }}
+                                style={styles.image}
+                            />
+                        </View>
+                        <View style={[styles.textContainer]}>
                             <Text
-                                style={[styles.subtitle]}
+                                style={[styles.title]}
                                 numberOfLines={1}
                             >
-                                {data.user}
-                                <Text style={styles.date}>
-                                    {` • ${convertTimestamptoDate(data.date)}`}
-                                </Text>
+                                {data.title}
                             </Text>
-                        </TouchableWithoutFeedback>
+                            <TouchableOpacity
+                                underlayColor='white'
+                                onPress={() => {
+                                    this.onProfilePressedHandler(data.profileId)
+                                }
+                                }>
+                                <Text
+                                    style={[styles.nameText]}
+                                    numberOfLines={1}
+                                >
+                                    {data.user}
+                                </Text>
+                            </TouchableOpacity>
+                            <Text style={styles.date}>
+                                {convertTimestamptoDate(data.date)}
+                            </Text>
+                        </View>
                     </View>
+
                 </View>
-            </TouchableWithoutFeedback >
+            </TouchableWithoutFeedback>
         )
     }
 }

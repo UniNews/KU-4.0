@@ -1,6 +1,7 @@
 import { StyleSheet, Platform } from 'react-native';
 import { wp, viewportWidth, viewportHeight } from '../../../assets/javascripts/spacing'
 import { BOLD_FONT, REGULAR_FONT } from '../../../assets/css/typography';
+import { KU_SECONDARY_COLOR } from '../../../assets/css/color';
 
 const IS_IOS = Platform.OS === 'ios';
 const cardHeight = viewportHeight * 0.4;
@@ -12,20 +13,16 @@ export default StyleSheet.create({
         width: viewportWidth,
         height: cardHeight,
         paddingHorizontal: cardMargin,
-        paddingVertical: 10
+        paddingVertical: 10,
     },
     imageContainer: {
         flex: 1,
-        marginBottom: IS_IOS ? 0 : -1, // Prevent a random Android rendering issue
-        borderTopLeftRadius: entryBorderRadius,
-        borderTopRightRadius: entryBorderRadius,
     },
     image: {
         ...StyleSheet.absoluteFillObject,
         resizeMode: 'cover',
-        borderRadius: IS_IOS ? entryBorderRadius : 0,
         borderTopLeftRadius: entryBorderRadius,
-        borderTopRightRadius: entryBorderRadius
+        borderTopRightRadius: entryBorderRadius,
     },
     textContainer: {
         paddingTop: entryBorderRadius,
@@ -37,15 +34,28 @@ export default StyleSheet.create({
     },
     title: {
         fontFamily: BOLD_FONT,
-        fontSize: 14,
         letterSpacing: 0.5
     },
-    subtitle: {
-        fontFamily: REGULAR_FONT,
-        marginTop: 6,
-        fontSize: 13,
+    nameText: {
+        fontFamily: BOLD_FONT,
+        color: KU_SECONDARY_COLOR
     },
     date: {
         color: 'grey',
+        fontFamily: REGULAR_FONT,
+        fontSize: 13,
+        marginTop: 3,
+    },
+    paddingShadow: {
+        paddingBottom: 5
+    },
+    shadow: {
+        flex: 1,
+        elevation: 3,
+        backgroundColor: 'white',
+        borderTopLeftRadius: entryBorderRadius,
+        borderTopRightRadius: entryBorderRadius,
+        borderBottomLeftRadius: entryBorderRadius,
+        borderBottomRightRadius: entryBorderRadius,
     }
 });
