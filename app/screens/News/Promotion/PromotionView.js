@@ -50,10 +50,10 @@ class PromotionView extends React.Component {
     render() {
         const { news } = this.state
         return (
-            <ScrollView style={styles.containter}>
+            <ScrollView contentContainerStyle={styles.containter}>
                 {news.map((news) => {
                     return (
-                        <NewsCard style={styles.newsCardContainer} key={news.newsId} onNewsPressed={this.getNews} onProfilePressed={this.getProfile} data={news} />
+                        <NewsCard key={news.newsId} onNewsPressed={this.getNews} onProfilePressed={this.getProfile} data={news} />
                     )
                 })}
             </ScrollView>
