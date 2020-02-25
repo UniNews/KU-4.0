@@ -18,6 +18,22 @@ const logout = () => {
   return { type: types.LOGOUT };
 };
 
+export function register(username, password) {
+    return dispatch => {
+        // dispatch(userLoading());
+        service
+            .register(username, password)
+            .then((res) => {
+                console.log("Success register");
+                // dispatch(userOk(null));
+            })
+            .catch((err) => {
+                console.log("Error register");
+                // dispatch(userFail());
+            })
+    }
+}
+
 export function login(username, password) {
   return dispatch => {
     dispatch(userLoading());
