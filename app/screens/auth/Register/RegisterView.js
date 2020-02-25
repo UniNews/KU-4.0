@@ -71,7 +71,7 @@ class RegisterView extends React.Component {
                                 placeholder='ชื่อผู้ใช้งาน'
                                 placeholderTextColor='white'
                                 onChangeText={(text) => this.setState({ username: text })}
-                                value={this.state.text}>
+                            >
                             </TextInput>
                         </View>
                         <View style={styles.textInputContainer}>
@@ -82,7 +82,7 @@ class RegisterView extends React.Component {
                                 placeholderTextColor='white'
                                 secureTextEntry={isHide}
                                 onChangeText={(text) => this.setState({ password: text })}
-                                value={this.state.text}>
+                            >
                             </TextInput>
                             {this.renderHideIcon()}
                         </View>
@@ -95,7 +95,7 @@ class RegisterView extends React.Component {
                                 placeholderTextColor='white'
                                 secureTextEntry={isHide}
                                 onChangeText={(text) => this.setState({ password: text })}
-                                value={this.state.text}>
+                            >
                             </TextInput>
                         </View>
                         <Button rounded style={styles.buttonContainer} disabled={loading} onPress={() => {
