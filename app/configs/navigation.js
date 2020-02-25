@@ -12,7 +12,8 @@ import ClubScreen from '../screens/News/Club/'
 import UniversityScreen from '../screens/News/University/'
 import RecommendationScreen from '../screens/News/Recommendation/'
 import PromotionScreen from '../screens/News/Promotion/'
-import LoginScreen from '../screens/Login/'
+import LoginScreen from '../screens/auth/Login/'
+import RegisterScreen from '../screens/auth/Register/'
 import NewsDetailScreen from '../screens/Detail'
 import CommunityDetailScreen from '../screens/Community/Detail'
 import { PRIMARY_COLOR, SECONDARY_COLOR } from '../assets/css/color'
@@ -122,16 +123,16 @@ const TabNavigator = createBottomTabNavigator({
           iconName = 'home'
           size = 28
         } else if (routeName === 'พูดคุย') {
-          iconName = 'calendar'
-          size = 23
+          iconName = 'comments'
+          size = 27
         }
         else if (routeName === 'แจ้งเตือน') {
           iconName = 'bell'
-          size = 23
+          size = 22
         }
         else if (routeName === 'โปรไฟล์') {
           iconName = 'user'
-          size = 27
+          size = 26
         }
         return <IconComponent name={iconName} size={size} color={tintColor} />
       },
@@ -153,9 +154,9 @@ const AuthStack = createStackNavigator({
   Login: {
     screen: LoginScreen
   },
-  // Policy: {
-  //   screen: PolicyScreen
-  // }
+  Register: {
+    screen: RegisterScreen
+  }
 }, {
   initialRouteName: 'Login',
   headerMode: 'none',
