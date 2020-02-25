@@ -4,10 +4,10 @@ import * as Facebook from 'expo-facebook'
 import * as Google from 'expo-google-app-auth'
 
 export default {
-    login: (username, password) => {
+    login: (email, password) => {
         const json = {
             grant_type: 'password',
-            username: username,
+            email: email,
             password: password
         }
         return axios.post(`${constants.API_URL}/token`, json, {
