@@ -14,6 +14,10 @@ export default {
             headers: { 'Content-Type': 'application/json' }
         })
     },
+    register: (email, password) => {
+        console.log("---Log from register in user.js service---");
+        // Call service for register
+    },
     getProfile: () => {
         return axios.get(`${constants.API_URL}/profile`)
     },
