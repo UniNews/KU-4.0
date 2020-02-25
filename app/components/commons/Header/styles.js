@@ -12,15 +12,15 @@ export default StyleSheet.create({
         fontSize: 20,
         color: 'white',
         textAlign: 'center',
-        flex: 1,
     },
     left: {
         textAlign: 'left',
         position: 'absolute',
-        zIndex:1
+        zIndex: 1
     },
     right: {
         textAlign: 'right',
-        position: 'absolute'
+        position: 'absolute',
+        zIndex: 1
     }
 });
