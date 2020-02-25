@@ -48,7 +48,7 @@ class StoreProfileView extends React.Component {
                     source={{ uri: 'https://lh4.googleusercontent.com/proxy/ZYuIbIo6tgvt8h5IS-gX4wHFOYfIruWTkJKjvRflWKXFlVP5t4Vk0ofvYmimYlxfUG2sVSzOeIcwwfc61i8HlS2vug-R-sewwgdbqpI1zao0lDYC-LDeJNojlFFL' }}>
                     <LinearGradient colors={['rgba(0,0,0,0)', 'rgba(0,0,0,0.4)']} style={styles.profileInfoContainer}>
                         <Image
-                            source={{ uri: this.state.user ? this.state.user.avatarURl : 'https://scontent.fbkk22-2.fna.fbcdn.net/v/t1.0-9/11914947_628986903870394_7886924598746503503_n.jpg?_nc_cat=109&_nc_oc=AQkdDLwzEglbB6WwJS7sOgMFIkLoiHO8Ge4xBiFU5-vqrwuktU5koS9bC4UVGnzNApM&_nc_ht=scontent.fbkk22-2.fna&oh=25eeb22f8a3da030c7aad542c3c8ef0e&oe=5ED92CF1' }}
+                            source={{ uri: this.state.user ? this.state.user.avatarURL : 'https://scontent.fbkk22-2.fna.fbcdn.net/v/t1.0-9/11914947_628986903870394_7886924598746503503_n.jpg?_nc_cat=109&_nc_oc=AQkdDLwzEglbB6WwJS7sOgMFIkLoiHO8Ge4xBiFU5-vqrwuktU5koS9bC4UVGnzNApM&_nc_ht=scontent.fbkk22-2.fna&oh=25eeb22f8a3da030c7aad542c3c8ef0e&oe=5ED92CF1' }}
                             style={styles.avatar}
                         />
                         <Button customStyle={following ? styles.followingButtonContainer : styles.notFollowingButtonContainer} rounded onPress={() => this.setState({ following: !following })}>

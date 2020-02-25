@@ -17,10 +17,10 @@ class DetailView extends React.Component {
         this.state = {
             news: {
                 imageURL: [],
-                avatarURl: '',
+                avatarURL: '',
                 user: {
                     displayName: '',
-                    avatarURl: null
+                    avatarURL: null
                 },
                 title: '',
                 createdAt: '',
@@ -79,7 +79,7 @@ class DetailView extends React.Component {
                                     <TouchableWithoutFeedback onPress={this.getProfile}>
                                         <Image
                                             style={styles.imageAvatar}
-                                            source={{ uri: news.user.avatarURl }}
+                                            source={{ uri: news.user.avatarURL }}
                                         />
                                     </TouchableWithoutFeedback>
                                     <View style={styles.innerTitleContainer}>

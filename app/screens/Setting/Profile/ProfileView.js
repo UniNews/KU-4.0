@@ -30,7 +30,7 @@ class ProfileSettingView extends React.Component {
                             แก้ไขโปรไฟล์
                             </Text>
                         <Image
-                            source={{ uri: this.props.user.avatarURl }}
+                            source={{ uri: this.props.user.avatarURL }}
                             style={styles.avatar}
                         />
                     </LinearGradient>

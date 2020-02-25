@@ -34,7 +34,7 @@ class UserProfileView extends React.Component {
                     <LinearGradient style={styles.linearGradient} start={{ x: 0, y: 0 }} end={{ x: 0, y: 0.8 }} colors={['#465859', '#588E57']}>
                         <View style={styles.innerHeadContainer}>
                             <Image
-                                source={{ uri: this.props.user.avatarURl }}
+                                source={{ uri: this.props.user.avatarURL }}
                                 style={styles.avatar}
                             />
                             <Text style={styles.name}>
