@@ -34,7 +34,7 @@ class Comment extends Component {
         <TouchableWithoutFeedback onPress={this.onProfilePressedHandler}>
           <Image
             style={styles.imageAvatar}
-            source={{ uri: data.user.avatarURl }}
+            source={{ uri: data.user.avatarURL }}
           />
         </TouchableWithoutFeedback>
         <View style={styles.gapComment}>
@@ -74,7 +74,7 @@ class Comment extends Component {
 Comment.propTypes = {
   data: PropTypes.shape({
     user: PropTypes.shape({
-      avatarURl: PropTypes.string,
+      avatarURL: PropTypes.string,
       displayName: PropTypes.string,
       _id: PropTypes.string
     })
@@ -91,7 +91,7 @@ Comment.propTypes = {
 Comment.defaultProps = {
   data: {
     user: {
-      avatarURl: null,
+      avatarURL: null,
       displayName: ""
     },
     createdAt: "",

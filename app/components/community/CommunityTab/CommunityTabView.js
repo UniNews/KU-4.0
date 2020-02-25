@@ -67,7 +67,7 @@ class CommunityTabView extends React.Component {
                 <LinearGradient start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} colors={[KU_PRIMARY_COLOR, KU_SECONDARY_COLOR]}>
                     <View style={styles.headContainer}>
                         <Text style={styles.logo}>
-                            KU 4.0
+                            UniNews
                     </Text>
                         <FontAwesome name="search" color="white" size={21} />
                     </View>

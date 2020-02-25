@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native';
 import { REGULAR_FONT, BOLD_FONT } from '../../../assets/css/typography'
+import { KU_SECONDARY_COLOR } from '../../../assets/css/color';
 
 export default StyleSheet.create({
     container: {
@@ -21,7 +22,7 @@ export default StyleSheet.create({
         // borderRadius: 70 / 2,
     },
     profileNameText: {
-        fontSize: 15,
+        color: KU_SECONDARY_COLOR,
         paddingHorizontal: 20,
         fontFamily: BOLD_FONT
     },
@@ -31,9 +32,9 @@ export default StyleSheet.create({
     description: {
         paddingHorizontal: 20,
         fontFamily: REGULAR_FONT,
-        fontSize: 14,
     },
     date: {
         color: 'grey',
+        fontSize: 13
     }
 });
