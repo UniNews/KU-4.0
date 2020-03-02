@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
-import { BOLD_FONT, REGULAR_FONT } from '../../assets/css/typography'
-import { wp } from '../../assets/javascripts/spacing'
+import { BOLD_FONT, REGULAR_FONT } from '../../../assets/css/typography'
+import { wp } from '../../../assets/javascripts/spacing'
 
 export default StyleSheet.create({
     container: {

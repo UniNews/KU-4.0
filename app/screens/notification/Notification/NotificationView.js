@@ -1,9 +1,9 @@
 import React from 'react'
 import { View } from 'react-native'
 import styles from './styles'
-import Header from '../../components/commons/Header'
-import NotificationItem from '../../components/notification/NotificationItem'
-import StatusBar from '../../components/commons/StatusBar'
+import Header from '../../../components/commons/Header'
+import NotificationItem from '../../../components/notification/NotificationItem'
+import StatusBar from '../../../components/commons/StatusBar'
 
 const notifications = [
     {

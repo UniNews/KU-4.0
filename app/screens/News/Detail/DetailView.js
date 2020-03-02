@@ -3,12 +3,12 @@ import { Text, View, ImageBackground, Image, Linking, ScrollView, TouchableOpaci
 import styles from './styles'
 import Hyperlink from 'react-native-hyperlink'
 import { FontAwesome, Feather } from '@expo/vector-icons'
-import Hr from '../../components/commons/Hr'
-import Header from '../../components/commons/Header'
-import StatusBar from '../../components/commons/StatusBar'
-import newsService from '../../services/news'
-import { convertTimestamptoDate } from '../../assets/javascripts/date'
-import { PRIMARY_COLOR } from '../../assets/css/color'
+import Hr from '../../../components/commons/Hr'
+import Header from '../../../components/commons/Header'
+import StatusBar from '../../../components/commons/StatusBar'
+import newsService from '../../../services/news'
+import { convertTimestamptoDate } from '../../../assets/javascripts/date'
+import { PRIMARY_COLOR } from '../../../assets/css/color'
 
 class DetailView extends React.Component {
 

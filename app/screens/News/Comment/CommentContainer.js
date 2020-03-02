@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import CommentView from './CommentView';
-import { login } from '../../reducers/UserReducer/actions';
+import { login } from '../../../reducers/UserReducer/actions';
 
 const mapStateToProps = state => {
     return {

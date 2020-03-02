@@ -8,11 +8,11 @@ import {
   RefreshControl
 } from 'react-native';
 import styles from './styles';
-import Header from '../../components/commons/Header';
-import Comment from '../../components/news/Comment';
-import StatusBar from '../../components/commons/StatusBar';
-import newsService from '../../services/news';
-import { PRIMARY_COLOR, SECONDARY_COLOR } from '../../assets/css/color';
+import Header from '../../../components/commons/Header';
+import Comment from '../../../components/news/Comment';
+import StatusBar from '../../../components/commons/StatusBar';
+import newsService from '../../../services/news';
+import { PRIMARY_COLOR, SECONDARY_COLOR } from '../../../assets/css/color';
 import { Feather, FontAwesome } from '@expo/vector-icons';
 
 class CommentView extends React.Component {
