@@ -60,7 +60,7 @@ class UniversityView extends React.Component {
         const { news } = this.state
         return (
             <ScrollView contentContainerStyle={styles.containter}>
-                <SectionHeader style={{ margin: 10 }} title={'กำลังฮิต'} />
+                <SectionHeader style={{ margin: 10 }} title={'กำลังฮิต'} subtitle={'เพิ่มเติม'} />
                 <SliderBox
                     sliderBoxHeight={200}
                     data={images}
@@ -68,11 +68,11 @@ class UniversityView extends React.Component {
                         this.props.navigation.navigate('Detail', { id })
                     }
                 />
-                <SectionHeader style={{ margin: 10 }} title={'ข่าวล่าสุด'} />
+                <SectionHeader style={{ margin: 10 }} title={'ข่าวล่าสุด'} subtitle={'เพิ่มเติม'} />
                 {news.map((news, index, newsArray) => {
                     return (
-                        <View style={index != 0 ? { marginTop: 10, backgroundColor: 'white' } : { backgroundColor: 'white' }}>
-                            <NewsCard key={news.newsId} onNewsPressed={this.getNews} onProfilePressed={this.getProfile} data={news} />
+                        <View key={news.newsId} style={index != 0 ? { marginTop: 10, backgroundColor: 'white' } : { backgroundColor: 'white' }}>
+                            <NewsCard onNewsPressed={this.getNews} onProfilePressed={this.getProfile} data={news} />
                         </View>
                     )
                 })}

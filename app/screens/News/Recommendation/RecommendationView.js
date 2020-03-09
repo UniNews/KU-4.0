@@ -66,13 +66,17 @@ class RecommendationView extends React.Component {
 
         return (
             <ScrollView style={styles.containter}>
-                <SliderBox
-                    sliderBoxHeight={200}
-                    data={images}
-                    onPressed={id =>
-                        this.props.navigation.navigate('Detail', { id })
-                    }
-                />
+                <SectionHeader style={styles.sectionContainer} title={'โฆษณา'} subtitle={'เพิ่มเติม'} />
+                <View style={{ paddingVertical: 15 }} >
+                    <SliderBox
+                        sliderBoxHeight={200}
+                        data={images}
+                        onPressed={id =>
+                            this.props.navigation.navigate('Detail', { id })
+                        }
+                    />
+                </View>
+                <Hr />
                 <View style={styles.sectionContainer}>
                     <SectionHeader title={'กิจกรรมใกล้ๆคุณ'} subtitle={'เพิ่มเติม'} />
                     <ScrollView style={styles.newsScrollView} showsHorizontalScrollIndicator={false} horizontal={true}>
