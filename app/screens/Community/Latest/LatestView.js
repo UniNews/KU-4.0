@@ -1,8 +1,6 @@
 import React from 'react'
-import { Text, View, ScrollView } from 'react-native'
+import { View, ScrollView } from 'react-native'
 import styles from './styles'
-import Button from '../../../components/commons/Button'
-import { FontAwesome } from '@expo/vector-icons'
 import Thread from '../../../components/community/Thread'
 import communityService from '../../../services/communities'
 
@@ -39,7 +37,7 @@ class LatestView extends React.Component {
         return (
             <View style={styles.containter}>
                 <ScrollView contentContainerStyle={styles.threadContainer}>
-                    {communities.map((thread) => {
+                    {communities.map((thread, index, array) => {
                         return (
                             <Thread key={thread._id} data={thread} onThreadPressed={this.onThreadPressed} />
                         )
