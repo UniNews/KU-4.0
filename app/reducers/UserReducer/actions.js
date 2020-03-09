@@ -19,17 +19,19 @@ const logout = () => {
 };
 
 export function register(username, password) {
-    return dispatch => {
-        // dispatch(userLoading());
-        service
+    return async dispatch => {
+        await service
             .register(username, password)
-            .then((res) => {
-                console.log("Success register");
-                // dispatch(userOk(null));
+            .then(async (res) => {
+                const user = res.data;
+                axios.defaults.headers.common[
+                  "Authorization"
+                ] = `Bearer ${user.access_token}`;
+                const payload = await service.getProfile();
+                dispatch(userOk(payload.data.result));
             })
             .catch((err) => {
-                console.log("Error register");
-                // dispatch(userFail());
+              dispatch( userFail() )
             })
     }
 }
