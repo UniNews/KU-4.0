@@ -50,7 +50,7 @@ class RegisterView extends React.Component {
             : <Text style={styles.textButton}>ลงทะเบียน</Text>
     }
 
-    passwordMatch(password, passwordConfirm) {
+    isPasswordMatch(password, passwordConfirm) {
         return (password === passwordConfirm)
     }
 
@@ -104,7 +104,7 @@ class RegisterView extends React.Component {
                             </TextInput>
                         </View>
                         <Button rounded style={styles.buttonContainer} disabled={loading} onPress={() => {
-                            if(this.passwordMatch(password, passwordConfirm)) register(username, password)
+                            if(this.isPasswordMatch(password, passwordConfirm)) register(username, password)
                             else AlertHelper.alert('error', 'เกิดข้อผิดพลาด', 'รหัสผ่านไม่ตรงกัน')
                         }}>
                             {this.renderButton()}
