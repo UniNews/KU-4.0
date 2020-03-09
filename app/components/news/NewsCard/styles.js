@@ -57,5 +57,7 @@ export default StyleSheet.create({
         borderTopRightRadius: entryBorderRadius,
         borderBottomLeftRadius: entryBorderRadius,
         borderBottomRightRadius: entryBorderRadius,
+        borderWidth: 0.5,
+        borderColor: 'grey'
     }
 });
