@@ -5,8 +5,8 @@ import { BOLD_FONT, REGULAR_FONT } from '../../../assets/css/typography'
 export default StyleSheet.create({
     container: {
         marginTop: 10,
-        marginHorizontal: 10,
-        borderRadius: 10,
+        // marginHorizontal: 10,
+        // borderRadius: 10,
         backgroundColor: 'white',
     },
     nameText: {
@@ -23,7 +23,8 @@ export default StyleSheet.create({
         fontFamily: REGULAR_FONT,
     },
     innerContainer: {
-        margin: 10,
+        marginVertical: 10,
+        marginHorizontal: 15,
         backgroundColor: 'white',
     },
     nameContainer: {
