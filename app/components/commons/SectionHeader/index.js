@@ -17,14 +17,18 @@ class SectionHeader extends Component {
   }
 
   render() {
-    const { subtitle, title } = this.props
-    return <TouchableOpacity onPress={() => this.onPressedHandler()}>
+    const { subtitle, title, style } = this.props
+    return <TouchableOpacity style={style} onPress={() => this.onPressedHandler()}>
       <View style={styles.container}>
         <Text style={styles.title}>{title}</Text>
-        <View style={styles.iconContainer}>
-          <Text style={styles.subtitle}>{subtitle} </Text>
-          <Feather name={'chevron-right'} size={22} color={'gray'} />
-        </View>
+        {
+          subtitle ?
+            <View style={styles.iconContainer}>
+              <Text style={styles.subtitle}>{subtitle} </Text>
+              <Feather name={'chevron-right'} size={22} color={'gray'} />
+            </View>
+            : null
+        }
       </View >
       {this.props.children}
     </TouchableOpacity>
@@ -33,7 +37,7 @@ class SectionHeader extends Component {
 
 SectionHeader.propTypes = {
   title: PropTypes.string.isRequired,
-  subtitle: PropTypes.string.isRequired,
+  subtitle: PropTypes.string,
   onPressed: PropTypes.func,
 };
 
