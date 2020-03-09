@@ -20,6 +20,6 @@ export default StyleSheet.create({
     },
     sectionContainer: {
         paddingTop: wp(3),
-        paddingHorizontal: wp(2)
+        paddingHorizontal: wp(2),
     },
 });
