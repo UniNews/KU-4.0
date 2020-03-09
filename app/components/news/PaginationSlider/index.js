@@ -88,8 +88,6 @@ class SliderBox extends Component {
       <View>
         <Carousel
           layout={'default'}
-          borderTopLeftRadius={2}
-          borderTopRightRadius={2}
           data={data}
           ref={c => (this._ref = c)}
           loop={circleLoop || true}
