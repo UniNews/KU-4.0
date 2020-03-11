@@ -16,7 +16,7 @@ export default StyleSheet.create({
     newsCardContainer: {
         width: itemWidth,
         height: slideHeight,
-        marginHorizontal: itemHorizontalMargin,
+        marginRight: itemHorizontalMargin,
     },
     sectionContainer: {
         paddingTop: wp(3),

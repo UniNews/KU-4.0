@@ -78,25 +78,27 @@ class RecommendationView extends React.Component {
                 </View>
                 <Hr />
                 <View style={styles.sectionContainer}>
-                    <SectionHeader title={'กิจกรรมใกล้ๆคุณ'} subtitle={'เพิ่มเติม'} />
-                    <ScrollView style={styles.newsScrollView} showsHorizontalScrollIndicator={false} horizontal={true}>
-                        {ENTRIES1.map((news) => {
-                            return (
-                                <NewsCard style={styles.newsCardContainer} key={news.newsId} onNewsPressed={this.getNews} onProfilePressed={this.getProfile} data={news} />
-                            )
-                        })}
-                    </ScrollView>
+                    <SectionHeader title={'กิจกรรมใกล้ๆคุณ'} subtitle={'เพิ่มเติม'}>
+                        <ScrollView style={styles.newsScrollView} showsHorizontalScrollIndicator={false} horizontal={true}>
+                            {ENTRIES1.map((news) => {
+                                return (
+                                    <NewsCard style={styles.newsCardContainer} key={news.newsId} onNewsPressed={this.getNews} onProfilePressed={this.getProfile} data={news} />
+                                )
+                            })}
+                        </ScrollView>
+                    </SectionHeader>
                 </View>
                 <Hr />
                 <View style={styles.sectionContainer}>
-                    <SectionHeader title={'ข่าวยอดนิยม'} subtitle={'เพิ่มเติม'} />
-                    <ScrollView style={styles.newsScrollView} showsHorizontalScrollIndicator={false} horizontal={true}>
-                        {ENTRIES2.map((news) => {
-                            return (
-                                <NewsCard style={styles.newsCardContainer} key={news.newsId} onNewsPressed={this.getNews} onProfilePressed={this.getProfile} data={news} />
-                            )
-                        })}
-                    </ScrollView>
+                    <SectionHeader title={'ข่าวยอดนิยม'} subtitle={'เพิ่มเติม'}>
+                        <ScrollView style={styles.newsScrollView} showsHorizontalScrollIndicator={false} horizontal={true}>
+                            {ENTRIES2.map((news) => {
+                                return (
+                                    <NewsCard style={styles.newsCardContainer} key={news.newsId} onNewsPressed={this.getNews} onProfilePressed={this.getProfile} data={news} />
+                                )
+                            })}
+                        </ScrollView>
+                    </SectionHeader>
                 </View>
                 <Hr />
                 <View style={styles.sectionContainer}>
