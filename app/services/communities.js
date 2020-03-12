@@ -2,6 +2,9 @@ import constants from '../configs/constants';
 import axios from 'axios';
 
 export default {
+    getCommunitiesById: (id) => {
+        return axios.get(`${constants.API_URL}/communities/${id}`)
+    },
     getLatestCommunities: () => {
         return axios.get(`${constants.API_URL}/communities/latest`)
     },

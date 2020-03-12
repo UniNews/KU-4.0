@@ -6,11 +6,32 @@ import Header from '../../../components/commons/Header'
 import Hr from '../../../components/commons/Hr'
 import { FontAwesome, Feather, MaterialCommunityIcons } from '@expo/vector-icons'
 import Button from '../../../components/commons/Button'
+import { convertTimestamptoDate } from '../../../assets/javascripts/date'
+import communityService from '../../../services/communities'
 
 class DetailView extends React.Component {
 
     constructor(props) {
         super(props);
+        this.state = {
+            community: {},
+            error: false
+        }
+    }
+
+    componentDidMount() {
+        const newsId = this.props.navigation.state.params.newsId
+        communityService.getCommunitiesById(newsId)
+            .then((res) => {
+                console.log(res.data)
+                const newsData = res.data
+                this.setState({
+                    community: newsData,
+                    error: false
+                })
+            }).catch((err) => {
+                this.setState({ error: true })
+            })
     }
 
     goBack = () => {
@@ -18,7 +39,58 @@ class DetailView extends React.Component {
         navigation.goBack()
     }
 
+    communityComments() {
+        var rows = []
+        if(this.state.community.comments!==undefined)
+            for (var i = 0; i < this.state.community.comments; i++) {
+                rows.push(
+                    <View style={styles.commentContainer}>
+                        <View style={styles.commentTitleContainer}>
+                            <View style={styles.commentInfoContainer}>
+                                <View>
+                                    <TouchableWithoutFeedback>
+                                        <Image
+                                            style={styles.imageAvatar}
+                                            source={{ uri: 'https://scontent.fbkk2-7.fna.fbcdn.net/v/t1.0-9/67403030_876083589433461_6633716974541078528_o.jpg?_nc_cat=109&_nc_oc=AQkgR8USRZDXbn_dpp8Ap6TQs-dxWgmt4v_Jy2NM8LRgy0Sk5cfmyJCqHeA7XglVnD8&_nc_ht=scontent.fbkk2-7.fna&oh=6f3e09abf1be1b2b210715b6bb8ac2c9&oe=5EFA3E15' }}
+                                        />
+                                    </TouchableWithoutFeedback>
+                                </View>
+                                <View style={styles.gapTitleText}>
+                                    <Text style={styles.userText}>
+                                        เจมมี่
+                                </Text>
+                                    <Text style={styles.dateText}>
+                                        23 มิถุนายน 2020
+                                </Text>
+                                    <Text style={styles.commentText}>
+                                        เรื่องราวดีๆที่อยากแบ่งปัน ถ้าเลือกคนขับได้ก็คงจะดีนะ (เฉพาะผู้พิการที่ไม่เป็นอันตรายในการขับขี่รถ) เค้าด้อยโอกาสกว่าเราๆอีก
+                                </Text>
+                                    <View style={styles.commentIconContainer}>
+                                        <TouchableOpacity style={styles.textIconContainer}>
+                                            <FontAwesome name='heart-o' size={15} color='grey' />
+                                            <View style={styles.iconTextContainer}>
+                                                <Text style={styles.numberText}>
+                                                    {`23 `}
+                                                </Text>
+                                                <Text style={styles.indicatorText}>
+                                                    ถูกใจ
+                                        </Text>
+                                            </View>
+                                        </TouchableOpacity>
+                                    </View>
+                                </View>
+                            </View>
+                            <MaterialCommunityIcons style={styles.icon} name='dots-vertical' size={15} color='black' />
+                        </View>
+                    </View>
+                );
+            }
+        return (
+            rows
+        )
+    }
     render() {
+        const { community } = this.state
         return (
             <View style={styles.containter}>
                 <StatusBar />
@@ -36,16 +108,16 @@ class DetailView extends React.Component {
                                     <TouchableWithoutFeedback>
                                         <Image
                                             style={styles.imageAvatar}
-                                            source={{ uri: 'https://scontent.fbkk2-7.fna.fbcdn.net/v/t1.0-9/67403030_876083589433461_6633716974541078528_o.jpg?_nc_cat=109&_nc_oc=AQkgR8USRZDXbn_dpp8Ap6TQs-dxWgmt4v_Jy2NM8LRgy0Sk5cfmyJCqHeA7XglVnD8&_nc_ht=scontent.fbkk2-7.fna&oh=6f3e09abf1be1b2b210715b6bb8ac2c9&oe=5EFA3E15' }}
+                                            source={{ uri: community.user ? community.user.avatarURL : null }}
                                         />
                                     </TouchableWithoutFeedback>
                                     <View style={styles.gapTitleText}>
                                         <Text style={styles.userText}>
-                                            เจมมี่
-                            </Text>
+                                            {community.user ? community.user.displayName : null}
+                                        </Text>
                                         <Text style={styles.dateText}>
-                                            23 มิถุนายน 2020
-                            </Text>
+                                            {convertTimestamptoDate(community.createdAt)}
+                                        </Text>
                                     </View>
                                 </View>
                                 <MaterialCommunityIcons style={styles.icon} name='dots-vertical' size={15} color='black' />
@@ -53,19 +125,19 @@ class DetailView extends React.Component {
                         </View>
                         <View style={styles.descriptionContainer}>
                             <Text style={styles.descriptionText}>
-                                เรื่องราวดีๆที่อยากแบ่งปัน ถ้าเลือกคนขับได้ก็คงจะดีนะ (เฉพาะผู้พิการที่ไม่เป็นอันตรายในการขับขี่รถ) เค้าด้อยโอกาสกว่าเราๆอีก
-                    </Text>
+                                {community.description}
+                            </Text>
                         </View>
                         <View style={styles.iconContainer}>
                             <TouchableOpacity style={styles.textIconContainer}>
                                 <FontAwesome name='heart-o' size={15} color='grey' />
                                 <View style={styles.iconTextContainer}>
                                     <Text style={styles.numberText}>
-                                        {`23 `}
+                                        {`${community.like ? community.like.length : 0} `}
                                     </Text>
                                     <Text style={styles.indicatorText}>
                                         ถูกใจ
-                                            </Text>
+                                    </Text>
                                 </View>
                             </TouchableOpacity>
                             <TouchableOpacity
@@ -73,58 +145,20 @@ class DetailView extends React.Component {
                                 <FontAwesome name='commenting-o' size={18} color='grey' />
                                 <View style={styles.iconTextContainer}>
                                     <Text style={styles.numberText}>
-                                        {`23 `}
+                                        {`${community.comments ? community.comments.length : 0} `}
                                     </Text>
                                     <Text style={styles.indicatorText}>
                                         ความเห็น
-                            </Text>
+                                    </Text>
                                 </View>
                             </TouchableOpacity>
                         </View>
                         <Hr />
                         <Text style={styles.descriptionHeaderText}>
-                            ความคิดเห็น (2)
-                </Text>
+                            {`ความคิดเห็น (${community.comment ? community.comment.length : 0})`}
+                        </Text>
 
-                        <View style={styles.commentContainer}>
-                            <View style={styles.commentTitleContainer}>
-                                <View style={styles.commentInfoContainer}>
-                                    <View>
-                                        <TouchableWithoutFeedback>
-                                            <Image
-                                                style={styles.imageAvatar}
-                                                source={{ uri: 'https://scontent.fbkk2-7.fna.fbcdn.net/v/t1.0-9/67403030_876083589433461_6633716974541078528_o.jpg?_nc_cat=109&_nc_oc=AQkgR8USRZDXbn_dpp8Ap6TQs-dxWgmt4v_Jy2NM8LRgy0Sk5cfmyJCqHeA7XglVnD8&_nc_ht=scontent.fbkk2-7.fna&oh=6f3e09abf1be1b2b210715b6bb8ac2c9&oe=5EFA3E15' }}
-                                            />
-                                        </TouchableWithoutFeedback>
-                                    </View>
-                                    <View style={styles.gapTitleText}>
-                                        <Text style={styles.userText}>
-                                            เจมมี่
-                                </Text>
-                                        <Text style={styles.dateText}>
-                                            23 มิถุนายน 2020
-                                </Text>
-                                        <Text style={styles.commentText}>
-                                            เรื่องราวดีๆที่อยากแบ่งปัน ถ้าเลือกคนขับได้ก็คงจะดีนะ (เฉพาะผู้พิการที่ไม่เป็นอันตรายในการขับขี่รถ) เค้าด้อยโอกาสกว่าเราๆอีก
-                                </Text>
-                                        <View style={styles.commentIconContainer}>
-                                            <TouchableOpacity style={styles.textIconContainer}>
-                                                <FontAwesome name='heart-o' size={15} color='grey' />
-                                                <View style={styles.iconTextContainer}>
-                                                    <Text style={styles.numberText}>
-                                                        {`23 `}
-                                                    </Text>
-                                                    <Text style={styles.indicatorText}>
-                                                        ถูกใจ
-                                            </Text>
-                                                </View>
-                                            </TouchableOpacity>
-                                        </View>
-                                    </View>
-                                </View>
-                                <MaterialCommunityIcons style={styles.icon} name='dots-vertical' size={15} color='black' />
-                            </View>
-                        </View>
+                        {this.communityComments()}
                     </ScrollView>
                     <View style={styles.inputContainer}>
                         <TextInput

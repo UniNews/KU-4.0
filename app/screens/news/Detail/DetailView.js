@@ -111,7 +111,7 @@ class DetailView extends React.Component {
                                 <View>
                                     <Text style={styles.descriptionHeaderText}>
                                         รายละเอียด
-                    </Text>
+                                    </Text>
                                     <Hyperlink style={{ paddingBottom: 100 }} linkStyle={{ textDecorationLine: 'underline', color: 'green', fontFamily: 'Kanit-Regular' }} onPress={(url, text) => Linking.openURL(url)}>
                                         <Text style={styles.newsInfoText}>
                                             {news.description}
