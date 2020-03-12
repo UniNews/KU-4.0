@@ -56,5 +56,15 @@ export default {
         else {
             return Promise.reject('Cancel by user')
         }
+    },
+    registerUserAuth: async(displayName,loginType,collectedId) => {
+        const json = {
+            displayName: displayName,
+            loginType: loginType,
+            collectedId: collectedId
+        }
+        return axios.post(`${constants.API_URL}/register`, json, {
+            headers: { 'Content-Type': 'application/json' }
+        })
     }
 }

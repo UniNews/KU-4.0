@@ -51,6 +51,7 @@ export function loginByFacebook() {
     service
       .loginByFacebook()
       .then(user => {
+        service.registerUserAuth(user.name,'facebook',user.id)
         dispatch(userOk(user));
       })
       .catch(err => {
@@ -65,6 +66,7 @@ export function loginByGoogle() {
     service
       .loginByGoogle()
       .then(user => {
+        service.registerUserAuth(user.name,'google',user.id)
         dispatch(userOk(user));
       })
       .catch(err => {
