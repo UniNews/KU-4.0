@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native';
 import { REGULAR_FONT, BOLD_FONT } from '../../../assets/css/typography';
-import { PRIMARY_COLOR, SECONDARY_COLOR, KU_SECONDARY_COLOR } from '../../../assets/css/color';
+import { PRIMARY_COLOR, SECONDARY_COLOR, KU_SECONDARY_COLOR, KU_PRIMARY_COLOR } from '../../../assets/css/color';
 
 export default StyleSheet.create({
     containter: {
@@ -111,6 +111,14 @@ export default StyleSheet.create({
     },
     postText: {
         fontFamily: REGULAR_FONT,
+        color: PRIMARY_COLOR
+    },
+    idleText: {
+        fontFamily: REGULAR_FONT,
         color: 'grey'
-    }
+    },
+    loader: {
+        flex: 1,
+        justifyContent: 'center'
+    },
 });
