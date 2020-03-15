@@ -35,36 +35,47 @@ export default {
             )
             if (type === 'success') {
                 const response = await axios.get(`https://graph.facebook.com/me?access_token=${token}`)
-                return Promise.resolve(response.data)
+                const json = {
+                    displayName: response.data.name,
+                    loginType: 'facebook',
+                    collectedId: response.data.id
+                }
+                let user = await axios.post(`${constants.API_URL}/register`, json, {
+                    headers: { 'Content-Type': 'application/json' }
+                })
+                return Promise.resolve(user)
             } else {
                 return Promise.reject('Cancel by user')
             }
-        } catch ({ message }) {
-            Promise.reject(`Facebook Login Error: ${message}`)
+        } catch (err) {
+            Promise.reject('Facebook Login Error')
         }
     },
     loginByGoogle: async () => {
-        const { type, accessToken, user } = await Google.logInAsync({
-            androidClientId: '319434606205-n3k9ijd91al3h7bcropp4e17rf8j1klk.apps.googleusercontent.com',
-            iosClientId: '319434606205-c5ooi2joi9d4un5pi227aitkpls5ku10.apps.googleusercontent.com',
-            scopes: ['profile', 'email'],
+        try {
+            const { type, accessToken, user } = await Google.logInAsync({
+                androidClientId: '319434606205-n3k9ijd91al3h7bcropp4e17rf8j1klk.apps.googleusercontent.com',
+                iosClientId: '319434606205-c5ooi2joi9d4un5pi227aitkpls5ku10.apps.googleusercontent.com',
+                scopes: ['profile', 'email'],
+            }
+            )
+            if (type === 'success') {
+                const json = {
+                    displayName: user.name,
+                    loginType: 'google',
+                    collectedId: user.id
+                }
+                let user_token = await axios.post(`${constants.API_URL}/register`, json, {
+                    headers: { 'Content-Type': 'application/json' }
+                })
+                return Promise.resolve(user_token)
+            }
+            else {
+                return Promise.reject('Cancel by user')
+            }
         }
-        )
-        if (type === 'success') {
-            return Promise.resolve(user)
-        }
-        else {
-            return Promise.reject('Cancel by user')
+        catch (err) {
+            Promise.reject('Google Login Error')
         }
     },
-    registerUserAuth: async(displayName,loginType,collectedId) => {
-        const json = {
-            displayName: displayName,
-            loginType: loginType,
-            collectedId: collectedId
-        }
-        return axios.post(`${constants.API_URL}/register`, json, {
-            headers: { 'Content-Type': 'application/json' }
-        })
-    }
 }
