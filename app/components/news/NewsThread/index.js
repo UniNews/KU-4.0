@@ -53,11 +53,9 @@ class NewsCard extends Component {
                 <View style={inlineStyle}>
                     <View style={styles.topContainer}>
                         <View style={styles.leftContainer}>
-                            <View style={{}}>
-                                <Text style={styles.nameText}>
-                                    {data.user}
-                                </Text>
-                            </View>
+                            <Text style={styles.nameText}>
+                                {data.user}
+                            </Text>
                             <View style={{ paddingTop: 5 }}>
                                 <Text numberOfLines={2} style={styles.title}>
                                     {data.title}

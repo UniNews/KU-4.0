@@ -1,5 +1,4 @@
 import { StyleSheet, Platform } from 'react-native';
-import { wp, viewportWidth, viewportHeight } from '../../../assets/javascripts/spacing'
 import { BOLD_FONT, REGULAR_FONT } from '../../../assets/css/typography';
 import { KU_SECONDARY_COLOR } from '../../../assets/css/color';
 
@@ -15,11 +14,11 @@ export default StyleSheet.create({
         flexDirection: 'row',
     },
     leftContainer: {
-        flex: 1,
+        flex: 5,
         marginRight: 10
     },
     rightContainer: {
-        flex: 1,
+        flex: 4,
     },
     bottomContainer: {
         flex: 1,
@@ -28,7 +27,6 @@ export default StyleSheet.create({
     },
 
     imageContainer: {
-        flex: 1,
         height: 100,
     },
     image: {
@@ -43,7 +41,8 @@ export default StyleSheet.create({
     },
     nameText: {
         fontFamily: BOLD_FONT,
-        color: KU_SECONDARY_COLOR
+        color: KU_SECONDARY_COLOR,
+        letterSpacing: 0.5,
     },
     date: {
         color: 'grey',
