@@ -40,6 +40,7 @@ class DetailView extends React.Component {
     }
 
     communityComments() {
+        console.log(this.state,'jpsdsdasdasddasdadasdasdas')
         if(this.state.community.comments!==undefined)
             return this.state.community.comments.map((data,i)=>
                 <View key ={i} style={styles.commentContainer}>
@@ -61,10 +62,29 @@ class DetailView extends React.Component {
                                     {convertTimestamptoDate(data.createdAt)}
                                 </Text>
                                 <Text style={styles.commentText}>
-                                {data.text}
+                                    {data.text}
                                 </Text>
                                 <View style={styles.commentIconContainer}>
-                                    <TouchableOpacity onPress={()=>{communityService.likeComment(data._id)}} style={styles.textIconContainer}>
+                                    <TouchableOpacity onPress={()=>{communityService.likeComment(data._id).then(()=>{
+                                        const index = data.like.map(data=>data._id).indexOf(this.props.user._id)
+                                        if(index > -1){
+                                            data.like.splice(index, 1)
+                                        }
+                                        else{
+                                            data.like.push(this.props.user)
+                                        }
+                                        this.state.community.comments[i] = data
+                                        console.log(data)
+                                        this.setState({
+                                            community:{
+                                                ...this.state.community,
+                                                comments:[
+                                                    ...this.state.community.comments
+                                                ]
+                                            }
+                                        })
+                                        console.log(this.state.community.comments.like,'3s')
+                                    })}} style={styles.textIconContainer}>
                                         <FontAwesome name='heart-o' size={15} color='grey' />
                                         <View style={styles.iconTextContainer}>
                                             <Text style={styles.numberText}>
