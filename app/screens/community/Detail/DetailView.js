@@ -15,7 +15,8 @@ class DetailView extends React.Component {
         super(props);
         this.state = {
             community: {},
-            error: false
+            error: false,
+            msg:''
         }
     }
 
@@ -23,7 +24,6 @@ class DetailView extends React.Component {
         const newsId = this.props.navigation.state.params.newsId
         communityService.getCommunitiesById(newsId)
             .then((res) => {
-                console.log(res.data)
                 const newsData = res.data
                 this.setState({
                     community: newsData,
@@ -42,7 +42,7 @@ class DetailView extends React.Component {
     communityComments() {
         var rows = []
         if(this.state.community.comments!==undefined)
-            for (var i = 0; i < this.state.community.comments; i++) {
+            for (var i = 0; i < this.state.community.comments.length; i++) {
                 rows.push(
                     <View style={styles.commentContainer}>
                         <View style={styles.commentTitleContainer}>
@@ -51,30 +51,30 @@ class DetailView extends React.Component {
                                     <TouchableWithoutFeedback>
                                         <Image
                                             style={styles.imageAvatar}
-                                            source={{ uri: 'https://scontent.fbkk2-7.fna.fbcdn.net/v/t1.0-9/67403030_876083589433461_6633716974541078528_o.jpg?_nc_cat=109&_nc_oc=AQkgR8USRZDXbn_dpp8Ap6TQs-dxWgmt4v_Jy2NM8LRgy0Sk5cfmyJCqHeA7XglVnD8&_nc_ht=scontent.fbkk2-7.fna&oh=6f3e09abf1be1b2b210715b6bb8ac2c9&oe=5EFA3E15' }}
+                                            source={{ uri: this.state.community.comments[i].user ? this.state.community.comments[i].user.avatarURL: null}}
                                         />
                                     </TouchableWithoutFeedback>
                                 </View>
                                 <View style={styles.gapTitleText}>
                                     <Text style={styles.userText}>
-                                        เจมมี่
-                                </Text>
+                                        {this.state.community.comments[i].user ? this.state.community.comments[i].user.displayName:null}
+                                    </Text>
                                     <Text style={styles.dateText}>
-                                        23 มิถุนายน 2020
-                                </Text>
+                                        {convertTimestamptoDate(this.state.community.comments[i].createdAt)}
+                                    </Text>
                                     <Text style={styles.commentText}>
-                                        เรื่องราวดีๆที่อยากแบ่งปัน ถ้าเลือกคนขับได้ก็คงจะดีนะ (เฉพาะผู้พิการที่ไม่เป็นอันตรายในการขับขี่รถ) เค้าด้อยโอกาสกว่าเราๆอีก
-                                </Text>
+                                    {this.state.community.comments[i].text}
+                                    </Text>
                                     <View style={styles.commentIconContainer}>
                                         <TouchableOpacity style={styles.textIconContainer}>
                                             <FontAwesome name='heart-o' size={15} color='grey' />
                                             <View style={styles.iconTextContainer}>
                                                 <Text style={styles.numberText}>
-                                                    {`23 `}
+                                                    {`${this.state.community.comments[i].like ? this.state.community.comments[i].like.length : 0}`}
                                                 </Text>
                                                 <Text style={styles.indicatorText}>
                                                     ถูกใจ
-                                        </Text>
+                                                </Text>
                                             </View>
                                         </TouchableOpacity>
                                     </View>
@@ -90,7 +90,7 @@ class DetailView extends React.Component {
         )
     }
     render() {
-        const { community } = this.state
+        const { community,msg } = this.state
         return (
             <View style={styles.containter}>
                 <StatusBar />
@@ -155,15 +155,21 @@ class DetailView extends React.Component {
                         </View>
                         <Hr />
                         <Text style={styles.descriptionHeaderText}>
-                            {`ความคิดเห็น (${community.comment ? community.comment.length : 0})`}
+                            {`ความคิดเห็น (${community.comments ? community.comments.length : 0})`}
                         </Text>
 
                         {this.communityComments()}
                     </ScrollView>
                     <View style={styles.inputContainer}>
                         <TextInput
-                            placeholderTextColor={'grey'} style={styles.textInputField} placeholder={'เขียนความคิดเห็น...'} />
-                        <Button style={{ backgroundColor: 'transparent' }}>
+                            onChangeText={text => this.setState({ msg: text })}
+                            value={msg}
+                            placeholderTextColor={'grey'} 
+                            style={styles.textInputField} 
+                            placeholder={'เขียนความคิดเห็น...'} />
+                        <Button style={{ backgroundColor: 'transparent' }} onPress={()=>{
+                            communityService.postComment(community._id,msg)
+                        }}>
                             <Text style={styles.postText}>
                                 โพสต์
                             </Text>
