@@ -4,6 +4,7 @@ import Carousel, { Pagination } from 'react-native-snap-carousel';
 import styles from './styles';
 
 const width = Dimensions.get('window').width;
+const cardOffset = 30
 
 class SliderBox extends Component {
   constructor(props) {
@@ -30,6 +31,7 @@ class SliderBox extends Component {
     const {
       sliderBoxHeight,
       disableOnPress,
+      parentWidth,
     } = this.props;
     return (
       <TouchableOpacity
@@ -39,7 +41,11 @@ class SliderBox extends Component {
         onPress={() => !disableOnPress && this.onCurrentImagePressedHandler()}
       >
         <Image
-          style={[styles.img, { height: sliderBoxHeight || 200 }]}
+          style={[{
+            height: sliderBoxHeight || 200,
+            width: (parentWidth || width) - (cardOffset),
+            borderRadius: 20
+          }]}
           source={typeof item === 'string' ? { uri: item } : item}
           resizeMethod={'resize'}
           resizeMode={'cover'}
@@ -93,11 +99,12 @@ class SliderBox extends Component {
           loop={circleLoop || true}
           enableSnap={true}
           autoplay={autoplay || false}
-          itemWidth={parentWidth || width}
-          sliderWidth={parentWidth || width}
+          itemWidth={(parentWidth || width) - cardOffset}
+          sliderWidth={width}
           loopClonesPerSide={5}
           renderItem={item => this._renderItem(item)}
           onSnapToItem={index => this.onSnap(index)}
+          inactiveSlideOpacity={0}
           {...this.props}
         />
         {data.length > 1 && this.pagination}
