@@ -1,10 +1,8 @@
 import { StyleSheet } from 'react-native';
-import { wp, viewportHeight } from '../../../assets/javascripts/spacing'
+// import { wp, viewportHeight } from '../../../assets/javascripts/spacing'
 
-const slideHeight = viewportHeight * 0.3;
-const slideWidth = wp(75);
-const itemHorizontalMargin = wp(2);
-const itemWidth = slideWidth - itemHorizontalMargin * 5;
+const slideWidth = 225;
+const itemWidth = slideWidth
 
 export default StyleSheet.create({
     containter: {
@@ -15,11 +13,19 @@ export default StyleSheet.create({
     },
     newsCardContainer: {
         width: itemWidth,
-        height: slideHeight,
-        marginRight: itemHorizontalMargin,
+        // height: slideHeight,
+        marginLeft: 15,
+    },
+    lastNewsCardContainer: {
+        width: itemWidth,
+        // height: slideHeight,
+        marginHorizontal: 15,
     },
     sectionContainer: {
-        paddingTop: wp(3),
-        paddingHorizontal: wp(2),
+        paddingTop: 15,
+        paddingHorizontal: 15,
     },
+    horizontalLine: {
+        marginHorizontal: 15,
+    }
 });
