@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
-import { View, Text, Image, TouchableOpacity, TouchableWithoutFeedback } from 'react-native'
+import { View, Text, Image, TouchableWithoutFeedback } from 'react-native'
 import styles from './styles'
 import PropTypes from 'prop-types';
 import { convertTimestamptoDate } from '../../../assets/javascripts/date'
+import { FontAwesome, } from '@expo/vector-icons'
 
 class NewsCard extends Component {
 
@@ -37,40 +38,42 @@ class NewsCard extends Component {
                 }
                 {...restProps}
             >
-                <View style={[inlineStyle, styles.paddingShadow]}>
-                    <View style={styles.shadow} >
-                        <View style={[styles.imageContainer]}>
-                            <Image
-                                source={{ uri: data.imgUrl }}
-                                style={styles.image}
-                            />
-                        </View>
-                        <View style={[styles.textContainer]}>
+                <View style={[inlineStyle, styles.border]}>
+                    <View style={[styles.imageContainer]}>
+                        <Image
+                            source={{ uri: data.imgUrl }}
+                            style={styles.image}
+                        />
+                    </View>
+
+                    <View style={[styles.textContainer]}>
+                        <TouchableWithoutFeedback
+                            underlayColor='white'
+                            onPress={() => {
+                                this.onProfilePressedHandler(data.profileId)
+                            }
+                            }>
                             <Text
-                                style={[styles.title]}
+                                style={[styles.nameText]}
                                 numberOfLines={1}
                             >
-                                {data.title}
+                                {data.user}
                             </Text>
-                            <TouchableOpacity
-                                underlayColor='white'
-                                onPress={() => {
-                                    this.onProfilePressedHandler(data.profileId)
-                                }
-                                }>
-                                <Text
-                                    style={[styles.nameText]}
-                                    numberOfLines={1}
-                                >
-                                    {data.user}
-                                </Text>
-                            </TouchableOpacity>
+
+                        </TouchableWithoutFeedback>
+                        <Text
+                            style={[styles.title]}
+                            numberOfLines={2}
+                        >
+                            {data.title}
+                        </Text>
+                        <View style={styles.iconContainer}>
+                            <FontAwesome name='clock-o' size={13} color='grey' />
                             <Text style={styles.date}>
-                                {convertTimestamptoDate(data.date)}
+                                {` ${convertTimestamptoDate(data.createdAt)}`}
                             </Text>
                         </View>
                     </View>
-
                 </View>
             </TouchableWithoutFeedback>
         )
