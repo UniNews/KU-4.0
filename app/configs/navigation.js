@@ -23,6 +23,7 @@ import FollowingSetting from '../screens/settings/Following'
 import CommentScreen from '../screens/news/Comment'
 import LatestCommunity from '../screens/community/Latest'
 import HottestComminity from '../screens/community/Hottest'
+import SearchNewsScreen from '../screens/search/SearchNews'
 
 const newsTab = createMaterialTopTabNavigator({
   'สำหรับคุณ': RecommendationScreen,
@@ -41,6 +42,7 @@ const newsStack = createStackNavigator({
   Home: newsTab,
   Detail: NewsDetailScreen,
   Comment: CommentScreen,
+  Search: SearchNewsScreen,
   ProfileDetail: StoreProfileScreen
 },
   {
