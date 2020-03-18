@@ -65,6 +65,7 @@ class CommentView extends React.Component {
 
   goBack = () => {
     const { navigation } = this.props;
+    this.props.navigation.state.params.updateData(this.state.comments)
     navigation.goBack();
   };
 

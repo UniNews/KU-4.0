@@ -3,6 +3,7 @@ import DetailView from './DetailView';
 
 const mapStateToProps = state => {
     return {
+        user: state.userReducer.user
     }
 };
 
