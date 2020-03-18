@@ -1,8 +1,6 @@
 import React from 'react'
-import { Text, View, ScrollView } from 'react-native'
+import { View, ScrollView } from 'react-native'
 import styles from './styles'
-import Button from '../../../components/commons/Button'
-import { FontAwesome } from '@expo/vector-icons'
 import Thread from '../../../components/community/Thread'
 import communityService from '../../../services/communities'
 
@@ -38,10 +36,12 @@ class HottestView extends React.Component {
         const { communities } = this.state
         return (
             <View style={styles.containter}>
-                <ScrollView contentContainerStyle={styles.threadContainer}>
+                <ScrollView>
                     {communities.map((thread) => {
                         return (
-                            <Thread key={thread._id} data={thread} onThreadPressed={this.onThreadPressed} />
+                            <View key={thread._id} style={styles.threadContainer}>
+                                <Thread data={thread} onThreadPressed={this.onThreadPressed} />
+                            </View>
                         )
                     })}
                 </ScrollView>
