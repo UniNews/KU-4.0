@@ -1,14 +1,13 @@
 import React from 'react'
-import { Text, View, ActivityIndicator, TextInput, ScrollView } from 'react-native'
+import { Text, View, ActivityIndicator, TextInput, ScrollView, TouchableWithoutFeedback } from 'react-native'
 import StatusBar from '../../../components/commons/StatusBar'
 import styles from './styles'
-import Header from '../../../components/commons/Header';
-import { Feather, FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons';
-import { PRIMARY_COLOR } from '../../../assets/css/color';
+import Header from '../../../components/commons/Header'
+import { Feather, FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons'
+import { PRIMARY_COLOR } from '../../../assets/css/color'
 import newsService from '../../../services/news'
 import NewsCard from '../../../components/news/NewsThread'
 import Button from '../../../components/commons/Button'
-import Hr from '../../../components/commons/Hr'
 
 const tags = [
     {
@@ -51,38 +50,49 @@ class SearchNewsView extends React.Component {
             news: [],
             searching: false,
             query: '',
-            selectedTag: ''
+            selectedTag: '',
+            error: false
         }
     }
 
-    onIconPressed = (tag) => {
-        const { selectedTag } = this.state
+    clearQuery = () => {
         this.setState({
-            selectedTag: selectedTag == tag ? '' : tag
+            query: '',
+            news: [],
+            searching: false,
         })
     }
 
-    goBack = () => {
-        const { navigation } = this.props
-        navigation.goBack()
+    updateSearch = text => {
+        if (this.typingTimeout)
+            clearTimeout(this.typingTimeout)
+        if (text != '') {
+            this.setState({
+                query: text,
+                news: [],
+                searching: true,
+            })
+            this.typingTimeout = setTimeout((event) => this.search(), 1000)
+        }
+        else
+            this.setState({
+                query: text,
+                news: [],
+                searching: false,
+            })
     }
 
-    postComment = () => {
-
-    }
-
-    getNews = (newsId) => {
-        this.props.navigation.navigate('Detail', { newsId })
-    }
-
-    getProfile = (profileId) => {
-        console.log(profileId)
-    }
-
-    componentDidMount() {
-        newsService.getClubNews()
+    search = () => {
+        const { query } = this.state
+        newsService.getAllNews()
             .then((res) => {
-                const newsData = res.data
+                const newsData = res.data.filter(item => {
+                    const stringData = `${item.title?.toUpperCase()}   
+                    ${item.user?.displayName.toUpperCase()}`
+                    const queryData = query.toUpperCase()
+                    return stringData.indexOf(queryData) > -1
+                    // && item.tags?.join('\n').toUpperCase().indexOf(selectedTag) > -1
+                })
                 let newsArray = []
                 for (const news of newsData) {
                     const newsObject = {
@@ -97,11 +107,35 @@ class SearchNewsView extends React.Component {
                 }
                 this.setState({
                     news: newsArray,
-                    error: false
+                    error: false,
+                    searching: false,
                 })
             }).catch((err) => {
-                this.setState({ error: true })
+                this.setState({
+                    error: true,
+                    searching: false
+                })
             })
+    }
+
+    onTagPressed = (tag) => {
+        const { selectedTag } = this.state
+        this.setState({
+            selectedTag: selectedTag == tag ? '' : tag
+        })
+    }
+
+    goBack = () => {
+        const { navigation } = this.props
+        navigation.goBack()
+    }
+
+    getNews = (newsId) => {
+        this.props.navigation.navigate('Detail', { newsId })
+    }
+
+    getProfile = (profileId) => {
+        console.log(profileId)
     }
 
     render() {
@@ -122,16 +156,23 @@ class SearchNewsView extends React.Component {
                 />
                 <View style={styles.searchContainer}>
                     <View style={styles.inputContainer}>
+                        <View style={styles.searchIconContainer}>
+                            <FontAwesome name='search' color='grey' size={16} />
+                        </View>
                         <TextInput
                             value={query}
-                            onChangeText={text => this.setState({ query: text })}
+                            onChangeText={this.updateSearch}
                             placeholderTextColor={'grey'}
                             style={styles.textInputField}
                             placeholder={'ค้นหาข่าว...'}
                         />
-                        {searching
+                        {query
                             ?
-                            <ActivityIndicator color={PRIMARY_COLOR} size={20} />
+                            <TouchableWithoutFeedback onPress={this.clearQuery}>
+                                <View style={styles.clearIconContainer}>
+                                    <MaterialCommunityIcons name='close' color={'grey'} size={20} />
+                                </View>
+                            </TouchableWithoutFeedback>
                             :
                             null
                         }
@@ -141,7 +182,7 @@ class SearchNewsView extends React.Component {
                             const IconComponent = tag.iconComponent
                             const isPressed = selectedTag == tag.text
                             return (
-                                <Button onPress={() => this.onIconPressed(tag.text)} key={index} style={[styles.tagButton, isPressed ? styles.focusTagButton : styles.notFocusTagButton]} rounded >
+                                <Button onPress={() => this.onTagPressed(tag.text)} key={index} style={[styles.tagButton, isPressed ? styles.focusTagButton : styles.notFocusTagButton]} rounded >
                                     <IconComponent name={isPressed ? tag.iconName : tag.outlineIconName} size={20} color={isPressed ? 'white' : 'grey'} />
                                     <Text style={[styles.tagText, isPressed ? styles.focusTagText : styles.notFocusTagText]}>{tag.text}</Text>
                                 </Button>
@@ -150,29 +191,30 @@ class SearchNewsView extends React.Component {
                     </ScrollView>
                 </View>
                 <View style={styles.newsContainer}>
-                    <View style={styles.indicatorContainer}>
-                        <Text style={styles.indicatorText}>
-                            ผลลัพธ์ (2 รายการ)
-                    </Text>
-                    </View>
-                    <ScrollView style={{}} contentContainerStyle={{}}>
-                        {news.map((news, index, newsArray) => {
-                            return (
-                                <View key={news.newsId} style={index != 0 ? { backgroundColor: 'white' } : { backgroundColor: 'white' }}>
-                                    <NewsCard onNewsPressed={this.getNews} onProfilePressed={this.getProfile} data={news} />
-                                    {
-                                        index != newsArray.length - 1
-                                            ?
-                                            <Hr />
-                                            :
-                                            null
-                                    }
-                                </View>
-                            )
-                        })}
+                    <ScrollView>
+                        {
+                            query ? // check if the input text is not empty
+                                searching ?
+                                    <View style={styles.indicatorContainer}>
+                                        <Text style={styles.indicatorText}>
+                                            กำลังค้นหา...
+                                    </Text>
+                                        <ActivityIndicator color={PRIMARY_COLOR} size={17} />
+                                    </View>
+                                    :
+                                    news.map((news, index, newsArray) => {
+                                        return (
+                                            <View key={news.newsId} style={{ marginTop: 10, backgroundColor: 'white' }}>
+                                                <NewsCard onNewsPressed={this.getNews} onProfilePressed={this.getProfile} data={news} />
+                                            </View>
+                                        )
+                                    })
+                                :
+                                null // display nothing if it is empty to prevent coming news state when fetching news
+                        }
                     </ScrollView>
                 </View>
-            </View>
+            </View >
         )
     }
 }

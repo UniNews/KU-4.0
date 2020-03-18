@@ -7,20 +7,23 @@ export default StyleSheet.create({
         flex: 1,
     },
     inputContainer: {
-        borderTopWidth: 1,
-        borderColor: 'rgb(242, 242, 242)',
         flexDirection: 'row',
         alignItems: 'center',
-        paddingTop: 10,
-        paddingHorizontal: 10
+        marginTop: 10,
+        marginHorizontal: 10,
+        borderRadius: 20,
+        backgroundColor: 'rgb(242, 242, 242)',
+    },
+    searchIconContainer: {
+        paddingLeft: 15
+    },
+    clearIconContainer: {
+        marginRight: 15
     },
     textInputField: {
-        marginRight: 10,
         flex: 1,
         paddingLeft: 20,
         height: 40,
-        borderRadius: 20,
-        backgroundColor: 'rgb(242, 242, 242)',
         fontFamily: REGULAR_FONT,
     },
     postText: {
@@ -63,14 +66,21 @@ export default StyleSheet.create({
         backgroundColor: '#588E57',
     },
     searchContainer: {
-        backgroundColor: 'white'
+        backgroundColor: 'white',
     },
     indicatorContainer: {
-        padding: 10
+        paddingTop: 10,
+        justifyContent: 'center',
+        flexDirection: 'row',
+        alignItems: 'center'
     },
     indicatorText: {
-        fontFamily: BOLD_FONT,
+        paddingRight: 10,
+        fontFamily: REGULAR_FONT,
         color: SECONDARY_COLOR,
-        fontSize: 15
+    },
+    newsContainer: {
+        flex: 1,
+        // marginVertical: 10
     }
 })
