@@ -65,7 +65,7 @@ class DetailView extends React.Component {
                                     {data.text}
                                 </Text>
                                 <View style={styles.commentIconContainer}>
-                                    <TouchableOpacity onPress={()=>{communityService.likeComment(data._id).then(()=>{
+                                    <TouchableOpacity onPress={()=>{
                                         const index = data.like.map(data=>data._id).indexOf(this.props.user._id)
                                         if(index > -1){
                                             data.like.splice(index, 1)
@@ -74,7 +74,6 @@ class DetailView extends React.Component {
                                             data.like.push(this.props.user)
                                         }
                                         this.state.community.comments[i] = data
-                                        console.log(data)
                                         this.setState({
                                             community:{
                                                 ...this.state.community,
@@ -83,8 +82,8 @@ class DetailView extends React.Component {
                                                 ]
                                             }
                                         })
-                                        console.log(this.state.community.comments.like,'3s')
-                                    })}} style={styles.textIconContainer}>
+                                        communityService.likeComment(data._id)
+                                        }} style={styles.textIconContainer}>
                                         <FontAwesome name='heart-o' size={15} color='grey' />
                                         <View style={styles.iconTextContainer}>
                                             <Text style={styles.numberText}>

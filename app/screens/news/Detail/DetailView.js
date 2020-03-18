@@ -25,9 +25,10 @@ class DetailView extends React.Component {
                 title: '',
                 createdAt: '',
                 comments: [],
-                description: ''
+                description: '',
             },
-            isLoading: true
+            isLoading: true,
+            updateComments:null
         }
     }
 
@@ -56,7 +57,22 @@ class DetailView extends React.Component {
 
     getComments = () => {
         const newsId = this.props.navigation.state.params.newsId
-        this.props.navigation.navigate('Comment', { newsId: newsId })
+        this.props.navigation.navigate('Comment', { newsId: newsId,updateData: this.updateData })
+    }
+
+    updateData = (data) =>{
+        this.setState({updateComments:data})
+    }
+
+    getCommentLength=()=>{
+        if(this.state.updateComments==null)
+            return <Text style={styles.iconText}>
+                        {this.state.news.comments.length} ความเห็น
+                    </Text>
+        else
+            return <Text style={styles.iconText}>
+                        {this.state.updateComments.length} ความเห็น
+                    </Text>
     }
 
     render() {
@@ -100,9 +116,7 @@ class DetailView extends React.Component {
                                                 onPress={this.getComments}
                                                 style={styles.textIconContainer}>
                                                 <FontAwesome name='commenting-o' size={18} color='grey' />
-                                                <Text style={styles.iconText}>
-                                                    {news.comments.length} ความเห็น
-                                            </Text>
+                                                {this.getCommentLength()}
                                             </TouchableOpacity>
                                         </View>
                                     </View>
