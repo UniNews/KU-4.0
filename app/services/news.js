@@ -5,8 +5,8 @@ export default {
     getAllNews: () => {
         return axios.get(`${constants.API_URL}/news/`)
     },
-    getNewsRecommendation: (id) => {
-        return axios.get(`${constants.API_URL}/news/${id}`)
+    getNewsRecommendation: () => {
+        return axios.get(`${constants.API_URL}/news/recommendation`)
     },
     getUniversityNews: () => {
         return axios.get(`${constants.API_URL}/news/universities`)
