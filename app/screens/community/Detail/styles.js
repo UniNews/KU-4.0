@@ -112,5 +112,8 @@ export default StyleSheet.create({
     postText: {
         fontFamily: REGULAR_FONT,
         color: 'grey'
+    },
+    keyboard: {
+        flex: 1,
     }
 });

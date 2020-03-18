@@ -16,7 +16,7 @@ class DetailView extends React.Component {
         this.state = {
             community: {},
             error: false,
-            msg:''
+            msg: ''
         }
     }
 
@@ -40,9 +40,9 @@ class DetailView extends React.Component {
     }
 
     communityComments() {
-        var rows = []
-        if(this.state.community.comments!==undefined)
-            for (var i = 0; i < this.state.community.comments.length; i++) {
+        let rows = []
+        if (this.state.community.comments !== undefined)
+            for (let i = 0; i < this.state.community.comments.length; i++) {
                 rows.push(
                     <View style={styles.commentContainer}>
                         <View style={styles.commentTitleContainer}>
@@ -51,19 +51,19 @@ class DetailView extends React.Component {
                                     <TouchableWithoutFeedback>
                                         <Image
                                             style={styles.imageAvatar}
-                                            source={{ uri: this.state.community.comments[i].user ? this.state.community.comments[i].user.avatarURL: null}}
+                                            source={{ uri: this.state.community.comments[i].user ? this.state.community.comments[i].user.avatarURL : null }}
                                         />
                                     </TouchableWithoutFeedback>
                                 </View>
                                 <View style={styles.gapTitleText}>
                                     <Text style={styles.userText}>
-                                        {this.state.community.comments[i].user ? this.state.community.comments[i].user.displayName:null}
+                                        {this.state.community.comments[i].user ? this.state.community.comments[i].user.displayName : null}
                                     </Text>
                                     <Text style={styles.dateText}>
                                         {convertTimestamptoDate(this.state.community.comments[i].createdAt)}
                                     </Text>
                                     <Text style={styles.commentText}>
-                                    {this.state.community.comments[i].text}
+                                        {this.state.community.comments[i].text}
                                     </Text>
                                     <View style={styles.commentIconContainer}>
                                         <TouchableOpacity style={styles.textIconContainer}>
@@ -90,7 +90,7 @@ class DetailView extends React.Component {
         )
     }
     render() {
-        const { community,msg } = this.state
+        const { community, msg } = this.state
         return (
             <View style={styles.containter}>
                 <StatusBar />
@@ -98,10 +98,8 @@ class DetailView extends React.Component {
                     <Feather color='white' onPress={this.goBack} size={28} name={'chevron-left'} />
                 }
                 />
-                <KeyboardAvoidingView style={{ flex: 1 }} behavior='height'>
-
+                <KeyboardAvoidingView style={styles.keyboard} behavior='height'>
                     <ScrollView>
-
                         <View style={styles.contentContainer}>
                             <View style={styles.titleContainer}>
                                 <View style={styles.infoContainer}>
@@ -164,11 +162,11 @@ class DetailView extends React.Component {
                         <TextInput
                             onChangeText={text => this.setState({ msg: text })}
                             value={msg}
-                            placeholderTextColor={'grey'} 
-                            style={styles.textInputField} 
+                            placeholderTextColor={'grey'}
+                            style={styles.textInputField}
                             placeholder={'เขียนความคิดเห็น...'} />
-                        <Button style={{ backgroundColor: 'transparent' }} onPress={()=>{
-                            communityService.postComment(community._id,msg)
+                        <Button style={{ backgroundColor: 'transparent' }} onPress={() => {
+                            communityService.postComment(community._id, msg)
                         }}>
                             <Text style={styles.postText}>
                                 โพสต์
