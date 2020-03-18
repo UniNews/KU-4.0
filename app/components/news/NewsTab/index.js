@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View } from 'react-native';
+import { Text, View, TouchableOpacity } from 'react-native';
 import styles from './styles';
 import { LinearGradient } from 'expo-linear-gradient'
 import CustomTab from './CustomTab'
@@ -14,6 +14,10 @@ class NewsTabView extends React.Component {
         super(props);
     }
 
+    goSearch = () => {
+        this.props.navigation.navigate('Search')
+    }
+
     render() {
         const { navigation } = this.props
         const routes = navigation.state.routes
@@ -24,8 +28,10 @@ class NewsTabView extends React.Component {
                     <View style={styles.headContainer}>
                         <Text style={styles.logo}>
                             UniNews
-                    </Text>
-                        <FontAwesome name="search" color="white" size={21} />
+                        </Text>
+                        <TouchableOpacity onPress={this.goSearch}>
+                            <FontAwesome name="search" color="white" size={21} />
+                        </TouchableOpacity>
                     </View>
                     <View style={styles.listContainer}>
                         {routes.map((route, index) => {

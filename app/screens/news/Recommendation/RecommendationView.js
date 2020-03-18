@@ -67,51 +67,34 @@ class RecommendationView extends React.Component {
         return (
             <ScrollView style={styles.containter}>
                 <SectionHeader style={styles.sectionContainer} title={'โฆษณา'} subtitle={'เพิ่มเติม'} />
-                <View style={{ paddingVertical: 15 }} >
+                <View style={styles.newsScrollView}>
                     <SliderBox
-                        sliderBoxHeight={200}
+                        sliderBoxHeight={175}
                         data={images}
                         onPressed={id =>
                             this.props.navigation.navigate('Detail', { id })
                         }
                     />
                 </View>
-                <Hr />
-                <View style={styles.sectionContainer}>
-                    <SectionHeader title={'กิจกรรมใกล้ๆคุณ'} subtitle={'เพิ่มเติม'}>
-                        <ScrollView style={styles.newsScrollView} showsHorizontalScrollIndicator={false} horizontal={true}>
-                            {ENTRIES1.map((news) => {
-                                return (
-                                    <NewsCard style={styles.newsCardContainer} key={news.newsId} onNewsPressed={this.getNews} onProfilePressed={this.getProfile} data={news} />
-                                )
-                            })}
-                        </ScrollView>
-                    </SectionHeader>
-                </View>
-                <Hr />
-                <View style={styles.sectionContainer}>
-                    <SectionHeader title={'ข่าวยอดนิยม'} subtitle={'เพิ่มเติม'}>
-                        <ScrollView style={styles.newsScrollView} showsHorizontalScrollIndicator={false} horizontal={true}>
-                            {ENTRIES2.map((news) => {
-                                return (
-                                    <NewsCard style={styles.newsCardContainer} key={news.newsId} onNewsPressed={this.getNews} onProfilePressed={this.getProfile} data={news} />
-                                )
-                            })}
-                        </ScrollView>
-                    </SectionHeader>
-                </View>
-                <Hr />
-                <View style={styles.sectionContainer}>
-                    <SectionHeader title={'กิจกรรมใกล้ๆคุณ'} subtitle={'เพิ่มเติม'} />
-                    <ScrollView style={styles.newsScrollView} showsHorizontalScrollIndicator={false} horizontal={true}>
-                        {ENTRIES1.map((news) => {
-                            return (
-                                <NewsCard style={styles.newsCardContainer} key={news.newsId} onNewsPressed={this.getNews} onProfilePressed={this.getProfile} data={news} />
-                            )
-                        })}
-                    </ScrollView>
-                </View>
-            </ScrollView>
+                <Hr style={styles.horizontalLine} />
+                <SectionHeader style={styles.sectionContainer} title={'ข่าวยอดนิยม'} subtitle={'เพิ่มเติม'} />
+                <ScrollView style={styles.newsScrollView} showsHorizontalScrollIndicator={false} horizontal={true}>
+                    {ENTRIES1.map((news, index, newsArray) => {
+                        return (
+                            <NewsCard style={index != newsArray.length - 1 ? styles.newsCardContainer : styles.lastNewsCardContainer} key={news.newsId} onNewsPressed={this.getNews} onProfilePressed={this.getProfile} data={news} />
+                        )
+                    })}
+                </ScrollView>
+                <Hr style={styles.horizontalLine} />
+                <SectionHeader style={styles.sectionContainer} title={'ข่าวยอดนิยม'} subtitle={'เพิ่มเติม'} />
+                <ScrollView style={styles.newsScrollView} showsHorizontalScrollIndicator={false} horizontal={true}>
+                    {ENTRIES2.map((news, index, newsArray) => {
+                        return (
+                            <NewsCard style={index != newsArray.length - 1 ? styles.newsCardContainer : styles.lastNewsCardContainer} key={news.newsId} onNewsPressed={this.getNews} onProfilePressed={this.getProfile} data={news} />
+                        )
+                    })}
+                </ScrollView>
+            </ScrollView >
         );
     }
 }

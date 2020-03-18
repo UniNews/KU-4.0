@@ -2,6 +2,9 @@ import constants from '../configs/constants';
 import axios from 'axios';
 
 export default {
+    getAllNews: () => {
+        return axios.get(`${constants.API_URL}/news/`)
+    },
     getNewsRecommendation: (id) => {
         return axios.get(`${constants.API_URL}/news/${id}`)
     },

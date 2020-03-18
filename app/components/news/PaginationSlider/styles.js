@@ -1,14 +1,9 @@
 import { StyleSheet, } from 'react-native';
 import { viewportWidth } from '../../../assets/javascripts/spacing'
 
-const imgWidth = viewportWidth
-
 export default StyleSheet.create({
     imgContainer: {
-        alignSelf: 'center'
-    },
-    img: {
-        width: imgWidth
+        alignSelf: 'center',
     },
     paginationBoxStyle: {
         position: 'absolute',

@@ -36,10 +36,12 @@ class LatestView extends React.Component {
         const { communities } = this.state
         return (
             <View style={styles.containter}>
-                <ScrollView contentContainerStyle={styles.threadContainer}>
+                <ScrollView>
                     {communities.map((thread, index, array) => {
                         return (
-                            <Thread key={thread._id} data={thread} onThreadPressed={this.onThreadPressed} />
+                            <View key={thread._id} style={styles.threadContainer}>
+                                <Thread data={thread} onThreadPressed={this.onThreadPressed} />
+                            </View>
                         )
                     })}
                 </ScrollView>

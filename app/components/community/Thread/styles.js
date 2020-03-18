@@ -4,7 +4,7 @@ import { BOLD_FONT, REGULAR_FONT } from '../../../assets/css/typography'
 
 export default StyleSheet.create({
     container: {
-        marginTop: 10,
+        // marginTop: 10,
         // marginHorizontal: 10,
         // borderRadius: 10,
         backgroundColor: 'white',
