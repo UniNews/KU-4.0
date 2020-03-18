@@ -24,12 +24,12 @@ export default {
         const json = {
             text: msg
         }
-        return axios.post(`${constants.API_URL}/news/${newsId}/comments`, json, {
+        return axios.post(`${constants.API_URL}/communities/${newsId}/comments`, json, {
             headers: { 'Content-Type': 'application/json' }
         })
     },
     likeComment: (commentId) => {
-        return axios.post(`${constants.API_URL}/news/${commentId}/like`, {
+        return axios.post(`${constants.API_URL}/communities/${commentId}/like`, {
             headers: { 'Content-Type': 'application/json' }
         })
     }

@@ -92,50 +92,50 @@ class DetailView extends React.Component {
 
     communityComments() {
         let rows = []
-        const { community } = this.state
-        for (let i = 0; i < community.comments; i++) {
-            rows.push(
-                <View style={styles.commentContainer}>
-                    <View style={styles.commentTitleContainer}>
-                        <View style={styles.commentInfoContainer}>
-                            <View>
-                                <TouchableWithoutFeedback>
-                                    <Image
-                                        style={styles.imageAvatar}
-                                        source={{ uri: 'https://scontent.fbkk2-7.fna.fbcdn.net/v/t1.0-9/67403030_876083589433461_6633716974541078528_o.jpg?_nc_cat=109&_nc_oc=AQkgR8USRZDXbn_dpp8Ap6TQs-dxWgmt4v_Jy2NM8LRgy0Sk5cfmyJCqHeA7XglVnD8&_nc_ht=scontent.fbkk2-7.fna&oh=6f3e09abf1be1b2b210715b6bb8ac2c9&oe=5EFA3E15' }}
-                                    />
-                                </TouchableWithoutFeedback>
-                            </View>
-                            <View style={styles.gapTitleText}>
-                                <Text style={styles.userText}>
-                                    เจมมี่
-                                </Text>
-                                <Text style={styles.dateText}>
-                                    23 มิถุนายน 2020
-                                </Text>
-                                <Text style={styles.commentText}>
-                                    เรื่องราวดีๆที่อยากแบ่งปัน ถ้าเลือกคนขับได้ก็คงจะดีนะ (เฉพาะผู้พิการที่ไม่เป็นอันตรายในการขับขี่รถ) เค้าด้อยโอกาสกว่าเราๆอีก
-                                </Text>
-                                <View style={styles.commentIconContainer}>
-                                    <TouchableOpacity style={styles.textIconContainer}>
-                                        <FontAwesome name='heart-o' size={15} color='grey' />
-                                        <View style={styles.iconTextContainer}>
-                                            <Text style={styles.numberText}>
-                                                {`23 `}
-                                            </Text>
-                                            <Text style={styles.indicatorText}>
-                                                ถูกใจ
-                                        </Text>
-                                        </View>
-                                    </TouchableOpacity>
+        if (this.state.community.comments !== undefined)
+            for (let i = 0; i < this.state.community.comments.length; i++) {
+                rows.push(
+                    <View style={styles.commentContainer}>
+                        <View style={styles.commentTitleContainer}>
+                            <View style={styles.commentInfoContainer}>
+                                <View>
+                                    <TouchableWithoutFeedback>
+                                        <Image
+                                            style={styles.imageAvatar}
+                                            source={{ uri: this.state.community.comments[i].user ? this.state.community.comments[i].user.avatarURL : null }}
+                                        />
+                                    </TouchableWithoutFeedback>
+                                </View>
+                                <View style={styles.gapTitleText}>
+                                    <Text style={styles.userText}>
+                                        {this.state.community.comments[i].user ? this.state.community.comments[i].user.displayName : null}
+                                    </Text>
+                                    <Text style={styles.dateText}>
+                                        {convertTimestamptoDate(this.state.community.comments[i].createdAt)}
+                                    </Text>
+                                    <Text style={styles.commentText}>
+                                        {this.state.community.comments[i].text}
+                                    </Text>
+                                    <View style={styles.commentIconContainer}>
+                                        <TouchableOpacity style={styles.textIconContainer}>
+                                            <FontAwesome name='heart-o' size={15} color='grey' />
+                                            <View style={styles.iconTextContainer}>
+                                                <Text style={styles.numberText}>
+                                                    {`${this.state.community.comments[i].like ? this.state.community.comments[i].like.length : 0}`}
+                                                </Text>
+                                                <Text style={styles.indicatorText}>
+                                                    ถูกใจ
+                                                </Text>
+                                            </View>
+                                        </TouchableOpacity>
+                                    </View>
                                 </View>
                             </View>
+                            <MaterialCommunityIcons style={styles.icon} name='dots-vertical' size={15} color='black' />
                         </View>
-                        <MaterialCommunityIcons style={styles.icon} name='dots-vertical' size={15} color='black' />
                     </View>
-                </View>
-            )
-        }
+                )
+            }
         return rows
     }
 

@@ -121,4 +121,7 @@ export default StyleSheet.create({
         flex: 1,
         justifyContent: 'center'
     },
+    keyboard: {
+        flex: 1,
+    }
 });
