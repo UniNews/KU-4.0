@@ -70,7 +70,7 @@ class NewsCard extends Component {
                         <View style={styles.iconContainer}>
                             <FontAwesome name='clock-o' size={13} color='grey' />
                             <Text style={styles.date}>
-                                {` ${convertTimestamptoDate(data.createdAt)}`}
+                                {` ${convertTimestamptoDate(data.date)}`}
                             </Text>
                         </View>
                     </View>
