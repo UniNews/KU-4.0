@@ -15,14 +15,14 @@ export default {
         })
     },
     register: (email, password) => {
-      const json = {
-        displayName: email,
-        email: email,
-        password: password
-      }
-      return axios.post(`${constants.API_URL}/registerByEmail`, json, {
-        headers: { 'Content-Type': 'application/json' }
-      });
+        const json = {
+            displayName: email,
+            email: email,
+            password: password
+        }
+        return axios.post(`${constants.API_URL}/registerByEmail`, json, {
+            headers: { 'Content-Type': 'application/json' }
+        });
     },
     getProfile: () => {
         return axios.get(`${constants.API_URL}/profile`)
@@ -72,7 +72,7 @@ export default {
             if (type === 'success') {
                 const json = {
                     displayName: user.name,
-                    loginType: 'google',
+                    loginType: 'gmail',
                     collectedId: user.id
                 }
                 let user_token = await axios.post(`${constants.API_URL}/register`, json, {
@@ -80,9 +80,8 @@ export default {
                 })
                 return Promise.resolve(user_token)
             }
-            else {
+            else
                 return Promise.reject('Cancel by user')
-            }
         }
         catch (err) {
             Promise.reject('Google Login Error')
