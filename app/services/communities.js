@@ -11,15 +11,6 @@ export default {
     getHottestCommunities: () => {
         return axios.get(`${constants.API_URL}/communities/hottest`)
     },
-    getPromotionsNews: () => {
-        return axios.get(`${constants.API_URL}/news/promotions`)
-    },
-    getClubNews: () => {
-        return axios.get(`${constants.API_URL}/news/club`)
-    },
-    getNewsById: (id) => {
-        return axios.get(`${constants.API_URL}/news/${id}`)
-    },
     postComment: (newsId, msg) => {
         const json = {
             text: msg
@@ -30,6 +21,11 @@ export default {
     },
     likeComment: (commentId) => {
         return axios.post(`${constants.API_URL}/communities/${commentId}/like`, {
+            headers: { 'Content-Type': 'application/json' }
+        })
+    },
+    likeCommunity: (communityId) => {
+        return axios.post(`${constants.API_URL}/communities/${communityId}/like-community`, {
             headers: { 'Content-Type': 'application/json' }
         })
     }
