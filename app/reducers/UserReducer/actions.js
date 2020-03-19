@@ -1,6 +1,6 @@
-import * as types from "./actionTypes"
-import service from "../../services/user"
-import axios from "axios"
+import * as types from './actionTypes'
+import service from '../../services/user'
+import axios from 'axios'
 
 const userLoading = () => {
   return { type: types.USER_LOADING }
@@ -19,21 +19,22 @@ const logout = () => {
 }
 
 export function register(username, password) {
-    return dispatch => {
-      service
-        .register(username, password)
-        .then(async (res) => {
-          const user = res.data;
-          axios.defaults.headers.common[
-            "Authorization"
-          ] = `Bearer ${user.access_token}`;
-          const payload = await service.getProfile();
-          dispatch(userOk(payload.data.result));
-        })
-        .catch((err) => {
-          dispatch( userFail() )
-        })
-    }
+  return dispatch => {
+    dispatch(userLoading())
+    service
+      .register(username, password)
+      .then(async (res) => {
+        const user = res.data;
+        axios.defaults.headers.common[
+          'Authorization'
+        ] = `Bearer ${user.access_token}`;
+        const payload = await service.getProfile();
+        dispatch(userOk(payload.data.result));
+      })
+      .catch((err) => {
+        dispatch(userFail())
+      })
+  }
 }
 
 export function login(username, password) {
@@ -44,7 +45,7 @@ export function login(username, password) {
       .then(async res => {
         const user = res.data
         axios.defaults.headers.common[
-          "Authorization"
+          'Authorization'
         ] = `Bearer ${user.access_token}`
         const payload = await service.getProfile()
         dispatch(userOk(payload.data.result))
@@ -58,7 +59,7 @@ export function login(username, password) {
 export function logoutUser() {
   return dispatch => {
     dispatch(userLoading())
-    delete axios.defaults.headers.common["Authorization"]
+    delete axios.defaults.headers.common['Authorization']
     dispatch(logout())
   }
 }
@@ -68,12 +69,13 @@ export function loginByFacebook() {
     dispatch(userLoading())
     service
       .loginByFacebook()
-      .then(res => {
+      .then(async res => {
         const user = res.data
         axios.defaults.headers.common[
-          "Authorization"
+          'Authorization'
         ] = `Bearer ${user.access_token}`
-        dispatch(userOk(user))
+        const payload = await service.getProfile()
+        dispatch(userOk(payload.data.result))
       })
       .catch(err => {
         dispatch(userFail())
@@ -86,12 +88,13 @@ export function loginByGoogle() {
     dispatch(userLoading())
     service
       .loginByGoogle()
-      .then(res => {
+      .then(async res => {
         const user = res.data
         axios.defaults.headers.common[
-          "Authorization"
+          'Authorization'
         ] = `Bearer ${user.access_token}`
-        dispatch(userOk(user))
+        const payload = await service.getProfile()
+        dispatch(userOk(payload.data.result))
       })
       .catch(err => {
         dispatch(userFail())
