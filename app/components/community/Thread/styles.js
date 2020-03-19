@@ -12,6 +12,7 @@ export default StyleSheet.create({
     nameText: {
         color: KU_SECONDARY_COLOR,
         fontFamily: BOLD_FONT,
+        letterSpacing: 0.5,
     },
     dateText: {
         fontFamily: REGULAR_FONT,
@@ -19,7 +20,8 @@ export default StyleSheet.create({
         fontSize: 13,
     },
     descriptionText: {
-        paddingVertical: 5,
+        letterSpacing: 0.5,
+        paddingVertical: 10,
         fontFamily: REGULAR_FONT,
     },
     innerContainer: {
@@ -32,7 +34,6 @@ export default StyleSheet.create({
         justifyContent: 'space-between',
     },
     bottomContainer: {
-        paddingTop: 5,
         flexDirection: 'row',
     },
     iconContainer: {

@@ -41,7 +41,6 @@ class Thread extends Component {
                             </Text>
                             <MaterialCommunityIcons style={styles.icon} name='dots-vertical' size={15} color='black' />
                         </View>
-
                         <View style={styles.iconContainer}>
                             <FontAwesome name='clock-o' size={15} color='grey' />
                             <Text style={styles.dateText}>
