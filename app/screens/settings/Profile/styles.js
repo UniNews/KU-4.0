@@ -18,8 +18,8 @@ export default StyleSheet.create({
         position: 'absolute',
         alignSelf: 'center',
     },
-    headContainer: {
-        alignItems: 'center',
+    headerContainer: {
+        paddingTop: 20,
     },
     linearGradient: {
         width: circleWidth,
@@ -37,10 +37,16 @@ export default StyleSheet.create({
         position: 'absolute',
         alignSelf: 'flex-start'
     },
+    saveButton: {
+        paddingTop: 20,
+        paddingRight: 5,
+        position: 'absolute',
+        alignSelf: 'flex-end'
+    },
     settingContainer: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
+        // flexDirection: 'row',
+        // justifyContent: 'space-between',
+        // alignItems: 'center',
         paddingHorizontal: 20,
         paddingVertical: 13,
     },
