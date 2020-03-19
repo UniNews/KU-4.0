@@ -42,6 +42,42 @@ class DetailView extends React.Component {
             })
     }
 
+    likePost = () => {
+        const userId = this.props.user._id
+        const updatedCommunity = { ...this.state.community }
+        const index = updatedCommunity.like.indexOf(userId)
+        if (index > -1)
+            updatedCommunity.like.splice(index, 1)
+        else
+            updatedCommunity.like.push(userId)
+        this.setState({ community: updatedCommunity })
+        communityService.likeCommunity(updatedCommunity._id)
+    }
+
+    isPostLiked = () => {
+        const { community } = this.state
+        const userId = this.props.user._id
+        return community.like.indexOf(userId) > -1
+    }
+
+    likeComment = (commentIndex) => {
+        const user = this.props.user
+        const updatedCommunity = { ...this.state.community }
+        const comment = updatedCommunity.comments[commentIndex]
+        const index = comment.like.map(data => data._id).indexOf(user._id)
+        if (index > -1)
+            comment.like.splice(index, 1)
+        else
+            comment.like.push(user)
+        this.setState({ community: updatedCommunity })
+        communityService.likeComment(comment._id)
+    }
+
+    isCommentLiked = (comment) => {
+        const userId = this.props.user._id
+        return comment.like.map(data => data._id).indexOf(userId) > -1
+    }
+
     goBack = () => {
         const { navigation } = this.props
         navigation.goBack()
@@ -91,70 +127,66 @@ class DetailView extends React.Component {
     }
 
     communityComments() {
-        if (this.state.community.comments !== undefined)
-            return this.state.community.comments.map((data, i) =>
-                <View key={i} style={styles.commentContainer}>
-                    <View style={styles.commentTitleContainer}>
-                        <View style={styles.commentInfoContainer}>
-                            <View>
-                                <TouchableWithoutFeedback>
-                                    <Image
-                                        style={styles.imageAvatar}
-                                        source={{ uri: data.user ? data.user.avatarURL : null }}
-                                    />
-                                </TouchableWithoutFeedback>
-                            </View>
-                            <View style={styles.gapTitleText}>
+        const { community } = this.state
+        return community.comments?.map((comment, index, commentArray) =>
+            <View key={index} style={styles.contentContainer}>
+                <View style={styles.profileContainer}>
+                    <View style={styles.infoContainer}>
+                        <TouchableWithoutFeedback>
+                            <Image
+                                style={styles.imageAvatar}
+                                source={{ uri: comment.user ? comment.user.avatarURL : null }}
+                            />
+                        </TouchableWithoutFeedback>
+                        <View style={styles.infoGap}>
+                            <View style={styles.nameContainer}>
                                 <Text style={styles.userText}>
-                                    {data.user ? data.user.displayName : null}
+                                    {comment.user ? comment.user.displayName : null}
                                 </Text>
+                                <MaterialCommunityIcons style={styles.icon} name='dots-vertical' size={15} color='black' />
+                            </View>
+                            <View style={styles.clockIconContainer}>
+                                <FontAwesome name='clock-o' size={15} color='grey' />
                                 <Text style={styles.dateText}>
-                                    {convertTimestamptoDate(data.createdAt)}
+                                    {` ${convertTimestamptoDate(comment.createdAt)}`}
                                 </Text>
-                                <Text style={styles.commentText}>
-                                    {data.text}
+                            </View>
+                            <View style={styles.descriptionContainer}>
+                                <Text style={styles.descriptionText}>
+                                    {comment.text}
                                 </Text>
-                                <View style={styles.commentIconContainer}>
-                                    <TouchableOpacity onPress={() => {
-                                        const index = data.like.map(data => data._id).indexOf(this.props.user._id)
-                                        if (index > -1) {
-                                            data.like.splice(index, 1)
-                                        }
-                                        else {
-                                            data.like.push(this.props.user)
-                                        }
-                                        this.state.community.comments[i] = data
-                                        this.setState({
-                                            community: {
-                                                ...this.state.community,
-                                                comments: [
-                                                    ...this.state.community.comments
-                                                ]
-                                            }
-                                        })
-                                        communityService.likeComment(data._id)
-                                    }} style={styles.textIconContainer}>
-                                        <FontAwesome name='heart-o' size={15} color='grey' />
-                                        <View style={styles.iconTextContainer}>
-                                            <Text style={styles.numberText}>
-                                                {`${data.like ? data.like.length : 0}`}
-                                            </Text>
-                                            <Text style={styles.indicatorText}>
-                                                ถูกใจ
-                                            </Text>
-                                        </View>
-                                    </TouchableOpacity>
-                                </View>
+                            </View>
+                            <View style={styles.iconContainer}>
+                                <TouchableOpacity onPress={() => this.likeComment(index)} style={styles.textIconContainer}>
+                                    <FontAwesome name={this.isCommentLiked(comment) ? 'heart' : 'heart-o'} size={15} color={this.isCommentLiked(comment) ? PRIMARY_COLOR : 'grey'} />
+                                    <View style={styles.iconTextContainer}>
+                                        <Text style={styles.numberText}>
+                                            {`${comment.like ? comment.like.length : 0} `}
+                                        </Text>
+                                        <Text style={styles.indicatorText}>
+                                            ถูกใจ
+                                        </Text>
+                                    </View>
+                                </TouchableOpacity>
                             </View>
                         </View>
-                        <MaterialCommunityIcons style={styles.icon} name='dots-vertical' size={15} color='black' />
                     </View>
                 </View>
-            )
+                {
+                    index != commentArray.length - 1
+                        ?
+                        <Hr />
+                        :
+                        null
+
+                }
+            </View>
+        )
     }
 
     render() {
         const { community, myComment, refreshing, fetching, posting } = this.state
+        console.log(community)
         return (
             <View style={styles.containter}>
                 <StatusBar />
@@ -162,7 +194,7 @@ class DetailView extends React.Component {
                     <Feather color='white' onPress={this.goBack} size={28} name={'chevron-left'} />
                 }
                 />
-                <KeyboardAvoidingView style={{ flex: 1 }} behavior='height'>
+                <KeyboardAvoidingView style={styles.keyboard} behavior='height'>
                     {
                         !fetching ?
                             <ScrollView
@@ -173,62 +205,72 @@ class DetailView extends React.Component {
                                     />
                                 }
                             >
-                                <View style={styles.contentContainer}>
-                                    <View style={styles.titleContainer}>
-                                        <View style={styles.infoContainer}>
-                                            <TouchableWithoutFeedback>
-                                                <Image
-                                                    style={styles.imageAvatar}
-                                                    source={{ uri: community.user ? community.user.avatarURL : null }}
-                                                />
-                                            </TouchableWithoutFeedback>
-                                            <View style={styles.gapTitleText}>
-                                                <Text style={styles.userText}>
-                                                    {community.user ? community.user.displayName : null}
-                                                </Text>
-                                                <Text style={styles.dateText}>
-                                                    {convertTimestamptoDate(community.createdAt)}
-                                                </Text>
+                                <View style={styles.whiteBackground}>
+                                    <View style={styles.contentContainer}>
+                                        <View style={styles.profileContainer}>
+                                            <View style={styles.infoContainer}>
+                                                <TouchableWithoutFeedback>
+                                                    <Image
+                                                        style={styles.imageAvatar}
+                                                        source={{ uri: community.user ? community.user.avatarURL : null }}
+                                                    />
+                                                </TouchableWithoutFeedback>
+                                                <View style={styles.infoGap}>
+                                                    <View style={styles.nameContainer}>
+                                                        <Text style={styles.userText}>
+                                                            {community.user ? community.user.displayName : null}
+                                                        </Text>
+                                                        <MaterialCommunityIcons style={styles.icon} name='dots-vertical' size={15} color='black' />
+                                                    </View>
+                                                    <View style={styles.clockIconContainer}>
+                                                        <FontAwesome name='clock-o' size={15} color='grey' />
+                                                        <Text style={styles.dateText}>
+                                                            {` ${convertTimestamptoDate(community.createdAt)}`}
+                                                        </Text>
+                                                    </View>
+                                                </View>
                                             </View>
                                         </View>
-                                        <MaterialCommunityIcons style={styles.icon} name='dots-vertical' size={15} color='black' />
+                                        <View style={styles.descriptionContainer}>
+                                            <Text style={styles.descriptionText}>
+                                                {community.description}
+                                            </Text>
+                                        </View>
+                                        <View style={styles.iconContainer}>
+                                            <TouchableOpacity style={styles.textIconContainer} onPress={this.likePost}>
+                                                <FontAwesome name={this.isPostLiked() ? 'heart' : 'heart-o'} size={15} color={this.isPostLiked() ? PRIMARY_COLOR : 'grey'} />
+                                                <View style={styles.iconTextContainer}>
+                                                    <Text style={styles.numberText}>
+                                                        {`${community.like ? community.like.length : 0} `}
+                                                    </Text>
+                                                    <Text style={styles.indicatorText}>
+                                                        ถูกใจ
+                                                </Text>
+                                                </View>
+                                            </TouchableOpacity>
+                                            <TouchableOpacity
+                                                style={styles.textIconContainer}>
+                                                <FontAwesome name='commenting-o' size={18} color='grey' />
+                                                <View style={styles.iconTextContainer}>
+                                                    <Text style={styles.numberText}>
+                                                        {`${community.comments ? community.comments.length : 0} `}
+                                                    </Text>
+                                                    <Text style={styles.indicatorText}>
+                                                        ความเห็น
+                                                    </Text>
+                                                </View>
+                                            </TouchableOpacity>
+                                        </View>
                                     </View>
                                 </View>
-                                <View style={styles.descriptionContainer}>
-                                    <Text style={styles.descriptionText}>
-                                        {community.description}
+                                <View style={styles.commentHeaderContainer}>
+                                    <Text style={styles.commentHeaderText}>
+                                        {`ความคิดเห็น (${community.comment ? community.comment.length : 0})`}
                                     </Text>
                                 </View>
-                                <View style={styles.iconContainer}>
-                                    <TouchableOpacity style={styles.textIconContainer}>
-                                        <FontAwesome name='heart-o' size={15} color='grey' />
-                                        <View style={styles.iconTextContainer}>
-                                            <Text style={styles.numberText}>
-                                                {`${community.like ? community.like.length : 0} `}
-                                            </Text>
-                                            <Text style={styles.indicatorText}>
-                                                ถูกใจ
-                                     </Text>
-                                        </View>
-                                    </TouchableOpacity>
-                                    <TouchableOpacity
-                                        style={styles.textIconContainer}>
-                                        <FontAwesome name='commenting-o' size={18} color='grey' />
-                                        <View style={styles.iconTextContainer}>
-                                            <Text style={styles.numberText}>
-                                                {`${community.comments ? community.comments.length : 0} `}
-                                            </Text>
-                                            <Text style={styles.indicatorText}>
-                                                ความเห็น
-                                     </Text>
-                                        </View>
-                                    </TouchableOpacity>
+                                <View style={styles.whiteBackground}>
+                                    {this.communityComments()}
                                 </View>
-                                <Hr />
-                                <Text style={styles.descriptionHeaderText}>
-                                    {`ความคิดเห็น (${community.comment ? community.comment.length : 0})`}
-                                </Text>
-                                {this.communityComments()}
                             </ScrollView>
                             :
                             <View style={styles.loader}>

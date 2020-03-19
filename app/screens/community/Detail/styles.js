@@ -5,48 +5,44 @@ import { PRIMARY_COLOR, SECONDARY_COLOR, KU_SECONDARY_COLOR, KU_PRIMARY_COLOR } 
 export default StyleSheet.create({
     containter: {
         flex: 1,
-        backgroundColor: 'white'
+        // backgroundColor: 'white'
     },
     imageAvatar: {
-        width: 60,
-        height: 60,
-        borderRadius: 60 / 2,
+        width: 50,
+        height: 50,
+        borderRadius: 50 / 2,
     },
-    titleContainer: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'space-between'
+    whiteBackground: {
+        backgroundColor: 'white'
     },
     userText: {
         color: KU_SECONDARY_COLOR,
         fontFamily: BOLD_FONT,
-        fontSize: 15,
+        letterSpacing: 0.5,
     },
     dateText: {
         fontFamily: REGULAR_FONT,
         color: 'grey',
     },
-    gapTitleText: {
-        flex: 1,
-        paddingHorizontal: 10,
-    },
-    contentContainer: {
-        padding: 10,
+    profileContainer: {
+        paddingTop: 10,
     },
     infoContainer: {
-        flex: 1,
-        alignItems: 'center',
         flexDirection: 'row'
     },
     descriptionContainer: {
-        paddingHorizontal: 10
+        paddingVertical: 10,
+    },
+    contentContainer: {
+        paddingHorizontal: 10,
     },
     descriptionText: {
+        letterSpacing: 0.5,
         fontFamily: REGULAR_FONT,
     },
     iconContainer: {
         flexDirection: 'row',
-        padding: 10,
+        paddingBottom: 10,
     },
     iconTextContainer: {
         paddingLeft: 5,
@@ -58,31 +54,9 @@ export default StyleSheet.create({
         paddingRight: 10,
         alignItems: 'center'
     },
-    commentContainer: {
-        padding: 10,
-    },
-    commentTitleContainer: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        paddingBottom: 10,
-    },
-    commentInfoContainer: {
-        flex: 1,
-        flexDirection: 'row',
-    },
-    commentText: {
-        fontFamily: REGULAR_FONT,
-        paddingTop: 5,
-    },
-    descriptionHeaderText: {
+    commentHeaderText: {
         fontFamily: BOLD_FONT,
         color: SECONDARY_COLOR,
-        paddingTop: 10,
-        paddingHorizontal: 10,
-        fontSize: 15
-    },
-    commentIconContainer: {
-        paddingTop: 5,
     },
     numberText: {
         fontSize: 13,
@@ -110,7 +84,7 @@ export default StyleSheet.create({
         fontFamily: REGULAR_FONT,
     },
     postText: {
-        fontFamily: REGULAR_FONT,
+        fontFamily: BOLD_FONT,
         color: PRIMARY_COLOR
     },
     idleText: {
@@ -123,5 +97,21 @@ export default StyleSheet.create({
     },
     keyboard: {
         flex: 1,
+    },
+    nameContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between'
+    },
+    infoGap: {
+        paddingHorizontal: 10, flex: 1
+    },
+    clockIconContainer: {
+        paddingRight: 10,
+        alignItems: 'center',
+        flexDirection: 'row',
+    },
+    commentHeaderContainer: {
+        padding: 10,
     }
 });
