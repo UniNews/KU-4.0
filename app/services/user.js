@@ -14,6 +14,16 @@ export default {
             headers: { 'Content-Type': 'application/json' }
         })
     },
+    register: (email, password) => {
+      const json = {
+        displayName: email,
+        email: email,
+        password: password
+      }
+      return axios.post(`${constants.API_URL}/registerByEmail`, json, {
+        headers: { 'Content-Type': 'application/json' }
+      });
+    },
     getProfile: () => {
         return axios.get(`${constants.API_URL}/profile`)
     },

@@ -15,18 +15,9 @@ class RegisterView extends React.Component {
         this.state = {
             username: '',
             password: '',
+            passwordConfirm: '',
             isHide: true
         }
-    }
-
-    componentDidUpdate(prevProps) {
-        const { user, error } = this.props
-        if (user) {
-            this.props.navigation.navigate('Main')
-            AlertHelper.alert('info', 'ล็อกอินสำเร็จ', 'สวัสดีคุณ ' + user.name)
-        }
-        else if (error && prevProps.error != error)
-            AlertHelper.alert('error', 'เกิดข้อผิดพลาด', 'บัญชีผู้ใช้ หรือรหัสผ่านไม่ถูกต้อง')
     }
 
     goBack = () => {
@@ -49,9 +40,13 @@ class RegisterView extends React.Component {
             : <Text style={styles.textButton}>ลงทะเบียน</Text>
     }
 
+    isPasswordMatch(password, passwordConfirm) {
+        return (password === passwordConfirm)
+    }
+
     render() {
-        const { isHide, username, password } = this.state
-        const { login, loading, loginByFacebook, loginByGoogle } = this.props
+        const { isHide, username, password, passwordConfirm } = this.state
+        const { login, loading, loginByFacebook, loginByGoogle, register } = this.props
         return (
             <LinearGradient colors={[KU_PRIMARY_COLOR, KU_SECONDARY_COLOR]} style={styles.container} >
                 <View style={styles.innerContainer}>
@@ -94,12 +89,13 @@ class RegisterView extends React.Component {
                                 placeholder='ยืนยันรหัสผ่าน'
                                 placeholderTextColor='white'
                                 secureTextEntry={isHide}
-                                onChangeText={(text) => this.setState({ password: text })}
-                            >
+                                onChangeText={(text) => this.setState({ passwordConfirm: text })}
+                                value={this.state.text}>
                             </TextInput>
                         </View>
                         <Button rounded style={styles.buttonContainer} disabled={loading} onPress={() => {
-                            login(username, password)
+                            if (this.isPasswordMatch(password, passwordConfirm)) register(username, password)
+                            else AlertHelper.alert('error', 'เกิดข้อผิดพลาด', 'รหัสผ่านไม่ตรงกัน')
                         }}>
                             {this.renderButton()}
                         </Button>
