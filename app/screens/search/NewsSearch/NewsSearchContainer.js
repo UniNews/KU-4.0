@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import SearchNewsView from './SearchNewsView';
+import NewsSearchView from './NewsSearchView';
 
 const mapStateToProps = state => {
     return {
@@ -11,4 +11,4 @@ const mapDispatchToProps = {
 
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(SearchNewsView);
+export default connect(mapStateToProps, mapDispatchToProps)(NewsSearchView);

@@ -17,18 +17,13 @@ export default StyleSheet.create({
     searchIconContainer: {
         paddingLeft: 15
     },
-    clearIconContainer: {
-        marginRight: 15
-    },
     textInputField: {
         flex: 1,
-        paddingLeft: 20,
+        justifyContent: 'center',
+        marginLeft: 20,
         height: 40,
+
         fontFamily: REGULAR_FONT,
-    },
-    postText: {
-        fontFamily: REGULAR_FONT,
-        color: PRIMARY_COLOR
     },
     tagContainer: {
         paddingVertical: 10,
@@ -68,19 +63,8 @@ export default StyleSheet.create({
     searchContainer: {
         backgroundColor: 'white',
     },
-    indicatorContainer: {
-        paddingTop: 10,
-        justifyContent: 'center',
-        flexDirection: 'row',
-        alignItems: 'center'
-    },
-    indicatorText: {
-        paddingRight: 10,
+    searchText: {
+        color: 'grey',
         fontFamily: REGULAR_FONT,
-        color: SECONDARY_COLOR,
-    },
-    newsContainer: {
-        flex: 1,
-        // marginVertical: 10
     }
 })
