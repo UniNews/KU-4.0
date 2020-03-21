@@ -4,6 +4,7 @@ import { createBottomTabNavigator, createMaterialTopTabNavigator } from 'react-n
 import { createStackNavigator } from 'react-navigation-stack'
 import { FontAwesome } from '@expo/vector-icons'
 import NewsTab from '../components/news/NewsTab'
+import SearchTab from '../components/search/SearchTab'
 import CommunityTab from '../components/community/CommunityTab'
 import NotificationScreen from '../screens/notification/Notification'
 import UserProfileScreen from '../screens/profile/User'
@@ -23,7 +24,8 @@ import FollowingSetting from '../screens/settings/Following'
 import CommentScreen from '../screens/news/Comment'
 import LatestCommunity from '../screens/community/Latest'
 import HottestComminity from '../screens/community/Hottest'
-import SearchNewsScreen from '../screens/search/SearchNews'
+import MainSearchScreen from '../screens/search/MainSearch'
+import NewsSearchScreen from '../screens/search/NewsSearch'
 
 const newsTab = createMaterialTopTabNavigator({
   'สำหรับคุณ': RecommendationScreen,
@@ -42,7 +44,6 @@ const newsStack = createStackNavigator({
   Home: newsTab,
   Detail: NewsDetailScreen,
   Comment: CommentScreen,
-  Search: SearchNewsScreen,
   ProfileDetail: StoreProfileScreen
 },
   {
@@ -108,11 +109,35 @@ const profileStack = createStackNavigator({
   }
 )
 
-const TabNavigator = createBottomTabNavigator({
+const searchTab = createMaterialTopTabNavigator({
+  'ข่าว': NewsSearchScreen,
+  'โปรไฟล์': NewsSearchScreen,
+}, {
+  tabBarComponent: SearchTab,
+  swipeEnabled: true,
+  tabBarOptions: {
+    scrollEnabled: true,
+  },
+})
+
+const searchStack = createStackNavigator({
+  MainSearch: MainSearchScreen,
+  SearchTab: searchTab
+},
+  {
+    headerMode: 'none',
+    navigationOptions: {
+      headerVisible: false,
+    }
+  }
+)
+
+
+const tabNavigator = createBottomTabNavigator({
   'หน้าหลัก': newsStack,
   'พูดคุย': communityStack,
   'แจ้งเตือน': NotificationScreen,
-  'โปรไฟล์': profileStack
+  'โปรไฟล์': profileStack,
 },
   {
     initialRouteName: 'หน้าหลัก',
@@ -152,7 +177,21 @@ const TabNavigator = createBottomTabNavigator({
   }
 )
 
-const AuthStack = createStackNavigator({
+
+const tabStack = createStackNavigator({
+  News: tabNavigator,
+  Search: searchStack
+},
+  {
+    initialRouteName: 'News',
+    headerMode: 'none',
+    navigationOptions: {
+      headerVisible: false,
+    }
+  }
+)
+
+const authStack = createStackNavigator({
   Login: {
     screen: LoginScreen
   },
@@ -168,10 +207,10 @@ const AuthStack = createStackNavigator({
 export default createAppContainer(createSwitchNavigator(
   {
     Auth: {
-      screen: AuthStack
+      screen: authStack
     },
     Main: {
-      screen: TabNavigator
+      screen: tabStack
     },
   }
 ))
