@@ -183,7 +183,6 @@ const tabStack = createStackNavigator({
   Search: searchStack
 },
   {
-    initialRouteName: 'News',
     headerMode: 'none',
     navigationOptions: {
       headerVisible: false,
