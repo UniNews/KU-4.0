@@ -2,8 +2,9 @@ import * as types from './actionTypes';
 
 const initialState = {
     loading: false,
-    news: [],
+    news: null,
     error: false,
+    query: '',
 };
 
 const reducer = (state = initialState, action) => {
@@ -13,7 +14,8 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 loading: true,
                 error: false,
-                news: [],
+                news: null,
+                query: action.payload
             };
         case types.SEARCH_OK:
             return {
@@ -26,9 +28,11 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 loading: false,
-                news: [],
+                news: null,
                 error: true,
             };
+        case types.SEARCH_RESET:
+            return initialState;
         default:
             return state;
     }

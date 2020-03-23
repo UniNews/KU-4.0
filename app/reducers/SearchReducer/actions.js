@@ -1,8 +1,8 @@
 import * as types from './actionTypes'
 import service from '../../services/news'
 
-const searchLoading = () => {
-  return { type: types.SEARCH_LOADING }
+const searchLoading = payload => {
+  return { type: types.SEARCH_LOADING, payload }
 }
 
 const searchOk = payload => {
@@ -20,7 +20,7 @@ const searchReset = () => {
 export function search(query) {
   return async dispatch => {
     try {
-      dispatch(searchLoading())
+      dispatch(searchLoading(query))
       const res = await service.getAllNews()
       const newsData = res.data.filter(item => {
         const stringData = `${item.title?.toUpperCase()}   
@@ -41,6 +41,17 @@ export function search(query) {
         newsArray.push(newsObject)
       }
       dispatch(searchOk(newsArray))
+    }
+    catch (err) {
+      dispatch(searchFail())
+    }
+  }
+}
+
+export function reset() {
+  return async dispatch => {
+    try {
+      dispatch(searchReset())
     }
     catch (err) {
       dispatch(searchFail())
