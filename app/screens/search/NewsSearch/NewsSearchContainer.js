@@ -3,7 +3,10 @@ import NewsSearchView from './NewsSearchView';
 
 const mapStateToProps = state => {
     return {
-        user: state.userReducer.user
+        loading: state.searchReducer.loading,
+        news: state.searchReducer.news,
+        error: state.searchReducer.error,
+        query: state.searchReducer.query
     }
 };
 

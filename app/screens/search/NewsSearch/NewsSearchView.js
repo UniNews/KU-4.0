@@ -1,31 +1,14 @@
 import React from 'react'
-import { Text, View, ActivityIndicator, TextInput, ScrollView, TouchableWithoutFeedback } from 'react-native'
-import StatusBar from '../../../components/commons/StatusBar'
+import { Text, View, ActivityIndicator, ScrollView, Keyboard } from 'react-native'
 import styles from './styles'
-import Header from '../../../components/commons/Header'
-import { Feather, FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons'
 import { PRIMARY_COLOR } from '../../../assets/css/color'
-import newsService from '../../../services/news'
 import NewsCard from '../../../components/news/NewsThread'
-import Button from '../../../components/commons/Button'
 
 class NewsSearchNews extends React.Component {
 
     constructor(props) {
         super(props)
-        this.state = {
-            news: [],
-            searching: false,
-            query: '',
-            selectedTag: '',
-            error: false
-        }
     }
-
-    search = () => {
-
-    }
-
 
     getNews = (newsId) => {
         this.props.navigation.navigate('Detail', { newsId })
@@ -36,10 +19,44 @@ class NewsSearchNews extends React.Component {
     }
 
     render() {
-        const { } = this.state
+        const { loading, news, error, query } = this.props
         return (
-            <View style={styles.containter}>
+            <View style={styles.container}>
+                <ScrollView onScroll={() => Keyboard.dismiss()}>
+                    {
+                        loading ?
+                            <View style={styles.indicatorContainer}>
+                                <Text style={styles.indicatorText}>
+                                    กำลังค้นหา...
+                            </Text>
+                                <View style={styles.spinner}>
+                                    <ActivityIndicator color={PRIMARY_COLOR} size={17} />
 
+                                </View>
+                            </View>
+                            :
+                            news ?
+                                news.length > 0 ?
+                                    news.map((news) => {
+                                        return (
+                                            <View key={news.newsId} style={{ marginBottom: 10, backgroundColor: 'white' }}>
+                                                <NewsCard onNewsPressed={this.getNews} onProfilePressed={this.getProfile} data={news} />
+                                            </View>
+                                        )
+                                    })
+                                    :
+                                    <View style={styles.indicatorContainer}>
+                                        <Text style={styles.indicatorText}>
+                                            {'ไม่พบผลลัพธ์สำหรับ '}
+                                        </Text>
+                                        <Text style={styles.queryText}>
+                                            {query}
+                                        </Text>
+                                    </View>
+                                :
+                                null
+                    }
+                </ScrollView>
             </View >
         )
     }
