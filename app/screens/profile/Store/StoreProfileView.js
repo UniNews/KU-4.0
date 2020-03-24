@@ -39,12 +39,11 @@ class StoreProfileView extends React.Component {
         const { following } = this.state
         const myUser = this.props.user
         //const updatedCommunity = { ...this.state.user.following }
-        // const comment = updatedCommunity.comments[commentIndex]
-        // const index = comment.like.map(data => data._id).indexOf(user._id)
-        // if (index > -1)
-        //     comment.like.splice(index, 1)
-        // else
-        //     comment.like.push(user)
+        const index = this.state.user.follower.map(data => data).indexOf(user._id)
+        if (index > -1)
+            comment.like.splice(index, 1)
+        else
+            comment.like.push(user)
         // this.setState({ community: updatedCommunity })
         // communityService.likeComment(comment._id)
         this.setState({ following: !following })
