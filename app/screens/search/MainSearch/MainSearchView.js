@@ -1,12 +1,9 @@
 import React from 'react'
-import { Text, View, ActivityIndicator, TextInput, ScrollView, TouchableWithoutFeedback } from 'react-native'
+import { Text, View, ScrollView } from 'react-native'
 import StatusBar from '../../../components/commons/StatusBar'
 import styles from './styles'
 import Header from '../../../components/commons/Header'
 import { Feather, FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons'
-import { PRIMARY_COLOR, KU_SECONDARY_COLOR, KU_PRIMARY_COLOR, SECONDARY_COLOR } from '../../../assets/css/color'
-import newsService from '../../../services/news'
-import NewsCard from '../../../components/news/NewsThread'
 import Button from '../../../components/commons/Button'
 
 const tags = [
@@ -90,7 +87,7 @@ class MainSearchView extends React.Component {
                             <FontAwesome name='search' color='grey' size={16} />
                         </View>
                         <Button onPress={this.goSearch} activeOpacity={1} style={styles.textInputField}>
-                            <Text style={styles.searchText}>ค้นหาข่าว...
+                            <Text style={styles.searchText}>ค้นหาข่าว, ชุมชน, ชื่อผู้ใช้...
                             </Text>
                         </Button>
                     </View>
