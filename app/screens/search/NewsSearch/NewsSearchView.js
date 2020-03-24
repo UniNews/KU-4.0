@@ -3,7 +3,7 @@ import { Text, View, ActivityIndicator, ScrollView, Keyboard } from 'react-nativ
 import styles from './styles'
 import { PRIMARY_COLOR } from '../../../assets/css/color'
 import NewsCard from '../../../components/news/NewsThread'
-
+import Hr from '../../../components/commons/Hr'
 class NewsSearchNews extends React.Component {
 
     constructor(props) {
@@ -39,7 +39,8 @@ class NewsSearchNews extends React.Component {
                                 news.length > 0 ?
                                     news.map((news) => {
                                         return (
-                                            <View key={news.newsId} style={{ marginBottom: 10, backgroundColor: 'white' }}>
+                                            <View key={news.newsId} style={styles.newsContainer}>
+                                                <Hr />
                                                 <NewsCard onNewsPressed={this.getNews} onProfilePressed={this.getProfile} data={news} />
                                             </View>
                                         )

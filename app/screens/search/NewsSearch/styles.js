@@ -18,7 +18,6 @@ export default StyleSheet.create({
     },
     newsContainer: {
         backgroundColor: 'white',
-        marginBottom: 10
     },
     queryText: {
         fontFamily: REGULAR_FONT,
