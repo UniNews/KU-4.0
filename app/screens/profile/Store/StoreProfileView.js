@@ -15,7 +15,8 @@ class StoreProfileView extends React.Component {
         super(props)
         this.state = {
             following: true,
-            user: null
+            user: null,
+            postNews: null
         }
     }
 
@@ -25,12 +26,31 @@ class StoreProfileView extends React.Component {
     }
 
     async componentDidMount() {
-        const result = await userService.getUserById(this.props.navigation.state.params.profileId)
+        const result = await userService.getUserAdminData(this.props.navigation.state.params.profileId)
         this.setState(
             {
-                user: result
+                user: result.data,
+                postNews: result.news
             }
         )
+    }
+
+    followingStore=() => {
+        const { following } = this.state
+        const myUser = this.props.user
+        //const updatedCommunity = { ...this.state.user.following }
+        // const comment = updatedCommunity.comments[commentIndex]
+        // const index = comment.like.map(data => data._id).indexOf(user._id)
+        // if (index > -1)
+        //     comment.like.splice(index, 1)
+        // else
+        //     comment.like.push(user)
+        // this.setState({ community: updatedCommunity })
+        // communityService.likeComment(comment._id)
+        this.setState({ following: !following })
+        console.log(this.state.user.follower)
+        console.log(myUser,'ssss')
+        //userService.followUserById(id)
     }
 
     render() {
@@ -51,13 +71,13 @@ class StoreProfileView extends React.Component {
                             source={{ uri: this.state.user ? this.state.user.avatarURL : 'https://scontent.fbkk22-2.fna.fbcdn.net/v/t1.0-9/11914947_628986903870394_7886924598746503503_n.jpg?_nc_cat=109&_nc_oc=AQkdDLwzEglbB6WwJS7sOgMFIkLoiHO8Ge4xBiFU5-vqrwuktU5koS9bC4UVGnzNApM&_nc_ht=scontent.fbkk22-2.fna&oh=25eeb22f8a3da030c7aad542c3c8ef0e&oe=5ED92CF1' }}
                             style={styles.avatar}
                         />
-                        <Button customStyle={following ? styles.followingButtonContainer : styles.notFollowingButtonContainer} rounded onPress={() => this.setState({ following: !following })}>
+                        <Button customStyle={following ? styles.followingButtonContainer : styles.notFollowingButtonContainer} rounded onPress={() => this.followingStore()}>
                             <Text style={following ? styles.followingTextButton : styles.notFollowingTextButton}>{following ? 'ติดตามอยู่' : 'ติดตาม'}</Text>
                         </Button>
                         <View style={styles.followContainer}>
                             <View style={styles.amount1Container}>
                                 <Text style={styles.numberText}>
-                                    5
+                                    {this.state.postNews?this.state.postNews.length:0}
                                 </Text>
                                 <Text style={styles.indicatorText}>
                                     โพสต์
@@ -65,7 +85,7 @@ class StoreProfileView extends React.Component {
                             </View>
                             <View style={styles.amount2Container}>
                                 <Text style={styles.numberText}>
-                                    3
+                                    {this.state.user?[...this.state.user.follower].length:0}
                                 </Text>
                                 <Text style={styles.indicatorText}>
                                     ผู้ติดตาม

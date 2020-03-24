@@ -28,7 +28,7 @@ export default {
         return axios.get(`${constants.API_URL}/profile`)
     },
     getUserById: (id) => {
-        return axios.get(`${constants.API_URL}/users/${id}`).then(response => response.data)
+        return axios.get(`${constants.API_URL}/users/${id}/normal`).then(response => response.data)
             .catch(error => error)
     },
     loginByFacebook: async () => {
@@ -87,4 +87,13 @@ export default {
             Promise.reject('Google Login Error')
         }
     },
+    getUserAdminData:(id)=>{
+        return axios.get(`${constants.API_URL}/users/${id}`).then(response => response.data)
+        .catch(error => error)
+    },
+    followUserById:(id)=>{
+        return axios.post(`${constants.API_URL}/users/${id}`, {
+            headers: { 'Content-Type': 'application/json' }
+        })
+    }
 }
