@@ -54,7 +54,7 @@ class SearchTabView extends React.Component {
         const routes = navigation.state.routes
         return (
             <View style={styles.container}>
-                <StatusBar backgroundColor='white' />
+                <StatusBar />
                 <View style={styles.inputContainer}>
                     <View style={styles.searchIconContainer}>
                         <MaterialCommunityIcons
@@ -65,9 +65,10 @@ class SearchTabView extends React.Component {
                     </View>
                     <TextInput
                         value={query}
+                        autoFocus={true}
                         placeholderTextColor={'grey'}
                         style={styles.textInputField}
-                        placeholder={'ค้นหาข่าว...'}
+                        placeholder={'ค้นหาข่าว, ชุมชน, ชื่อผู้ใช้...'}
                         onSubmitEditing={this.search}
                         onChangeText={this.updateSearch}
                         returnKeyType={'search'}
