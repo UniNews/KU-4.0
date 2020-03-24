@@ -26,6 +26,7 @@ import LatestCommunity from '../screens/community/Latest'
 import HottestComminity from '../screens/community/Hottest'
 import MainSearchScreen from '../screens/search/MainSearch'
 import NewsSearchScreen from '../screens/search/NewsSearch'
+import ProfileSearchScreen from '../screens/search/ProfileSearch'
 
 const newsTab = createMaterialTopTabNavigator({
   'สำหรับคุณ': RecommendationScreen,
@@ -111,7 +112,7 @@ const profileStack = createStackNavigator({
 
 const searchTab = createMaterialTopTabNavigator({
   'ข่าว': NewsSearchScreen,
-  'โปรไฟล์': NewsSearchScreen,
+  'โปรไฟล์': ProfileSearchScreen,
 }, {
   tabBarComponent: SearchTab,
   swipeEnabled: true,
