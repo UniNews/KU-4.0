@@ -28,7 +28,7 @@ class DetailView extends React.Component {
                 description: '',
             },
             isLoading: true,
-            updateComments:null
+            updateComments: null
         }
     }
 
@@ -51,46 +51,31 @@ class DetailView extends React.Component {
     getProfile = () => {
         const { navigation } = this.props
         const { news } = this.state
-        const profileId = news.user._id
-        navigation.navigate('ProfileDetail', { profileId })
+        navigation.navigate('ProfileDetail', {
+            user: news.user
+        })
     }
 
     getComments = () => {
         const newsId = this.props.navigation.state.params.newsId
-        this.props.navigation.navigate('Comment', { newsId: newsId,updateData: this.updateData })
-    }
-
-    updateData = (data) =>{
-        this.setState({updateComments:data})
-    }
-
-    getCommentLength=()=>{
-        if(this.state.updateComments==null)
-            return <Text style={styles.iconText}>
-                        {this.state.news.comments.length} ความเห็น
-                    </Text>
-        else
-            return <Text style={styles.iconText}>
-                        {this.state.updateComments.length} ความเห็น
-                    </Text>
+        this.props.navigation.navigate('Comment', { newsId: newsId })
     }
 
     render() {
         const { news, isLoading } = this.state
         return (
-            <View>
+            <View style={styles.container}>
                 <StatusBar />
                 <Header title={'ข่าวมหาลัย'} leftIconComponent={
                     <Feather color='white' onPress={this.goBack} size={28} name={'chevron-left'} />
-                }
-                />
+                } />
                 {
                     !isLoading ?
-                        <ScrollView style={styles.container} >
+                        <ScrollView >
                             <ImageBackground style={styles.newsImage}
                                 source={{ uri: news.imageURL.length > 0 ? news.imageURL[0] : null }} >
                             </ImageBackground>
-                            <View style={{ padding: 15 }}>
+                            <View style={styles.topContainer}>
                                 <View style={styles.titleContainer}>
                                     <TouchableWithoutFeedback onPress={this.getProfile}>
                                         <Image
@@ -116,7 +101,9 @@ class DetailView extends React.Component {
                                                 onPress={this.getComments}
                                                 style={styles.textIconContainer}>
                                                 <FontAwesome name='commenting-o' size={18} color='grey' />
-                                                {this.getCommentLength()}
+                                                <Text style={styles.iconText}>
+                                                    {this.state.news.comments.length} ความเห็น
+                                                </Text>
                                             </TouchableOpacity>
                                         </View>
                                     </View>
