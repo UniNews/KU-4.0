@@ -87,11 +87,11 @@ export default {
             Promise.reject('Google Login Error')
         }
     },
-    getUserAdminData:(id)=>{
+    getUserById: (id) => {
         return axios.get(`${constants.API_URL}/users/${id}`).then(response => response.data)
-        .catch(error => error)
+            .catch(error => error)
     },
-    followUserById:(id)=>{
+    followUserById: (id) => {
         return axios.post(`${constants.API_URL}/users/${id}`, {
             headers: { 'Content-Type': 'application/json' }
         })
