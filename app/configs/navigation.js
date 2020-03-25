@@ -27,6 +27,7 @@ import HottestComminity from '../screens/community/Hottest'
 import MainSearchScreen from '../screens/search/MainSearch'
 import NewsSearchScreen from '../screens/search/NewsSearch'
 import ProfileSearchScreen from '../screens/search/ProfileSearch'
+import AnyNewsScreen from '../screens/news/AnyNews'
 
 const newsTab = createMaterialTopTabNavigator({
   'สำหรับคุณ': RecommendationScreen,
@@ -45,7 +46,8 @@ const newsStack = createStackNavigator({
   Home: newsTab,
   Detail: NewsDetailScreen,
   Comment: CommentScreen,
-  ProfileDetail: StoreProfileScreen
+  AnyNews: AnyNewsScreen,
+  ProfileDetail: StoreProfileScreen,
 },
   {
     headerMode: 'none',
@@ -57,10 +59,11 @@ const newsStack = createStackNavigator({
 
 newsStack.navigationOptions = ({ navigation }) => {
   let tabBarVisible = true
-  if (navigation.state.index == 2) // check if the route is Comment
+  let currentRoute = navigation.state.routes[navigation.state.routes.length - 1].routeName
+  if (currentRoute == 'Comment')
     tabBarVisible = false
   return {
-    tabBarVisible,
+    tabBarVisible
   }
 }
 
@@ -180,7 +183,7 @@ const tabNavigator = createBottomTabNavigator({
 
 
 const tabStack = createStackNavigator({
-  News: tabNavigator,
+  Tabs: tabNavigator,
   Search: searchStack
 },
   {
