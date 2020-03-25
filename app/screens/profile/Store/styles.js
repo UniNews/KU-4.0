@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native'
 import { viewportWidth } from '../../../assets/javascripts/spacing'
 import { BOLD_FONT, REGULAR_FONT } from '../../../assets/css/typography'
-import { PRIMARY_COLOR, SECONDARY_COLOR } from '../../../assets/css/color'
+import { PRIMARY_COLOR } from '../../../assets/css/color'
 
 export default StyleSheet.create({
     containter: {
@@ -61,12 +61,12 @@ export default StyleSheet.create({
     },
     numberText: {
         fontFamily: BOLD_FONT,
-        fontSize: 30,
+        fontSize: 25,
         color: 'white',
     },
     indicatorText: {
         fontFamily: REGULAR_FONT,
-        // fontSize: 15,
+        fontSize: 15,
         color: 'white',
     },
     profileContainer: {
@@ -80,7 +80,7 @@ export default StyleSheet.create({
     },
     profileValueText: {
         fontFamily: REGULAR_FONT,
-        fontSize: 17,
+        fontSize: 15,
     },
     verticalLine: {
         marginVertical: 10

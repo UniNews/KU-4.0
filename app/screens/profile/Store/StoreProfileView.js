@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, View, ImageBackground, Image, TouchableWithoutFeedback, ActivityIndicator } from 'react-native'
+import { Text, View, ImageBackground, Image, TouchableWithoutFeedback, ActivityIndicator, TouchableNativeFeedback } from 'react-native'
 import { Feather } from '@expo/vector-icons'
 import styles from './styles'
 import { LinearGradient } from 'expo-linear-gradient'
@@ -41,20 +41,29 @@ class StoreProfileView extends React.Component {
     }
 
     followingStore = () => {
-        const { following } = this.state
-        const myUser = this.props.user
-        //const updatedCommunity = { ...this.state.user.following }
-        const index = this.state.user.follower.map(data => data).indexOf(user._id)
-        if (index > -1)
-            comment.like.splice(index, 1)
-        else
-            comment.like.push(user)
-        // this.setState({ community: updatedCommunity })
-        // communityService.likeComment(comment._id)
-        this.setState({ following: !following })
-        console.log(this.state.user.follower)
-        console.log(myUser, 'ssss')
-        //userService.followUserById(id)
+        // const { following } = this.state
+        // const myUser = this.props.user
+        // //const updatedCommunity = { ...this.state.user.following }
+        // const index = this.state.user.follower.map(data => data).indexOf(user._id)
+        // if (index > -1)
+        //     comment.like.splice(index, 1)
+        // else
+        //     comment.like.push(user)
+        // // this.setState({ community: updatedCommunity })
+        // // communityService.likeComment(comment._id)
+        // this.setState({ following: !following })
+        // console.log(this.state.user.follower)
+        // console.log(myUser, 'ssss')
+        // //userService.followUserById(id)
+    }
+
+    goPostedNews = () => {
+        const { postNews } = this.state
+        const { navigation } = this.props
+        navigation.push('AnyNews', {
+            title: 'โพสต์ทั้งหมด',
+            news: postNews
+        })
     }
 
     render() {
@@ -85,23 +94,27 @@ class StoreProfileView extends React.Component {
                                         </Button>
                                     </View>
                                     <View style={styles.infoContainer}>
-                                        <View style={styles.indicatorContainer}>
-                                            <Text style={styles.numberText}>
-                                                {this.state.postNews ? this.state.postNews.length : 0}
+                                        <TouchableNativeFeedback onPress={this.goPostedNews}>
+                                            <View style={styles.indicatorContainer}>
+                                                <Text style={styles.numberText}>
+                                                    {this.state.postNews ? this.state.postNews.length : 0}
+                                                </Text>
+                                                <Text style={styles.indicatorText}>
+                                                    โพสต์
                                             </Text>
-                                            <Text style={styles.indicatorText}>
-                                                โพสต์
-                                    </Text>
-                                        </View>
+                                            </View>
+                                        </TouchableNativeFeedback>
                                         <Vr style={styles.verticalLine} />
-                                        <View style={styles.indicatorContainer}>
-                                            <Text style={styles.numberText}>
-                                                {this.state.user ? [...this.state.user.follower].length : 0}
-                                            </Text>
-                                            <Text style={styles.indicatorText}>
-                                                ผู้ติดตาม
-                                    </Text>
-                                        </View>
+                                        <TouchableNativeFeedback>
+                                            <View style={styles.indicatorContainer}>
+                                                <Text style={styles.numberText}>
+                                                    {this.state.user ? [...this.state.user.follower].length : 0}
+                                                </Text>
+                                                <Text style={styles.indicatorText}>
+                                                    ผู้ติดตาม
+                                             </Text>
+                                            </View>
+                                        </TouchableNativeFeedback>
                                     </View>
                                 </LinearGradient>
                             </ImageBackground>
@@ -132,5 +145,7 @@ class StoreProfileView extends React.Component {
         )
     }
 }
+
+
 
 export default StoreProfileView
