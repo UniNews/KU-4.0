@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native'
-import { viewportWidth, wp } from '../../../assets/javascripts/spacing'
+import { viewportWidth } from '../../../assets/javascripts/spacing'
 import { BOLD_FONT, REGULAR_FONT } from '../../../assets/css/typography'
 import { PRIMARY_COLOR, SECONDARY_COLOR } from '../../../assets/css/color'
 
@@ -27,43 +27,37 @@ export default StyleSheet.create({
         color: 'white',
         fontSize: 30
     },
-    followingTextButton: {
+    buttonContainer: {
+        marginTop: 10,
+        marginBottom: 5
+    },
+    followingButtonText: {
         color: PRIMARY_COLOR,
-        textAlign: 'center',
         fontSize: 15,
-        fontFamily: BOLD_FONT
+        fontFamily: BOLD_FONT,
     },
-    notFollowingTextButton: {
+    notFollowingButtonText: {
         color: 'white',
-        textAlign: 'center',
         fontSize: 15,
         fontFamily: BOLD_FONT
     },
-    followingButtonContainer: {
-        marginTop: 10,
-        width: 150,
+    followingButton: {
         backgroundColor: 'white',
-        padding: 7,
+        paddingVertical: 10,
+        paddingHorizontal: 15,
     },
-    notFollowingButtonContainer: {
-        marginTop: 10,
-        width: 150,
+    notFollowingButton: {
+        paddingVertical: 10,
+        paddingHorizontal: 15,
         backgroundColor: '#4AAF54',
-        padding: 7,
     },
-    followContainer: {
-        marginVertical: 10,
+    infoContainer: {
+        marginBottom: 10,
         flexDirection: 'row',
     },
-    amount1Container: {
+    indicatorContainer: {
         alignItems: 'center',
-        paddingRight: 20,
-    },
-    amount2Container: {
-        borderLeftWidth: 1,
-        paddingLeft: 20,
-        borderLeftColor: 'white',
-        alignItems: 'center'
+        flex: 1,
     },
     numberText: {
         fontFamily: BOLD_FONT,
@@ -72,23 +66,30 @@ export default StyleSheet.create({
     },
     indicatorText: {
         fontFamily: REGULAR_FONT,
-        fontSize: 15,
+        // fontSize: 15,
         color: 'white',
     },
-    settingContainer: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
+    profileContainer: {
         paddingHorizontal: 20,
-        paddingVertical: 13,
+        paddingVertical: 10,
     },
-    settingTitleText: {
+    profileTitleText: {
         fontFamily: REGULAR_FONT,
         color: 'grey',
         fontSize: 15,
     },
-    settingValueText: {
+    profileValueText: {
         fontFamily: REGULAR_FONT,
         fontSize: 17,
-    }
+    },
+    verticalLine: {
+        marginVertical: 10
+    },
+    profileSectionContainer: {
+        paddingVertical: 10,
+    },
+    loader: {
+        flex: 1,
+        justifyContent: 'center'
+    },
 })
