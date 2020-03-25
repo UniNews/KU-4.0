@@ -2,6 +2,9 @@ import { StyleSheet, } from 'react-native';
 
 export default StyleSheet.create({
     containter: {
-        paddingBottom: 10,
+        flex: 1
     },
+    newsContainer: {
+        backgroundColor: 'white'
+    }
 });
