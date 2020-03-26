@@ -1,15 +1,14 @@
 import React from 'react'
-import { Text, View, ImageBackground, Image, TouchableWithoutFeedback, ActivityIndicator, TouchableNativeFeedback } from 'react-native'
+import { Text, View, Image, ActivityIndicator, TouchableNativeFeedback } from 'react-native'
 import { Feather } from '@expo/vector-icons'
 import styles from './styles'
 import { LinearGradient } from 'expo-linear-gradient'
 import Hr from '../../../components/commons/Hr'
-import Header from '../../../components/commons/Header'
 import Button from '../../../components/commons/Button'
 import StatusBar from '../../../components/commons/StatusBar'
 import userService from '../../../services/user'
 import Vr from '../../../components/commons/Vr'
-import { PRIMARY_COLOR } from '../../../assets/css/color'
+import { PRIMARY_COLOR, KU_SECONDARY_COLOR, KU_PRIMARY_COLOR } from '../../../assets/css/color'
 
 class StoreProfileView extends React.Component {
 
@@ -68,56 +67,57 @@ class StoreProfileView extends React.Component {
 
     render() {
         const { following, user, loading } = this.state
-        const { displayName } = this.props.navigation.state.params.user
         return (
             <View style={styles.containter}>
                 <StatusBar />
-                <Header title={user ? user.displayName : displayName} leftIconComponent={
-                    <TouchableWithoutFeedback onPress={this.goBack}>
-                        <Feather color='white' size={28} name={'chevron-left'} />
-                    </TouchableWithoutFeedback>}
-                />
                 {
                     !loading ?
                         <View>
-                            <ImageBackground style={styles.coverImg}
-                                resizeMode='cover'
-                                source={require('../../../assets/imgs/ku-cover.png')}>
-                                <LinearGradient colors={['rgba(0,0,0,0)', 'rgba(0,0,0,0.4)']} style={styles.profileInfoContainer}>
-                                    <Image
-                                        source={user ? { uri: user.avatarURL } : require('../../../assets/imgs/avatar-default.png')}
-                                        style={styles.avatar}
+                            <LinearGradient start={{ x: 0, y: 0 }} end={{ x: 0, y: 1 }} colors={[KU_PRIMARY_COLOR, KU_SECONDARY_COLOR]} style={styles.profileInfoContainer}>
+                                <View style={styles.backButton}>
+                                    <Feather
+                                        color='white'
+                                        onPress={this.goBack}
+                                        size={28}
+                                        name={'chevron-left'}
                                     />
-                                    <View style={styles.buttonContainer}>
-                                        <Button style={following ? styles.followingButton : styles.notFollowingButton} rounded onPress={() => this.followingStore()}>
-                                            <Text style={following ? styles.followingButtonText : styles.notFollowingButtonText}>{following ? 'ติดตามอยู่' : 'ติดตาม'}</Text>
-                                        </Button>
-                                    </View>
-                                    <View style={styles.infoContainer}>
-                                        <TouchableNativeFeedback onPress={this.goPostedNews}>
-                                            <View style={styles.indicatorContainer}>
-                                                <Text style={styles.numberText}>
-                                                    {this.state.postNews ? this.state.postNews.length : 0}
-                                                </Text>
-                                                <Text style={styles.indicatorText}>
-                                                    โพสต์
+                                </View>
+                                <Image
+                                    source={user ? { uri: user.avatarURL } : require('../../../assets/imgs/avatar-default.png')}
+                                    style={styles.avatar}
+                                />
+                                <Text numberOfLines={2} style={styles.nameText}>
+                                    {user.displayName}
+                                </Text>
+                                <View style={styles.buttonContainer}>
+                                    <Button style={following ? styles.followingButton : styles.notFollowingButton} rounded onPress={() => this.followingStore()}>
+                                        <Text style={following ? styles.followingButtonText : styles.notFollowingButtonText}>{following ? 'ติดตามอยู่' : 'ติดตาม'}</Text>
+                                    </Button>
+                                </View>
+                                <View style={styles.infoContainer}>
+                                    <TouchableNativeFeedback onPress={this.goPostedNews}>
+                                        <View style={styles.indicatorContainer}>
+                                            <Text style={styles.numberText}>
+                                                {this.state.postNews ? this.state.postNews.length : 0}
                                             </Text>
-                                            </View>
-                                        </TouchableNativeFeedback>
-                                        <Vr style={styles.verticalLine} />
-                                        <TouchableNativeFeedback>
-                                            <View style={styles.indicatorContainer}>
-                                                <Text style={styles.numberText}>
-                                                    {this.state.user ? [...this.state.user.follower].length : 0}
+                                            <Text style={styles.indicatorText}>
+                                                โพสต์
                                                 </Text>
-                                                <Text style={styles.indicatorText}>
-                                                    ผู้ติดตาม
-                                             </Text>
-                                            </View>
-                                        </TouchableNativeFeedback>
-                                    </View>
-                                </LinearGradient>
-                            </ImageBackground>
+                                        </View>
+                                    </TouchableNativeFeedback>
+                                    <Vr style={styles.verticalLine} />
+                                    <TouchableNativeFeedback>
+                                        <View style={styles.indicatorContainer}>
+                                            <Text style={styles.numberText}>
+                                                {this.state.user ? [...this.state.user.follower].length : 0}
+                                            </Text>
+                                            <Text style={styles.indicatorText}>
+                                                ผู้ติดตาม
+                                                </Text>
+                                        </View>
+                                    </TouchableNativeFeedback>
+                                </View>
+                            </LinearGradient>
                             <View style={styles.profileContainer}>
                                 <View style={styles.profileSectionContainer}>
                                     <Text style={styles.profileTitleText}>ชื่อ</Text>
