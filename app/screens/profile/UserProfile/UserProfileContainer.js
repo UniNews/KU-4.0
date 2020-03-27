@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import StoreProfileView from './StoreProfileView';
+import UserProfileView from './UserProfileView';
 import { followUserById } from '../../../reducers/UserReducer/actions';
 
 const mapStateToProps = state => {
@@ -12,4 +12,4 @@ const mapDispatchToProps = {
     followUserById
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(StoreProfileView);
+export default connect(mapStateToProps, mapDispatchToProps)(UserProfileView);

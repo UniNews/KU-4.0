@@ -10,7 +10,7 @@ import userService from '../../../services/user'
 import Vr from '../../../components/commons/Vr'
 import { PRIMARY_COLOR, KU_SECONDARY_COLOR, KU_PRIMARY_COLOR } from '../../../assets/css/color'
 
-class StoreProfileView extends React.Component {
+class UserProfileView extends React.Component {
 
     constructor(props) {
         super(props)
@@ -140,6 +140,4 @@ class StoreProfileView extends React.Component {
     }
 }
 
-
-
-export default StoreProfileView
+export default UserProfileView
