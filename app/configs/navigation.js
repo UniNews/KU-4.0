@@ -20,7 +20,7 @@ import CommunityDetailScreen from '../screens/community/Detail'
 import { PRIMARY_COLOR, SECONDARY_COLOR } from '../assets/css/color'
 import { BOLD_FONT } from '../assets/css/typography'
 import ProfileSetting from '../screens/settings/Profile'
-import FollowingSetting from '../screens/settings/Following'
+import FollowingScreen from '../screens/profile/Following'
 import CommentScreen from '../screens/news/Comment'
 import LatestCommunity from '../screens/community/Latest'
 import HottestComminity from '../screens/community/Hottest'
@@ -47,6 +47,7 @@ const newsStack = createStackNavigator({
   Detail: NewsDetailScreen,
   Comment: CommentScreen,
   AnyNews: AnyNewsScreen,
+  Following: FollowingScreen,
   ProfileDetail: UserProfileScreen,
 },
   {
@@ -102,7 +103,7 @@ communityStack.navigationOptions = ({ navigation }) => {
 const profileStack = createStackNavigator({
   MyProfile: MyProfileScreen,
   ProfileSetting: ProfileSetting,
-  FollowingSetting: FollowingSetting,
+  FollowingSetting: FollowingScreen,
   ProfileDetail: UserProfileScreen
 },
   {
