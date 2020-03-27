@@ -25,7 +25,7 @@ export default {
         });
     },
     getProfile: () => {
-        return axios.get(`${constants.API_URL}/profile`)
+        return axios.get(`${constants.API_URL}/profile/me`)
     },
     getUserById: (id) => {
         return axios.get(`${constants.API_URL}/users/${id}/normal`).then(response => response.data)
