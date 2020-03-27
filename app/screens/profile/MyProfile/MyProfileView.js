@@ -17,6 +17,15 @@ class MyProfileView extends React.Component {
         }
     }
 
+    goFollowing = () => {
+        const { navigation } = this.props
+        // TODO: call /users/me/follower
+        // navigation.push('Following', {
+        //     title: 'ผู้ติดตาม',
+        //     following: user.follower
+        // })
+    }
+
     toggleSwitch = (value) => {
         this.setState({ switchValue: value })
     }
@@ -53,7 +62,7 @@ class MyProfileView extends React.Component {
                     </View>
                 </TouchableWithoutFeedback>
                 <Hr />
-                <TouchableWithoutFeedback onPress={() => this.props.navigation.navigate('FollowingSetting')}>
+                <TouchableWithoutFeedback onPress={this.goFollowing}>
                     <View style={styles.settingContainer}>
                         <Text style={styles.settingText}>กำลังติดตาม</Text>
                         <Feather name={'chevron-right'} size={20} color={'gray'} />
