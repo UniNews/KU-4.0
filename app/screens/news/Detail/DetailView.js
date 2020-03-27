@@ -51,14 +51,14 @@ class DetailView extends React.Component {
     goProfile = () => {
         const { navigation } = this.props
         const { news } = this.state
-        navigation.navigate('ProfileDetail', {
+        navigation.push('ProfileDetail', {
             userId: news.user._id
         })
     }
 
     goComments = () => {
         const newsId = this.props.navigation.state.params.newsId
-        this.props.navigation.navigate('Comment', { newsId: newsId })
+        this.props.navigation.push('Comment', { newsId: newsId })
     }
 
     render() {
