@@ -48,7 +48,7 @@ class DetailView extends React.Component {
         navigation.goBack()
     }
 
-    getProfile = () => {
+    goProfile = () => {
         const { navigation } = this.props
         const { news } = this.state
         navigation.navigate('ProfileDetail', {
@@ -56,7 +56,7 @@ class DetailView extends React.Component {
         })
     }
 
-    getComments = () => {
+    goComments = () => {
         const newsId = this.props.navigation.state.params.newsId
         this.props.navigation.navigate('Comment', { newsId: newsId })
     }
@@ -77,7 +77,7 @@ class DetailView extends React.Component {
                             </ImageBackground>
                             <View style={styles.topContainer}>
                                 <View style={styles.titleContainer}>
-                                    <TouchableWithoutFeedback onPress={this.getProfile}>
+                                    <TouchableWithoutFeedback onPress={this.goProfile}>
                                         <Image
                                             style={styles.imageAvatar}
                                             source={{ uri: news.user.avatarURL }}
@@ -98,7 +98,7 @@ class DetailView extends React.Component {
                                                 </Text>
                                             </View>
                                             <TouchableOpacity
-                                                onPress={this.getComments}
+                                                onPress={this.goComments}
                                                 style={styles.textIconContainer}>
                                                 <FontAwesome name='commenting-o' size={18} color='grey' />
                                                 <Text style={styles.iconText}>
