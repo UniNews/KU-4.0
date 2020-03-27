@@ -1,112 +1,105 @@
-import React from 'react';
+import React from 'react'
 import {
   View,
   ScrollView,
   ActivityIndicator,
   KeyboardAvoidingView,
   TextInput,
-  RefreshControl
-} from 'react-native';
-import styles from './styles';
-import Header from '../../../components/commons/Header';
-import Comment from '../../../components/news/Comment';
-import StatusBar from '../../../components/commons/StatusBar';
-import newsService from '../../../services/news';
-import { PRIMARY_COLOR, SECONDARY_COLOR } from '../../../assets/css/color';
-import { Feather, FontAwesome } from '@expo/vector-icons';
+  RefreshControl,
+  Text
+} from 'react-native'
+import styles from './styles'
+import Header from '../../../components/commons/Header'
+import Comment from '../../../components/commons/Comment'
+import StatusBar from '../../../components/commons/StatusBar'
+import newsService from '../../../services/news'
+import { PRIMARY_COLOR } from '../../../assets/css/color'
+import { Feather } from '@expo/vector-icons'
+import Button from '../../../components/commons/Button'
+import Hr from '../../../components/commons/Hr'
 
 class CommentView extends React.Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
       comments: [],
       fetching: true,
       msg: '',
       refreshing: false,
       posting: false
-    };
+    }
   }
 
-  componentWillUnmount() { }
-
   componentDidMount() {
-    const newsId = this.props.navigation.state.params.newsId;
+    const newsId = this.props.navigation.state.params.newsId
     newsService.getNewsById(newsId).then(result => {
       this.setState({
         comments: result.data.comments,
         fetching: false
-      });
-    });
+      })
+    })
   }
 
-  likeComment = commentId => {
-    newsService.likeComment(commentId).then(result => {
-      const currentuser = this.props.user;
-      let updatedComments = [...this.state.comments];
-      for (let i in updatedComments) {
-        if (updatedComments[i]._id === commentId) {
-          let foundLike = false;
-          for (let j in updatedComments[i].like) {
-            if (updatedComments[i].like[j].username === currentuser.username) {
-              foundLike = true;
-              break;
-            }
-          }
-          if (foundLike)
-            updatedComments[i].like = updatedComments[i].like.filter(
-              el => el.username !== currentuser.username
-            );
-          else updatedComments[i].like.push(currentuser);
-        }
-      }
-      this.setState({ comments: updatedComments });
-    });
-  };
-
   goBack = () => {
-    const { navigation } = this.props;
-    navigation.goBack();
-  };
+    const { navigation } = this.props
+    navigation.goBack()
+  }
 
   postComment = () => {
-    this.setState({ posting: true });
-    const newsId = this.props.navigation.state.params.newsId;
-    const { msg } = this.state;
+    this.setState({ posting: true })
+    const newsId = this.props.navigation.state.params.newsId
+    const { msg } = this.state
     newsService.postComment(newsId, msg).then(result => {
       newsService.getNewsById(newsId).then(result => {
         this.setState({
           comments: result.data.comments,
           posting: false,
           msg: ''
-        });
-      });
-    });
-  };
+        })
+      })
+    })
+  }
 
-  checkLiked = like => {
-    const currentuser = this.props.user;
-    return like.filter(element => {
-      return element.username === currentuser.username;
-    }).length;
-  };
+  isCommentLiked = (comment) => {
+    const userId = this.props.user._id
+    return comment.like.indexOf(userId) > -1
+  }
 
   onRefresh = () => {
-    this.setState({ refreshing: true });
-    const newsId = this.props.navigation.state.params.newsId;
+    this.setState({ refreshing: true })
+    const newsId = this.props.navigation.state.params.newsId
     newsService.getNewsById(newsId).then(result => {
       this.setState({
         comments: result.data.comments,
         refreshing: false
-      });
-    });
-  };
+      })
+    })
+  }
 
-  getProfile = profileId => {
-    console.log(profileId);
-  };
+  likeComment = (id) => {
+    const userId = this.props.user._id
+    const updatedComments = [...this.state.comments]
+    const comment = updatedComments.find(comment => comment._id == id)
+    if (comment) {
+      const index = comment.like.indexOf(userId)
+      if (index > -1)
+        comment.like.splice(index, 1)
+      else
+        comment.like.push(userId)
+      this.setState({ comments: updatedComments })
+      newsService.likeComment(id)
+    }
+  }
+
+  goProfile = (id) => {
+    const { navigation } = this.props
+    navigation.push('ProfileDetail', {
+      userId: id
+    })
+  }
 
   render() {
-    const { comments, fetching, refreshing, posting, msg } = this.state;
+    const { comments, fetching, refreshing, posting, msg } = this.state
     return (
       <View style={styles.container}>
         <StatusBar />
@@ -114,7 +107,7 @@ class CommentView extends React.Component {
           title={'ความคิดเห็น'}
           leftIconComponent={
             <Feather
-              color='white'
+              color={'white'}
               onPress={this.goBack}
               size={28}
               name={'chevron-left'}
@@ -123,7 +116,7 @@ class CommentView extends React.Component {
         />
         <KeyboardAvoidingView
           style={styles.keyboardAvoidContainer}
-          behavior='height'
+          behavior={'height'}
         >
           {!fetching ? (
             <ScrollView
@@ -133,18 +126,25 @@ class CommentView extends React.Component {
                   onRefresh={this.onRefresh}
                 />
               }
-              style={styles.commentContainer}
             >
-              {comments.map(comment => {
+              {comments.map((comment, index, commentArray) => {
                 return (
-                  <Comment
-                    liked={this.checkLiked(comment.like)}
-                    key={comment._id}
-                    onProfilePressed={this.getProfile}
-                    onLikePressed={this.likeComment}
-                    data={comment}
-                  />
-                );
+                  <View style={styles.commentContainer} key={comment._id}>
+                    <Comment
+                      liked={this.isCommentLiked(comment)}
+                      onProfilePressed={this.goProfile}
+                      onLikePressed={this.likeComment}
+                      data={comment}
+                    />
+                    {
+                      index != commentArray.length - 1
+                        ?
+                        <Hr />
+                        :
+                        null
+                    }
+                  </View>
+                )
               })}
             </ScrollView>
           ) : (
@@ -164,19 +164,17 @@ class CommentView extends React.Component {
             {posting ? (
               <ActivityIndicator color={PRIMARY_COLOR} size={25} />
             ) : (
-                <FontAwesome
-                  style={this.state.msg === '' ? styles.disableIcon : null}
-                  color={PRIMARY_COLOR}
-                  size={25}
-                  name={'send'}
-                  onPress={this.postComment}
-                />
+                <Button onPress={this.postComment} style={{ backgroundColor: 'transparent' }}>
+                  <Text style={msg === '' ? styles.idleText : styles.postText}>
+                    โพสต์
+                  </Text>
+                </Button>
               )}
           </View>
         </KeyboardAvoidingView>
       </View>
-    );
+    )
   }
 }
 
-export default CommentView;
+export default CommentView

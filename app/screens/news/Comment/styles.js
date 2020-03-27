@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 import { PRIMARY_COLOR, SECONDARY_COLOR } from '../../../assets/css/color'
 import { wp, viewportWidth } from '../../../assets/javascripts/spacing'
-import { REGULAR_FONT } from '../../../assets/css/typography'
+import { REGULAR_FONT, BOLD_FONT } from '../../../assets/css/typography'
 const textInputContainerHorizontalMargin = viewportWidth - wp(20);
 
 export default StyleSheet.create({
@@ -81,7 +81,8 @@ export default StyleSheet.create({
         justifyContent: 'center'
     },
     commentContainer: {
-        // marginBottom: 190
+        backgroundColor: 'white',
+        padding: 5
     },
     inputContainer: {
         borderTopWidth: 1,
@@ -98,10 +99,17 @@ export default StyleSheet.create({
         height: 40,
         borderRadius: 20,
         backgroundColor: 'rgb(242, 242, 242)',
-        fontSize: 15,
         fontFamily: REGULAR_FONT,
     },
     disableIcon: {
         opacity: 0.5
-    }
+    },
+    postText: {
+        fontFamily: BOLD_FONT,
+        color: PRIMARY_COLOR
+    },
+    idleText: {
+        fontFamily: REGULAR_FONT,
+        color: 'grey'
+    },
 });

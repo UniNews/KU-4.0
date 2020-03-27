@@ -9,6 +9,7 @@ import Button from '../../../components/commons/Button'
 import { convertTimestamptoDate } from '../../../assets/javascripts/date'
 import communityService from '../../../services/communities'
 import { PRIMARY_COLOR } from '../../../assets/css/color'
+import Comment from '../../../components/commons/Comment'
 
 class DetailView extends React.Component {
 
@@ -60,22 +61,31 @@ class DetailView extends React.Component {
         return community.like.indexOf(userId) > -1
     }
 
-    likeComment = (commentIndex) => {
-        const user = this.props.user
+    likeComment = (id) => {
+        const userId = this.props.user._id
         const updatedCommunity = { ...this.state.community }
-        const comment = updatedCommunity.comments[commentIndex]
-        const index = comment.like.map(data => data._id).indexOf(user._id)
-        if (index > -1)
-            comment.like.splice(index, 1)
-        else
-            comment.like.push(user)
-        this.setState({ community: updatedCommunity })
-        communityService.likeComment(comment._id)
+        const comment = updatedCommunity.comments.find(comment => comment._id == id)
+        if (comment) {
+            const index = comment.like.indexOf(userId)
+            if (index > -1)
+                comment.like.splice(index, 1)
+            else
+                comment.like.push(userId)
+            this.setState({ community: updatedCommunity })
+            communityService.likeComment(id)
+        }
     }
 
     isCommentLiked = (comment) => {
         const userId = this.props.user._id
-        return comment.like.map(data => data._id).indexOf(userId) > -1
+        return comment.like.indexOf(userId) > -1
+    }
+
+    goProfile = (id) => {
+        const { navigation } = this.props
+        navigation.push('ProfileDetail', {
+            userId: id
+        })
     }
 
     goBack = () => {
@@ -130,55 +140,18 @@ class DetailView extends React.Component {
         const { community } = this.state
         return community.comments?.map((comment, index, commentArray) =>
             <View key={index} style={styles.contentContainer}>
-                <View style={styles.profileContainer}>
-                    <View style={styles.infoContainer}>
-                        <TouchableWithoutFeedback>
-                            <Image
-                                style={styles.imageAvatar}
-                                source={{ uri: comment.user ? comment.user.avatarURL : null }}
-                            />
-                        </TouchableWithoutFeedback>
-                        <View style={styles.infoGap}>
-                            <View style={styles.nameContainer}>
-                                <Text style={styles.userText}>
-                                    {comment.user ? comment.user.displayName : null}
-                                </Text>
-                                <MaterialCommunityIcons style={styles.icon} name='dots-vertical' size={15} color='black' />
-                            </View>
-                            <View style={styles.clockIconContainer}>
-                                <FontAwesome name='clock-o' size={15} color='grey' />
-                                <Text style={styles.dateText}>
-                                    {` ${convertTimestamptoDate(comment.createdAt)}`}
-                                </Text>
-                            </View>
-                            <View style={styles.descriptionContainer}>
-                                <Text style={styles.descriptionText}>
-                                    {comment.text}
-                                </Text>
-                            </View>
-                            <View style={styles.iconContainer}>
-                                <TouchableOpacity onPress={() => this.likeComment(index)} style={styles.textIconContainer}>
-                                    <FontAwesome name={this.isCommentLiked(comment) ? 'heart' : 'heart-o'} size={15} color={this.isCommentLiked(comment) ? PRIMARY_COLOR : 'grey'} />
-                                    <View style={styles.iconTextContainer}>
-                                        <Text style={styles.numberText}>
-                                            {`${comment.like ? comment.like.length : 0} `}
-                                        </Text>
-                                        <Text style={styles.indicatorText}>
-                                            ถูกใจ
-                                        </Text>
-                                    </View>
-                                </TouchableOpacity>
-                            </View>
-                        </View>
-                    </View>
-                </View>
+                <Comment
+                    liked={this.isCommentLiked(comment)}
+                    onProfilePressed={this.goProfile}
+                    onLikePressed={this.likeComment}
+                    data={comment}
+                />
                 {
                     index != commentArray.length - 1
                         ?
                         <Hr />
                         :
                         null
-
                 }
             </View>
         )
@@ -186,7 +159,6 @@ class DetailView extends React.Component {
 
     render() {
         const { community, myComment, refreshing, fetching, posting } = this.state
-        console.log(community)
         return (
             <View style={styles.containter}>
                 <StatusBar />
