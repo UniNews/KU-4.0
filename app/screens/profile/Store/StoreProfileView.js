@@ -15,7 +15,6 @@ class StoreProfileView extends React.Component {
     constructor(props) {
         super(props)
         this.state = {
-            following: false,
             user: null,
             postNews: null,
             loading: true
@@ -28,8 +27,8 @@ class StoreProfileView extends React.Component {
     }
 
     async componentDidMount() {
-        const user = this.props.navigation.state.params.user
-        const result = await userService.getUserById(user._id)
+        const userId = this.props.navigation.state.params.userId
+        const result = await userService.getUserById(userId)
         this.setState(
             {
                 user: result.data,
@@ -39,21 +38,15 @@ class StoreProfileView extends React.Component {
         )
     }
 
-    followingStore = () => {
-        // const { following } = this.state
-        // const myUser = this.props.user
-        // //const updatedCommunity = { ...this.state.user.following }
-        // const index = this.state.user.follower.map(data => data).indexOf(user._id)
-        // if (index > -1)
-        //     comment.like.splice(index, 1)
-        // else
-        //     comment.like.push(user)
-        // // this.setState({ community: updatedCommunity })
-        // // communityService.likeComment(comment._id)
-        // this.setState({ following: !following })
-        // console.log(this.state.user.follower)
-        // console.log(myUser, 'ssss')
-        // //userService.followUserById(id)
+    isFollowing = () => {
+        const { myUser } = this.props
+        const userId = this.props.navigation.state.params.userId
+        return myUser.following.indexOf(userId) > -1
+    }
+
+    follow = (id) => {
+        const { followUserById } = this.props
+        followUserById(id)
     }
 
     goPostedNews = () => {
@@ -66,7 +59,8 @@ class StoreProfileView extends React.Component {
     }
 
     render() {
-        const { following, user, loading } = this.state
+        const { user, loading } = this.state
+        const isFollowing = this.isFollowing()
         return (
             <View style={styles.containter}>
                 <StatusBar />
@@ -90,8 +84,8 @@ class StoreProfileView extends React.Component {
                                     {user.displayName}
                                 </Text>
                                 <View style={styles.buttonContainer}>
-                                    <Button style={following ? styles.followingButton : styles.notFollowingButton} rounded onPress={() => this.followingStore()}>
-                                        <Text style={following ? styles.followingButtonText : styles.notFollowingButtonText}>{following ? 'ติดตามอยู่' : 'ติดตาม'}</Text>
+                                    <Button style={isFollowing ? styles.followingButton : styles.notFollowingButton} rounded onPress={() => this.follow(user._id)}>
+                                        <Text style={isFollowing ? styles.followingButtonText : styles.notFollowingButtonText}>{isFollowing ? 'ติดตามอยู่' : 'ติดตาม'}</Text>
                                     </Button>
                                 </View>
                                 <View style={styles.infoContainer}>
