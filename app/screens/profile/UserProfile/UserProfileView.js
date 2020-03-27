@@ -58,6 +58,15 @@ class UserProfileView extends React.Component {
         })
     }
 
+    goFollowing = () => {
+        const { user } = this.state
+        const { navigation } = this.props
+        navigation.push('Following', {
+            title: 'ผู้ติดตาม',
+            following: user.follower
+        })
+    }
+
     render() {
         const { user, loading } = this.state
         const isFollowing = this.isFollowing()
@@ -100,7 +109,7 @@ class UserProfileView extends React.Component {
                                         </View>
                                     </TouchableNativeFeedback>
                                     <Vr style={styles.verticalLine} />
-                                    <TouchableNativeFeedback>
+                                    <TouchableNativeFeedback onPress={this.goFollowing}>
                                         <View style={styles.indicatorContainer}>
                                             <Text style={styles.numberText}>
                                                 {this.state.user ? [...this.state.user.follower].length : 0}

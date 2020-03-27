@@ -14,13 +14,13 @@ class ProfileThread extends Component {
     onButtonPressedHandler = () => {
         const { onFollowPressed, data } = this.props
         if (onFollowPressed)
-            onFollowPressed(data.id)
+            onFollowPressed(data._id)
     }
 
     onProfilePressedHandler = () => {
         const { onProfilePressed, data } = this.props
         if (onProfilePressed)
-            onProfilePressed(data.id)
+            onProfilePressed(data._id)
     }
 
     render() {
@@ -68,7 +68,7 @@ class ProfileThread extends Component {
 
 ProfileThread.propTypes = {
     data: PropTypes.shape({
-        id: PropTypes.number.isRequired,
+        _id: PropTypes.string.isRequired,
         displayName: PropTypes.string.isRequired,
         avatarURL: PropTypes.string.isRequired,
     }).isRequired,
@@ -79,7 +79,7 @@ ProfileThread.propTypes = {
 
 ProfileThread.defaultProps = {
     data: {
-        id: null,
+        _id: null,
         displayName: '',
         avatarURL: '',
     },
