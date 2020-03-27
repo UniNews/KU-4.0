@@ -25,7 +25,7 @@ export default {
         });
     },
     getProfile: () => {
-        return axios.get(`${constants.API_URL}/profile`)
+        return axios.get(`${constants.API_URL}/profile/me`)
     },
     getUserById: (id) => {
         return axios.get(`${constants.API_URL}/users/${id}`).then(response => response.data)
@@ -87,4 +87,13 @@ export default {
             Promise.reject('Google Login Error')
         }
     },
+    getUserById: (id) => {
+        return axios.get(`${constants.API_URL}/users/${id}`).then(response => response.data)
+            .catch(error => error)
+    },
+    followUserById: (id) => {
+        return axios.post(`${constants.API_URL}/users/${id}`, {
+            headers: { 'Content-Type': 'application/json' }
+        })
+    }
 }

@@ -1,45 +1,48 @@
-import React from 'react';
-import { ScrollView, View } from 'react-native';
-import styles from './styles';
+import React from 'react'
+import { ScrollView, View } from 'react-native'
+import styles from './styles'
 import NewsCard from '../../../components/news/NewsThread'
-import newsService from '../../../services/news'
 import Hr from '../../../components/commons/Hr'
+import StatusBar from '../../../components/commons/StatusBar'
+import Header from '../../../components/commons/Header';
+import { Feather } from '@expo/vector-icons';
 
-class PromotionView extends React.Component {
+class ClubView extends React.Component {
 
     constructor(props) {
-        super(props);
-        this.state = {
-            news: [],
-            error: false
-        }
-    }
-
-    componentDidMount() {
-        newsService.getPromotionsNews()
-            .then((res) => {
-                const newsData = res.data
-                this.setState({
-                    news: newsData,
-                    error: false
-                })
-            }).catch((err) => {
-                this.setState({ error: true })
-            })
+        super(props)
     }
 
     getNews = (newsId) => {
-        this.props.navigation.navigate('Detail', { newsId })
+        const { navigation } = this.props
+        navigation.push('Detail', { newsId })
     }
 
     getProfile = (profileId) => {
         console.log(profileId)
     }
 
+    goBack = () => {
+        const { navigation } = this.props;
+        navigation.goBack();
+    };
+
     render() {
-        const { news } = this.state
+        const { news, title } = this.props.navigation.state.params
         return (
             <View style={styles.containter}>
+                <StatusBar />
+                <Header
+                    title={title}
+                    leftIconComponent={
+                        <Feather
+                            color='white'
+                            onPress={this.goBack}
+                            size={28}
+                            name={'chevron-left'}
+                        />
+                    }
+                />
                 <ScrollView>
                     {news.map((news, index, newsArray) => {
                         return (
@@ -57,8 +60,8 @@ class PromotionView extends React.Component {
                     })}
                 </ScrollView>
             </View>
-        );
+        )
     }
 }
 
-export default PromotionView;
+export default ClubView

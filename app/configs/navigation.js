@@ -7,8 +7,8 @@ import NewsTab from '../components/news/NewsTab'
 import SearchTab from '../components/search/SearchTab'
 import CommunityTab from '../components/community/CommunityTab'
 import NotificationScreen from '../screens/notification/Notification'
-import UserProfileScreen from '../screens/profile/User'
-import StoreProfileScreen from '../screens/profile/Store'
+import MyProfileScreen from '../screens/profile/MyProfile'
+import UserProfileScreen from '../screens/profile/UserProfile'
 import ClubScreen from '../screens/news/Club'
 import UniversityScreen from '../screens/news/University'
 import RecommendationScreen from '../screens/news/Recommendation'
@@ -20,13 +20,14 @@ import CommunityDetailScreen from '../screens/community/Detail'
 import { PRIMARY_COLOR, SECONDARY_COLOR } from '../assets/css/color'
 import { BOLD_FONT } from '../assets/css/typography'
 import ProfileSetting from '../screens/settings/Profile'
-import FollowingSetting from '../screens/settings/Following'
+import FollowingScreen from '../screens/profile/Following'
 import CommentScreen from '../screens/news/Comment'
 import LatestCommunity from '../screens/community/Latest'
 import HottestComminity from '../screens/community/Hottest'
 import MainSearchScreen from '../screens/search/MainSearch'
 import NewsSearchScreen from '../screens/search/NewsSearch'
 import ProfileSearchScreen from '../screens/search/ProfileSearch'
+import AnyNewsScreen from '../screens/news/AnyNews'
 
 const newsTab = createMaterialTopTabNavigator({
   'สำหรับคุณ': RecommendationScreen,
@@ -45,7 +46,9 @@ const newsStack = createStackNavigator({
   Home: newsTab,
   Detail: NewsDetailScreen,
   Comment: CommentScreen,
-  ProfileDetail: StoreProfileScreen
+  AnyNews: AnyNewsScreen,
+  Following: FollowingScreen,
+  ProfileDetail: UserProfileScreen,
 },
   {
     headerMode: 'none',
@@ -57,10 +60,11 @@ const newsStack = createStackNavigator({
 
 newsStack.navigationOptions = ({ navigation }) => {
   let tabBarVisible = true
-  if (navigation.state.index == 2) // check if the route is Comment
+  let currentRoute = navigation.state.routes[navigation.state.routes.length - 1].routeName
+  if (currentRoute == 'Comment')
     tabBarVisible = false
   return {
-    tabBarVisible,
+    tabBarVisible
   }
 }
 
@@ -97,10 +101,10 @@ communityStack.navigationOptions = ({ navigation }) => {
 }
 
 const profileStack = createStackNavigator({
-  Main: UserProfileScreen,
+  MyProfile: MyProfileScreen,
   ProfileSetting: ProfileSetting,
-  FollowingSetting: FollowingSetting,
-  ProfileDetail: StoreProfileScreen
+  FollowingSetting: FollowingScreen,
+  ProfileDetail: UserProfileScreen
 },
   {
     headerMode: 'none',
@@ -180,7 +184,7 @@ const tabNavigator = createBottomTabNavigator({
 
 
 const tabStack = createStackNavigator({
-  News: tabNavigator,
+  Tabs: tabNavigator,
   Search: searchStack
 },
   {

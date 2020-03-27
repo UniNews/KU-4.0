@@ -46,7 +46,7 @@ class NewsCard extends Component {
             <TouchableWithoutFeedback
                 activeOpacity={1}
                 onPress={() =>
-                    this.onNewsPressedHandler(data.newsId)
+                    this.onNewsPressedHandler(data._id)
                 }
                 {...restProps}
             >
@@ -54,7 +54,7 @@ class NewsCard extends Component {
                     <View style={styles.topContainer}>
                         <View style={styles.leftContainer}>
                             <Text style={styles.nameText}>
-                                {data.user}
+                                {data.user.displayName}
                             </Text>
                             <View style={{ paddingTop: 5 }}>
                                 <Text numberOfLines={2} style={styles.title}>
@@ -65,7 +65,7 @@ class NewsCard extends Component {
                         <View style={styles.rightContainer}>
                             <View style={[styles.imageContainer]}>
                                 <Image
-                                    source={{ uri: data.imgUrl }}
+                                    source={{ uri: data.imageURL ? data.imageURL[0] : '' }}
                                     style={styles.image}
                                 />
                             </View>
@@ -79,7 +79,7 @@ class NewsCard extends Component {
                                 <FontAwesome name='clock-o' size={15} color='grey' />
                             </TouchableOpacity>
                             <Text style={styles.date}>
-                                {` ${convertTimestamptoDate(data.date)}`}
+                                {` ${convertTimestamptoDate(data.createdAt)}`}
                             </Text>
                         </View>
                         <View style={styles.iconContainer}>
@@ -119,28 +119,19 @@ class NewsCard extends Component {
 
 NewsCard.propTypes = {
     data: PropTypes.shape({
-        newsId: PropTypes.string.isRequired,
+        _id: PropTypes.string.isRequired,
         title: PropTypes.string.isRequired,
-        imgUrl: PropTypes.string.isRequired,
-        user: PropTypes.string.isRequired,
-        date: PropTypes.string.isRequired,
-        profileId: PropTypes.string.isRequired,
+        imageURL: PropTypes.array.isRequired,
+        user: PropTypes.shape({
+            _id: PropTypes.string.isRequired,
+            displayName: PropTypes.string.isRequired
+        }),
+        createdAt: PropTypes.string.isRequired,
     }).isRequired,
     onNewsPressed: PropTypes.func,
     onProfilePressed: PropTypes.func,
     onLikePressed: PropTypes.func,
     onCommentPressed: PropTypes.func,
 };
-
-NewsCard.defaultProps = {
-    data: {
-        newsId: null,
-        profileId: null,
-        title: '',
-        imgUrl: '',
-        user: '',
-        date: '',
-    },
-}
 
 export default NewsCard;

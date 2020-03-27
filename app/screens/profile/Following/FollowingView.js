@@ -13,9 +13,15 @@ class FollowingView extends React.Component {
     }
 
     follow = (id) => {
-    };
+        const { followUserById } = this.props
+        followUserById(id)
+    }
 
-    getProfile = (id) => {
+    goProfile = (id) => {
+        const { navigation } = this.props
+        navigation.push('ProfileDetail', {
+            userId: id
+        })
     }
 
     goBack = () => {
@@ -24,17 +30,18 @@ class FollowingView extends React.Component {
     }
 
     render() {
+        const { following, title } = this.props.navigation.state.params
         return (
             <View style={styles.containter}>
                 <StatusBar />
-                <Header title={'ติดตามอยู่'} leftIconComponent={
+                <Header title={title} leftIconComponent={
                     <TouchableWithoutFeedback onPress={this.goBack}>
                         <Feather color='white' size={28} name={'chevron-left'} />
                     </TouchableWithoutFeedback>}
                 />
-                {this.props.user.following.map((profile) => {
+                {following.map((profile) => {
                     return (
-                        <ProfileThread key={profile._id} onFollowPressed={this.follow} onProfilePressed={this.getProfile} data={profile} />
+                        <ProfileThread key={profile._id} onFollowPressed={this.follow} onProfilePressed={this.goProfile} data={profile} />
                     )
                 })}
             </View>

@@ -28,39 +28,16 @@ export function search(query) {
         const queryData = query.toUpperCase()
         return stringData.indexOf(queryData) > -1
       })
-      // map news field
-      let newsArray = []
-      for (const news of newsData) {
-        const newsObject = {
-          title: news.title,
-          date: news.createdAt,
-          user: news.user.displayName,
-          imgUrl: news.imageURL[0],
-          newsId: news._id,
-          profileId: news.user._id,
-        }
-        newsArray.push(newsObject)
-      }
-      // featch all users
+      // fetch all users
       const profile = await service.getAllUsers()
       const profileData = profile.data.filter(item => {
         const stringData = `${item.displayName?.toUpperCase()}`
         const queryData = query.toUpperCase()
         return stringData.indexOf(queryData) > -1
       })
-      // map user field
-      let profileArray = []
-      for (const profile of profileData) {
-        const profileObject = {
-          id: profile._id,
-          displayName: profile.displayName,
-          avatarURL: profile.avatarURL,
-        }
-        profileArray.push(profileObject)
-      }
       const searchObject = {
-        news: newsArray,
-        user: profileArray
+        news: newsData,
+        user: profileData
       }
       dispatch(searchOk(searchObject))
     }

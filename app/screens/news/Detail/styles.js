@@ -4,7 +4,7 @@ import { wp } from '../../../assets/javascripts/spacing'
 
 export default StyleSheet.create({
     container: {
-        // flex: 1
+        flex: 1
     },
     newsImage: {
         height: 250,
@@ -33,6 +33,9 @@ export default StyleSheet.create({
     },
     titleContainer: {
         flexDirection: 'row',
+    },
+    topContainer: {
+        padding: 15
     },
     textIconContainer: {
         flexDirection: 'row',
@@ -80,6 +83,7 @@ export default StyleSheet.create({
         fontSize: 15
     },
     loader: {
-        paddingVertical: wp(60)
+        flex: 1,
+        justifyContent: 'center'
     },
 });

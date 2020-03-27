@@ -101,3 +101,24 @@ export function loginByGoogle() {
       })
   }
 }
+
+export function followUserById(id) {
+  return async (dispatch, getState) => {
+    try {
+      // dispatch(userLoading())
+      const { user } = getState().userReducer
+      const updatedUser = { ...user }
+      const index = user.following.indexOf(id) // check if that id is following
+      if (index > -1)
+        user.following.splice(index, 1) // remove if it is
+      else
+        user.following.push(id)
+      dispatch(userOk(updatedUser))
+      await service.followUserById(id)
+    }
+    catch (err) {
+      console.log(err)
+      dispatch(userFail())
+    }
+  }
+}

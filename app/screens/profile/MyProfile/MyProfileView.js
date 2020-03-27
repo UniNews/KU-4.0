@@ -7,7 +7,7 @@ import Hr from '../../../components/commons/Hr'
 import Switch from '../../../components/commons/Switch'
 import StatusBar from '../../../components/commons/StatusBar'
 
-class UserProfileView extends React.Component {
+class MyProfileView extends React.Component {
 
     constructor(props) {
         super(props)
@@ -88,4 +88,4 @@ class UserProfileView extends React.Component {
     }
 }
 
-export default UserProfileView
+export default MyProfileView
