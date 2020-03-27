@@ -7,8 +7,8 @@ import NewsTab from '../components/news/NewsTab'
 import SearchTab from '../components/search/SearchTab'
 import CommunityTab from '../components/community/CommunityTab'
 import NotificationScreen from '../screens/notification/Notification'
-import UserProfileScreen from '../screens/profile/User'
-import StoreProfileScreen from '../screens/profile/Store'
+import MyProfileScreen from '../screens/profile/MyProfile'
+import UserProfileScreen from '../screens/profile/UserProfile'
 import ClubScreen from '../screens/news/Club'
 import UniversityScreen from '../screens/news/University'
 import RecommendationScreen from '../screens/news/Recommendation'
@@ -47,7 +47,7 @@ const newsStack = createStackNavigator({
   Detail: NewsDetailScreen,
   Comment: CommentScreen,
   AnyNews: AnyNewsScreen,
-  ProfileDetail: StoreProfileScreen,
+  ProfileDetail: UserProfileScreen,
 },
   {
     headerMode: 'none',
@@ -100,10 +100,10 @@ communityStack.navigationOptions = ({ navigation }) => {
 }
 
 const profileStack = createStackNavigator({
-  Main: UserProfileScreen,
+  MyProfile: MyProfileScreen,
   ProfileSetting: ProfileSetting,
   FollowingSetting: FollowingSetting,
-  ProfileDetail: StoreProfileScreen
+  ProfileDetail: UserProfileScreen
 },
   {
     headerMode: 'none',
