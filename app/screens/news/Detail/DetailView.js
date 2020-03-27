@@ -52,7 +52,7 @@ class DetailView extends React.Component {
         const { navigation } = this.props
         const { news } = this.state
         navigation.navigate('ProfileDetail', {
-            user: news.user
+            userId: news.user._id
         })
     }
 
