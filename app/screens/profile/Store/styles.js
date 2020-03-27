@@ -25,8 +25,7 @@ export default StyleSheet.create({
         fontSize: 30
     },
     buttonContainer: {
-        marginVertical: 10,
-        height: 50
+        marginVertical: 10
     },
     followingButtonText: {
         color: 'white',
