@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import ProfileSearchView from './ProfileSearchView';
+import { followUserById } from '../../../reducers/UserReducer/actions';
 
 const mapStateToProps = state => {
     return {
@@ -12,7 +13,7 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = {
-
+    followUserById
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProfileSearchView);

@@ -15,17 +15,21 @@ class ProfileSearchView extends React.Component {
         this.props.navigation.navigate('Detail', { newsId })
     }
 
-    isFollowing = () => {
+    isFollowing = (profile) => {
         const { user } = this.props
         return user.following.indexOf(profile._id) > -1
     }
 
     follow = (id) => {
-        console.log(id)
+        const { followUserById } = this.props
+        followUserById(id)
     }
 
-    getProfile = (profileId) => {
-        console.log(profileId)
+    goProfile = (id) => {
+        const { navigation } = this.props
+        navigation.push('ProfileDetail', {
+            userId: id
+        })
     }
 
     render() {
@@ -48,9 +52,9 @@ class ProfileSearchView extends React.Component {
                                 result.length > 0 ?
                                     result.map((profile) => {
                                         return (
-                                            <View style={styles.newsContainer} key={profile.id} >
+                                            <View style={styles.newsContainer} key={profile._id} >
                                                 <Hr />
-                                                <ProfileThread following={this.isFollowing} onFollowPressed={this.follow} onProfilePressed={this.getProfile} data={profile} />
+                                                <ProfileThread following={this.isFollowing(profile)} onFollowPressed={this.follow} onProfilePressed={this.goProfile} data={profile} />
                                             </View>
                                         )
                                     })

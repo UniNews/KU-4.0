@@ -17,6 +17,11 @@ class FollowingView extends React.Component {
         followUserById(id)
     }
 
+    isFollowing = (profile) => {
+        const { user } = this.props
+        return user.following.indexOf(profile._id) > -1
+    }
+
     goProfile = (id) => {
         const { navigation } = this.props
         navigation.push('ProfileDetail', {
@@ -41,7 +46,7 @@ class FollowingView extends React.Component {
                 />
                 {following.map((profile) => {
                     return (
-                        <ProfileThread key={profile._id} onFollowPressed={this.follow} onProfilePressed={this.goProfile} data={profile} />
+                        <ProfileThread following={this.isFollowing(profile)} key={profile._id} onFollowPressed={this.follow} onProfilePressed={this.goProfile} data={profile} />
                     )
                 })}
             </View>

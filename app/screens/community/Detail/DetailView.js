@@ -181,7 +181,7 @@ class DetailView extends React.Component {
                                     <View style={styles.contentContainer}>
                                         <View style={styles.profileContainer}>
                                             <View style={styles.infoContainer}>
-                                                <TouchableWithoutFeedback>
+                                                <TouchableWithoutFeedback onPress={() => this.goProfile(community.user?._id)}>
                                                     <Image
                                                         style={styles.imageAvatar}
                                                         source={{ uri: community.user ? community.user.avatarURL : null }}

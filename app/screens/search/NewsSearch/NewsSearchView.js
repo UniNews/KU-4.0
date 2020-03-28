@@ -39,7 +39,7 @@ class NewsSearchNews extends React.Component {
                                 news.length > 0 ?
                                     news.map((news) => {
                                         return (
-                                            <View key={news.newsId} style={styles.newsContainer}>
+                                            <View key={news._id} style={styles.newsContainer}>
                                                 <Hr />
                                                 <NewsCard onNewsPressed={this.getNews} onProfilePressed={this.getProfile} data={news} />
                                             </View>

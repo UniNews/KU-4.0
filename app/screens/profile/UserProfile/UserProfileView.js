@@ -31,8 +31,8 @@ class UserProfileView extends React.Component {
         const result = await userService.getUserById(userId)
         this.setState(
             {
-                user: result.data,
-                postNews: result.news,
+                user: result.data.data,
+                postNews: result.data.news,
                 loading: false
             }
         )
