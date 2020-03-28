@@ -44,7 +44,7 @@ class ClubView extends React.Component {
                     }
                 />
                 <ScrollView>
-                    {news.map((news, index, newsArray) => {
+                    {news?.map((news, index, newsArray) => {
                         return (
                             <View key={news._id} style={styles.newsContainer}>
                                 <NewsCard onNewsPressed={this.getNews} onProfilePressed={this.getProfile} data={news} />
