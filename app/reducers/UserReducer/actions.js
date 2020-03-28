@@ -103,9 +103,8 @@ export function loginByGoogle() {
 }
 
 export function followUserById(id) {
-  return async (dispatch, getState) => {
+  return (dispatch, getState) => {
     try {
-      // dispatch(userLoading())
       const { user } = getState().userReducer
       const updatedUser = { ...user }
       const index = user.following.indexOf(id) // check if that id is following
@@ -114,7 +113,7 @@ export function followUserById(id) {
       else
         user.following.push(id)
       dispatch(userOk(updatedUser))
-      await service.followUserById(id)
+      service.followUserById(id)
     }
     catch (err) {
       console.log(err)
