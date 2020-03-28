@@ -27,10 +27,6 @@ export default {
     getProfile: () => {
         return axios.get(`${constants.API_URL}/profile/me`)
     },
-    getUserById: (id) => {
-        return axios.get(`${constants.API_URL}/users/${id}`).then(response => response.data)
-            .catch(error => error)
-    },
     loginByFacebook: async () => {
         const app_id = constants.APP_ID
         const permissions = ['public_profile', 'email']
@@ -88,12 +84,14 @@ export default {
         }
     },
     getUserById: (id) => {
-        return axios.get(`${constants.API_URL}/users/${id}`).then(response => response.data)
-            .catch(error => error)
+        return axios.get(`${constants.API_URL}/users/${id}`)
     },
     followUserById: (id) => {
         return axios.post(`${constants.API_URL}/users/${id}`, {
             headers: { 'Content-Type': 'application/json' }
         })
+    },
+    getFollowingById: (id) => {
+        return axios.get(`${constants.API_URL}/users/${id}/following`)
     }
 }
