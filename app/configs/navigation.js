@@ -82,6 +82,9 @@ const communityTab = createMaterialTopTabNavigator({
 const communityStack = createStackNavigator({
   Home: communityTab,
   Detail: CommunityDetailScreen,
+  Following: FollowingScreen,
+  ProfileDetail: UserProfileScreen,
+  // AnyNews: AnyNewsScreen,
 },
   {
     headerMode: 'none',
@@ -104,7 +107,8 @@ const profileStack = createStackNavigator({
   MyProfile: MyProfileScreen,
   ProfileSetting: ProfileSetting,
   FollowingSetting: FollowingScreen,
-  ProfileDetail: UserProfileScreen
+  ProfileDetail: UserProfileScreen,
+  Following: FollowingScreen,
 },
   {
     headerMode: 'none',
@@ -127,7 +131,8 @@ const searchTab = createMaterialTopTabNavigator({
 
 const searchStack = createStackNavigator({
   MainSearch: MainSearchScreen,
-  SearchTab: searchTab
+  SearchTab: searchTab,
+  Following: FollowingScreen,
 },
   {
     headerMode: 'none',
