@@ -21,6 +21,7 @@ import { PRIMARY_COLOR, SECONDARY_COLOR } from '../assets/css/color'
 import { BOLD_FONT } from '../assets/css/typography'
 import ProfileSetting from '../screens/settings/Profile'
 import FollowingScreen from '../screens/profile/Following'
+import FollowerScreen from '../screens/profile/Follower'
 import CommentScreen from '../screens/news/Comment'
 import LatestCommunity from '../screens/community/Latest'
 import HottestComminity from '../screens/community/Hottest'
@@ -28,6 +29,7 @@ import MainSearchScreen from '../screens/search/MainSearch'
 import NewsSearchScreen from '../screens/search/NewsSearch'
 import ProfileSearchScreen from '../screens/search/ProfileSearch'
 import AnyNewsScreen from '../screens/news/AnyNews'
+import AnyCommunityScreen from '../screens/community/AnyCommunity'
 
 const newsTab = createMaterialTopTabNavigator({
   'สำหรับคุณ': RecommendationScreen,
@@ -44,11 +46,14 @@ const newsTab = createMaterialTopTabNavigator({
 
 const newsStack = createStackNavigator({
   Home: newsTab,
-  Detail: NewsDetailScreen,
+  NewsDetail: NewsDetailScreen,
+  CommunityDetail: CommunityDetailScreen,
   Comment: CommentScreen,
   AnyNews: AnyNewsScreen,
   Following: FollowingScreen,
+  Follower: FollowerScreen,
   ProfileDetail: UserProfileScreen,
+  AnyCommunity: AnyCommunityScreen,
 },
   {
     headerMode: 'none',
@@ -81,10 +86,12 @@ const communityTab = createMaterialTopTabNavigator({
 
 const communityStack = createStackNavigator({
   Home: communityTab,
-  Detail: CommunityDetailScreen,
+  CommunityDetail: CommunityDetailScreen,
   Following: FollowingScreen,
+  Follower: FollowerScreen,
   ProfileDetail: UserProfileScreen,
-  // AnyNews: AnyNewsScreen,
+  AnyCommunity: AnyCommunityScreen,
+  AnyNews: AnyNewsScreen,
 },
   {
     headerMode: 'none',
@@ -106,9 +113,11 @@ communityStack.navigationOptions = ({ navigation }) => {
 const profileStack = createStackNavigator({
   MyProfile: MyProfileScreen,
   ProfileSetting: ProfileSetting,
-  FollowingSetting: FollowingScreen,
   ProfileDetail: UserProfileScreen,
   Following: FollowingScreen,
+  Follower: FollowerScreen,
+  AnyCommunity: AnyCommunityScreen,
+  AnyNews: AnyNewsScreen,
 },
   {
     headerMode: 'none',
@@ -133,6 +142,12 @@ const searchStack = createStackNavigator({
   MainSearch: MainSearchScreen,
   SearchTab: searchTab,
   Following: FollowingScreen,
+  Follower: FollowerScreen,
+  AnyCommunity: AnyCommunityScreen,
+  AnyNews: AnyNewsScreen,
+  ProfileDetail: UserProfileScreen,
+  CommunityDetail: CommunityDetailScreen,
+  NewsDetail: NewsDetailScreen
 },
   {
     headerMode: 'none',

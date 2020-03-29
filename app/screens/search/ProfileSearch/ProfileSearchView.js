@@ -11,10 +11,6 @@ class ProfileSearchView extends React.Component {
         super(props)
     }
 
-    getNews = (newsId) => {
-        this.props.navigation.navigate('Detail', { newsId })
-    }
-
     isFollowing = (profile) => {
         const { user } = this.props
         return user.following.indexOf(profile._id) > -1

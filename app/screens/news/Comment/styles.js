@@ -76,10 +76,6 @@ export default StyleSheet.create({
         fontFamily: REGULAR_FONT,
         color: 'white'
     },
-    loader: {
-        flex: 1,
-        justifyContent: 'center'
-    },
     commentContainer: {
         backgroundColor: 'white',
         padding: 5

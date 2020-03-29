@@ -1,9 +1,8 @@
 import React, { Component } from 'react'
-import { View, Image, Text } from 'react-native'
+import { View, Image, Text, TouchableNativeFeedback } from 'react-native'
 import styles from './styles'
 import PropTypes from 'prop-types'
 import Button from '../../commons/Button'
-import { TouchableWithoutFeedback } from 'react-native-gesture-handler'
 
 class ProfileThread extends Component {
 
@@ -26,20 +25,16 @@ class ProfileThread extends Component {
     render() {
         const { data, following } = this.props
         return (
-            <View>
+            <TouchableNativeFeedback onPress={this.onProfilePressedHandler}>
                 <View style={styles.container}>
                     <View style={styles.leftContainer}>
-                        <TouchableWithoutFeedback onPress={this.onProfilePressedHandler}>
-                            <Image
-                                source={{ uri: data.avatarURL }}
-                                style={styles.avatar}
-                            />
-                        </TouchableWithoutFeedback>
-                        <TouchableWithoutFeedback onPress={this.onProfilePressedHandler}>
-                            <Text numberOfLines={1} style={styles.nameText}>
-                                {data.displayName}
-                            </Text>
-                        </TouchableWithoutFeedback>
+                        <Image
+                            source={{ uri: data.avatarURL }}
+                            style={styles.avatar}
+                        />
+                        <Text numberOfLines={1} style={styles.nameText}>
+                            {data.displayName}
+                        </Text>
                     </View>
                     <View style={styles.rightContainer}>
                         {
@@ -61,7 +56,7 @@ class ProfileThread extends Component {
 
                     </View>
                 </View>
-            </View>
+            </TouchableNativeFeedback>
         )
     }
 }

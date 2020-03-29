@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, View, Image, ActivityIndicator, TouchableNativeFeedback } from 'react-native'
+import { Text, View, Image, TouchableNativeFeedback } from 'react-native'
 import { Feather } from '@expo/vector-icons'
 import styles from './styles'
 import { LinearGradient } from 'expo-linear-gradient'
@@ -8,7 +8,8 @@ import Button from '../../../components/commons/Button'
 import StatusBar from '../../../components/commons/StatusBar'
 import userService from '../../../services/user'
 import Vr from '../../../components/commons/Vr'
-import { PRIMARY_COLOR, KU_SECONDARY_COLOR, KU_PRIMARY_COLOR } from '../../../assets/css/color'
+import { KU_SECONDARY_COLOR, KU_PRIMARY_COLOR } from '../../../assets/css/color'
+import Spinner from '../../../components/commons/Spinner'
 
 class UserProfileView extends React.Component {
 
@@ -50,25 +51,31 @@ class UserProfileView extends React.Component {
     }
 
     goPostedNews = () => {
-        const { postNews } = this.state
+        const { user } = this.state
         const { navigation } = this.props
         navigation.push('AnyNews', {
-            title: 'โพสต์ทั้งหมด',
-            news: postNews
+            userId: user._id
         })
     }
 
-    goFollowing = () => {
+    goPostedCommunities = () => {
         const { user } = this.state
         const { navigation } = this.props
-        navigation.push('Following', {
-            title: 'ผู้ติดตาม',
-            following: user.follower
+        navigation.push('AnyCommunity', {
+            userId: user._id
+        })
+    }
+
+    goFollower = () => {
+        const { user } = this.state
+        const { navigation } = this.props
+        navigation.push('Follower', {
+            userId: user._id
         })
     }
 
     render() {
-        const { user, loading } = this.state
+        const { user, loading, postNews } = this.state
         const isFollowing = this.isFollowing()
         return (
             <View style={styles.containter}>
@@ -98,25 +105,25 @@ class UserProfileView extends React.Component {
                                     </Button>
                                 </View>
                                 <View style={styles.infoContainer}>
-                                    <TouchableNativeFeedback onPress={this.goPostedNews}>
+                                    <TouchableNativeFeedback onPress={user.accessType ? this.goPostedNews : this.goPostedCommunities}>
                                         <View style={styles.indicatorContainer}>
                                             <Text style={styles.numberText}>
-                                                {this.state.postNews ? this.state.postNews.length : 0}
+                                                {postNews ? postNews.length : 0}
                                             </Text>
                                             <Text style={styles.indicatorText}>
                                                 โพสต์
-                                                </Text>
+                                            </Text>
                                         </View>
                                     </TouchableNativeFeedback>
                                     <Vr style={styles.verticalLine} />
-                                    <TouchableNativeFeedback onPress={this.goFollowing}>
+                                    <TouchableNativeFeedback onPress={this.goFollower}>
                                         <View style={styles.indicatorContainer}>
                                             <Text style={styles.numberText}>
-                                                {this.state.user ? [...this.state.user.follower].length : 0}
+                                                {user.follwer ? user.follower.length : 0}
                                             </Text>
                                             <Text style={styles.indicatorText}>
                                                 ผู้ติดตาม
-                                                </Text>
+                                            </Text>
                                         </View>
                                     </TouchableNativeFeedback>
                                 </View>
@@ -124,25 +131,23 @@ class UserProfileView extends React.Component {
                             <View style={styles.profileContainer}>
                                 <View style={styles.profileSectionContainer}>
                                     <Text style={styles.profileTitleText}>ชื่อ</Text>
-                                    <Text style={styles.profileValueText}>{this.state.user ? this.state.user.displayName : ''}</Text>
+                                    <Text style={styles.profileValueText}>{user.displayName}</Text>
                                 </View>
                                 <Hr />
                                 <View style={styles.profileSectionContainer}>
                                     <Text style={styles.profileTitleText}>คำอธิบาย</Text>
-                                    <Text style={styles.profileValueText}>{this.state.user ? this.state.user.description : ''}</Text>
+                                    <Text style={styles.profileValueText}>{user.description}</Text>
                                 </View>
                                 <Hr />
                                 <View style={styles.profileSectionContainer}>
                                     <Text style={styles.profileTitleText}>หมวดหมู่</Text>
-                                    <Text style={styles.profileValueText}>{this.state.user ? this.state.user.category : ''}</Text>
+                                    <Text style={styles.profileValueText}>{user.category}</Text>
                                 </View>
                                 <Hr />
                             </View>
                         </View>
                         :
-                        <View style={styles.loader}>
-                            <ActivityIndicator color={PRIMARY_COLOR} size='large' />
-                        </View>
+                        <Spinner />
                 }
             </View>
         )

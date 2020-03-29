@@ -12,11 +12,8 @@ class RecommendationView extends React.Component {
         super(props);
     }
 
-    getNews = (newsId) => {
-        this.props.navigation.navigate('Detail', { newsId })
-    }
-
-    getProfile = (profileId) => {
+    goNews = (newsId) => {
+        this.props.navigation.push('NewsDetail', { newsId })
     }
 
     render() {
@@ -71,9 +68,7 @@ class RecommendationView extends React.Component {
                     <SliderBox
                         sliderBoxHeight={175}
                         data={images}
-                        onPressed={id =>
-                            this.props.navigation.navigate('Detail', { id })
-                        }
+                        onPressed={() => this.goNews('eiei')}
                     />
                 </View>
                 <Hr style={styles.horizontalLine} />
@@ -81,7 +76,7 @@ class RecommendationView extends React.Component {
                 <ScrollView style={styles.newsScrollView} showsHorizontalScrollIndicator={false} horizontal={true}>
                     {ENTRIES1.map((news, index, newsArray) => {
                         return (
-                            <NewsCard style={index != newsArray.length - 1 ? styles.newsCardContainer : styles.lastNewsCardContainer} key={news.newsId} onNewsPressed={this.getNews} onProfilePressed={this.getProfile} data={news} />
+                            <NewsCard style={index != newsArray.length - 1 ? styles.newsCardContainer : styles.lastNewsCardContainer} key={news.newsId} onNewsPressed={this.goNews} data={news} />
                         )
                     })}
                 </ScrollView>
@@ -90,7 +85,7 @@ class RecommendationView extends React.Component {
                 <ScrollView style={styles.newsScrollView} showsHorizontalScrollIndicator={false} horizontal={true}>
                     {ENTRIES2.map((news, index, newsArray) => {
                         return (
-                            <NewsCard style={index != newsArray.length - 1 ? styles.newsCardContainer : styles.lastNewsCardContainer} key={news.newsId} onNewsPressed={this.getNews} onProfilePressed={this.getProfile} data={news} />
+                            <NewsCard style={index != newsArray.length - 1 ? styles.newsCardContainer : styles.lastNewsCardContainer} key={news.newsId} onNewsPressed={this.goNews} data={news} />
                         )
                     })}
                 </ScrollView>

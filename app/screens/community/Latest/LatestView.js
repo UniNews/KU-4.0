@@ -3,13 +3,13 @@ import { View, ScrollView } from 'react-native'
 import styles from './styles'
 import Thread from '../../../components/community/Thread'
 import communityService from '../../../services/communities'
+import Hr from '../../../components/commons/Hr'
 
 class LatestView extends React.Component {
 
     componentDidMount() {
         communityService.getLatestCommunities()
             .then((res) => {
-                console.log(res.data)
                 const newsData = res.data
                 this.setState({
                     communities: newsData,
@@ -29,7 +29,7 @@ class LatestView extends React.Component {
     }
 
     onThreadPressed = (newsId) => {
-        this.props.navigation.navigate('Detail', { newsId })
+        this.props.navigation.push('CommunityDetail', { newsId })
     }
 
     render() {
@@ -37,10 +37,17 @@ class LatestView extends React.Component {
         return (
             <View style={styles.containter}>
                 <ScrollView>
-                    {communities.map((thread, index, array) => {
+                    {communities.map((thread, index, communitiesArray) => {
                         return (
-                            <View key={thread._id} style={styles.threadContainer}>
+                            <View key={thread._id}>
                                 <Thread data={thread} onThreadPressed={this.onThreadPressed} />
+                                {
+                                    index != communitiesArray.length - 1
+                                        ?
+                                        <Hr />
+                                        :
+                                        null
+                                }
                             </View>
                         )
                     })}

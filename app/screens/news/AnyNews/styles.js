@@ -6,5 +6,5 @@ export default StyleSheet.create({
     },
     newsContainer: {
         backgroundColor: 'white'
-    }
+    },
 });

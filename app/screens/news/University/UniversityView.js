@@ -28,12 +28,8 @@ class UniversityView extends React.Component {
             })
     }
 
-    getNews = (newsId) => {
-        this.props.navigation.navigate('Detail', { newsId })
-    }
-
-    getProfile = (profileId) => {
-        console.log(profileId)
+    goNews = (newsId) => {
+        this.props.navigation.push('NewsDetail', { newsId })
     }
 
     render() {
@@ -44,7 +40,7 @@ class UniversityView extends React.Component {
                     {news.map((news, index, newsArray) => {
                         return (
                             <View key={news._id} style={styles.newsContainer}>
-                                <NewsCard onNewsPressed={this.getNews} onProfilePressed={this.getProfile} data={news} />
+                                <NewsCard onNewsPressed={this.goNews} data={news} />
                                 {
                                     index == newsArray.length - 1
                                         ?

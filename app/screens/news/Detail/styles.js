@@ -82,8 +82,4 @@ export default StyleSheet.create({
         fontFamily: BOLD_FONT,
         fontSize: 15
     },
-    loader: {
-        flex: 1,
-        justifyContent: 'center'
-    },
 });

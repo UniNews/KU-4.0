@@ -7,6 +7,6 @@ export default StyleSheet.create({
         // flex: 1,
     },
     threadContainer: {
-        paddingBottom: 10
+        // paddingBottom: 10
     }
 });

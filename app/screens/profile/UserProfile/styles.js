@@ -86,10 +86,6 @@ export default StyleSheet.create({
     profileSectionContainer: {
         paddingVertical: 10,
     },
-    loader: {
-        flex: 1,
-        justifyContent: 'center'
-    },
     backButton: {
         alignSelf: 'flex-start',
         position: 'absolute',

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, View, ImageBackground, Image, Linking, ScrollView, TouchableOpacity, TouchableWithoutFeedback, ActivityIndicator } from 'react-native'
+import { Text, View, ImageBackground, Image, Linking, ScrollView, TouchableOpacity, TouchableWithoutFeedback } from 'react-native'
 import styles from './styles'
 import Hyperlink from 'react-native-hyperlink'
 import { FontAwesome, Feather } from '@expo/vector-icons'
@@ -8,25 +8,14 @@ import Header from '../../../components/commons/Header'
 import StatusBar from '../../../components/commons/StatusBar'
 import newsService from '../../../services/news'
 import { convertTimestamptoDate } from '../../../assets/javascripts/date'
-import { PRIMARY_COLOR } from '../../../assets/css/color'
+import Spinner from '../../../components/commons/Spinner'
 
 class DetailView extends React.Component {
 
     constructor(props) {
         super(props)
         this.state = {
-            news: {
-                imageURL: [],
-                avatarURL: '',
-                user: {
-                    displayName: '',
-                    avatarURL: null
-                },
-                title: '',
-                createdAt: '',
-                comments: [],
-                description: '',
-            },
+            news: {},
             isLoading: true,
             updateComments: null
         }
@@ -122,9 +111,7 @@ class DetailView extends React.Component {
                             </View>
                         </ScrollView>
                         :
-                        <View style={styles.loader}>
-                            <ActivityIndicator color={PRIMARY_COLOR} size='large' />
-                        </View>
+                        <Spinner />
                 }
             </View>
         );

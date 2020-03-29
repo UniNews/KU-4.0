@@ -5,7 +5,6 @@ import styles from './styles'
 import { LinearGradient } from 'expo-linear-gradient'
 import Hr from '../../../components/commons/Hr'
 import StatusBar from '../../../components/commons/StatusBar'
-import userService from '../../../services/user'
 
 class MyProfileView extends React.Component {
 
@@ -14,11 +13,18 @@ class MyProfileView extends React.Component {
     }
 
     goFollowing = async () => {
-        const { navigation, user } = this.props
-        const result = await userService.getFollowingById(user._id)
+        const { user } = this.props
+        const { navigation } = this.props
         navigation.push('Following', {
-            title: 'ผู้ติดตาม',
-            following: result.data.resultMe.following
+            userId: user._id
+        })
+    }
+
+    goFollower = () => {
+        const { user } = this.props
+        const { navigation } = this.props
+        navigation.push('Follower', {
+            userId: user._id
         })
     }
 
@@ -53,6 +59,13 @@ class MyProfileView extends React.Component {
                 <TouchableWithoutFeedback onPress={this.goFollowing}>
                     <View style={styles.settingContainer}>
                         <Text style={styles.settingText}>กำลังติดตาม</Text>
+                        <Feather name={'chevron-right'} size={20} color={'gray'} />
+                    </View>
+                </TouchableWithoutFeedback>
+                <Hr />
+                <TouchableWithoutFeedback onPress={this.goFollower}>
+                    <View style={styles.settingContainer}>
+                        <Text style={styles.settingText}>ผู้ติดตาม</Text>
                         <Feather name={'chevron-right'} size={20} color={'gray'} />
                     </View>
                 </TouchableWithoutFeedback>

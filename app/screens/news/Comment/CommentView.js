@@ -17,6 +17,7 @@ import { PRIMARY_COLOR } from '../../../assets/css/color'
 import { Feather } from '@expo/vector-icons'
 import Button from '../../../components/commons/Button'
 import Hr from '../../../components/commons/Hr'
+import Spinner from '../../../components/commons/Spinner'
 
 class CommentView extends React.Component {
   constructor(props) {
@@ -148,9 +149,7 @@ class CommentView extends React.Component {
               })}
             </ScrollView>
           ) : (
-              <View style={styles.loader}>
-                <ActivityIndicator color={PRIMARY_COLOR} size='large' />
-              </View>
+              <Spinner />
             )}
           <View style={styles.inputContainer}>
             <TextInput
