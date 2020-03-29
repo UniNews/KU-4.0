@@ -77,7 +77,9 @@ export default StyleSheet.create({
         color: 'white'
     },
     commentContainer: {
-        backgroundColor: 'white',
+        backgroundColor: 'white'
+    },
+    commentItemContainer: {
         padding: 5
     },
     inputContainer: {

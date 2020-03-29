@@ -87,7 +87,8 @@ class MainSearchView extends React.Component {
                             <FontAwesome name='search' color='grey' size={16} />
                         </View>
                         <Button onPress={this.goSearch} activeOpacity={1} style={styles.textInputField}>
-                            <Text style={styles.searchText}>ค้นหาข่าว, ชุมชน, ชื่อผู้ใช้...
+                            <Text style={styles.searchText}>
+                                ค้นหาข่าว, ชุมชน, ชื่อผู้ใช้...
                             </Text>
                         </Button>
                     </View>

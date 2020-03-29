@@ -6,7 +6,7 @@ import CustomTab from './CustomTab'
 import PropTypes from 'prop-types';
 import { FontAwesome } from '@expo/vector-icons'
 import StatusBar from '../../commons/StatusBar'
-import { PRIMARY_COLOR, SECONDARY_COLOR, KU_PRIMARY_COLOR, KU_SECONDARY_COLOR } from '../../../assets/css/color';
+import { KU_PRIMARY_COLOR, KU_SECONDARY_COLOR } from '../../../assets/css/color';
 
 class NewsTabView extends React.Component {
 
@@ -15,7 +15,8 @@ class NewsTabView extends React.Component {
     }
 
     goSearch = () => {
-        this.props.navigation.navigate('Search')
+        const { navigation } = this.props
+        navigation.navigate('Search')
     }
 
     render() {

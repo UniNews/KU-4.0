@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, Text, TouchableOpacity, TouchableWithoutFeedback } from 'react-native'
+import { View, Text, TouchableOpacity, TouchableNativeFeedback } from 'react-native'
 import { FontAwesome, MaterialCommunityIcons, } from '@expo/vector-icons'
 import styles from './styles'
 import PropTypes from 'prop-types';
@@ -33,7 +33,7 @@ class Thread extends Component {
         const { data } = this.props
         return (
             <View style={styles.container}>
-                <TouchableWithoutFeedback onPress={this.onThreadPressedHandler}>
+                <TouchableNativeFeedback onPress={this.onThreadPressedHandler}>
                     <View style={styles.innerContainer}>
                         <View style={styles.nameContainer}>
                             <Text style={styles.nameText}>
@@ -79,7 +79,7 @@ class Thread extends Component {
                             </View>
                         </View>
                     </View>
-                </TouchableWithoutFeedback>
+                </TouchableNativeFeedback>
             </View>
         )
     }

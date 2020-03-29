@@ -127,11 +127,13 @@ class CommentView extends React.Component {
                   onRefresh={this.onRefresh}
                 />
               }
+              contentContainerStyle={styles.commentContainer}
             >
               {comments.map((comment, index, commentArray) => {
                 return (
-                  <View style={styles.commentContainer} key={comment._id}>
+                  <View key={comment._id}>
                     <Comment
+                      style={styles.commentItemContainer}
                       liked={this.isCommentLiked(comment)}
                       onProfilePressed={this.goProfile}
                       onLikePressed={this.likeComment}

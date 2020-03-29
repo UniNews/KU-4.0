@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, ScrollView, TouchableWithoutFeedback, KeyboardAvoidingView, Image, Text, TouchableOpacity, TextInput, RefreshControl, ActivityIndicator } from 'react-native'
+import { View, ScrollView, TouchableWithoutFeedback, KeyboardAvoidingView, Image, Text, TouchableOpacity, TextInput, RefreshControl, ActivityIndicator, TouchableNativeFeedback } from 'react-native'
 import styles from './styles'
 import StatusBar from '../../../components/commons/StatusBar'
 import Header from '../../../components/commons/Header'
@@ -139,8 +139,9 @@ class DetailView extends React.Component {
     communityComments() {
         const { community } = this.state
         return community.comments?.map((comment, index, commentArray) =>
-            <View key={index} style={styles.contentContainer}>
+            <View key={index}>
                 <Comment
+                    style={styles.commentContainer}
                     liked={this.isCommentLiked(comment)}
                     onProfilePressed={this.goProfile}
                     onLikePressed={this.likeComment}
@@ -177,64 +178,66 @@ class DetailView extends React.Component {
                                     />
                                 }
                             >
-                                <View style={styles.whiteBackground}>
-                                    <View style={styles.contentContainer}>
-                                        <View style={styles.profileContainer}>
-                                            <View style={styles.infoContainer}>
-                                                <TouchableWithoutFeedback onPress={() => this.goProfile(community.user?._id)}>
-                                                    <Image
-                                                        style={styles.imageAvatar}
-                                                        source={{ uri: community.user ? community.user.avatarURL : null }}
-                                                    />
-                                                </TouchableWithoutFeedback>
-                                                <View style={styles.infoGap}>
-                                                    <View style={styles.nameContainer}>
-                                                        <Text style={styles.userText}>
-                                                            {community.user ? community.user.displayName : null}
-                                                        </Text>
-                                                        <MaterialCommunityIcons style={styles.icon} name='dots-vertical' size={15} color='black' />
-                                                    </View>
-                                                    <View style={styles.clockIconContainer}>
-                                                        <FontAwesome name='clock-o' size={15} color='grey' />
-                                                        <Text style={styles.dateText}>
-                                                            {` ${convertTimestamptoDate(community.createdAt)}`}
-                                                        </Text>
+                                <TouchableNativeFeedback>
+                                    <View style={styles.whiteBackground}>
+                                        <View style={styles.contentContainer}>
+                                            <View style={styles.profileContainer}>
+                                                <View style={styles.infoContainer}>
+                                                    <TouchableWithoutFeedback onPress={() => this.goProfile(community.user?._id)}>
+                                                        <Image
+                                                            style={styles.imageAvatar}
+                                                            source={{ uri: community.user ? community.user.avatarURL : null }}
+                                                        />
+                                                    </TouchableWithoutFeedback>
+                                                    <View style={styles.infoGap}>
+                                                        <View style={styles.nameContainer}>
+                                                            <Text style={styles.userText}>
+                                                                {community.user ? community.user.displayName : null}
+                                                            </Text>
+                                                            <MaterialCommunityIcons style={styles.icon} name='dots-vertical' size={15} color='black' />
+                                                        </View>
+                                                        <View style={styles.clockIconContainer}>
+                                                            <FontAwesome name='clock-o' size={15} color='grey' />
+                                                            <Text style={styles.dateText}>
+                                                                {` ${convertTimestamptoDate(community.createdAt)}`}
+                                                            </Text>
+                                                        </View>
                                                     </View>
                                                 </View>
                                             </View>
-                                        </View>
-                                        <View style={styles.descriptionContainer}>
-                                            <Text style={styles.descriptionText}>
-                                                {community.description}
-                                            </Text>
-                                        </View>
-                                        <View style={styles.iconContainer}>
-                                            <TouchableOpacity style={styles.textIconContainer} onPress={this.likePost}>
-                                                <FontAwesome name={this.isPostLiked() ? 'heart' : 'heart-o'} size={15} color={this.isPostLiked() ? PRIMARY_COLOR : 'grey'} />
-                                                <View style={styles.iconTextContainer}>
-                                                    <Text style={styles.numberText}>
-                                                        {`${community.like ? community.like.length : 0} `}
-                                                    </Text>
-                                                    <Text style={styles.indicatorText}>
-                                                        ถูกใจ
+                                            <View style={styles.descriptionContainer}>
+                                                <Text style={styles.descriptionText}>
+                                                    {community.description}
                                                 </Text>
-                                                </View>
-                                            </TouchableOpacity>
-                                            <TouchableOpacity
-                                                style={styles.textIconContainer}>
-                                                <FontAwesome name='commenting-o' size={18} color='grey' />
-                                                <View style={styles.iconTextContainer}>
-                                                    <Text style={styles.numberText}>
-                                                        {`${community.comments ? community.comments.length : 0} `}
+                                            </View>
+                                            <View style={styles.iconContainer}>
+                                                <TouchableOpacity style={styles.textIconContainer} onPress={this.likePost}>
+                                                    <FontAwesome name={this.isPostLiked() ? 'heart' : 'heart-o'} size={15} color={this.isPostLiked() ? PRIMARY_COLOR : 'grey'} />
+                                                    <View style={styles.iconTextContainer}>
+                                                        <Text style={styles.numberText}>
+                                                            {`${community.like ? community.like.length : 0} `}
+                                                        </Text>
+                                                        <Text style={styles.indicatorText}>
+                                                            ถูกใจ
+                                                </Text>
+                                                    </View>
+                                                </TouchableOpacity>
+                                                <TouchableOpacity
+                                                    style={styles.textIconContainer}>
+                                                    <FontAwesome name='commenting-o' size={18} color='grey' />
+                                                    <View style={styles.iconTextContainer}>
+                                                        <Text style={styles.numberText}>
+                                                            {`${community.comments ? community.comments.length : 0} `}
+                                                        </Text>
+                                                        <Text style={styles.indicatorText}>
+                                                            ความเห็น
                                                     </Text>
-                                                    <Text style={styles.indicatorText}>
-                                                        ความเห็น
-                                                    </Text>
-                                                </View>
-                                            </TouchableOpacity>
+                                                    </View>
+                                                </TouchableOpacity>
+                                            </View>
                                         </View>
                                     </View>
-                                </View>
+                                </TouchableNativeFeedback>
                                 <View style={styles.commentHeaderContainer}>
                                     <Text style={styles.commentHeaderText}>
                                         {`ความคิดเห็น (${community.comment ? community.comment.length : 0})`}

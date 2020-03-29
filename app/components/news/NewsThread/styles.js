@@ -7,7 +7,7 @@ const entryBorderRadius = 10;
 export default StyleSheet.create({
     container: {
         flex: 1,
-        margin: 15,
+        padding: 15,
     },
     topContainer: {
         flex: 1,

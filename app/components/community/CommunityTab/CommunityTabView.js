@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, ScrollView } from 'react-native';
+import { Text, View, TouchableOpacity } from 'react-native';
 import styles from './styles';
 import { LinearGradient } from 'expo-linear-gradient'
 import CustomTab from './CustomTab'
@@ -7,15 +7,16 @@ import PropTypes from 'prop-types';
 import { FontAwesome } from '@expo/vector-icons'
 import StatusBar from '../../commons/StatusBar'
 import { KU_PRIMARY_COLOR, KU_SECONDARY_COLOR } from '../../../assets/css/color';
-import Button from '../../commons/Button'
 
 class CommunityTabView extends React.Component {
 
-    componentDidMount() {
-    }
-
     constructor(props) {
         super(props);
+    }
+
+    goSearch = () => {
+        const { navigation } = this.props
+        navigation.navigate('Search')
     }
 
     render() {
@@ -29,7 +30,9 @@ class CommunityTabView extends React.Component {
                         <Text style={styles.logo}>
                             UniNews
                     </Text>
-                        <FontAwesome name="search" color="white" size={21} />
+                        <TouchableOpacity onPress={this.goSearch}>
+                            <FontAwesome name="search" color="white" size={21} />
+                        </TouchableOpacity>
                     </View>
                     <View style={styles.listContainer}>
                         {routes.map((route, index) => {

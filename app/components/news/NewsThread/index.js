@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import { View, Text, Image, TouchableOpacity, TouchableWithoutFeedback } from 'react-native'
+import { View, Text, Image, TouchableOpacity, TouchableNativeFeedback } from 'react-native'
 import styles from './styles'
 import PropTypes from 'prop-types';
 import { convertTimestamptoDate } from '../../../assets/javascripts/date'
-import { FontAwesome, MaterialCommunityIcons, } from '@expo/vector-icons'
+import { FontAwesome, } from '@expo/vector-icons'
 
 class NewsCard extends Component {
 
@@ -43,7 +43,7 @@ class NewsCard extends Component {
         else
             inlineStyle = styles.container
         return (
-            <TouchableWithoutFeedback
+            <TouchableNativeFeedback
                 activeOpacity={1}
                 onPress={() =>
                     this.onNewsPressedHandler(data._id)
@@ -112,7 +112,7 @@ class NewsCard extends Component {
                         </View>
                     </View>
                 </View>
-            </TouchableWithoutFeedback>
+            </TouchableNativeFeedback>
         )
     }
 }

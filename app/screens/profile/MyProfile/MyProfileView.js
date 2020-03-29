@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, View, Image, TouchableWithoutFeedback } from 'react-native'
+import { Text, View, Image, TouchableNativeFeedback } from 'react-native'
 import { Feather } from '@expo/vector-icons'
 import styles from './styles'
 import { LinearGradient } from 'expo-linear-gradient'
@@ -49,30 +49,32 @@ class MyProfileView extends React.Component {
                         </View>
                     </LinearGradient>
                 </View>
-                <TouchableWithoutFeedback onPress={() => navigation.navigate('ProfileSetting')}>
+                <TouchableNativeFeedback onPress={() => navigation.navigate('ProfileSetting')}>
                     <View style={styles.settingContainer}>
                         <Text style={styles.settingText}>รูป และชื่อผู้ใช้</Text>
                         <Feather name={'chevron-right'} size={20} color={'gray'} />
                     </View>
-                </TouchableWithoutFeedback>
+                </TouchableNativeFeedback>
                 <Hr />
-                <TouchableWithoutFeedback onPress={this.goFollowing}>
+                <TouchableNativeFeedback onPress={this.goFollowing}>
                     <View style={styles.settingContainer}>
                         <Text style={styles.settingText}>กำลังติดตาม</Text>
                         <Feather name={'chevron-right'} size={20} color={'gray'} />
                     </View>
-                </TouchableWithoutFeedback>
+                </TouchableNativeFeedback>
                 <Hr />
-                <TouchableWithoutFeedback onPress={this.goFollower}>
+                <TouchableNativeFeedback onPress={this.goFollower}>
                     <View style={styles.settingContainer}>
                         <Text style={styles.settingText}>ผู้ติดตาม</Text>
                         <Feather name={'chevron-right'} size={20} color={'gray'} />
                     </View>
-                </TouchableWithoutFeedback>
+                </TouchableNativeFeedback>
                 <Hr />
-                <View style={styles.settingContainer}>
-                    <Text style={styles.settingText}>ออกจากระบบ</Text>
-                </View>
+                <TouchableNativeFeedback>
+                    <View style={styles.settingContainer}>
+                        <Text style={styles.settingText}>ออกจากระบบ</Text>
+                    </View>
+                </TouchableNativeFeedback>
             </View>
         )
     }

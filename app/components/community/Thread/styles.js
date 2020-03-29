@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { PRIMARY_COLOR, SECONDARY_COLOR, KU_SECONDARY_COLOR } from '../../../assets/css/color'
+import { KU_SECONDARY_COLOR } from '../../../assets/css/color'
 import { BOLD_FONT, REGULAR_FONT } from '../../../assets/css/typography'
 
 export default StyleSheet.create({
@@ -25,8 +25,8 @@ export default StyleSheet.create({
         fontFamily: REGULAR_FONT,
     },
     innerContainer: {
-        marginVertical: 10,
-        marginHorizontal: 15,
+        paddingVertical: 10,
+        paddingHorizontal: 15,
         backgroundColor: 'white',
     },
     nameContainer: {

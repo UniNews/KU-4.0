@@ -36,6 +36,10 @@ export default StyleSheet.create({
     contentContainer: {
         paddingHorizontal: 10,
     },
+    commentContainer: {
+        paddingHorizontal: 10,
+        paddingTop: 10,
+    },
     descriptionText: {
         letterSpacing: 0.5,
         fontFamily: REGULAR_FONT,
