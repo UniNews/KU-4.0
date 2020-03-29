@@ -5,6 +5,7 @@ import styles from './styles'
 import { LinearGradient } from 'expo-linear-gradient'
 import Hr from '../../../components/commons/Hr'
 import StatusBar from '../../../components/commons/StatusBar'
+import PropTypes from 'prop-types';
 
 class MyProfileView extends React.Component {
 
@@ -16,7 +17,7 @@ class MyProfileView extends React.Component {
         const { user } = this.props
         const { navigation } = this.props
         navigation.push('Following', {
-            userId: user._id
+            userId: user?._id
         })
     }
 
@@ -24,8 +25,19 @@ class MyProfileView extends React.Component {
         const { user } = this.props
         const { navigation } = this.props
         navigation.push('Follower', {
-            userId: user._id
+            userId: user?._id
         })
+    }
+
+    goLogin = () => {
+        const { navigation } = this.props
+        navigation.navigate('Auth')
+    }
+
+    logout = () => {
+        const { logoutUser } = this.props
+        this.goLogin()
+        logoutUser()
     }
 
     render() {
@@ -37,14 +49,14 @@ class MyProfileView extends React.Component {
                     <LinearGradient style={styles.linearGradient} start={{ x: 0, y: 0 }} end={{ x: 0, y: 0.8 }} colors={['#465859', '#588E57']}>
                         <View style={styles.innerHeadContainer}>
                             <Image
-                                source={{ uri: user.avatarURL }}
+                                source={user && user.avatarURL ? { uri: user.avatarURL } : require('../../../assets/imgs/avatar-default.png')}
                                 style={styles.avatar}
                             />
                             <Text style={styles.name}>
-                                {user.displayName}
+                                {user?.displayName}
                             </Text>
                             <Text style={styles.faculty}>
-                                {user.description}
+                                {user?.description}
                             </Text>
                         </View>
                     </LinearGradient>
@@ -70,7 +82,7 @@ class MyProfileView extends React.Component {
                     </View>
                 </TouchableNativeFeedback>
                 <Hr />
-                <TouchableNativeFeedback>
+                <TouchableNativeFeedback onPress={this.logout}>
                     <View style={styles.settingContainer}>
                         <Text style={styles.settingText}>ออกจากระบบ</Text>
                     </View>
@@ -78,6 +90,16 @@ class MyProfileView extends React.Component {
             </View>
         )
     }
+}
+
+MyProfileView.propTypes = {
+    user: PropTypes.shape({
+        _id: PropTypes.string,
+        avatarURL: PropTypes.string,
+        displayName: PropTypes.string,
+        description: PropTypes.string,
+    }).isRequired,
+    navigation: PropTypes.object.isRequired,
 }
 
 export default MyProfileView
