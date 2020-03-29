@@ -4,7 +4,6 @@ const initialState = {
     loading: false,
     user: null,
     error: false,
-    completed: false
 };
 
 const reducer = (state = initialState, action) => {
@@ -15,7 +14,6 @@ const reducer = (state = initialState, action) => {
                 loading: true,
                 error: false,
                 user: null,
-                completed: false
             };
         case types.USER_OK:
             return {
@@ -23,7 +21,6 @@ const reducer = (state = initialState, action) => {
                 loading: false,
                 error: false,
                 user: action.payload,
-                completed: true
             };
         case types.USER_FAIL:
             return {
@@ -31,9 +28,8 @@ const reducer = (state = initialState, action) => {
                 loading: false,
                 user: null,
                 error: true,
-                completed: true
             };
-        case types.LOGOUT:
+        case types.USER_PURGE:
             return initialState;
         default:
             return state;

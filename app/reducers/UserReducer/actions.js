@@ -1,6 +1,7 @@
 import * as types from './actionTypes'
 import service from '../../services/user'
 import axios from 'axios'
+import { AsyncStorage } from 'react-native'
 
 const userLoading = () => {
   return { type: types.USER_LOADING }
@@ -14,8 +15,24 @@ const userFail = () => {
   return { type: types.USER_FAIL }
 }
 
-const logout = () => {
-  return { type: types.LOGOUT }
+const userPurge = () => {
+  return { type: types.USER_PURGE }
+}
+
+export function autoLogin(accessToken) {
+  return async dispatch => {
+    try {
+      dispatch(userLoading())
+      axios.defaults.headers.common[
+        'Authorization'
+      ] = `Bearer ${accessToken}`
+      const payload = await service.getProfile()
+      dispatch(userOk(payload.data.result))
+    }
+    catch (err) {
+      dispatch(userFail())
+    }
+  }
 }
 
 export function register(username, password) {
@@ -24,12 +41,13 @@ export function register(username, password) {
     service
       .register(username, password)
       .then(async (res) => {
-        const user = res.data;
+        const user = res.data
         axios.defaults.headers.common[
           'Authorization'
-        ] = `Bearer ${user.access_token}`;
-        const payload = await service.getProfile();
-        dispatch(userOk(payload.data.result));
+        ] = `Bearer ${user.access_token}`
+        const payload = await service.getProfile()
+        await AsyncStorage.setItem('accessToken', user.access_token);
+        dispatch(userOk(payload.data.result))
       })
       .catch((err) => {
         dispatch(userFail())
@@ -48,6 +66,7 @@ export function login(username, password) {
           'Authorization'
         ] = `Bearer ${user.access_token}`
         const payload = await service.getProfile()
+        await AsyncStorage.setItem('accessToken', user.access_token);
         dispatch(userOk(payload.data.result))
       })
       .catch(err => {
@@ -58,9 +77,15 @@ export function login(username, password) {
 
 export function logoutUser() {
   return dispatch => {
-    dispatch(userLoading())
-    delete axios.defaults.headers.common['Authorization']
-    dispatch(logout())
+    try {
+      dispatch(userLoading())
+      AsyncStorage.clear()
+      delete axios.defaults.headers.common['Authorization']
+      dispatch(userPurge())
+    }
+    catch (err) {
+      dispatch(userFail())
+    }
   }
 }
 
@@ -75,6 +100,7 @@ export function loginByFacebook() {
           'Authorization'
         ] = `Bearer ${user.access_token}`
         const payload = await service.getProfile()
+        await AsyncStorage.setItem('accessToken', user.access_token);
         dispatch(userOk(payload.data.result))
       })
       .catch(err => {
@@ -94,6 +120,7 @@ export function loginByGoogle() {
           'Authorization'
         ] = `Bearer ${user.access_token}`
         const payload = await service.getProfile()
+        await AsyncStorage.setItem('accessToken', user.access_token);
         dispatch(userOk(payload.data.result))
       })
       .catch(err => {
