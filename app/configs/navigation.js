@@ -30,6 +30,7 @@ import NewsSearchScreen from '../screens/search/NewsSearch'
 import ProfileSearchScreen from '../screens/search/ProfileSearch'
 import AnyNewsScreen from '../screens/news/AnyNews'
 import AnyCommunityScreen from '../screens/community/AnyCommunity'
+import AuthLoadingScreen from '../screens/auth/Loading'
 
 const newsTab = createMaterialTopTabNavigator({
   'สำหรับคุณ': RecommendationScreen,
@@ -230,6 +231,7 @@ const authStack = createStackNavigator({
 
 export default createAppContainer(createSwitchNavigator(
   {
+    AuthLoading: AuthLoadingScreen,
     Auth: {
       screen: authStack
     },
