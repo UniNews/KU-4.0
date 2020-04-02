@@ -27,7 +27,7 @@ export function autoLogin(accessToken) {
         'Authorization'
       ] = `Bearer ${accessToken}`
       const payload = await service.getProfile()
-      dispatch(userOk(payload.data.result))
+      dispatch(userOk(payload.data))
     }
     catch (err) {
       dispatch(userFail())
@@ -44,10 +44,11 @@ export function register(username, password) {
         const user = res.data
         axios.defaults.headers.common[
           'Authorization'
-        ] = `Bearer ${user.access_token}`
+        ] = `Bearer ${user.accessToken}`
         const payload = await service.getProfile()
-        await AsyncStorage.setItem('accessToken', user.access_token);
-        dispatch(userOk(payload.data.result))
+        await AsyncStorage.setItem('accessToken', user.accessToken);
+        console.log(payload.data)
+        dispatch(userOk(payload.data))
       })
       .catch((err) => {
         dispatch(userFail())
@@ -64,12 +65,13 @@ export function login(username, password) {
         const user = res.data
         axios.defaults.headers.common[
           'Authorization'
-        ] = `Bearer ${user.access_token}`
+        ] = `Bearer ${user.accessToken}`
         const payload = await service.getProfile()
-        await AsyncStorage.setItem('accessToken', user.access_token);
-        dispatch(userOk(payload.data.result))
+        await AsyncStorage.setItem('accessToken', user.accessToken);
+        dispatch(userOk(payload.data))
       })
       .catch(err => {
+        console.log(err,'paul')
         dispatch(userFail())
       })
   }
@@ -98,7 +100,7 @@ export function loginByFacebook() {
         const user = res.data
         axios.defaults.headers.common[
           'Authorization'
-        ] = `Bearer ${user.access_token}`
+        ] = `Bearer ${user.accessToken}`
         const payload = await service.getProfile()
         await AsyncStorage.setItem('accessToken', user.access_token);
         dispatch(userOk(payload.data.result))
@@ -118,9 +120,9 @@ export function loginByGoogle() {
         const user = res.data
         axios.defaults.headers.common[
           'Authorization'
-        ] = `Bearer ${user.access_token}`
+        ] = `Bearer ${user.accessToken}`
         const payload = await service.getProfile()
-        await AsyncStorage.setItem('accessToken', user.access_token);
+        await AsyncStorage.setItem('accessToken', user.accessToken);
         dispatch(userOk(payload.data.result))
       })
       .catch(err => {
