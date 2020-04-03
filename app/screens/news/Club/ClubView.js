@@ -18,7 +18,7 @@ class ClubView extends React.Component {
     componentDidMount() {
         newsService.getClubNews()
             .then((res) => {
-                const newsData = res.data
+                const newsData = res.data.articles
                 this.setState({
                     news: newsData,
                     error: false

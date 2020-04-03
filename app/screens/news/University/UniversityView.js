@@ -18,7 +18,7 @@ class UniversityView extends React.Component {
     componentDidMount() {
         newsService.getUniversityNews()
             .then((res) => {
-                const newsData = res.data
+                const newsData = res.data.articles
                 this.setState({
                     news: newsData,
                     error: false

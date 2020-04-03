@@ -3,22 +3,22 @@ import axios from 'axios';
 
 export default {
     getAllNews: () => {
-        return axios.get(`${constants.API_URL}/news/`)
+        return axios.get(`${constants.API_URL}/articles/news/`)
     },
     getNewsRecommendation: (id) => {
-        return axios.get(`${constants.API_URL}/news/${id}`)
+        return axios.get(`${constants.API_URL}/articles/${id}`)
     },
     getUniversityNews: () => {
-        return axios.get(`${constants.API_URL}/news/universities`)
+        return axios.get(`${constants.API_URL}/articles/news/universities`)
     },
     getPromotionsNews: () => {
-        return axios.get(`${constants.API_URL}/news/promotions`)
+        return axios.get(`${constants.API_URL}/articles/news/promotions`)
     },
     getClubNews: () => {
-        return axios.get(`${constants.API_URL}/news/club`)
+        return axios.get(`${constants.API_URL}/articles/news/club`)
     },
     getNewsById: (id) => {
-        return axios.get(`${constants.API_URL}/news/${id}`)
+        return axios.get(`${constants.API_URL}/articles/${id}`)
     },
     postComment: (newsId, msg) => {
         const json = {

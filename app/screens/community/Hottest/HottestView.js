@@ -12,7 +12,7 @@ class HottestView extends React.Component {
             .then((res) => {
                 const newsData = res.data
                 this.setState({
-                    communities: newsData,
+                    communities: newsData.articles,
                     error: false
                 })
             }).catch((err) => {

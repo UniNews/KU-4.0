@@ -26,7 +26,7 @@ class Thread extends Component {
     onCommentPressedHandler = () => {
         const { onCommentPressed, data } = this.props
         if (onCommentPressed)
-            onCommentPressed(data.user._id)
+            onCommentPressed(data.author._id)
     }
 
     render() {
@@ -37,7 +37,7 @@ class Thread extends Component {
                     <View style={styles.innerContainer}>
                         <View style={styles.nameContainer}>
                             <Text style={styles.nameText}>
-                                {data.user.displayName}
+                                {data.author.displayName}
                             </Text>
                             <MaterialCommunityIcons style={styles.icon} name='dots-vertical' size={15} color='black' />
                         </View>

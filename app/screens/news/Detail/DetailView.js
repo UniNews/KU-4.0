@@ -41,7 +41,7 @@ class DetailView extends React.Component {
         const { navigation } = this.props
         const { news } = this.state
         navigation.push('ProfileDetail', {
-            userId: news.user._id
+            userId: news.author._id
         })
     }
 
@@ -62,19 +62,19 @@ class DetailView extends React.Component {
                     !isLoading ?
                         <ScrollView >
                             <ImageBackground style={styles.newsImage}
-                                source={{ uri: news.imageURL.length > 0 ? news.imageURL[0] : null }} >
+                                source={{ uri: news.imageURL }} >
                             </ImageBackground>
                             <View style={styles.topContainer}>
                                 <View style={styles.titleContainer}>
                                     <TouchableWithoutFeedback onPress={this.goProfile}>
                                         <Image
                                             style={styles.imageAvatar}
-                                            source={{ uri: news.user.avatarURL }}
+                                            source={{ uri: news.author.avatarURL }}
                                         />
                                     </TouchableWithoutFeedback>
                                     <View style={styles.innerTitleContainer}>
                                         <Text style={styles.posterText}>
-                                            {news.user.displayName}
+                                            {news.author.displayName}
                                         </Text>
                                         <Text style={styles.titleText}>
                                             {news.title}
