@@ -17,7 +17,7 @@ class DetailView extends React.Component {
         this.state = {
             news: {},
             isLoading: true,
-            updateComments: null
+            updateComments: null,
         }
     }
 
@@ -86,14 +86,16 @@ class DetailView extends React.Component {
                                                     {convertTimestamptoDate(news.createdAt)}
                                                 </Text>
                                             </View>
-                                            <TouchableOpacity
-                                                onPress={this.goComments}
-                                                style={styles.textIconContainer}>
-                                                <FontAwesome name='commenting-o' size={18} color='grey' />
-                                                <Text style={styles.iconText}>
-                                                    {this.state.news.comments.length} ความเห็น
-                                                </Text>
-                                            </TouchableOpacity>
+                                            {
+                                                <TouchableOpacity
+                                                    onPress={this.goComments}
+                                                    style={styles.textIconContainer}>
+                                                    <FontAwesome name='commenting-o' size={18} color='grey' />
+                                                    <Text style={styles.iconText}>
+                                                        {this.state.news.comments.length} ความเห็น
+                                                        </Text>
+                                                </TouchableOpacity>
+                                            }
                                         </View>
                                     </View>
                                 </View>

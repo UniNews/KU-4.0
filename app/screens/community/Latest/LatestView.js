@@ -11,10 +11,9 @@ class LatestView extends React.Component {
         communityService.getLatestCommunities()
             .then((res) => {
                 const newsData = res.data
-                console.log(newsData)
                 this.setState({
                     communities: newsData.articles,
-                    error: false
+                    error: false,
                 })
             }).catch((err) => {
                 this.setState({ error: true })

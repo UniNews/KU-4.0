@@ -11,22 +11,24 @@ export default {
     getHottestCommunities: () => {
         return axios.get(`${constants.API_URL}/articles/communities`)
     },
-    postComment: (newsId, msg) => {
+    postComment: (communityId, msg) => {
         const json = {
-            text: msg
+            description: msg
         }
-        return axios.post(`${constants.API_URL}/communities/${newsId}/comments`, json, {
+        return axios.post(`${constants.API_URL}/articles/${communityId}/comments`, json, {
             headers: { 'Content-Type': 'application/json' }
         })
     },
-    likeComment: (commentId) => {
-        return axios.post(`${constants.API_URL}/communities/${commentId}/like`, {
-            headers: { 'Content-Type': 'application/json' }
-        })
+    likeComment: (communityId, commentId) => {
+        return axios.post(`${constants.API_URL}/articles/${communityId}/comments/${commentId}/like`)
     },
     likeCommunity: (communityId) => {
-        return axios.post(`${constants.API_URL}/communities/${communityId}/like-community`, {
-            headers: { 'Content-Type': 'application/json' }
-        })
+        return axios.post(`${constants.API_URL}/articles/${communityId}/like`)
+    },
+    getComments: (communityId) => {
+        return axios.get(`${constants.API_URL}/articles/${communityId}/comments`)
+    },
+    unlikeComment: (communityId, commentId) => {
+        return axios.delete(`${constants.API_URL}/articles/${communityId}/comments/${commentId}/like`)
     }
 }
