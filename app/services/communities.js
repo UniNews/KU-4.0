@@ -15,7 +15,9 @@ export default {
         const json = {
             description: msg
         }
-        return axios.post(`${constants.API_URL}/articles/${communityId}/comments`, json,{})
+        return axios.post(`${constants.API_URL}/articles/${communityId}/comments`, json, {
+            headers: { 'Content-Type': 'application/json' }
+        })
     },
     likeComment: (communityId, commentId) => {
         return axios.post(`${constants.API_URL}/articles/${communityId}/comments/${commentId}/like`)
@@ -26,7 +28,7 @@ export default {
     getComments: (communityId) => {
         return axios.get(`${constants.API_URL}/articles/${communityId}/comments`)
     },
-    unlikeComment: (communityId,commentId) => {
+    unlikeComment: (communityId, commentId) => {
         return axios.delete(`${constants.API_URL}/articles/${communityId}/comments/${commentId}/like`)
     }
 }

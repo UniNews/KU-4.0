@@ -44,7 +44,6 @@ class CommentView extends React.Component {
   goBack = () => {
     const { navigation } = this.props
     navigation.goBack()
-    navigation.state.params.onChange({ commentPropNumber: this.state.comments.length })
   }
 
   postComment = () => {
@@ -85,16 +84,15 @@ class CommentView extends React.Component {
     const comment = updatedComments.find(comment => comment._id == id)
     if (comment) {
       const index = comment.likes.indexOf(userId)
-      if (index > -1){
+      if (index > -1) {
         comment.likes.splice(index, 1)
-        this.setState({ comments: updatedComments })
         newsService.unlikeComment(newsId, id)
       }
-      else{
+      else {
         comment.likes.push(userId)
-        this.setState({ comments: updatedComments })
         newsService.likeComment(newsId, id)
       }
+      this.setState({ comments: updatedComments })
     }
   }
 

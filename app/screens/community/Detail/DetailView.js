@@ -22,7 +22,7 @@ class DetailView extends React.Component {
             refreshing: false,
             fetching: true,
             error: false,
-            comments:[]
+            comments: []
         }
     }
 
@@ -70,20 +70,20 @@ class DetailView extends React.Component {
 
     likeComment = (id) => {
         const userId = this.props.user._id
-        const updatedComments = [ ...this.state.comments ]
+        const communityId = this.state.community._id
+        const updatedComments = [...this.state.comments]
         const comment = updatedComments.find(comment => comment._id == id)
         if (comment) {
             const index = comment.likes.indexOf(userId)
-            if (index > -1){
+            if (index > -1) {
                 comment.likes.splice(index, 1)
-                this.setState({ comments: updatedComments })
-                communityService.unlikeComment(this.state.community._id, id)
+                communityService.unlikeComment(communityId, id)
             }
-            else{
+            else {
                 comment.likes.push(userId)
-                this.setState({ comments: updatedComments })
-                communityService.likeComment(this.state.community._id, id)
+                communityService.likeComment(communityId, id)
             }
+            this.setState({ comments: updatedComments })
         }
     }
 
@@ -102,7 +102,6 @@ class DetailView extends React.Component {
     goBack = () => {
         const { navigation } = this.props
         navigation.goBack()
-        navigation.state.params.onChange({ commentPropNumber: this.state.comments.length })
     }
 
     postComment = () => {
@@ -117,7 +116,7 @@ class DetailView extends React.Component {
                         posting: false,
                         myComment: ''
                     })
-            })
+                })
         })
     }
 
@@ -196,7 +195,7 @@ class DetailView extends React.Component {
                                                     <View style={styles.infoGap}>
                                                         <View style={styles.nameContainer}>
                                                             <Text style={styles.userText}>
-                                                                { community.author.displayName }
+                                                                {community.author.displayName}
                                                             </Text>
                                                             <MaterialCommunityIcons style={styles.icon} name='dots-vertical' size={15} color='black' />
                                                         </View>
@@ -231,7 +230,7 @@ class DetailView extends React.Component {
                                                     <FontAwesome name='commenting-o' size={18} color='grey' />
                                                     <View style={styles.iconTextContainer}>
                                                         <Text style={styles.numberText}>
-                                                            {`${ comments.length } `}
+                                                            {`${comments.length} `}
                                                         </Text>
                                                         <Text style={styles.indicatorText}>
                                                             ความเห็น

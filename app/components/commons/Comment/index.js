@@ -29,7 +29,6 @@ class Comment extends Component {
 
   render() {
     const { data, liked, style } = this.props
-    console.log(data)
     let profileContainer = []
     if (style)
       profileContainer = style

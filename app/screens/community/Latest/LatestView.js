@@ -11,11 +11,9 @@ class LatestView extends React.Component {
         communityService.getLatestCommunities()
             .then((res) => {
                 const newsData = res.data
-                console.log(newsData)
                 this.setState({
                     communities: newsData.articles,
                     error: false,
-                    commentPropNumber: -1
                 })
             }).catch((err) => {
                 this.setState({ error: true })
@@ -30,17 +28,12 @@ class LatestView extends React.Component {
         }
     }
 
-    onChange = data => {
-        this.setState(data);
-    }
-
     onThreadPressed = (newsId) => {
-        this.props.navigation.push('CommunityDetail', { newsId ,onChange: this.onChange })
+        this.props.navigation.push('CommunityDetail', { newsId })
     }
 
     render() {
         const { communities } = this.state
-        console.log(this.state.commentPropNumber,'test')
         return (
             <View style={styles.containter}>
                 <ScrollView>
