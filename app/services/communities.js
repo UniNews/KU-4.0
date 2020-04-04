@@ -3,13 +3,13 @@ import axios from 'axios';
 
 export default {
     getCommunitiesById: (id) => {
-        return axios.get(`${constants.API_URL}/communities/${id}`)
+        return axios.get(`${constants.API_URL}/articles/${id}`)
     },
     getLatestCommunities: () => {
-        return axios.get(`${constants.API_URL}/communities/latest`)
+        return axios.get(`${constants.API_URL}/articles/communities`)
     },
     getHottestCommunities: () => {
-        return axios.get(`${constants.API_URL}/communities/hottest`)
+        return axios.get(`${constants.API_URL}/articles/communities`)
     },
     postComment: (newsId, msg) => {
         const json = {

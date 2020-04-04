@@ -26,7 +26,7 @@ class NewsCard extends Component {
     onCommentPressedHandler = () => {
         const { onCommentPressed, data } = this.props
         if (onCommentPressed)
-            onCommentPressed(data.user._id)
+            onCommentPressed(data.author._id)
     }
 
     onProfilePressedHandler = (profileId) => {
@@ -54,7 +54,7 @@ class NewsCard extends Component {
                     <View style={styles.topContainer}>
                         <View style={styles.leftContainer}>
                             <Text style={styles.nameText}>
-                                {data.user.displayName}
+                                {data.author.displayName}
                             </Text>
                             <View style={{ paddingTop: 5 }}>
                                 <Text numberOfLines={2} style={styles.title}>
@@ -65,7 +65,7 @@ class NewsCard extends Component {
                         <View style={styles.rightContainer}>
                             <View style={[styles.imageContainer]}>
                                 <Image
-                                    source={{ uri: data.imageURL ? data.imageURL[0] : '' }}
+                                    source={{ uri: data.imageURL }}
                                     style={styles.image}
                                 />
                             </View>
@@ -121,8 +121,8 @@ NewsCard.propTypes = {
     data: PropTypes.shape({
         _id: PropTypes.string.isRequired,
         title: PropTypes.string.isRequired,
-        imageURL: PropTypes.array.isRequired,
-        user: PropTypes.shape({
+        imageURL: PropTypes.string.isRequired,
+        author: PropTypes.shape({
             _id: PropTypes.string.isRequired,
             displayName: PropTypes.string.isRequired
         }),

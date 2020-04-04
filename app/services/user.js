@@ -4,28 +4,27 @@ import * as Facebook from 'expo-facebook'
 import * as Google from 'expo-google-app-auth'
 
 export default {
-    login: (email, password) => {
+    login: (username, password) => {
         const json = {
-            grant_type: 'password',
-            email: email,
+            username: username,
             password: password
         }
-        return axios.post(`${constants.API_URL}/token`, json, {
+        return axios.post(`${constants.API_URL}/signin`, json, {
             headers: { 'Content-Type': 'application/json' }
         })
     },
-    register: (email, password) => {
+    register: (username, password) => {
         const json = {
-            displayName: email,
-            email: email,
+            displayName: username,
+            username: username,
             password: password
         }
-        return axios.post(`${constants.API_URL}/registerByEmail`, json, {
+        return axios.post(`${constants.API_URL}/signup`, json, {
             headers: { 'Content-Type': 'application/json' }
         })
     },
     getProfile: () => {
-        return axios.get(`${constants.API_URL}/profile/me`)
+        return axios.get(`${constants.API_URL}/profile`)
     },
     loginByFacebook: async () => {
         const app_id = constants.APP_ID
@@ -40,16 +39,10 @@ export default {
                 { permissions }
             )
             if (type === 'success') {
-                const response = await axios.get(`https://graph.facebook.com/me?access_token=${token}`)
-                const json = {
-                    displayName: response.data.name,
-                    loginType: 'facebook',
-                    collectedId: response.data.id
-                }
-                let user = await axios.post(`${constants.API_URL}/register`, json, {
+                const response = await axios.post(`${constants.API_URL}/signin/facebook`, { access_token: token }, {
                     headers: { 'Content-Type': 'application/json' }
                 })
-                return Promise.resolve(user)
+                return Promise.resolve(response)
             } else {
                 return Promise.reject('Cancel by user')
             }
@@ -62,16 +55,13 @@ export default {
             const { type, accessToken, user } = await Google.logInAsync({
                 androidClientId: '319434606205-n3k9ijd91al3h7bcropp4e17rf8j1klk.apps.googleusercontent.com',
                 iosClientId: '319434606205-c5ooi2joi9d4un5pi227aitkpls5ku10.apps.googleusercontent.com',
-                scopes: ['profile', 'email'],
-            }
-            )
+                scopes: ['profile', 'email']
+            })
             if (type === 'success') {
                 const json = {
-                    displayName: user.name,
-                    loginType: 'gmail',
-                    collectedId: user.id
+                    access_token: accessToken
                 }
-                let user_token = await axios.post(`${constants.API_URL}/register`, json, {
+                let user_token = await axios.post(`${constants.API_URL}/signin/google`, json, {
                     headers: { 'Content-Type': 'application/json' }
                 })
                 return Promise.resolve(user_token)

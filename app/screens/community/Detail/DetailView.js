@@ -29,7 +29,9 @@ class DetailView extends React.Component {
         const newsId = this.props.navigation.state.params.newsId
         communityService.getCommunitiesById(newsId)
             .then((res) => {
+                console.log('sssd')
                 const newsData = res.data
+                console.log(newsData,'sss')
                 this.setState({
                     community: newsData,
                     error: false,
@@ -46,11 +48,11 @@ class DetailView extends React.Component {
     likePost = () => {
         const userId = this.props.user._id
         const updatedCommunity = { ...this.state.community }
-        const index = updatedCommunity.like.indexOf(userId)
+        const index = updatedCommunity.likes.indexOf(userId)
         if (index > -1)
-            updatedCommunity.like.splice(index, 1)
+            updatedCommunity.likes.splice(index, 1)
         else
-            updatedCommunity.like.push(userId)
+            updatedCommunity.likes.push(userId)
         this.setState({ community: updatedCommunity })
         communityService.likeCommunity(updatedCommunity._id)
     }
@@ -58,7 +60,7 @@ class DetailView extends React.Component {
     isPostLiked = () => {
         const { community } = this.state
         const userId = this.props.user._id
-        return community.like.indexOf(userId) > -1
+        return community.likes.indexOf(userId) > -1
     }
 
     likeComment = (id) => {
@@ -186,13 +188,13 @@ class DetailView extends React.Component {
                                                     <TouchableWithoutFeedback onPress={() => this.goProfile(community.user?._id)}>
                                                         <Image
                                                             style={styles.imageAvatar}
-                                                            source={{ uri: community.user ? community.user.avatarURL : null }}
+                                                            source={{ uri: community.author.avatarURL }}
                                                         />
                                                     </TouchableWithoutFeedback>
                                                     <View style={styles.infoGap}>
                                                         <View style={styles.nameContainer}>
                                                             <Text style={styles.userText}>
-                                                                {community.user ? community.user.displayName : null}
+                                                                { community.author.displayName }
                                                             </Text>
                                                             <MaterialCommunityIcons style={styles.icon} name='dots-vertical' size={15} color='black' />
                                                         </View>
@@ -215,7 +217,7 @@ class DetailView extends React.Component {
                                                     <FontAwesome name={this.isPostLiked() ? 'heart' : 'heart-o'} size={15} color={this.isPostLiked() ? PRIMARY_COLOR : 'grey'} />
                                                     <View style={styles.iconTextContainer}>
                                                         <Text style={styles.numberText}>
-                                                            {`${community.like ? community.like.length : 0} `}
+                                                            {`${community.likes ? community.likes.length : 0} `}
                                                         </Text>
                                                         <Text style={styles.indicatorText}>
                                                             ถูกใจ
