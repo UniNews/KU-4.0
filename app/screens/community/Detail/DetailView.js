@@ -22,6 +22,7 @@ class DetailView extends React.Component {
             refreshing: false,
             fetching: true,
             error: false,
+            comments:[]
         }
     }
 
@@ -29,9 +30,7 @@ class DetailView extends React.Component {
         const newsId = this.props.navigation.state.params.newsId
         communityService.getCommunitiesById(newsId)
             .then((res) => {
-                console.log('sssd')
                 const newsData = res.data
-                console.log(newsData,'sss')
                 this.setState({
                     community: newsData,
                     error: false,
@@ -43,6 +42,12 @@ class DetailView extends React.Component {
                     fetching: false,
                 })
             })
+        communityService.getComments(newsId).then(result => {
+            this.setState({
+                comments: result.data,
+                fetching: false
+            })
+        })
     }
 
     likePost = () => {
@@ -65,22 +70,26 @@ class DetailView extends React.Component {
 
     likeComment = (id) => {
         const userId = this.props.user._id
-        const updatedCommunity = { ...this.state.community }
-        const comment = updatedCommunity.comments.find(comment => comment._id == id)
+        const updatedComments = [ ...this.state.comments ]
+        const comment = updatedComments.find(comment => comment._id == id)
         if (comment) {
-            const index = comment.like.indexOf(userId)
-            if (index > -1)
-                comment.like.splice(index, 1)
-            else
-                comment.like.push(userId)
-            this.setState({ community: updatedCommunity })
-            communityService.likeComment(id)
+            const index = comment.likes.indexOf(userId)
+            if (index > -1){
+                comment.likes.splice(index, 1)
+                this.setState({ comments: updatedComments })
+                communityService.unlikeComment(this.state.community._id, id)
+            }
+            else{
+                comment.likes.push(userId)
+                this.setState({ comments: updatedComments })
+                communityService.likeComment(this.state.community._id, id)
+            }
         }
     }
 
     isCommentLiked = (comment) => {
         const userId = this.props.user._id
-        return comment.like.indexOf(userId) > -1
+        return comment.likes.indexOf(userId) > -1
     }
 
     goProfile = (id) => {
@@ -93,6 +102,7 @@ class DetailView extends React.Component {
     goBack = () => {
         const { navigation } = this.props
         navigation.goBack()
+        navigation.state.params.onChange({ commentPropNumber: this.state.comments.length })
     }
 
     postComment = () => {
@@ -100,22 +110,14 @@ class DetailView extends React.Component {
         const newsId = this.props.navigation.state.params.newsId
         const { myComment } = this.state
         communityService.postComment(newsId, myComment).then(result => {
-            communityService.getCommunitiesById(newsId)
-                .then((res) => {
-                    const newsData = res.data
+            communityService.getComments(newsId)
+                .then((result) => {
                     this.setState({
-                        community: newsData,
-                        error: false,
+                        comments: result.data,
                         posting: false,
                         myComment: ''
                     })
-                }).catch((err) => {
-                    this.setState({
-                        community: newsData,
-                        error: true,
-                        posting: false,
-                    })
-                })
+            })
         })
     }
 
@@ -139,8 +141,8 @@ class DetailView extends React.Component {
     }
 
     communityComments() {
-        const { community } = this.state
-        return community.comments?.map((comment, index, commentArray) =>
+        const { comments } = this.state
+        return comments?.map((comment, index, commentArray) =>
             <View key={index}>
                 <Comment
                     style={styles.commentContainer}
@@ -161,7 +163,7 @@ class DetailView extends React.Component {
     }
 
     render() {
-        const { community, myComment, refreshing, fetching, posting } = this.state
+        const { community, myComment, refreshing, fetching, posting, comments } = this.state
         return (
             <View style={styles.containter}>
                 <StatusBar />
@@ -229,7 +231,7 @@ class DetailView extends React.Component {
                                                     <FontAwesome name='commenting-o' size={18} color='grey' />
                                                     <View style={styles.iconTextContainer}>
                                                         <Text style={styles.numberText}>
-                                                            {`${community.comments ? community.comments.length : 0} `}
+                                                            {`${ comments.length } `}
                                                         </Text>
                                                         <Text style={styles.indicatorText}>
                                                             ความเห็น

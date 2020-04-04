@@ -13,7 +13,8 @@ class HottestView extends React.Component {
                 const newsData = res.data
                 this.setState({
                     communities: newsData.articles,
-                    error: false
+                    error: false,
+                    commentPropNumber: -1
                 })
             }).catch((err) => {
                 this.setState({ error: true })
@@ -28,11 +29,16 @@ class HottestView extends React.Component {
         }
     }
 
+    onChange = data => {
+        this.setState(data);
+    }
+
     onThreadPressed = (newsId) => {
-        this.props.navigation.push('CommunityDetail', { newsId })
+        this.props.navigation.push('CommunityDetail', { newsId ,onChange: this.onChange })
     }
 
     render() {
+        console.log(this.state.commentPropNumber,'test')
         const { communities } = this.state
         return (
             <View style={styles.containter}>

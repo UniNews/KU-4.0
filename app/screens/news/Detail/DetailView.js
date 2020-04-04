@@ -17,8 +17,13 @@ class DetailView extends React.Component {
         this.state = {
             news: {},
             isLoading: true,
-            updateComments: null
+            updateComments: null,
+            commentPropNumber: -1
         }
+    }
+
+    onChange = data => {
+        this.setState(data);
     }
 
     componentDidMount() {
@@ -47,7 +52,7 @@ class DetailView extends React.Component {
 
     goComments = () => {
         const newsId = this.props.navigation.state.params.newsId
-        this.props.navigation.push('Comment', { newsId: newsId })
+        this.props.navigation.push('Comment', { newsId: newsId, onChange: this.onChange })
     }
 
     render() {
@@ -86,14 +91,26 @@ class DetailView extends React.Component {
                                                     {convertTimestamptoDate(news.createdAt)}
                                                 </Text>
                                             </View>
-                                            <TouchableOpacity
-                                                onPress={this.goComments}
-                                                style={styles.textIconContainer}>
-                                                <FontAwesome name='commenting-o' size={18} color='grey' />
-                                                <Text style={styles.iconText}>
-                                                    {this.state.news.comments.length} ความเห็น
-                                                </Text>
-                                            </TouchableOpacity>
+                                            {
+                                                this.state.commentPropNumber >= 0 ?
+                                                    <TouchableOpacity
+                                                        onPress={this.goComments}
+                                                        style={styles.textIconContainer}>
+                                                        <FontAwesome name='commenting-o' size={18} color='grey' />
+                                                        <Text style={styles.iconText}>
+                                                            {this.state.commentPropNumber} ความเห็น
+                                                        </Text>
+                                                    </TouchableOpacity>
+                                                :
+                                                    <TouchableOpacity
+                                                        onPress={this.goComments}
+                                                        style={styles.textIconContainer}>
+                                                        <FontAwesome name='commenting-o' size={18} color='grey' />
+                                                        <Text style={styles.iconText}>
+                                                            {this.state.news.comments.length} ความเห็น
+                                                        </Text>
+                                                    </TouchableOpacity>
+                                            }
                                         </View>
                                     </View>
                                 </View>

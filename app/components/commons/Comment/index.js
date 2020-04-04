@@ -29,6 +29,7 @@ class Comment extends Component {
 
   render() {
     const { data, liked, style } = this.props
+    console.log(data)
     let profileContainer = []
     if (style)
       profileContainer = style
@@ -41,13 +42,13 @@ class Comment extends Component {
             <TouchableWithoutFeedback onPress={this.onProfilePressedHandler}>
               <Image
                 style={styles.imageAvatar}
-                source={{ uri: data.user ? data.user.avatarURL : null }}
+                source={{ uri: data.author ? data.author.avatarURL : null }}
               />
             </TouchableWithoutFeedback>
             <View style={styles.infoGap}>
               <View style={styles.nameContainer}>
                 <Text style={styles.userText}>
-                  {data.user ? data.user.displayName : null}
+                  {data.author ? data.author.displayName : null}
                 </Text>
                 <MaterialCommunityIcons name='dots-vertical' size={15} color='black' />
               </View>
@@ -59,7 +60,7 @@ class Comment extends Component {
               </View>
               <View style={styles.descriptionContainer}>
                 <Text style={styles.descriptionText}>
-                  {data.text}
+                  {data.description}
                 </Text>
               </View>
               <View style={styles.iconContainer}>
@@ -67,7 +68,7 @@ class Comment extends Component {
                   <FontAwesome name={liked ? 'heart' : 'heart-o'} size={15} color={liked ? PRIMARY_COLOR : 'grey'} />
                   <View style={styles.iconTextContainer}>
                     <Text style={styles.numberText}>
-                      {`${data.like ? data.like.length : 0} `}
+                      {`${data.likes ? data.likes.length : 0} `}
                     </Text>
                     <Text style={styles.indicatorText}>
                       ถูกใจ

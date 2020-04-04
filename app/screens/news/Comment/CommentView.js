@@ -33,9 +33,9 @@ class CommentView extends React.Component {
 
   componentDidMount() {
     const newsId = this.props.navigation.state.params.newsId
-    newsService.getNewsById(newsId).then(result => {
+    newsService.getComments(newsId).then(result => {
       this.setState({
-        comments: result.data.comments,
+        comments: result.data,
         fetching: false
       })
     })
@@ -44,6 +44,7 @@ class CommentView extends React.Component {
   goBack = () => {
     const { navigation } = this.props
     navigation.goBack()
+    navigation.state.params.onChange({ commentPropNumber: this.state.comments.length })
   }
 
   postComment = () => {
@@ -51,9 +52,9 @@ class CommentView extends React.Component {
     const newsId = this.props.navigation.state.params.newsId
     const { msg } = this.state
     newsService.postComment(newsId, msg).then(result => {
-      newsService.getNewsById(newsId).then(result => {
+      newsService.getComments(newsId).then(result => {
         this.setState({
-          comments: result.data.comments,
+          comments: result.data,
           posting: false,
           msg: ''
         })
@@ -63,32 +64,37 @@ class CommentView extends React.Component {
 
   isCommentLiked = (comment) => {
     const userId = this.props.user._id
-    return comment.like.indexOf(userId) > -1
+    return comment.likes.indexOf(userId) > -1
   }
 
   onRefresh = () => {
     this.setState({ refreshing: true })
     const newsId = this.props.navigation.state.params.newsId
-    newsService.getNewsById(newsId).then(result => {
+    newsService.getComments(newsId).then(result => {
       this.setState({
-        comments: result.data.comments,
+        comments: result.data,
         refreshing: false
       })
     })
   }
 
   likeComment = (id) => {
+    const newsId = this.props.navigation.state.params.newsId
     const userId = this.props.user._id
     const updatedComments = [...this.state.comments]
     const comment = updatedComments.find(comment => comment._id == id)
     if (comment) {
-      const index = comment.like.indexOf(userId)
-      if (index > -1)
-        comment.like.splice(index, 1)
-      else
-        comment.like.push(userId)
-      this.setState({ comments: updatedComments })
-      newsService.likeComment(id)
+      const index = comment.likes.indexOf(userId)
+      if (index > -1){
+        comment.likes.splice(index, 1)
+        this.setState({ comments: updatedComments })
+        newsService.unlikeComment(newsId, id)
+      }
+      else{
+        comment.likes.push(userId)
+        this.setState({ comments: updatedComments })
+        newsService.likeComment(newsId, id)
+      }
     }
   }
 

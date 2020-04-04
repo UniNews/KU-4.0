@@ -20,17 +20,26 @@ export default {
     getNewsById: (id) => {
         return axios.get(`${constants.API_URL}/articles/${id}`)
     },
-    postComment: (newsId, msg) => {
+    postComment:  async (newsId, msg) => {
         const json = {
-            text: msg
+            description: msg
         }
-        return axios.post(`${constants.API_URL}/news/${newsId}/comments`, json, {
-            headers: { 'Content-Type': 'application/json' }
-        })
+        try{
+        const result = await axios.post(`${constants.API_URL}/articles/${newsId}/comments`, json)
+        
+        return result
+        }
+        catch(err){
+            console.log(err.response)
+        }
     },
-    likeComment: (commentId) => {
-        return axios.post(`${constants.API_URL}/news/${commentId}/like`, {
-            headers: { 'Content-Type': 'application/json' }
-        })
+    likeComment: (newsId,commentId) => {
+        return axios.post(`${constants.API_URL}/articles/${newsId}/comments/${commentId}/like`)
+    },
+    getComments: (communityId) => {
+        return axios.get(`${constants.API_URL}/articles/${communityId}/comments`)
+    },
+    unlikeComment: (newsId,commentId) => {
+        return axios.delete(`${constants.API_URL}/articles/${newsId}/comments/${commentId}/like`)
     }
 }
