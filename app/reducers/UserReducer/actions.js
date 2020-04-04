@@ -71,7 +71,6 @@ export function login(username, password) {
         dispatch(userOk(payload.data))
       })
       .catch(err => {
-        console.log(err,'paul')
         dispatch(userFail())
       })
   }
