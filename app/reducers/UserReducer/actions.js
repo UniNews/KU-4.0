@@ -135,16 +135,19 @@ export function followUserById(id) {
     try {
       const { user } = getState().userReducer
       const updatedUser = { ...user }
-      const index = user.following.indexOf(id) // check if that id is following
-      if (index > -1)
-        user.following.splice(index, 1) // remove if it is
-      else
-        user.following.push(id)
-      dispatch(userOk(updatedUser))
-      service.followUserById(id)
+      const index = user.followings.indexOf(id) // check if that id is following
+      if (index > -1) {
+        user.followings.splice(index, 1) // remove if it is
+        dispatch(userOk(updatedUser))
+        service.followUserById(id)
+      }
+      else {
+        user.followings.push(id)
+        dispatch(userOk(updatedUser))
+        service.unFollowUserById(id)
+      }
     }
     catch (err) {
-      console.log(err)
       dispatch(userFail())
     }
   }

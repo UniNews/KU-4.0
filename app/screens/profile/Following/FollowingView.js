@@ -26,7 +26,7 @@ class FollowingView extends React.Component {
 
     isFollowing = (profile) => {
         const { user } = this.props
-        return user.following.indexOf(profile._id) > -1
+        return user.followings.indexOf(profile._id) > -1
     }
 
     goProfile = (id) => {
@@ -44,11 +44,11 @@ class FollowingView extends React.Component {
     async componentDidMount() {
         const { userId } = this.props.navigation.state.params
         try {
-            const response = await userService.getUserById(userId)
+            const response = await userService.getUserFollowing(userId)
             this.setState({
                 loading: false,
                 error: false,
-                following: response.data.data.following
+                followings: response.data
             })
         }
         catch (err) {
@@ -60,7 +60,7 @@ class FollowingView extends React.Component {
     }
 
     render() {
-        const { following, loading } = this.state
+        const { followings, loading } = this.state
         return (
             <View style={styles.containter}>
                 <StatusBar />
@@ -74,7 +74,7 @@ class FollowingView extends React.Component {
                         ?
                         <View style={styles.followingContainer}>
                             {
-                                following.map((profile) => {
+                                followings.map((profile) => {
                                     return (
                                         <ProfileThread following={this.isFollowing(profile)} key={profile._id} onFollowPressed={this.follow} onProfilePressed={this.goProfile} data={profile} />
                                     )
