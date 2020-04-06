@@ -30,10 +30,11 @@ class UserProfileView extends React.Component {
     async componentDidMount() {
         const userId = this.props.navigation.state.params.userId
         const result = await userService.getUserById(userId)
+        const result2 = await userService.getUserArticle(userId)
         this.setState(
             {
-                user: result.data.data,
-                postNews: result.data.news,
+                user: result.data,
+                postNews: result2.data,
                 loading: false
             }
         )
@@ -42,7 +43,7 @@ class UserProfileView extends React.Component {
     isFollowing = () => {
         const { myUser } = this.props
         const userId = this.props.navigation.state.params.userId
-        return myUser.following.indexOf(userId) > -1
+        return myUser.followings.indexOf(userId) > -1
     }
 
     follow = (id) => {
@@ -119,7 +120,7 @@ class UserProfileView extends React.Component {
                                     <TouchableNativeFeedback onPress={this.goFollower}>
                                         <View style={styles.indicatorContainer}>
                                             <Text style={styles.numberText}>
-                                                {user.follwer ? user.follower.length : 0}
+                                                {user.followers ? user.followers.length : 0}
                                             </Text>
                                             <Text style={styles.indicatorText}>
                                                 ผู้ติดตาม

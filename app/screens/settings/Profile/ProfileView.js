@@ -5,6 +5,7 @@ import styles from './styles'
 import { LinearGradient } from 'expo-linear-gradient'
 import Hr from '../../../components/commons/Hr'
 import StatusBar from '../../../components/commons/StatusBar'
+import userService from '../../../services/user'
 
 class ProfileSettingView extends React.Component {
 
@@ -21,7 +22,13 @@ class ProfileSettingView extends React.Component {
     }
 
     save = () => {
-        // TODO: call PUT /users/:id
+        const data = {
+            displayName:this.state.displayName
+        }
+        const { navigation } = this.props
+        userService.changeProfile(data).then(()=>
+            navigation.goBack()
+        )
     }
 
     render() {

@@ -94,6 +94,7 @@ class DetailView extends React.Component {
 
     goProfile = (id) => {
         const { navigation } = this.props
+        console.log(id)
         navigation.push('ProfileDetail', {
             userId: id
         })
@@ -186,7 +187,7 @@ class DetailView extends React.Component {
                                         <View style={styles.contentContainer}>
                                             <View style={styles.profileContainer}>
                                                 <View style={styles.infoContainer}>
-                                                    <TouchableWithoutFeedback onPress={() => this.goProfile(community.user?._id)}>
+                                                    <TouchableWithoutFeedback onPress={() => this.goProfile(community.author?._id)}>
                                                         <Image
                                                             style={styles.imageAvatar}
                                                             source={{ uri: community.author.avatarURL }}

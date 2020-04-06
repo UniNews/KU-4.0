@@ -76,12 +76,39 @@ export default {
     getUserById: (id) => {
         return axios.get(`${constants.API_URL}/users/${id}`)
     },
-    followUserById: (id) => {
-        return axios.post(`${constants.API_URL}/users/${id}`, {
-            headers: { 'Content-Type': 'application/json' }
-        })
+    followUserById: async (id) => {
+        const data = await axios.post(`${constants.API_URL}/users/${id}/follow`)
+        return data
     },
     getFollowingById: (id) => {
         return axios.get(`${constants.API_URL}/users/${id}/following`)
     },
+    changeProfile: async (data) => {
+        const sd = await axios.put(`${constants.API_URL}/profile`, data)
+        return sd
+    },
+    getUserFollower: async (id) => {
+        const sd = await axios.get(`${constants.API_URL}/users/${id}/followers`)
+        return sd
+    },
+    getProfileFollower: async () => {
+        const sd = await axios.get(`${constants.API_URL}/profile/followers`)
+        return sd
+    },
+    getUserFollowing: async (id) => {
+        const sd = await axios.get(`${constants.API_URL}/users/${id}/followings`)
+        return sd
+    },
+    getProfileFollowing: async () => {
+        const sd = await axios.get(`${constants.API_URL}/profile/followings`)
+        return sd
+    },
+    getUserArticle: async (id) => {
+        const sd = await axios.get(`${constants.API_URL}/users/${id}/articles`)
+        return sd
+    },
+    unFollowUserById: async (id) => {
+        const data = await axios.delete(`${constants.API_URL}/users/${id}/follow`)
+        return data
+    }
 }

@@ -24,7 +24,7 @@ class Comment extends Component {
 
   onProfilePressedHandler = () => {
     const { onProfilePressed, data } = this.props
-    if (onProfilePressed) onProfilePressed(data.user._id)
+    if (onProfilePressed) onProfilePressed(data.author._id)
   }
 
   render() {

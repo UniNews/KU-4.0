@@ -26,7 +26,7 @@ class FollowerView extends React.Component {
 
     isFollowing = (profile) => {
         const { user } = this.props
-        return user.following.indexOf(profile._id) > -1
+        return user.followings.indexOf(profile._id) > -1
     }
 
     goProfile = (id) => {
@@ -44,11 +44,11 @@ class FollowerView extends React.Component {
     async componentDidMount() {
         const { userId } = this.props.navigation.state.params
         try {
-            const response = await userService.getUserById(userId)
+            const response = await userService.getUserFollower(userId)
             this.setState({
                 loading: false,
                 error: false,
-                following: response.data.data.follower
+                following: response.data
             })
         }
         catch (err) {
