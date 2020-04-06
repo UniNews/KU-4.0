@@ -108,6 +108,7 @@ class NotificationView extends React.Component {
                         <Spinner />
                         :
                         <FlatList
+                            contentContainerStyle={styles.listContainer}
                             refreshing={refreshing}
                             onRefresh={this.onRefresh}
                             keyExtractor={(notification) => notification._id}
