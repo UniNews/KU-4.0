@@ -1,11 +1,11 @@
-import React, { Component } from 'react';
-import { View } from 'react-native';
-import styles from './styles';
-import PropTypes from 'prop-types';
+import React, { Component } from 'react'
+import { View } from 'react-native'
+import styles from './styles'
+import PropTypes from 'prop-types'
 
 class Hr extends Component {
   constructor(props) {
-    super(props);
+    super(props)
   }
 
   render() {
@@ -16,6 +16,6 @@ class Hr extends Component {
 
 Hr.propTypes = {
   style: PropTypes.object
-};
+}
 
-export default Hr;
+export default Hr

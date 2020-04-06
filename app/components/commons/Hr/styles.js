@@ -1,8 +1,8 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native'
 
 export default StyleSheet.create({
     hr: {
-        borderBottomColor: 'grey',
-        borderBottomWidth: 0.5,
+        backgroundColor: 'grey',
+        height: 0.5
     }
-});
+})
