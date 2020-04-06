@@ -5,6 +5,9 @@ export default StyleSheet.create({
         flex: 1
     },
     newsContainer: {
-        backgroundColor: 'white'
+        backgroundColor: 'white',
+        margin: 5,
+        borderRadius: 10,
+        elevation: 2,
     }
 });

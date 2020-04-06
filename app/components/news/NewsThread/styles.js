@@ -35,7 +35,7 @@ export default StyleSheet.create({
         borderRadius: entryBorderRadius
     },
     title: {
-        fontFamily: BOLD_FONT,
+        fontFamily: REGULAR_FONT,
         letterSpacing: 0.5,
         fontSize: 15,
     },

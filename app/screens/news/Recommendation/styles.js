@@ -21,11 +21,12 @@ export default StyleSheet.create({
         // height: slideHeight,
         marginHorizontal: 15,
     },
-    sectionContainer: {
+    section: {
         paddingTop: 15,
         paddingHorizontal: 15,
     },
-    horizontalLine: {
-        marginHorizontal: 15,
+    borderBottom: {
+        borderBottomWidth: 0.5,
+        borderColor: 'grey'
     }
-});
+})

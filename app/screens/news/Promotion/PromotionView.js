@@ -3,7 +3,6 @@ import { ScrollView, View } from 'react-native';
 import styles from './styles';
 import NewsCard from '../../../components/news/NewsThread'
 import newsService from '../../../services/news'
-import Hr from '../../../components/commons/Hr'
 
 class PromotionView extends React.Component {
 
@@ -41,13 +40,6 @@ class PromotionView extends React.Component {
                         return (
                             <View key={news._id} style={styles.newsContainer}>
                                 <NewsCard onNewsPressed={this.goNews} data={news} />
-                                {
-                                    index == newsArray.length - 1
-                                        ?
-                                        null
-                                        :
-                                        <Hr />
-                                }
                             </View>
                         )
                     })}

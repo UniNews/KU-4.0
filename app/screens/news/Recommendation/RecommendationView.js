@@ -63,32 +63,36 @@ class RecommendationView extends React.Component {
 
         return (
             <ScrollView style={styles.containter}>
-                <SectionHeader style={styles.sectionContainer} title={'โฆษณา'} subtitle={'เพิ่มเติม'} />
-                <View style={styles.newsScrollView}>
-                    <SliderBox
-                        sliderBoxHeight={175}
-                        data={images}
-                        onPressed={() => this.goNews('eiei')}
-                    />
+                <View style={styles.borderBottom}>
+                    <SectionHeader style={styles.section} title={'โฆษณา'} subtitle={'เพิ่มเติม'} />
+                    <View style={styles.newsScrollView}>
+                        <SliderBox
+                            sliderBoxHeight={175}
+                            data={images}
+                            onPressed={() => this.goNews('eiei')}
+                        />
+                    </View>
                 </View>
-                <Hr style={styles.horizontalLine} />
-                <SectionHeader style={styles.sectionContainer} title={'ข่าวยอดนิยม'} subtitle={'เพิ่มเติม'} />
-                <ScrollView style={styles.newsScrollView} showsHorizontalScrollIndicator={false} horizontal={true}>
-                    {ENTRIES1.map((news, index, newsArray) => {
-                        return (
-                            <NewsCard style={index != newsArray.length - 1 ? styles.newsCardContainer : styles.lastNewsCardContainer} key={news.newsId} onNewsPressed={this.goNews} data={news} />
-                        )
-                    })}
-                </ScrollView>
-                <Hr style={styles.horizontalLine} />
-                <SectionHeader style={styles.sectionContainer} title={'ข่าวยอดนิยม'} subtitle={'เพิ่มเติม'} />
-                <ScrollView style={styles.newsScrollView} showsHorizontalScrollIndicator={false} horizontal={true}>
-                    {ENTRIES2.map((news, index, newsArray) => {
-                        return (
-                            <NewsCard style={index != newsArray.length - 1 ? styles.newsCardContainer : styles.lastNewsCardContainer} key={news.newsId} onNewsPressed={this.goNews} data={news} />
-                        )
-                    })}
-                </ScrollView>
+                <View style={styles.borderBottom}>
+                    <SectionHeader style={styles.section} title={'ข่าวยอดนิยม'} subtitle={'เพิ่มเติม'} />
+                    <ScrollView style={styles.newsScrollView} showsHorizontalScrollIndicator={false} horizontal={true}>
+                        {ENTRIES1.map((news, index, newsArray) => {
+                            return (
+                                <NewsCard style={index != newsArray.length - 1 ? styles.newsCardContainer : styles.lastNewsCardContainer} key={news.newsId} onNewsPressed={this.goNews} data={news} />
+                            )
+                        })}
+                    </ScrollView>
+                </View>
+                <View>
+                    <SectionHeader style={styles.section} title={'ข่าวยอดนิยม'} subtitle={'เพิ่มเติม'} />
+                    <ScrollView style={styles.newsScrollView} showsHorizontalScrollIndicator={false} horizontal={true}>
+                        {ENTRIES2.map((news, index, newsArray) => {
+                            return (
+                                <NewsCard style={index != newsArray.length - 1 ? styles.newsCardContainer : styles.lastNewsCardContainer} key={news.newsId} onNewsPressed={this.goNews} data={news} />
+                            )
+                        })}
+                    </ScrollView>
+                </View>
             </ScrollView >
         );
     }

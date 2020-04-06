@@ -41,13 +41,6 @@ class UniversityView extends React.Component {
                         return (
                             <View key={news._id} style={styles.newsContainer}>
                                 <NewsCard onNewsPressed={this.goNews} data={news} />
-                                {
-                                    index == newsArray.length - 1
-                                        ?
-                                        null
-                                        :
-                                        <Hr />
-                                }
                             </View>
                         )
                     })}
