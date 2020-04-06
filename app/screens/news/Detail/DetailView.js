@@ -17,19 +17,25 @@ class DetailView extends React.Component {
         this.state = {
             news: {},
             isLoading: true,
-            updateComments: null,
         }
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         const newsId = this.props.navigation.state.params.newsId
-        newsService.getNewsById(newsId).then(
-            (result) =>
-                this.setState({
-                    news: result.data,
-                    isLoading: false
-                })
-        )
+        try {
+            const result = await newsService.getNewsById(newsId)
+            this.setState({
+                news: result.data,
+                isLoading: false
+            })
+        }
+        catch (err) {
+            this.setState({
+                news: {},
+                isLoading: false
+            })
+        }
+
     }
 
     goBack = () => {

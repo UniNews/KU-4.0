@@ -84,12 +84,4 @@ export default {
     getFollowingById: (id) => {
         return axios.get(`${constants.API_URL}/users/${id}/following`)
     },
-    postNotificationToken: (token) => {
-        const json = {
-            token
-        }
-        return axios.post(`${constants.API_URL}/profile/notificationToken`, json, {
-            headers: { 'Content-Type': 'application/json' }
-        })
-    }
 }

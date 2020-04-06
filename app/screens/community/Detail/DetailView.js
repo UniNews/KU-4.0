@@ -7,7 +7,7 @@ import Hr from '../../../components/commons/Hr'
 import { FontAwesome, Feather, MaterialCommunityIcons } from '@expo/vector-icons'
 import Button from '../../../components/commons/Button'
 import { convertTimestamptoDate } from '../../../assets/javascripts/date'
-import communityService from '../../../services/communities'
+import communityService from '../../../services/news'
 import { PRIMARY_COLOR } from '../../../assets/css/color'
 import Comment from '../../../components/commons/Comment'
 
@@ -28,7 +28,7 @@ class DetailView extends React.Component {
 
     componentDidMount() {
         const newsId = this.props.navigation.state.params.newsId
-        communityService.getCommunitiesById(newsId)
+        communityService.getNewsById(newsId)
             .then((res) => {
                 const newsData = res.data
                 this.setState({
@@ -59,7 +59,7 @@ class DetailView extends React.Component {
         else
             updatedCommunity.likes.push(userId)
         this.setState({ community: updatedCommunity })
-        communityService.likeCommunity(updatedCommunity._id)
+        communityService.likeNews(updatedCommunity._id)
     }
 
     isPostLiked = () => {

@@ -2,7 +2,7 @@ import React from 'react'
 import { View, ScrollView } from 'react-native'
 import styles from './styles'
 import Thread from '../../../components/community/Thread'
-import communityService from '../../../services/communities'
+import communityService from '../../../services/news'
 import Hr from '../../../components/commons/Hr'
 
 class HottestView extends React.Component {
