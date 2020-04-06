@@ -1,6 +1,6 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native'
 import { REGULAR_FONT, BOLD_FONT } from '../../../assets/css/typography'
-import { KU_SECONDARY_COLOR } from '../../../assets/css/color';
+import { KU_SECONDARY_COLOR } from '../../../assets/css/color'
 
 export default StyleSheet.create({
     container: {
@@ -17,24 +17,33 @@ export default StyleSheet.create({
     },
     avatar: {
         alignSelf: 'flex-start',
-        width: 70,
-        height: 70,
-        // borderRadius: 70 / 2,
+        width: 65,
+        height: 65,
+        borderRadius: 65 / 2,
     },
     profileNameText: {
         color: KU_SECONDARY_COLOR,
-        paddingHorizontal: 20,
-        fontFamily: BOLD_FONT
+        fontFamily: BOLD_FONT,
+        fontSize: 15,
     },
     buttonContainer: {
         alignSelf: 'flex-end',
     },
     description: {
-        paddingHorizontal: 20,
         fontFamily: REGULAR_FONT,
     },
     date: {
+        fontFamily: REGULAR_FONT,
         color: 'grey',
         fontSize: 13
+    },
+    descriptionContainer: {
+        paddingHorizontal: 10,
+    },
+    notReadBackground: {
+        backgroundColor: 'rgba(88, 142, 87, 0.1)'
+    },
+    readBackground: {
+        backgroundColor: 'white'
     }
-});
+})

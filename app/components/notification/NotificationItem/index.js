@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import { View, Image, Text, TouchableWithoutFeedback } from 'react-native'
+import { View, Image, Text, TouchableWithoutFeedback, TouchableNativeFeedback } from 'react-native'
 import styles from './styles'
 import PropTypes from 'prop-types'
-import Hr from '../../commons/Hr'
 import { Feather } from '@expo/vector-icons'
+import { convertTimestamptoDate } from '../../../assets/javascripts/date'
 
 class NotificationItem extends Component {
 
@@ -11,42 +11,40 @@ class NotificationItem extends Component {
         super(props)
     }
 
-    onNewsPressedHandler = () => {
-        const { onNewsPressed, data } = this.props
-        if (onNewsPressed)
-            onNewsPressed(data.newsId)
+    onNotificationPressedHandler = () => {
+        const { onNotificationPressed, data } = this.props
+        if (onNotificationPressed)
+            onNotificationPressed(data)
     }
 
     onProfilePressedHandler = () => {
         const { onProfilePressed, data } = this.props
         if (onProfilePressed)
-            onProfilePressed(data.profileId)
+            onProfilePressed(data.sender._id)
     }
 
     render() {
         const { data } = this.props
         return (
-            <TouchableWithoutFeedback onPress={this.onNewsPressedHandler}>
-                <View>
+            <TouchableNativeFeedback onPress={this.onNotificationPressedHandler}>
+                <View style={data.isRead ? styles.readBackground : styles.notReadBackground}>
                     <View style={styles.container}>
                         <View style={styles.leftContainer}>
                             <TouchableWithoutFeedback onPress={this.onProfilePressedHandler}>
                                 <Image
-                                    source={{ uri: data.profileImg }}
+                                    source={{ uri: data.sender.avatarURL }}
                                     style={styles.avatar}
                                 />
                             </TouchableWithoutFeedback>
-                            <View>
-                                <TouchableWithoutFeedback onPress={this.onProfilePressedHandler}>
-                                    <Text style={styles.profileNameText}>
-                                        {data.profileName}
-                                    </Text>
-                                </TouchableWithoutFeedback>
-                                <Text style={styles.description}>
-                                    {data.description}
-                                    <Text style={styles.date}>
-                                        {' • ' + data.date}
-                                    </Text>
+                            <View style={styles.descriptionContainer}>
+                                <Text style={styles.profileNameText}>
+                                    {data.sender.displayName}
+                                </Text>
+                                <Text numberOfLines={2} style={styles.description}>
+                                    {data.title}
+                                </Text>
+                                <Text style={styles.date}>
+                                    {`${convertTimestamptoDate(data.createdAt)}`}
                                 </Text>
                             </View>
                         </View>
@@ -56,33 +54,27 @@ class NotificationItem extends Component {
                             </View>
                         </View>
                     </View>
-                    <Hr />
                 </View>
-            </TouchableWithoutFeedback>
+            </TouchableNativeFeedback>
         )
     }
 }
 
 NotificationItem.propTypes = {
     data: PropTypes.shape({
-        profileId: PropTypes.number.isRequired,
-        profileName: PropTypes.string.isRequired,
-        profileImg: PropTypes.string.isRequired,
-        newsId: PropTypes.number.isRequired,
-        description: PropTypes.string.isRequired,
+        _id: PropTypes.string.isRequired,
+        sender: PropTypes.shape({
+            avatarURL: PropTypes.string.isRequired,
+            _id: PropTypes.string.isRequired,
+            displayName: PropTypes.string.isRequired
+        }).isRequired,
+        type: PropTypes.string.isRequired,
+        title: PropTypes.string.isRequired,
+        createdAt: PropTypes.string.isRequired,
+        isRead: PropTypes.bool.isRequired,
     }).isRequired,
     onProfilePressed: PropTypes.func,
     onNewsPressed: PropTypes.func
-}
-
-NotificationItem.defaultProps = {
-    data: {
-        profileId: null,
-        profileName: '',
-        profileImg: '',
-        newsId: null,
-        description: '',
-    },
 }
 
 export default NotificationItem

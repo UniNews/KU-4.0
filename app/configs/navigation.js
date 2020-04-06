@@ -148,7 +148,7 @@ const searchStack = createStackNavigator({
   AnyNews: AnyNewsScreen,
   ProfileDetail: UserProfileScreen,
   CommunityDetail: CommunityDetailScreen,
-  NewsDetail: NewsDetailScreen
+  NewsDetail: NewsDetailScreen,
 },
   {
     headerMode: 'none',
@@ -158,11 +158,29 @@ const searchStack = createStackNavigator({
   }
 )
 
+const notificationStack = createStackNavigator({
+  Notification: NotificationScreen,
+  Following: FollowingScreen,
+  Follower: FollowerScreen,
+  AnyCommunity: AnyCommunityScreen,
+  AnyNews: AnyNewsScreen,
+  ProfileDetail: UserProfileScreen,
+  CommunityDetail: CommunityDetailScreen,
+  NewsDetail: NewsDetailScreen,
+  Comment: CommentScreen,
+},
+  {
+    headerMode: 'none',
+    navigationOptions: {
+      headerVisible: false,
+    }
+  }
+)
 
 const tabNavigator = createBottomTabNavigator({
   'หน้าหลัก': newsStack,
   'พูดคุย': communityStack,
-  'แจ้งเตือน': NotificationScreen,
+  'แจ้งเตือน': notificationStack,
   'โปรไฟล์': profileStack,
 },
   {
