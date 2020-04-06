@@ -21,14 +21,9 @@ export default {
         const json = {
             description: msg
         }
-        try {
-            const result = await axios.post(`${constants.API_URL}/articles/${newsId}/comments`, json)
-
-            return result
-        }
-        catch (err) {
-            console.log(err.response)
-        }
+        return axios.post(`${constants.API_URL}/articles/${newsId}/comments`, json, {
+            headers: { 'Content-Type': 'application/json' }
+        })
     },
     likeComment: (newsId, commentId) => {
         return axios.post(`${constants.API_URL}/articles/${newsId}/comments/${commentId}/like`)
