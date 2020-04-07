@@ -153,17 +153,14 @@ export function followUserById(id) {
   }
 }
 
-export function updateProfile(payload) {
+export function updateProfile(profile) {
   return async dispatch => {
     try {
-      console.log(payload.avatarURL)
-      service.changeProfile(payload).then(async()=>{
-        const payloads = await service.getProfile()
-        dispatch(userOk(payloads.data))
-        }
-      )
-    } catch(err) {
-      console.log(err);
+      dispatch(userLoading())
+      await service.updateProfile(profile)
+      const payloads = await service.getProfile()
+      dispatch(userOk(payloads.data))
+    } catch (err) {
       dispatch(userFail())
     }
   }

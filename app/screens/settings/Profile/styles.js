@@ -8,13 +8,21 @@ export default StyleSheet.create({
     containter: {
         flex: 1,
     },
+    imageContainer: {
+        width: 150,
+        height: 150,
+        borderRadius: 150 / 2,
+        marginTop: 75,
+        position: 'absolute',
+        alignSelf: 'center',
+        backgroundColor: 'white'
+    },
     avatar: {
         width: 150,
         height: 150,
         borderRadius: 150 / 2,
         borderWidth: 4,
         borderColor: 'white',
-        marginTop: 75,
         position: 'absolute',
         alignSelf: 'center',
     },
@@ -34,21 +42,21 @@ export default StyleSheet.create({
     },
     backButton: {
         paddingTop: 20,
+        paddingLeft: 15,
         position: 'absolute',
         alignSelf: 'flex-start'
     },
     saveButton: {
         paddingTop: 20,
-        paddingRight: 5,
+        paddingRight: 15,
         position: 'absolute',
         alignSelf: 'flex-end'
     },
     settingContainer: {
-        // flexDirection: 'row',
-        // justifyContent: 'space-between',
-        // alignItems: 'center',
         paddingHorizontal: 20,
         paddingVertical: 13,
+        borderBottomWidth: 0.5,
+        borderColor: 'grey'
     },
     settingTitleText: {
         fontFamily: REGULAR_FONT,
@@ -56,7 +64,16 @@ export default StyleSheet.create({
         fontSize: 15,
     },
     settingValueText: {
-        fontFamily: BOLD_FONT,
+        fontFamily: REGULAR_FONT,
         fontSize: 17,
+    },
+    descriptionContainer: {
+        paddingVertical: 70,
+    },
+    uploadingSpinner: {
+        flex: 1,
+    },
+    updaingSpinner: {
+        
     }
 })

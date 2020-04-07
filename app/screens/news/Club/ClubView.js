@@ -1,6 +1,6 @@
-import React from 'react';
-import { ScrollView, View, FlatList, ActivityIndicator } from 'react-native';
-import styles from './styles';
+import React from 'react'
+import { View, FlatList, ActivityIndicator } from 'react-native'
+import styles from './styles'
 import NewsCard from '../../../components/news/NewsThread'
 import newsService from '../../../services/news'
 import Spinner from '../../../components/commons/Spinner'
@@ -26,9 +26,9 @@ class ClubView extends React.Component {
     }
 
     renderItem = ({ item }) => {
-        return (<View key={item._id} style={styles.newsContainer}>
-                    <NewsCard onNewsPressed={this.goNews} data={item} />
-                </View>)
+        return <View key={item._id} style={styles.newsContainer}>
+            <NewsCard onNewsPressed={this.goNews} data={item} />
+        </View>
     }
 
     async fetchNews() {
@@ -91,7 +91,6 @@ class ClubView extends React.Component {
                         <Spinner />
                         :
                         <FlatList
-                            contentContainerStyle={styles.listContainer}
                             refreshing={refreshing}
                             onRefresh={this.onRefresh}
                             keyExtractor={(news) => news._id}
@@ -107,8 +106,8 @@ class ClubView extends React.Component {
                         />
                 }
             </View>
-        );
+        )
     }
 }
 
-export default ClubView;
+export default ClubView

@@ -76,39 +76,33 @@ export default {
     getUserById: (id) => {
         return axios.get(`${constants.API_URL}/users/${id}`)
     },
-    followUserById: async (id) => {
-        const data = await axios.post(`${constants.API_URL}/users/${id}/follow`)
-        return data
+    followUserById: (id) => {
+        return axios.post(`${constants.API_URL}/users/${id}/follow`)
     },
     getFollowingById: (id) => {
         return axios.get(`${constants.API_URL}/users/${id}/following`)
     },
-    changeProfile: async (data) => {
-        const sd = await axios.put(`${constants.API_URL}/profile`, data)
-        return sd
+    updateProfile: (data) => {
+        return axios.put(`${constants.API_URL}/profile`, data, {
+            headers: { 'Content-Type': 'application/json' }
+        })
     },
-    getUserFollower: async (id) => {
-        const sd = await axios.get(`${constants.API_URL}/users/${id}/followers`)
-        return sd
+    getUserFollower: (id) => {
+        return axios.get(`${constants.API_URL}/users/${id}/followers`)
     },
-    getProfileFollower: async () => {
-        const sd = await axios.get(`${constants.API_URL}/profile/followers`)
-        return sd
+    getProfileFollower: () => {
+        return axios.get(`${constants.API_URL}/profile/followers`)
     },
-    getUserFollowing: async (id) => {
-        const sd = await axios.get(`${constants.API_URL}/users/${id}/followings`)
-        return sd
+    getUserFollowing: (id) => {
+        return axios.get(`${constants.API_URL}/users/${id}/followings`)
     },
-    getProfileFollowing: async () => {
-        const sd = await axios.get(`${constants.API_URL}/profile/followings`)
-        return sd
+    getProfileFollowing: () => {
+        return axios.get(`${constants.API_URL}/profile/followings`)
     },
-    getUserArticle: async (id) => {
-        const sd = await axios.get(`${constants.API_URL}/users/${id}/articles`)
-        return sd
+    getUserArticle: (id) => {
+        return axios.get(`${constants.API_URL}/users/${id}/articles`)
     },
-    unFollowUserById: async (id) => {
-        const data = await axios.delete(`${constants.API_URL}/users/${id}/follow`)
-        return data
+    unFollowUserById: (id) => {
+        return axios.delete(`${constants.API_URL}/users/${id}/follow`)
     }
 }

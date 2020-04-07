@@ -10,7 +10,4 @@ export default StyleSheet.create({
         borderRadius: 10,
         elevation: 2,
     },
-    listContainer: {
-        backgroundColor: 'white'
-    }
-});
+})

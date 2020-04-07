@@ -56,7 +56,9 @@ export default StyleSheet.create({
     settingContainer: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        padding: 20
+        padding: 20,
+        borderBottomWidth: 0.5,
+        borderColor: 'grey'
     },
     flagContainer: {
         flexDirection: 'row'

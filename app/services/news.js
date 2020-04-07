@@ -1,20 +1,23 @@
 import constants from '../configs/constants'
 import axios from 'axios'
 
-const ARTICLES_PER_PAGE = 15
+const ARTICLES_PER_PAGE = 10
 
 export default {
     getAllNews: () => {
         return axios.get(`${constants.API_URL}/articles/`)
     },
-    getUniversityNews: () => {
-        return axios.get(`${constants.API_URL}/articles/news/university`)
+    getUniversityNews: (page) => {
+        const offset = (page - 1) * ARTICLES_PER_PAGE
+        return axios.get(`${constants.API_URL}/articles/news/university?offset=${offset}&limit=${ARTICLES_PER_PAGE}`)
     },
-    getPromotionsNews: () => {
-        return axios.get(`${constants.API_URL}/articles/news/promotion`)
+    getPromotionsNews: (page) => {
+        const offset = (page - 1) * ARTICLES_PER_PAGE
+        return axios.get(`${constants.API_URL}/articles/news/promotion?offset=${offset}&limit=${ARTICLES_PER_PAGE}`)
     },
-    getClubNews: () => {
-        return axios.get(`${constants.API_URL}/articles/news/club`)
+    getClubNews: (page) => {
+        const offset = (page - 1) * ARTICLES_PER_PAGE
+        return axios.get(`${constants.API_URL}/articles/news/club?offset=${offset}&limit=${ARTICLES_PER_PAGE}`)
     },
     getNewsById: (id) => {
         return axios.get(`${constants.API_URL}/articles/${id}`)

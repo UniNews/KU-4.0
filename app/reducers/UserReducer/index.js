@@ -13,7 +13,6 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 loading: true,
                 error: false,
-                user: null,
             };
         case types.USER_OK:
             return {

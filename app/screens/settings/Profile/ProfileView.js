@@ -1,14 +1,14 @@
 import React from 'react'
-import { Text, View, Image, TouchableWithoutFeedback, TextInput } from 'react-native'
+import { Text, View, Image, TouchableWithoutFeedback, TextInput, ActivityIndicator } from 'react-native'
 import { Feather } from '@expo/vector-icons'
 import styles from './styles'
 import { LinearGradient } from 'expo-linear-gradient'
-import Hr from '../../../components/commons/Hr'
 import StatusBar from '../../../components/commons/StatusBar'
-import userService from '../../../services/user'
+import uploadService from '../../../services/uploads'
 import * as ImagePicker from 'expo-image-picker'
-import appconstants from '../../../configs/constants'
-import axios from 'axios'
+import constants from '../../../configs/constants'
+import Constants from 'expo-constants'
+import { PRIMARY_COLOR } from '../../../assets/css/color'
 
 class ProfileSettingView extends React.Component {
 
@@ -16,16 +16,18 @@ class ProfileSettingView extends React.Component {
         super(props)
         this.state = {
             displayName: this.props.user.displayName,
+            bio: this.props.user.bio,
             avatarURL: this.props.user.avatarURL,
-            uploading:false
+            uploading: false,
+            error: false
         }
     }
 
     getPermissionAsync = async () => {
         if (Constants.platform.ios) {
-            const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+            const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL)
             if (status !== 'granted') {
-                alert('Sorry, we need camera roll permissions to make this work!');
+                // TODO: warning alert
             }
         }
     }
@@ -35,73 +37,54 @@ class ProfileSettingView extends React.Component {
         navigation.goBack()
     }
 
-    save = async () => {
+    save = () => {
+        const { displayName, avatarURL, bio } = this.state
+        const { updateProfile } = this.props
         const data = {
-            displayName:this.state.displayName,
-            avatarURL:this.state.avatarURL
+            displayName,
+            avatarURL,
+            bio,
         }
-        await this.props.updateProfile(data)
+        updateProfile(data)
     }
 
     componentDidMount() {
-        this.getPermissionAsync();
+        this.getPermissionAsync()
     }
 
-    _pickImage = async () => {
-            let pickerResult = await ImagePicker.launchImageLibraryAsync({
-                allowsEditing: true,
-                aspect: [4, 3],
-            });
-        this._handleImagePicked(pickerResult);
-    };
+    pickImage = async () => {
+        const pickerResult = await ImagePicker.launchImageLibraryAsync({
+            allowsEditing: true,
+            aspect: [4, 3],
+        })
+        this.handleImagePicked(pickerResult)
+    }
 
-    _handleImagePicked = async pickerResult => {
-        let uploadResponse
+    handleImagePicked = async pickerResult => {
         try {
-            this.setState({
-                uploading: true
-            });
-    
-        if (!pickerResult.cancelled) {
-            uploadResponse = await this.uploadImageAsync(pickerResult, pickerResult.uri);
-            let imageLocation = uploadResponse.headers.location;
-            imageLocation = `${appconstants.API_URL}${imageLocation}`;
-            this.setState({ avatarURL: imageLocation });
+            if (!pickerResult.cancelled) {
+                this.setState({
+                    uploading: true
+                })
+                const uploadResponse = await uploadService.uploadImage(pickerResult.uri)
+                const imageLocation = uploadResponse.headers.location
+                this.setState({
+                    avatarURL: `${constants.API_URL}${imageLocation}`,
+                    uploading: false,
+                    error: false
+                })
             }
-        } catch (e) {
-            console.log({ uploadResponse });
-            console.log({ e });
-            alert('Upload failed, sorry :(');
-        } finally {
-            this.setState({ uploading: false });
+        } catch (error) {
+            this.setState({
+                uploading: false,
+                error: true
+            })
         }
     }
 
-    async uploadImageAsync(photo, uri) {
-        let apiUrl = `${appconstants.API_URL}/images`;
-        let uriParts = uri.split('.');
-        let fileType = uriParts[uriParts.length - 1];
-        let formData = new FormData();
-        formData.append('image', {
-            uri: photo.uri,
-            name: `photo.${fileType}`,
-            type: `image/${fileType}`
-        });
-        return axios({
-            method: 'post',
-            url: apiUrl,
-            data: formData,
-            headers: {
-                'Content-Type': 'multipart/form-data'
-            }
-        }).then(function(res) {
-            return res;
-        }).catch(function(err) {
-            return err;
-        })  
-    }
-
     render() {
+        const { uploading, displayName, avatarURL, bio } = this.state
+        const { loading } = this.props
         return (
             <View style={styles.containter}>
                 <StatusBar />
@@ -111,37 +94,54 @@ class ProfileSettingView extends React.Component {
                     </TouchableWithoutFeedback>
                     <Text style={styles.headerText}>
                         แก้ไขโปรไฟล์
-                            </Text>
-                    <TouchableWithoutFeedback onPress={this.save}>
-                        <Feather name={'check'} style={styles.saveButton} size={25} color={'white'} />
-                    </TouchableWithoutFeedback>
-                    <TouchableWithoutFeedback onPress={this._pickImage}>
-                        <Image
-                            source={{ uri: this.state.avatarURL }}
-                            style={styles.avatar}
-                        />
-                    </TouchableWithoutFeedback>
+                    </Text>
+                    {
+                        <View style={styles.saveButton}>
+                            {
+                                loading
+                                    ?
+                                    <ActivityIndicator color={'white'} />
+                                    :
+                                    <TouchableWithoutFeedback onPress={this.save}>
+                                        <Feather name={'check'} size={25} color={'white'} />
+                                    </TouchableWithoutFeedback>
+                            }
+                        </View>
+
+                    }
+                    <View style={styles.imageContainer}>
+                        {uploading
+                            ?
+                            <ActivityIndicator color={PRIMARY_COLOR} style={styles.uploadingSpinner} />
+                            :
+                            <TouchableWithoutFeedback onPress={this.pickImage}>
+                                <Image
+                                    source={{ uri: avatarURL }}
+                                    style={styles.avatar}
+                                />
+                            </TouchableWithoutFeedback>
+                        }
+                    </View>
                 </LinearGradient>
-                <View style={{ paddingVertical: 70 }}>
+                <View style={styles.descriptionContainer}>
                     <TouchableWithoutFeedback>
                         <View style={styles.settingContainer}>
                             <Text style={styles.settingTitleText}>ชื่อผู้ใช้</Text>
                             <TextInput
                                 style={styles.settingValueText}
                                 onChangeText={(text) => this.setState({ displayName: text })}
-                                value={this.state.displayName} />
+                                value={displayName} />
                         </View>
                     </TouchableWithoutFeedback>
-                    <Hr />
                     <TouchableWithoutFeedback>
                         <View style={styles.settingContainer}>
-                            <View>
-                                <Text style={styles.settingTitleText}>คณะ</Text>
-                                <Text style={styles.settingValueText}>{'sssss'}</Text>
-                            </View>
+                            <Text style={styles.settingTitleText}>สถานะ</Text>
+                            <TextInput
+                                style={styles.settingValueText}
+                                onChangeText={(text) => this.setState({ bio: text })}
+                                value={bio} />
                         </View>
                     </TouchableWithoutFeedback>
-                    <Hr />
                 </View>
             </View>
         )

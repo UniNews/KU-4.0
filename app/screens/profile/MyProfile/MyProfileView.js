@@ -53,10 +53,10 @@ class MyProfileView extends React.Component {
                                 style={styles.avatar}
                             />
                             <Text style={styles.name}>
-                                {user?.displayName}
+                                {user.displayName}
                             </Text>
                             <Text style={styles.faculty}>
-                                {user?.description}
+                                {user.bio}
                             </Text>
                         </View>
                     </LinearGradient>
@@ -67,21 +67,18 @@ class MyProfileView extends React.Component {
                         <Feather name={'chevron-right'} size={20} color={'gray'} />
                     </View>
                 </TouchableNativeFeedback>
-                <Hr />
                 <TouchableNativeFeedback onPress={this.goFollowing}>
                     <View style={styles.settingContainer}>
                         <Text style={styles.settingText}>กำลังติดตาม</Text>
                         <Feather name={'chevron-right'} size={20} color={'gray'} />
                     </View>
                 </TouchableNativeFeedback>
-                <Hr />
                 <TouchableNativeFeedback onPress={this.goFollower}>
                     <View style={styles.settingContainer}>
                         <Text style={styles.settingText}>ผู้ติดตาม</Text>
                         <Feather name={'chevron-right'} size={20} color={'gray'} />
                     </View>
                 </TouchableNativeFeedback>
-                <Hr />
                 <TouchableNativeFeedback onPress={this.logout}>
                     <View style={styles.settingContainer}>
                         <Text style={styles.settingText}>ออกจากระบบ</Text>

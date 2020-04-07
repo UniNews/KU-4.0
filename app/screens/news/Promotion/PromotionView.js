@@ -1,6 +1,6 @@
-import React from 'react';
-import { ScrollView, View, FlatList, ActivityIndicator } from 'react-native';
-import styles from './styles';
+import React from 'react'
+import { View, FlatList, ActivityIndicator } from 'react-native'
+import styles from './styles'
 import NewsCard from '../../../components/news/NewsThread'
 import newsService from '../../../services/news'
 import Spinner from '../../../components/commons/Spinner'
@@ -26,9 +26,9 @@ class PromotionView extends React.Component {
     }
 
     renderItem = ({ item }) => {
-        return (<View key={item._id} style={styles.newsContainer}>
-                    <NewsCard onNewsPressed={this.goNews} data={item} />
-                </View>)
+        return <View key={item._id} style={styles.newsContainer}>
+            <NewsCard onNewsPressed={this.goNews} data={item} />
+        </View>
     }
 
     async fetchNews() {
@@ -107,8 +107,8 @@ class PromotionView extends React.Component {
                         />
                 }
             </View>
-        );
+        )
     }
 }
 
-export default PromotionView;
+export default PromotionView
