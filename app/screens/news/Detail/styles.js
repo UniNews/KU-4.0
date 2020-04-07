@@ -1,10 +1,10 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native'
 import { BOLD_FONT, REGULAR_FONT } from '../../../assets/css/typography'
-import { wp } from '../../../assets/javascripts/spacing'
 
 export default StyleSheet.create({
     container: {
-        flex: 1
+        flex: 1,
+        backgroundColor: 'white'
     },
     newsImage: {
         height: 250,
@@ -35,7 +35,7 @@ export default StyleSheet.create({
         flexDirection: 'row',
     },
     topContainer: {
-        padding: 15
+        padding: 15,
     },
     textIconContainer: {
         flexDirection: 'row',
@@ -82,4 +82,4 @@ export default StyleSheet.create({
         fontFamily: BOLD_FONT,
         fontSize: 15
     },
-});
+})

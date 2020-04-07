@@ -83,7 +83,7 @@ export default StyleSheet.create({
         marginVertical: 5,
         borderRadius: 10,
         padding: 5,
-        elevation: 2,
+        elevation: 1,
     },
     inputContainer: {
         borderTopWidth: 1,
