@@ -6,10 +6,10 @@ export default {
         return axios.get(`${constants.API_URL}/articles/`)
     },
     getUniversityNews: () => {
-        return axios.get(`${constants.API_URL}/articles/news/universities`)
+        return axios.get(`${constants.API_URL}/articles/news/university`)
     },
     getPromotionsNews: () => {
-        return axios.get(`${constants.API_URL}/articles/news/promotions`)
+        return axios.get(`${constants.API_URL}/articles/news/promotion`)
     },
     getClubNews: () => {
         return axios.get(`${constants.API_URL}/articles/news/club`)
