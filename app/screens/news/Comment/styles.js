@@ -77,10 +77,13 @@ export default StyleSheet.create({
         color: 'white'
     },
     commentContainer: {
-        backgroundColor: 'white'
-    },
-    commentItemContainer: {
-        padding: 5
+        // padding: 10,
+        backgroundColor: 'white',
+        marginHorizontal: 10,
+        marginVertical: 5,
+        borderRadius: 10,
+        padding: 5,
+        elevation: 2,
     },
     inputContainer: {
         borderTopWidth: 1,
@@ -88,7 +91,7 @@ export default StyleSheet.create({
         backgroundColor: 'white',
         flexDirection: 'row',
         alignItems: 'center',
-        padding: 10,
+        paddingRight: 10,
     },
     textInputField: {
         marginRight: 10,
@@ -98,6 +101,7 @@ export default StyleSheet.create({
         borderRadius: 20,
         backgroundColor: 'rgb(242, 242, 242)',
         fontFamily: REGULAR_FONT,
+        margin: 10,
     },
     disableIcon: {
         opacity: 0.5

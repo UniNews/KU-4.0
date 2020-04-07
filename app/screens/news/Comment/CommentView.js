@@ -16,7 +16,6 @@ import newsService from '../../../services/news'
 import { PRIMARY_COLOR } from '../../../assets/css/color'
 import { Feather } from '@expo/vector-icons'
 import Button from '../../../components/commons/Button'
-import Hr from '../../../components/commons/Hr'
 import Spinner from '../../../components/commons/Spinner'
 
 class CommentView extends React.Component {
@@ -24,21 +23,39 @@ class CommentView extends React.Component {
     super(props)
     this.state = {
       comments: [],
-      fetching: true,
+      loading: true,
       msg: '',
       refreshing: false,
-      posting: false
+      posting: false,
+      error: false
     }
   }
 
   componentDidMount() {
+    this.fetchComments()
+  }
+
+  async fetchComments() {
     const newsId = this.props.navigation.state.params.newsId
-    newsService.getComments(newsId).then(result => {
+    try {
+      const result = await newsService.getComments(newsId)
       this.setState({
         comments: result.data,
-        fetching: false
+        loading: false,
+        refreshing: false,
+        error: false,
+        posting: false
       })
-    })
+    }
+    catch (err) {
+      this.setState({
+        comments: [],
+        loading: false,
+        refreshing: false,
+        error: false,
+        posting: false
+      })
+    }
   }
 
   goBack = () => {
@@ -46,53 +63,34 @@ class CommentView extends React.Component {
     navigation.goBack()
   }
 
-  postComment = () => {
+  postComment = async () => {
     this.setState({ posting: true })
     const newsId = this.props.navigation.state.params.newsId
     const { msg } = this.state
-    newsService.postComment(newsId, msg).then(result => {
-      newsService.getComments(newsId).then(result => {
-        this.setState({
-          comments: result.data,
-          posting: false,
-          msg: ''
-        })
-      })
-    })
-  }
-
-  isCommentLiked = (comment) => {
-    const userId = this.props.user._id
-    return comment.likes.indexOf(userId) > -1
+    await newsService.postComment(newsId, msg)
+    this.setState({ msg: '' })
+    this.fetchComments()
   }
 
   onRefresh = () => {
     this.setState({ refreshing: true })
-    const newsId = this.props.navigation.state.params.newsId
-    newsService.getComments(newsId).then(result => {
-      this.setState({
-        comments: result.data,
-        refreshing: false
-      })
-    })
+    this.fetchComments()
   }
 
-  likeComment = (id) => {
+  likeComment = (comment) => {
+    const { user } = this.props
+    comment.isLiked = !comment.isLiked
+    this.setState({ comments: [...this.state.comments] })
     const newsId = this.props.navigation.state.params.newsId
-    const userId = this.props.user._id
-    const updatedComments = [...this.state.comments]
-    const comment = updatedComments.find(comment => comment._id == id)
-    if (comment) {
-      const index = comment.likes.indexOf(userId)
-      if (index > -1) {
-        comment.likes.splice(index, 1)
-        newsService.unlikeComment(newsId, id)
-      }
-      else {
-        comment.likes.push(userId)
-        newsService.likeComment(newsId, id)
-      }
-      this.setState({ comments: updatedComments })
+    if (comment.isLiked) {
+      newsService.likeComment(newsId, comment._id)
+      comment.likes.push(user._id)
+    }
+    else {
+      newsService.unlikeComment(newsId, comment._id)
+      const indexToRemove = comment.likes.indexOf(user._id)
+      if (indexToRemove > -1)
+        comment.likes.splice(indexToRemove, 1)
     }
   }
 
@@ -104,7 +102,7 @@ class CommentView extends React.Component {
   }
 
   render() {
-    const { comments, fetching, refreshing, posting, msg } = this.state
+    const { comments, loading, refreshing, posting, msg } = this.state
     return (
       <View style={styles.container}>
         <StatusBar />
@@ -123,7 +121,7 @@ class CommentView extends React.Component {
           style={styles.keyboardAvoidContainer}
           behavior={'height'}
         >
-          {!fetching ? (
+          {!loading ? (
             <ScrollView
               refreshControl={
                 <RefreshControl
@@ -131,26 +129,17 @@ class CommentView extends React.Component {
                   onRefresh={this.onRefresh}
                 />
               }
-              contentContainerStyle={styles.commentContainer}
             >
-              {comments.map((comment, index, commentArray) => {
+              {comments.map((comment) => {
                 return (
-                  <View key={comment._id}>
-                    <Comment
-                      style={styles.commentItemContainer}
-                      liked={this.isCommentLiked(comment)}
-                      onProfilePressed={this.goProfile}
-                      onLikePressed={this.likeComment}
-                      data={comment}
-                    />
-                    {
-                      index != commentArray.length - 1
-                        ?
-                        <Hr />
-                        :
-                        null
-                    }
-                  </View>
+                  <Comment
+                    key={comment._id}
+                    style={styles.commentContainer}
+                    liked={comment.isLiked}
+                    onProfilePressed={this.goProfile}
+                    onLikePressed={() => this.likeComment(comment)}
+                    data={comment}
+                  />
                 )
               })}
             </ScrollView>

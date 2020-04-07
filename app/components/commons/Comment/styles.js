@@ -4,7 +4,7 @@ import { BOLD_FONT, REGULAR_FONT } from '../../../assets/css/typography'
 
 export default StyleSheet.create({
     profileContainer: {
-        paddingTop: 10,
+        padding: 10,
     },
     infoContainer: {
         flexDirection: 'row'

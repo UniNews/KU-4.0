@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, View, ImageBackground, Image, Linking, ScrollView, TouchableOpacity, TouchableWithoutFeedback } from 'react-native'
+import { Text, View, ImageBackground, Image, Linking, ScrollView, TouchableOpacity, TouchableWithoutFeedback, RefreshControl } from 'react-native'
 import styles from './styles'
 import Hyperlink from 'react-native-hyperlink'
 import { FontAwesome, Feather } from '@expo/vector-icons'
@@ -16,26 +16,35 @@ class DetailView extends React.Component {
         super(props)
         this.state = {
             news: {},
-            isLoading: true,
+            loading: true,
+            refreshing: false,
+            error: false
         }
     }
 
-    async componentDidMount() {
+    componentDidMount() {
+        this.fetchNews()
+    }
+
+    async fetchNews() {
         const newsId = this.props.navigation.state.params.newsId
         try {
             const result = await newsService.getNewsById(newsId)
             this.setState({
                 news: result.data,
-                isLoading: false
+                loading: false,
+                refreshing: false,
+                error: false
             })
         }
         catch (err) {
             this.setState({
                 news: {},
-                isLoading: false
+                loading: false,
+                refreshing: false,
+                error: true
             })
         }
-
     }
 
     goBack = () => {
@@ -51,13 +60,18 @@ class DetailView extends React.Component {
         })
     }
 
+    onRefresh = () => {
+        this.setState({ refreshing: true })
+        this.fetchNews()
+    }
+
     goComments = () => {
         const newsId = this.props.navigation.state.params.newsId
         this.props.navigation.push('Comment', { newsId: newsId })
     }
 
     render() {
-        const { news, isLoading } = this.state
+        const { news, loading, refreshing } = this.state
         return (
             <View style={styles.container}>
                 <StatusBar />
@@ -65,8 +79,13 @@ class DetailView extends React.Component {
                     <Feather color='white' onPress={this.goBack} size={28} name={'chevron-left'} />
                 } />
                 {
-                    !isLoading ?
-                        <ScrollView >
+                    !loading ?
+                        <ScrollView refreshControl={
+                            <RefreshControl
+                                refreshing={refreshing}
+                                onRefresh={this.onRefresh}
+                            />
+                        }>
                             <ImageBackground style={styles.newsImage}
                                 source={{ uri: news.imageURL }} >
                             </ImageBackground>
