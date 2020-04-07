@@ -1,6 +1,6 @@
-import { StyleSheet } from 'react-native';
-import { REGULAR_FONT, BOLD_FONT } from '../../../assets/css/typography';
-import { PRIMARY_COLOR, SECONDARY_COLOR, KU_SECONDARY_COLOR, KU_PRIMARY_COLOR } from '../../../assets/css/color';
+import { StyleSheet } from 'react-native'
+import { REGULAR_FONT, BOLD_FONT } from '../../../assets/css/typography'
+import { PRIMARY_COLOR, SECONDARY_COLOR, KU_SECONDARY_COLOR, KU_PRIMARY_COLOR } from '../../../assets/css/color'
 
 export default StyleSheet.create({
     containter: {
@@ -12,8 +12,13 @@ export default StyleSheet.create({
         height: 50,
         borderRadius: 50 / 2,
     },
-    whiteBackground: {
-        backgroundColor: 'white'
+    headerContainer: {
+        backgroundColor: 'white',
+        marginHorizontal: 10,
+        marginVertical: 5,
+        borderRadius: 10,
+        padding: 5,
+        elevation: 2,
     },
     userText: {
         color: KU_SECONDARY_COLOR,
@@ -25,7 +30,7 @@ export default StyleSheet.create({
         color: 'grey',
     },
     profileContainer: {
-        paddingTop: 10,
+        paddingTop: 5,
     },
     infoContainer: {
         flexDirection: 'row'
@@ -39,6 +44,12 @@ export default StyleSheet.create({
     commentContainer: {
         paddingHorizontal: 10,
         paddingTop: 10,
+        backgroundColor: 'white',
+        marginHorizontal: 10,
+        marginVertical: 5,
+        borderRadius: 10,
+        padding: 5,
+        elevation: 1,
     },
     descriptionText: {
         letterSpacing: 0.5,
@@ -76,7 +87,7 @@ export default StyleSheet.create({
         backgroundColor: 'white',
         flexDirection: 'row',
         alignItems: 'center',
-        padding: 10,
+        paddingRight: 10,
     },
     textInputField: {
         marginRight: 10,
@@ -86,6 +97,7 @@ export default StyleSheet.create({
         borderRadius: 20,
         backgroundColor: 'rgb(242, 242, 242)',
         fontFamily: REGULAR_FONT,
+        margin: 10,
     },
     postText: {
         fontFamily: BOLD_FONT,
@@ -95,10 +107,6 @@ export default StyleSheet.create({
         fontFamily: REGULAR_FONT,
         color: 'grey'
     },
-    loader: {
-        flex: 1,
-        justifyContent: 'center'
-    },
     keyboard: {
         flex: 1,
     },
@@ -107,8 +115,12 @@ export default StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-between'
     },
+    dotIcon: {
+        // alignSelf: 'flex-end'
+    },
     infoGap: {
-        paddingHorizontal: 10, flex: 1
+        paddingHorizontal: 10,
+        flex: 1,
     },
     clockIconContainer: {
         paddingRight: 10,
@@ -116,6 +128,10 @@ export default StyleSheet.create({
         flexDirection: 'row',
     },
     commentHeaderContainer: {
-        padding: 10,
+        paddingHorizontal: 15,
+        paddingVertical: 10
+    },
+    commentsContainer: {
+        flex: 1,
     }
-});
+})

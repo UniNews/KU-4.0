@@ -39,6 +39,9 @@ export default {
     likeNews: (newsId) => {
         return axios.post(`${constants.API_URL}/articles/${newsId}/like`)
     },
+    unlikeNews: (newsId) => {
+        return axios.delete(`${constants.API_URL}/articles/${newsId}/like`)
+    },
     getLatestCommunities: (page) => {
         const offset = (page - 1) * ARTICLES_PER_PAGE
         return axios.get(`${constants.API_URL}/articles/communities?offset=${offset}&limit=${ARTICLES_PER_PAGE}`)
