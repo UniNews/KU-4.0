@@ -13,6 +13,7 @@
     "expo": "~36.0.0",
     "expo-facebook": "~8.0.0",
     "expo-google-app-auth": "^8.0.1",
+    "expo-image-picker": "^8.1.0",
     "expo-linear-gradient": "~8.0.0",
     "jwt-decode": "^2.2.0",
     "moment": "^2.24.0",
