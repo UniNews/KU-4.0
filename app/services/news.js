@@ -1,5 +1,7 @@
-import constants from '../configs/constants';
-import axios from 'axios';
+import constants from '../configs/constants'
+import axios from 'axios'
+
+const ARTICLES_PER_PAGE = 15
 
 export default {
     getAllNews: () => {
@@ -37,10 +39,12 @@ export default {
     likeNews: (newsId) => {
         return axios.post(`${constants.API_URL}/articles/${newsId}/like`)
     },
-    getLatestCommunities: () => {
-        return axios.get(`${constants.API_URL}/articles/communities`)
+    getLatestCommunities: (page) => {
+        const offset = (page - 1) * ARTICLES_PER_PAGE
+        return axios.get(`${constants.API_URL}/articles/communities?offset=${offset}&limit=${ARTICLES_PER_PAGE}`)
     },
-    getHottestCommunities: () => {
-        return axios.get(`${constants.API_URL}/articles/communities`)
+    getHottestCommunities: (page) => {
+        const offset = (page - 1) * ARTICLES_PER_PAGE
+        return axios.get(`${constants.API_URL}/articles/communities/trending?offset=${offset}&limit=${ARTICLES_PER_PAGE}`)
     },
 }

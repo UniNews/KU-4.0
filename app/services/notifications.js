@@ -2,6 +2,7 @@ import constants from '../configs/constants'
 import axios from 'axios'
 
 const NOTIFICATIONS_PER_PAGE = 15
+
 export default {
     postNotificationToken: (token) => {
         const json = {

@@ -30,10 +30,15 @@ class Thread extends Component {
     }
 
     render() {
-        const { data } = this.props
+        const { data, style } = this.props
+        let container = {}
+        if (style)
+            container = style
+        else
+            container = styles.container
         return (
-            <View style={styles.container}>
-                <TouchableNativeFeedback onPress={this.onThreadPressedHandler}>
+            <TouchableNativeFeedback onPress={this.onThreadPressedHandler}>
+                <View style={container}>
                     <View style={styles.innerContainer}>
                         <View style={styles.nameContainer}>
                             <Text style={styles.nameText}>
@@ -79,8 +84,8 @@ class Thread extends Component {
                             </View>
                         </View>
                     </View>
-                </TouchableNativeFeedback>
-            </View>
+                </View>
+            </TouchableNativeFeedback>
         )
     }
 }
