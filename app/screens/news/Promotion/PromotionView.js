@@ -91,7 +91,6 @@ class PromotionView extends React.Component {
                         <Spinner />
                         :
                         <FlatList
-                            contentContainerStyle={styles.listContainer}
                             refreshing={refreshing}
                             onRefresh={this.onRefresh}
                             keyExtractor={(news) => news._id}
