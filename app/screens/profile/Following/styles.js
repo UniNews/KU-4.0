@@ -4,7 +4,9 @@ export default StyleSheet.create({
     containter: {
         flex: 1,
     },
-    followingContainer: {
-        backgroundColor: 'white'
-    },
+    profileThreadContainer: {
+        backgroundColor: 'white',
+        borderBottomColor: 'grey',
+        borderBottomWidth: 0.5
+    }
 })

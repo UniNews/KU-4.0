@@ -1,11 +1,10 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native'
 import { PRIMARY_COLOR, KU_SECONDARY_COLOR, SECONDARY_COLOR, KU_PRIMARY_COLOR } from '../../../assets/css/color'
 import { REGULAR_FONT, BOLD_FONT } from '../../../assets/css/typography'
 
 export default StyleSheet.create({
     container: {
         padding: 10,
-        backgroundColor: 'white',
         flexDirection: 'row',
         alignItems: 'center',
     },
@@ -24,9 +23,14 @@ export default StyleSheet.create({
         borderRadius: 50 / 2,
     },
     nameText: {
-        paddingHorizontal: 20,
         fontFamily: BOLD_FONT,
-        letterSpacing: 0.5,
+    },
+    bioText: {
+        fontFamily: REGULAR_FONT,
+        color: 'grey',
+    },
+    profileDescriptionContainer: {
+        paddingHorizontal: 20,
     },
     followingButton: {
         paddingVertical: 5,
@@ -37,15 +41,15 @@ export default StyleSheet.create({
     followingText: {
         color: PRIMARY_COLOR,
         fontFamily: BOLD_FONT,
+        fontSize: 13
     },
     followButton: {
         paddingVertical: 5,
         paddingHorizontal: 10,
         backgroundColor: KU_SECONDARY_COLOR,
-        // borderColor: PRIMARY_COLOR,
     },
     followText: {
         color: 'white',
         fontFamily: BOLD_FONT,
     },
-});
+})

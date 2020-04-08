@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, TouchableWithoutFeedback } from 'react-native'
+import { View, TouchableWithoutFeedback, FlatList, ActivityIndicator } from 'react-native'
 import { Feather } from '@expo/vector-icons'
 import styles from './styles'
 import Header from '../../../components/commons/Header'
@@ -7,26 +7,30 @@ import ProfileThread from '../../../components/profile/ProfileThread'
 import StatusBar from '../../../components/commons/StatusBar'
 import userService from '../../../services/user'
 import Spinner from '../../../components/commons/Spinner'
+import { PRIMARY_COLOR } from '../../../assets/css/color'
 
 class FollowerView extends React.Component {
 
     constructor(props) {
         super(props)
+        this.page = 1
+        this.onEndReachedCalledDuringMomentum = false
         this.state = {
-            following: [],
+            followers: [],
             loading: true,
-            error: false
+            error: false,
+            fetching: false,
+            refreshing: false,
         }
     }
 
-    follow = (id) => {
-        const { followUserById } = this.props
-        followUserById(id)
-    }
-
-    isFollowing = (profile) => {
-        const { user } = this.props
-        return user.followings.indexOf(profile._id) > -1
+    follow = async (profile) => {
+        profile.isFollowing = !profile.isFollowing
+        this.setState({ followers: [...this.state.followers] })
+        if (profile.isFollowing)
+            await userService.followUserById(profile._id)
+        else
+            await userService.unfollowUserById(profile._id)
     }
 
     goProfile = (id) => {
@@ -41,26 +45,65 @@ class FollowerView extends React.Component {
         navigation.goBack()
     }
 
-    async componentDidMount() {
-        const { userId } = this.props.navigation.state.params
+    componentDidMount() {
+        this.fetchFollowers()
+    }
+
+    async fetchFollowers() {
         try {
-            const response = await userService.getUserFollower(userId)
+            const { userId } = this.props.navigation.state.params
+            const res = await userService.getUserFollowers(userId, this.page)
             this.setState({
-                loading: false,
+                followers: this.page === 1 ? res.data.followers : [...this.state.followers, ...res.data.followers],
                 error: false,
-                following: response.data
+                loading: false,
+                fetching: false,
+                refreshing: false
             })
         }
         catch (err) {
             this.setState({
+                error: true,
                 loading: false,
-                error: true
+                fetching: false,
+                refreshing: false
             })
         }
     }
 
+    onEndReached = () => {
+        if (!this.onEndReachedCalledDuringMomentum) {
+            this.setState({ fetching: true })
+            this.page += 1
+            this.fetchFollowers()
+            this.onEndReachedCalledDuringMomentum = true
+        }
+    }
+
+    renderFooter = () => {
+        if (!this.state.fetching)
+            return null
+        return (
+            <ActivityIndicator
+                color={PRIMARY_COLOR}
+            />
+        )
+    }
+
+    renderItem = ({ item }) => {
+        return <View style={styles.profileThreadContainer} key={item._id}>
+            <ProfileThread following={item.isFollowing} onFollowPressed={this.follow} onProfilePressed={this.goProfile} data={item} />
+        </View>
+    }
+
+    onRefresh = () => {
+        this.setState({ refreshing: true })
+        this.page = 1
+        this.fetchFollowers()
+    }
+
     render() {
-        const { following, loading } = this.state
+        const { followers, loading, refreshing } = this.state
         return (
             <View style={styles.containter}>
                 <StatusBar />
@@ -72,15 +115,20 @@ class FollowerView extends React.Component {
                 {
                     !loading
                         ?
-                        <View style={styles.followingContainer}>
-                            {
-                                following.map((profile) => {
-                                    return (
-                                        <ProfileThread following={this.isFollowing(profile)} key={profile._id} onFollowPressed={this.follow} onProfilePressed={this.goProfile} data={profile} />
-                                    )
-                                })
-                            }
-                        </View>
+                        <FlatList
+                            refreshing={refreshing}
+                            onRefresh={this.onRefresh}
+                            keyExtractor={(news) => news._id}
+                            data={followers}
+                            initialNumToRender={12}
+                            renderItem={this.renderItem}
+                            ListFooterComponent={this.renderFooter}
+                            onEndReachedThreshold={0.5}
+                            onEndReached={this.onEndReached}
+                            onMomentumScrollBegin={() => {
+                                this.onEndReachedCalledDuringMomentum = false
+                            }}
+                        />
                         :
                         <Spinner />
                 }

@@ -3,6 +3,8 @@ import axios from 'axios'
 import * as Facebook from 'expo-facebook'
 import * as Google from 'expo-google-app-auth'
 
+const USER_PROFILE_PER_PAGE = 12
+
 export default {
     login: (username, password) => {
         const json = {
@@ -76,33 +78,26 @@ export default {
     getUserById: (id) => {
         return axios.get(`${constants.API_URL}/users/${id}`)
     },
-    followUserById: (id) => {
-        return axios.post(`${constants.API_URL}/users/${id}/follow`)
-    },
-    getFollowingById: (id) => {
-        return axios.get(`${constants.API_URL}/users/${id}/following`)
-    },
     updateProfile: (data) => {
         return axios.put(`${constants.API_URL}/profile`, data, {
             headers: { 'Content-Type': 'application/json' }
         })
     },
-    getUserFollower: (id) => {
-        return axios.get(`${constants.API_URL}/users/${id}/followers`)
+    getUserFollowers: (id) => {
+        const offset = (page - 1) * USER_PROFILE_PER_PAGE
+        return axios.get(`${constants.API_URL}/users/${id}/followers?offset=${offset}&limit=${USER_PROFILE_PER_PAGE}`)
     },
-    getProfileFollower: () => {
-        return axios.get(`${constants.API_URL}/profile/followers`)
+    getUserFollowings: (id, page) => {
+        const offset = (page - 1) * USER_PROFILE_PER_PAGE
+        return axios.get(`${constants.API_URL}/users/${id}/followings?offset=${offset}&limit=${USER_PROFILE_PER_PAGE}`)
     },
-    getUserFollowing: (id) => {
-        return axios.get(`${constants.API_URL}/users/${id}/followings`)
-    },
-    getProfileFollowing: () => {
-        return axios.get(`${constants.API_URL}/profile/followings`)
-    },
-    getUserArticle: (id) => {
+    getUserArticles: (id) => {
         return axios.get(`${constants.API_URL}/users/${id}/articles`)
     },
-    unFollowUserById: (id) => {
+    unfollowUserById: (id) => {
         return axios.delete(`${constants.API_URL}/users/${id}/follow`)
-    }
+    },
+    followUserById: (id) => {
+        return axios.post(`${constants.API_URL}/users/${id}/follow`)
+    },
 }

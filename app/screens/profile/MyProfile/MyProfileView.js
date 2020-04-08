@@ -17,7 +17,7 @@ class MyProfileView extends React.Component {
         const { user } = this.props
         const { navigation } = this.props
         navigation.push('Following', {
-            userId: user?._id
+            userId: user._id
         })
     }
 
@@ -25,7 +25,7 @@ class MyProfileView extends React.Component {
         const { user } = this.props
         const { navigation } = this.props
         navigation.push('Follower', {
-            userId: user?._id
+            userId: user._id
         })
     }
 
@@ -49,7 +49,7 @@ class MyProfileView extends React.Component {
                     <LinearGradient style={styles.linearGradient} start={{ x: 0, y: 0 }} end={{ x: 0, y: 0.8 }} colors={['#465859', '#588E57']}>
                         <View style={styles.innerHeadContainer}>
                             <Image
-                                source={user && user.avatarURL ? { uri: user.avatarURL } : require('../../../assets/imgs/avatar-default.png')}
+                                source={{ uri: user.avatarURL }}
                                 style={styles.avatar}
                             />
                             <Text style={styles.name}>

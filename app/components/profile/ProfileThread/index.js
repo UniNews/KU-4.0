@@ -13,7 +13,7 @@ class ProfileThread extends Component {
     onButtonPressedHandler = () => {
         const { onFollowPressed, data } = this.props
         if (onFollowPressed)
-            onFollowPressed(data._id)
+            onFollowPressed(data)
     }
 
     onProfilePressedHandler = () => {
@@ -32,9 +32,21 @@ class ProfileThread extends Component {
                             source={{ uri: data.avatarURL }}
                             style={styles.avatar}
                         />
-                        <Text numberOfLines={1} style={styles.nameText}>
-                            {data.displayName}
-                        </Text>
+                        <View style={styles.profileDescriptionContainer}>
+                            <Text numberOfLines={1} style={styles.nameText}>
+                                {data.displayName}
+                            </Text>
+                            {
+                                data.displayName
+                                    ?
+                                    <Text numberOfLines={1} style={styles.bioText}>
+                                        เงี่ยนว่ะ
+                                    </Text>
+                                    :
+                                    null
+                            }
+
+                        </View>
                     </View>
                     <View style={styles.rightContainer}>
                         {
@@ -51,9 +63,7 @@ class ProfileThread extends Component {
                                         ติดตาม
                                     </Text>
                                 </Button>
-
                         }
-
                     </View>
                 </View>
             </TouchableNativeFeedback>
@@ -70,14 +80,6 @@ ProfileThread.propTypes = {
     following: PropTypes.bool,
     onProfilePressed: PropTypes.func,
     onFollowPressed: PropTypes.func
-}
-
-ProfileThread.defaultProps = {
-    data: {
-        _id: null,
-        displayName: '',
-        avatarURL: '',
-    },
 }
 
 export default ProfileThread
