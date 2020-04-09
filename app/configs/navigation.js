@@ -3,9 +3,7 @@ import { createAppContainer, createSwitchNavigator } from 'react-navigation'
 import { createBottomTabNavigator, createMaterialTopTabNavigator } from 'react-navigation-tabs'
 import { createStackNavigator } from 'react-navigation-stack'
 import { FontAwesome } from '@expo/vector-icons'
-import NewsTab from '../components/news/NewsTab'
 import SearchTab from '../components/search/SearchTab'
-import CommunityTab from '../components/community/CommunityTab'
 import NotificationScreen from '../screens/notification/Notification'
 import MyProfileScreen from '../screens/profile/MyProfile'
 import UserProfileScreen from '../screens/profile/UserProfile'
@@ -31,6 +29,7 @@ import ProfileSearchScreen from '../screens/search/ProfileSearch'
 import AnyNewsScreen from '../screens/news/AnyNews'
 import AnyCommunityScreen from '../screens/community/AnyCommunity'
 import AuthLoadingScreen from '../screens/auth/Loading'
+import TabBar from '../components/commons/TabBar'
 
 const newsTab = createMaterialTopTabNavigator({
   'สำหรับคุณ': RecommendationScreen,
@@ -38,11 +37,7 @@ const newsTab = createMaterialTopTabNavigator({
   'โปรโมชั่น': PromotionScreen,
   'ชมรม': ClubScreen
 }, {
-  tabBarComponent: NewsTab,
-  swipeEnabled: true,
-  tabBarOptions: {
-    scrollEnabled: true,
-  },
+  tabBarComponent: TabBar,
 })
 
 const newsStack = createStackNavigator({
@@ -78,11 +73,7 @@ const communityTab = createMaterialTopTabNavigator({
   'ล่าสุด': LatestCommunity,
   'กำลังฮิต': HottestComminity,
 }, {
-  tabBarComponent: CommunityTab,
-  swipeEnabled: true,
-  tabBarOptions: {
-    scrollEnabled: true,
-  },
+  tabBarComponent: TabBar,
 })
 
 const communityStack = createStackNavigator({

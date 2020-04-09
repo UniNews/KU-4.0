@@ -4,6 +4,7 @@ import * as Facebook from 'expo-facebook'
 import * as Google from 'expo-google-app-auth'
 
 const USER_PROFILE_PER_PAGE = 12
+const USER_ARTICLES_PER_PAGE = 10
 
 export default {
     login: (username, password) => {
@@ -91,8 +92,9 @@ export default {
         const offset = (page - 1) * USER_PROFILE_PER_PAGE
         return axios.get(`${constants.API_URL}/users/${id}/followings?offset=${offset}&limit=${USER_PROFILE_PER_PAGE}`)
     },
-    getUserArticles: (id) => {
-        return axios.get(`${constants.API_URL}/users/${id}/articles`)
+    getUserNewsById: (id, page) => {
+        const offset = (page - 1) * USER_ARTICLES_PER_PAGE
+        return axios.get(`${constants.API_URL}/users/${id}/articles?offset=${offset}&limit=${USER_ARTICLES_PER_PAGE}`)
     },
     unfollowUserById: (id) => {
         return axios.delete(`${constants.API_URL}/users/${id}/follow`)

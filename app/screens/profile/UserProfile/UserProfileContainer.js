@@ -1,15 +1,14 @@
-import { connect } from 'react-redux';
-import UserProfileView from './UserProfileView';
-import { followUserById } from '../../../reducers/UserReducer/actions';
+import { connect } from 'react-redux'
+import UserProfileView from './UserProfileView'
 
 const mapStateToProps = state => {
     return {
         myUser: state.userReducer.user,
     }
-};
+}
 
 const mapDispatchToProps = {
-    followUserById
-};
+    
+}
 
-export default connect(mapStateToProps, mapDispatchToProps)(UserProfileView);
+export default connect(mapStateToProps, mapDispatchToProps)(UserProfileView)
