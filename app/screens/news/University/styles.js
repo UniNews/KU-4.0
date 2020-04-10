@@ -6,7 +6,8 @@ export default StyleSheet.create({
     },
     newsContainer: {
         backgroundColor: 'white',
-        margin: 5,
+        marginHorizontal: 10,
+        marginVertical: 5,
         borderRadius: 10,
         elevation: 2,
     },

@@ -3,7 +3,6 @@ import { Text, View, Image, TouchableWithoutFeedback, TextInput, ActivityIndicat
 import { Feather } from '@expo/vector-icons'
 import styles from './styles'
 import { LinearGradient } from 'expo-linear-gradient'
-import StatusBar from '../../../components/commons/StatusBar'
 import uploadService from '../../../services/uploads'
 import * as ImagePicker from 'expo-image-picker'
 import constants from '../../../configs/constants'
@@ -87,7 +86,6 @@ class ProfileSettingView extends React.Component {
         const { loading } = this.props
         return (
             <View style={styles.containter}>
-                <StatusBar />
                 <LinearGradient style={styles.linearGradient} start={{ x: 0, y: 0 }} end={{ x: 0, y: 1 }} colors={['#465859', '#588E57']}>
                     <TouchableWithoutFeedback onPress={this.goBack}>
                         <Feather name={'chevron-left'} style={styles.backButton} size={28} color={'white'} />

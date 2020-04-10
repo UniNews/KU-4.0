@@ -5,7 +5,6 @@ import Hyperlink from 'react-native-hyperlink'
 import { FontAwesome, Feather } from '@expo/vector-icons'
 import Hr from '../../../components/commons/Hr'
 import Header from '../../../components/commons/Header'
-import StatusBar from '../../../components/commons/StatusBar'
 import newsService from '../../../services/news'
 import { convertTimestamptoDate } from '../../../assets/javascripts/date'
 import Spinner from '../../../components/commons/Spinner'
@@ -74,7 +73,6 @@ class DetailView extends React.Component {
         const { news, loading, refreshing } = this.state
         return (
             <View style={styles.container}>
-                <StatusBar />
                 <Header title={'ข่าวมหาลัย'} leftIconComponent={
                     <Feather color='white' onPress={this.goBack} size={28} name={'chevron-left'} />
                 } />

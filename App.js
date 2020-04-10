@@ -1,25 +1,23 @@
-import React from 'react';
-import AppNavigator from './app/configs/navigation';
-import { Provider } from 'react-redux';
-import { createStore, applyMiddleware } from 'redux';
-import thunkMiddleware from 'redux-thunk';
-import reducers from './app/reducers/index';
-import * as Font from 'expo-font';
-import { View, StyleSheet } from 'react-native'
-import Constants from 'expo-constants';
+import React from 'react'
+import AppNavigator from './app/configs/navigation'
+import { Provider } from 'react-redux'
+import { createStore, applyMiddleware } from 'redux'
+import thunkMiddleware from 'redux-thunk'
+import reducers from './app/reducers/index'
+import * as Font from 'expo-font'
+import { StyleSheet } from 'react-native'
 import DropdownAlert from 'react-native-dropdownalert'
-import { AlertHelper } from './app/configs/alertHelper';
+import { AlertHelper } from './app/configs/alertHelper'
 import { BOLD_FONT, REGULAR_FONT } from './app/assets/css/typography'
+import SafeAreaView from './app/components/commons/SafeAreaView'
 
-const store = createStore(reducers, applyMiddleware(thunkMiddleware));
+const store = createStore(reducers, applyMiddleware(thunkMiddleware))
 
 const styles = StyleSheet.create({
   appContainer: {
-    // paddingTop: Constants.statusBarHeight,
     flex: 1,
   },
   alertContainer: {
-    paddingTop: Constants.statusBarHeight,
     padding: 10
   },
   alertTitle: {
@@ -47,7 +45,7 @@ export default class App extends React.Component {
     await Font.loadAsync({
       'Kanit-Regular': require('./app/assets/fonts/Kanit-Medium.ttf'),
       'Kanit-Light': require('./app/assets/fonts/Kanit-Light.ttf'),
-    });
+    })
     this.setState({ fontLoaded: true })
   }
 
@@ -56,7 +54,7 @@ export default class App extends React.Component {
       return null
     }
     return (
-      <View style={styles.appContainer}>
+      <SafeAreaView>
         <Provider store={store}>
           <AppNavigator />
         </Provider>
@@ -66,7 +64,7 @@ export default class App extends React.Component {
           titleStyle={styles.alertTitle}
           messageStyle={styles.alertMessage}
         />
-      </View>
-    );
+      </SafeAreaView>
+    )
   }
 }

@@ -4,7 +4,6 @@ import styles from './styles'
 import Thread from '../../../components/community/Thread'
 import userService from '../../../services/user'
 import Hr from '../../../components/commons/Hr'
-import StatusBar from '../../../components/commons/StatusBar'
 import Header from '../../../components/commons/Header';
 import { Feather } from '@expo/vector-icons';
 import Spinner from '../../../components/commons/Spinner'
@@ -51,7 +50,6 @@ class AnyCommunityView extends React.Component {
         const { communities, loading } = this.state
         return (
             <View style={styles.containter}>
-                <StatusBar />
                 <Header
                     title={'โพสต์ทั้งหมด'}
                     leftIconComponent={

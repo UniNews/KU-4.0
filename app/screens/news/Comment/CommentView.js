@@ -11,7 +11,6 @@ import {
 import styles from './styles'
 import Header from '../../../components/commons/Header'
 import Comment from '../../../components/commons/Comment'
-import StatusBar from '../../../components/commons/StatusBar'
 import newsService from '../../../services/news'
 import { PRIMARY_COLOR } from '../../../assets/css/color'
 import { Feather } from '@expo/vector-icons'
@@ -105,7 +104,6 @@ class CommentView extends React.Component {
     const { comments, loading, refreshing, posting, msg } = this.state
     return (
       <View style={styles.container}>
-        <StatusBar />
         <Header
           title={'ความคิดเห็น'}
           leftIconComponent={

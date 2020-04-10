@@ -4,7 +4,6 @@ import { Feather } from '@expo/vector-icons'
 import styles from './styles'
 import Header from '../../../components/commons/Header'
 import ProfileThread from '../../../components/profile/ProfileThread'
-import StatusBar from '../../../components/commons/StatusBar'
 import userService from '../../../services/user'
 import Spinner from '../../../components/commons/Spinner'
 import { PRIMARY_COLOR } from '../../../assets/css/color'
@@ -106,7 +105,6 @@ class FollowerView extends React.Component {
         const { followers, loading, refreshing } = this.state
         return (
             <View style={styles.containter}>
-                <StatusBar />
                 <Header title={'ผู้ติดตาม'} leftIconComponent={
                     <TouchableWithoutFeedback onPress={this.goBack}>
                         <Feather color='white' size={28} name={'chevron-left'} />

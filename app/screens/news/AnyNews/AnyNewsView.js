@@ -3,7 +3,6 @@ import { ScrollView, View } from 'react-native'
 import styles from './styles'
 import NewsCard from '../../../components/news/NewsThread'
 import Hr from '../../../components/commons/Hr'
-import StatusBar from '../../../components/commons/StatusBar'
 import Header from '../../../components/commons/Header'
 import { Feather } from '@expo/vector-icons'
 import userService from '../../../services/user'
@@ -52,7 +51,6 @@ class ClubView extends React.Component {
         const { news, loading } = this.state
         return (
             <View style={styles.containter}>
-                <StatusBar />
                 <Header
                     title={'โพสต์ทั้งหมด'}
                     leftIconComponent={

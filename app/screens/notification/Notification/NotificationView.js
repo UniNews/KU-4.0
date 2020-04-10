@@ -3,7 +3,6 @@ import { View, FlatList, ActivityIndicator } from 'react-native'
 import styles from './styles'
 import Header from '../../../components/commons/Header'
 import NotificationItem from '../../../components/notification/NotificationItem'
-import StatusBar from '../../../components/commons/StatusBar'
 import notificationsService from '../../../services/notifications'
 import Spinner from '../../../components/commons/Spinner'
 import { PRIMARY_COLOR } from '../../../assets/css/color'
@@ -100,7 +99,6 @@ class NotificationView extends React.Component {
         const { notifications, loading, refreshing } = this.state
         return (
             <View style={styles.containter}>
-                <StatusBar />
                 <Header title={'การแจ้งเตือน'} />
                 {
                     loading

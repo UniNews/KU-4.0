@@ -1,7 +1,6 @@
 import React from 'react'
 import { View, TouchableWithoutFeedback, KeyboardAvoidingView, Image, Text, TouchableOpacity, TextInput, ActivityIndicator, TouchableNativeFeedback, FlatList } from 'react-native'
 import styles from './styles'
-import StatusBar from '../../../components/commons/StatusBar'
 import Header from '../../../components/commons/Header'
 import { FontAwesome, Feather, MaterialCommunityIcons } from '@expo/vector-icons'
 import Button from '../../../components/commons/Button'
@@ -223,7 +222,6 @@ class DetailView extends React.Component {
         const { myComment, loading, posting, comments, refreshing } = this.state
         return (
             <View style={styles.containter}>
-                <StatusBar />
                 <Header title={'ชุมชน'} leftIconComponent={
                     <Feather color='white' onPress={this.goBack} size={28} name={'chevron-left'} />
                 }

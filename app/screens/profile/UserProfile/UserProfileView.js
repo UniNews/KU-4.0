@@ -10,7 +10,6 @@ import ProfileInfo from './ProfileInfo'
 import Spinner from '../../../components/commons/Spinner'
 import { Feather } from '@expo/vector-icons'
 import Header from '../../../components/commons/Header'
-import SafeAreaView from '../../../components/commons/SafeAreaView'
 
 const Navigator = createAppContainer(createMaterialTopTabNavigator({
     'รายละเอียด': ProfileInfo,
@@ -71,7 +70,7 @@ class UserProfileView extends React.Component {
         const { navigation } = this.props
         const scroll = this.scroll
         return (
-            <SafeAreaView >
+            <View style={styles.containter}>
                 {
                     !loading ?
                         <Navigator screenProps={{ handleScroll: this.handleScroll, scroll, navigation, user, news, onRefresh: this.onRefresh }}
@@ -101,7 +100,7 @@ class UserProfileView extends React.Component {
                             <Spinner />
                         </View>
                 }
-            </SafeAreaView>
+            </View>
         )
     }
 }

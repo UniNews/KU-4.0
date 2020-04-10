@@ -22,7 +22,6 @@ class NewsTabView extends React.Component {
     render() {
         return (
             <View>
-                <StatusBar />
                 <LinearGradient start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} colors={[KU_PRIMARY_COLOR, KU_SECONDARY_COLOR]}>
                     <View style={styles.headContainer}>
                         <Text style={styles.logo}>

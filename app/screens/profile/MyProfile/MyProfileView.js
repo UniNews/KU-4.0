@@ -3,9 +3,7 @@ import { Text, View, Image, TouchableNativeFeedback } from 'react-native'
 import { Feather } from '@expo/vector-icons'
 import styles from './styles'
 import { LinearGradient } from 'expo-linear-gradient'
-import Hr from '../../../components/commons/Hr'
-import StatusBar from '../../../components/commons/StatusBar'
-import PropTypes from 'prop-types';
+import PropTypes from 'prop-types'
 
 class MyProfileView extends React.Component {
 
@@ -44,7 +42,6 @@ class MyProfileView extends React.Component {
         const { user, navigation } = this.props
         return (
             <View style={styles.containter}>
-                <StatusBar />
                 <View style={styles.headContainer}>
                     <LinearGradient style={styles.linearGradient} start={{ x: 0, y: 0 }} end={{ x: 0, y: 0.8 }} colors={['#465859', '#588E57']}>
                         <View style={styles.innerHeadContainer}>

@@ -1,6 +1,5 @@
 import React from 'react'
 import { Text, View, ScrollView } from 'react-native'
-import StatusBar from '../../../components/commons/StatusBar'
 import styles from './styles'
 import Header from '../../../components/commons/Header'
 import { Feather, FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons'
@@ -69,7 +68,6 @@ class MainSearchView extends React.Component {
         const { selectedTag } = this.state
         return (
             <View style={styles.containter}>
-                <StatusBar />
                 <Header
                     title={'ค้นหา'}
                     leftIconComponent={
