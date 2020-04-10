@@ -2,23 +2,22 @@ import React from 'react'
 import { Text, View, Image, TouchableNativeFeedback, Animated } from 'react-native'
 import styles from './styles'
 import { LinearGradient } from 'expo-linear-gradient'
-import { KU_PRIMARY_COLOR, KU_SECONDARY_COLOR, SECONDARY_COLOR, PRIMARY_COLOR } from '../../../../assets/css/color'
+import { KU_PRIMARY_COLOR, KU_SECONDARY_COLOR, } from '../../../../assets/css/color'
 import { MaterialTopTabBar } from 'react-navigation-tabs'
 import { Feather } from '@expo/vector-icons'
 import Button from '../../../../components/commons/Button'
 import Vr from '../../../../components/commons/Vr'
-import userService from '../../../../services/user'
-// this.props.screenProps.scroll
+import Constants from 'expo-constants'
 
 class tabBarComponent extends React.Component {
 
     constructor(props) {
         super(props)
         this.tabTranslateY = this.props.screenProps.scroll.interpolate({
-            inputRange: [0, 300],
-            outputRange: [0, -300],
+            inputRange: [0, 350 + Constants.statusBarHeight],
+            outputRange: [0, - 350],
             extrapolate: 'clamp',
-        });
+        })
     }
 
     goBack = () => {
@@ -35,7 +34,6 @@ class tabBarComponent extends React.Component {
                 style={[
                     styles.tabWrapper,
                     {
-                        // height: 500,
                         transform: [
                             {
                                 translateY: this.tabTranslateY,

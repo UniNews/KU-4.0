@@ -1,14 +1,16 @@
 import { StyleSheet } from 'react-native'
 import { REGULAR_FONT } from '../../../../assets/css/typography'
+import Constants from 'expo-constants'
 
 export default StyleSheet.create({
     containter: {
         flex: 1,
-        backgroundColor: 'black'
     },
     profileContainer: {
-        backgroundColor: 'white',
+        // backgroundColor: 'white',
         paddingHorizontal: 20,
+        paddingTop: 405 + Constants.statusBarHeight,
+        // paddingVertical: 10,
     },
     profileTitleText: {
         fontFamily: REGULAR_FONT,

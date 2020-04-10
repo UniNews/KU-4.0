@@ -6,7 +6,7 @@ import userService from '../../../../services/user'
 import NewsCard from '../../../../components/news/NewsThread'
 import { PRIMARY_COLOR } from '../../../../assets/css/color'
 
-const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
+const AnimatedFlatList = Animated.createAnimatedComponent(FlatList)
 
 class NewsList extends React.Component {
 
@@ -75,7 +75,7 @@ class NewsList extends React.Component {
         this.props.screenProps.navigation.push('NewsDetail', { newsId })
     }
 
-    _renderItem = ({ item }) => {
+    renderItem = ({ item }) => {
         return <View key={item._id} style={styles.newsContainer}>
             <NewsCard onNewsPressed={this.goNews} data={item} />
         </View>
@@ -83,7 +83,7 @@ class NewsList extends React.Component {
 
     render() {
         const { news, loading } = this.state
-        const { scroll } = this.props.screenProps
+        const { scroll, handleScroll } = this.props.screenProps
         return (
             <View style={styles.containter}>
                 {
@@ -91,12 +91,14 @@ class NewsList extends React.Component {
                         <AnimatedFlatList
                             contentContainerStyle={styles.contentGap}
                             data={news}
-                            renderItem={this._renderItem}
+                            renderItem={this.renderItem}
                             keyExtractor={(news, i) => news._id}
                             onScroll={Animated.event(
                                 [{ nativeEvent: { contentOffset: { y: scroll } } }],
+                                { listener: (event) => handleScroll(event) },
                                 { useNativeDriver: true }
                             )}
+                            scrollEventThrottle={0}
                             ListFooterComponent={this.renderFooter}
                             onEndReachedThreshold={0.5}
                             onEndReached={this.onEndReached}

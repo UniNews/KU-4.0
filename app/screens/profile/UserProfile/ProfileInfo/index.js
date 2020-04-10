@@ -1,30 +1,23 @@
 import React from 'react'
-import { Text, View, Animated, FlatList, Dimensions } from 'react-native'
+import { Text, View, Animated } from 'react-native'
 import styles from './styles'
-import { ScrollView } from 'react-native-gesture-handler';
-const screenHeight = Math.round(Dimensions.get('window').height);
-
-const AnimatedFlatList = Animated.createAnimatedComponent(FlatList);
+import Constants from 'expo-constants'
 
 class ProfileInfo extends React.Component {
 
     constructor(props) {
         super(props)
         this.tabTranslateY = this.props.screenProps.scroll.interpolate({
-            inputRange: [0, 300],
-            outputRange: [0, -300],
+            inputRange: [0, 350 + Constants.statusBarHeight],
+            outputRange: [0, -350],
             extrapolate: 'clamp',
-        });
+        })
     }
 
     render() {
         const { user } = this.props.screenProps
         return (
             <View>
-                <ScrollView contentContainerStyle={{
-                    paddingTop: 405,
-                    height: screenHeight + 405
-                }}>
                 <Animated.View
                     style={[
                         styles.profileContainer,
@@ -36,8 +29,6 @@ class ProfileInfo extends React.Component {
                             ],
                         },
                     ]}>
-
-
                     <View style={styles.profileSectionContainer}>
                         <Text style={styles.profileTitleText}>ชื่อ</Text>
                         <Text style={styles.profileValueText}>{user.displayName}</Text>
@@ -51,9 +42,6 @@ class ProfileInfo extends React.Component {
                         <Text style={styles.profileValueText}>{user.tags}</Text>
                     </View>
                 </Animated.View>
-                </ScrollView>
-
-
             </View >
         )
     }

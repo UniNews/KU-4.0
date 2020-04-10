@@ -1,13 +1,14 @@
 import { StyleSheet } from 'react-native'
 import { BOLD_FONT, REGULAR_FONT } from '../../../../assets/css/typography'
-import { PRIMARY_COLOR, KU_PRIMARY_COLOR, KU_SECONDARY_COLOR } from '../../../../assets/css/color'
+import { PRIMARY_COLOR, KU_SECONDARY_COLOR } from '../../../../assets/css/color'
+import Constants from 'expo-constants'
 
 export default StyleSheet.create({
     containter: {
         flex: 1,
     },
     avatar: {
-        marginTop: 10,
+        marginTop: 10 + Constants.statusBarHeight,
         width: 150,
         height: 150,
         borderWidth: 1,
@@ -16,7 +17,7 @@ export default StyleSheet.create({
     },
     profileInfoContainer: {
         alignItems: 'center',
-        height: 350
+        height: 350 + Constants.statusBarHeight,
     },
     nameText: {
         marginTop: 10,
@@ -74,7 +75,8 @@ export default StyleSheet.create({
     backButton: {
         alignSelf: 'flex-start',
         position: 'absolute',
-        padding: 15,
+        paddingHorizontal: 15,
+        paddingVertical: 15 + Constants.statusBarHeight,
     },
     tabWrapper: {
         left: 0,
