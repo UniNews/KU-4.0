@@ -4,7 +4,6 @@ import styles from './styles'
 import { LinearGradient } from 'expo-linear-gradient'
 import PropTypes from 'prop-types'
 import { FontAwesome } from '@expo/vector-icons'
-import StatusBar from '../../commons/StatusBar'
 import { KU_PRIMARY_COLOR, KU_SECONDARY_COLOR } from '../../../assets/css/color'
 import { MaterialTopTabBar } from 'react-navigation-tabs'
 
