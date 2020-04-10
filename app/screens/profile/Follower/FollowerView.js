@@ -24,13 +24,13 @@ class FollowerView extends React.Component {
         }
     }
 
-    follow = async (profile) => {
+    follow = (profile) => {
         profile.isFollowing = !profile.isFollowing
         this.setState({ followers: [...this.state.followers] })
         if (profile.isFollowing)
-            await userService.followUserById(profile._id)
+            userService.followUserById(profile._id)
         else
-            await userService.unfollowUserById(profile._id)
+            userService.unfollowUserById(profile._id)
     }
 
     goProfile = (id) => {
