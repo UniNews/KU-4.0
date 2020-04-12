@@ -66,9 +66,8 @@ class ProfileSettingView extends React.Component {
                     uploading: true
                 })
                 const uploadResponse = await uploadService.uploadImage(pickerResult.uri)
-                const imageLocation = uploadResponse.headers.location
                 this.setState({
-                    avatarURL: `${constants.API_URL}${imageLocation}`,
+                    avatarURL: `${constants.API_URL}${uploadResponse.data.uri}`,
                     uploading: false,
                     error: false
                 })
