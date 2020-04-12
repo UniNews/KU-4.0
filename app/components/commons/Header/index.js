@@ -12,7 +12,7 @@ class Header extends Component {
   render() {
     const { leftIconComponent, rightIconComponent, title } = this.props
     return <LinearGradient style={styles.linearGradient} start={{ x: 0, y: 0 }} end={{ x: 0.8, y: 0 }} colors={['#465859', '#588E57']}>
-      <View style={{ flex: 1 }}>
+      <View style={{ flex: 1, }}>
         {
           leftIconComponent ?
             <View style={styles.left}>
@@ -25,9 +25,15 @@ class Header extends Component {
         <Text style={styles.title}>
           {title}
         </Text>
-        {/* <View style={styles.right}>
-        {rightIconComponent}
-      </View> */}
+        {
+          rightIconComponent ?
+            <View style={styles.right}>
+              <TouchableWithoutFeedback onPress={rightIconComponent.props.onPress}>
+                {rightIconComponent}
+              </TouchableWithoutFeedback>
+            </View>
+            : null
+        }
       </View>
     </LinearGradient>
   }

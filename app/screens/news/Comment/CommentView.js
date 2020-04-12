@@ -16,6 +16,7 @@ import { PRIMARY_COLOR } from '../../../assets/css/color'
 import { Feather } from '@expo/vector-icons'
 import Button from '../../../components/commons/Button'
 import Spinner from '../../../components/commons/Spinner'
+import { STATUS_BAR_HEIGHT } from '../../../assets/css/device'
 
 class CommentView extends React.Component {
   constructor(props) {
@@ -118,6 +119,7 @@ class CommentView extends React.Component {
         <KeyboardAvoidingView
           style={styles.keyboardAvoidContainer}
           behavior={'height'}
+          keyboardVerticalOffset={STATUS_BAR_HEIGHT}
         >
           {!loading ? (
             <ScrollView

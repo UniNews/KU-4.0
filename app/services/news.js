@@ -22,7 +22,7 @@ export default {
     getNewsById: (id) => {
         return axios.get(`${constants.API_URL}/articles/${id}`)
     },
-    postComment: async (newsId, msg) => {
+    postComment: (newsId, msg) => {
         const json = {
             description: msg
         }
@@ -52,5 +52,15 @@ export default {
     getHottestCommunities: (page) => {
         const offset = (page - 1) * ARTICLES_PER_PAGE
         return axios.get(`${constants.API_URL}/articles/communities/trending?offset=${offset}&limit=${ARTICLES_PER_PAGE}`)
+    },
+    postCommunity: (description, tag) => {
+        const json = {
+            description,
+            tags: [tag],
+            articleType: 'community',
+        }
+        return axios.post(`${constants.API_URL}/articles/`, json, {
+            headers: { 'Content-Type': 'application/json' }
+        })
     },
 }

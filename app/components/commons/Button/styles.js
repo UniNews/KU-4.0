@@ -6,7 +6,7 @@ export default StyleSheet.create({
     },
     outlined: {
         backgroundColor: 'transparent',
-        borderWidth: 1
+        // borderWidth: 1
     },
     defaultStyle: {
         backgroundColor: '#F0F0F0',

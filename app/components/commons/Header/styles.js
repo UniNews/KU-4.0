@@ -14,12 +14,13 @@ export default StyleSheet.create({
         textAlign: 'center',
     },
     left: {
-        textAlign: 'left',
+        // textAlign: 'left',
         position: 'absolute',
         zIndex: 1
     },
     right: {
-        textAlign: 'right',
+        alignSelf: 'flex-end',
+        // textAlign: 'right',
         position: 'absolute',
         zIndex: 1
     }

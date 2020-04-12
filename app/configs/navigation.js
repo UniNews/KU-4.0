@@ -21,15 +21,14 @@ import ProfileSetting from '../screens/settings/Profile'
 import FollowingScreen from '../screens/profile/Following'
 import FollowerScreen from '../screens/profile/Follower'
 import CommentScreen from '../screens/news/Comment'
-import LatestCommunity from '../screens/community/Latest'
-import HottestComminity from '../screens/community/Hottest'
+import CommunityTab from '../screens/community/CommunityTab'
 import MainSearchScreen from '../screens/search/MainSearch'
 import NewsSearchScreen from '../screens/search/NewsSearch'
 import ProfileSearchScreen from '../screens/search/ProfileSearch'
 import AnyNewsScreen from '../screens/news/AnyNews'
-import AnyCommunityScreen from '../screens/community/AnyCommunity'
 import AuthLoadingScreen from '../screens/auth/Loading'
 import TabBar from '../components/commons/TabBar'
+import PostCommunityScreen from '../screens/community/PostCommunity'
 
 const newsTab = createMaterialTopTabNavigator({
   'สำหรับคุณ': RecommendationScreen,
@@ -49,7 +48,6 @@ const newsStack = createStackNavigator({
   Following: FollowingScreen,
   Follower: FollowerScreen,
   ProfileDetail: UserProfileScreen,
-  AnyCommunity: AnyCommunityScreen,
 },
   {
     headerMode: 'none',
@@ -69,21 +67,13 @@ newsStack.navigationOptions = ({ navigation }) => {
   }
 }
 
-const communityTab = createMaterialTopTabNavigator({
-  'ล่าสุด': LatestCommunity,
-  'กำลังฮิต': HottestComminity,
-}, {
-  tabBarComponent: TabBar,
-})
-
 const communityStack = createStackNavigator({
-  Home: communityTab,
+  Home: CommunityTab,
   CommunityDetail: CommunityDetailScreen,
   Following: FollowingScreen,
   Follower: FollowerScreen,
   ProfileDetail: UserProfileScreen,
-  AnyCommunity: AnyCommunityScreen,
-  AnyNews: AnyNewsScreen,
+  PostCommunity: PostCommunityScreen,
 },
   {
     headerMode: 'none',
@@ -95,10 +85,13 @@ const communityStack = createStackNavigator({
 
 communityStack.navigationOptions = ({ navigation }) => {
   let tabBarVisible = true
-  if (navigation.state.index == 1) // check if the route is Detail
+  let currentRoute = navigation.state.routes[navigation.state.routes.length - 1].routeName
+  if (currentRoute == 'CommunityDetail')
+    tabBarVisible = false
+  if (currentRoute == 'PostCommunity')
     tabBarVisible = false
   return {
-    tabBarVisible,
+    tabBarVisible
   }
 }
 
@@ -108,8 +101,6 @@ const profileStack = createStackNavigator({
   ProfileDetail: UserProfileScreen,
   Following: FollowingScreen,
   Follower: FollowerScreen,
-  AnyCommunity: AnyCommunityScreen,
-  AnyNews: AnyNewsScreen,
 },
   {
     headerMode: 'none',
@@ -135,7 +126,6 @@ const searchStack = createStackNavigator({
   SearchTab: searchTab,
   Following: FollowingScreen,
   Follower: FollowerScreen,
-  AnyCommunity: AnyCommunityScreen,
   AnyNews: AnyNewsScreen,
   ProfileDetail: UserProfileScreen,
   CommunityDetail: CommunityDetailScreen,
@@ -153,7 +143,6 @@ const notificationStack = createStackNavigator({
   Notification: NotificationScreen,
   Following: FollowingScreen,
   Follower: FollowerScreen,
-  AnyCommunity: AnyCommunityScreen,
   AnyNews: AnyNewsScreen,
   ProfileDetail: UserProfileScreen,
   CommunityDetail: CommunityDetailScreen,
