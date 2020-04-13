@@ -18,12 +18,9 @@ export function getUnReadNotification() {
     try {
       dispatch(notificationLoading())
       const result = await service.getALLNotifications()
-      console.log(result,'ssss')
-      const notification = result.data.notifications.filter(e => e.isRead)
-      console.log(notification,'ssss')
+      const notification = result.data.notifications.filter(e => !e.isRead)
       dispatch(notificationOk(notification))
     } catch(err) {
-      console.log(err)
       dispatch(notificationFail())
     }
   }

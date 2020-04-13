@@ -15,13 +15,13 @@ class IconWithBadge extends React.Component {
     return (
       <View style={styles.container}>
         <FontAwesome name={ data.name } size={ data.size } color={ data.color } />
-        <Text style={[styles.badge,styles.text]}>
+        <View style={styles.badge}>
           { 
             notifications!==null?(
-              <Text>{notifications.length>0?notifications.length:0}</Text>
+              <Text style={styles.text}>{notifications.length>0?notifications.length:0}</Text>
             ):null
           }
-        </Text>
+        </View>
       </View>
     );
   }
