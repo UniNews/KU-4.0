@@ -15,14 +15,17 @@ class LoadingView extends React.Component {
     async componentDidMount() {
         // registerForPushNotificationsAsync()
         Notifications.addListener(this.handleNotification)
-        const { autoLogin } = this.props
+        const { autoLogin, getUnReadNotification } = this.props
         try {
             const accessToken = await AsyncStorage.getItem('accessToken')
-            if (accessToken)
-                autoLogin(accessToken)
+            if (accessToken) {
+                autoLogin(accessToken).then(()=>
+                getUnReadNotification())
+            }
             else
                 this.goLogin()
         } catch (err) {
+            console.log(err)
             this.goLogin()
         }
     }

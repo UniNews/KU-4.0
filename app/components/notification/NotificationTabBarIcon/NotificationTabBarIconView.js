@@ -11,15 +11,16 @@ class IconWithBadge extends React.Component {
   }
 
   render() {
-    const { data , user } = this.props
-    console.log(user.notifications,'2')
+    const { data , notifications } = this.props
     return (
       <View style={styles.container}>
         <FontAwesome name={ data.name } size={ data.size } color={ data.color } />
         <Text style={[styles.badge,styles.text]}>
-          {user?user.notifications.length:0 > 0 && (
-            <Text>{user.notifications.length}</Text>
-          )}
+          { 
+            notifications!==null?(
+              <Text>{notifications.length>0?notifications.length:0}</Text>
+            ):null
+          }
         </Text>
       </View>
     );

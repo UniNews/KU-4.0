@@ -3,7 +3,7 @@ import NotificationView from './NotificationTabBarIconView'
 
 const mapStateToProps = state => {
     return {
-        user: state.userReducer.user,
+        notifications: state.notificationsReducer.notification,
     }
 };
 
