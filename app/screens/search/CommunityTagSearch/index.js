@@ -1,0 +1,2 @@
+import CommunityTagSearchContainer from './CommunityTagSearchContainer'
+export default CommunityTagSearchContainer

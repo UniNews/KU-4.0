@@ -1,0 +1,2 @@
+import NewsTagSearchContainer from './NewsTagSearchContainer'
+export default NewsTagSearchContainer

@@ -67,5 +67,12 @@ export default StyleSheet.create({
     searchText: {
         color: 'grey',
         fontFamily: REGULAR_FONT,
-    }
+    },
+    newsContainer: {
+        backgroundColor: 'white',
+        marginHorizontal: 10,
+        marginVertical: 5,
+        borderRadius: 10,
+        elevation: 2,
+    },
 })
