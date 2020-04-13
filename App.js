@@ -10,6 +10,7 @@ import DropdownAlert from 'react-native-dropdownalert'
 import { AlertHelper } from './app/configs/alertHelper'
 import { BOLD_FONT, REGULAR_FONT } from './app/assets/css/typography'
 import SafeAreaView from './app/components/commons/SafeAreaView'
+import ErrorModal from './app/components/commons/ErrorModal'
 
 const store = createStore(reducers, applyMiddleware(thunkMiddleware))
 
@@ -57,6 +58,7 @@ export default class App extends React.Component {
       <SafeAreaView>
         <Provider store={store}>
           <AppNavigator />
+          <ErrorModal />
         </Provider>
         <DropdownAlert
           defaultContainer={styles.alertContainer}

@@ -32,6 +32,12 @@ class MyProfileView extends React.Component {
         navigation.navigate('Auth')
     }
 
+    goProfileSetting = () => {
+        const { navigation, showModal } = this.props
+        navigation.navigate('ProfileSetting')
+        // showModal()
+    }
+
     logout = () => {
         const { logoutUser } = this.props
         this.goLogin()
@@ -58,7 +64,7 @@ class MyProfileView extends React.Component {
                         </View>
                     </LinearGradient>
                 </View>
-                <TouchableNativeFeedback onPress={() => navigation.navigate('ProfileSetting')}>
+                <TouchableNativeFeedback onPress={this.goProfileSetting}>
                     <View style={styles.settingContainer}>
                         <Text style={styles.settingText}>รูป และชื่อผู้ใช้</Text>
                         <Feather name={'chevron-right'} size={20} color={'gray'} />
