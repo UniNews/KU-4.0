@@ -9,7 +9,10 @@ export default StyleSheet.create({
         paddingTop: 400,
     },
     newsContainer: {
-        borderBottomColor: 'grey',
-        borderBottomWidth: 0.5
+        backgroundColor: 'white',
+        marginHorizontal: 10,
+        marginVertical: 5,
+        borderRadius: 10,
+        elevation: 2,
     },
 })

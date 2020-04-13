@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Animated, TouchableWithoutFeedback } from 'react-native'
+import { View, Animated, TouchableWithoutFeedback, BackHandler } from 'react-native'
 import styles from './styles'
 import { createMaterialTopTabNavigator } from 'react-navigation-tabs'
 import { createAppContainer } from 'react-navigation'
@@ -16,6 +16,7 @@ const Navigator = createAppContainer(createMaterialTopTabNavigator({
     'โพสต์ทั้งหมด': NewsList
 }, {
     tabBarComponent,
+    backBehavior: 'none'
 }))
 
 class UserProfileView extends React.Component {

@@ -21,19 +21,19 @@ class NewsList extends React.Component {
         this.props.screenProps.navigation.push('NewsDetail', { newsId })
     }
 
-    goCommunity = (communityId) => {
-        this.props.screenProps.navigation.push('CommunityDetail', { communityId })
+    goCommunity = (newsId) => {
+        this.props.screenProps.navigation.push('CommunityDetail', { newsId })
     }
 
     renderNews = ({ item }) => {
-        return <View key={item._id} style={styles.newsContainer}>
-            <NewsCard onNewsPressed={this.goNews} data={item} />
-        </View>
-    }
-
-    renderCommunities = ({ item }) => {
-        return <View key={item._id} style={styles.newsContainer}>
-            <Thread data={item} onThreadPressed={this.goCommunity} />
+        return <View key={item._id} >
+            {
+                item.articleType === 'news'
+                    ?
+                    <NewsCard style={styles.newsContainer} onNewsPressed={this.goNews} data={item} />
+                    :
+                    <Thread data={item} style={styles.newsContainer} onThreadPressed={this.goCommunity} />
+            }
         </View>
     }
 
@@ -47,7 +47,7 @@ class NewsList extends React.Component {
                         showsVerticalScrollIndicator={false}
                         contentContainerStyle={styles.contentGap}
                         data={news}
-                        renderItem={user.role === 'user' ? this.renderCommunities : this.renderNews}
+                        renderItem={this.renderNews}
                         keyExtractor={(news, i) => news._id}
                         onScroll={Animated.event(
                             [{ nativeEvent: { contentOffset: { y: scroll } } }],
