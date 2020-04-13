@@ -6,7 +6,7 @@ var monthNamesThai = ['ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.', 'พ
 export function convertTimestamptoDate(timestamp) {
     const moments = new moment(timestamp)
     if (moments.isSame(new Date(), 'day')) {
-        return moments.startOf('hour').fromNow()
+        return moments.startOf('minute').fromNow()
     } else {
         return moments.calendar(null, {
             lastDay: '[เมื่อวาน] HH:mm',

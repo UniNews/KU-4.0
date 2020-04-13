@@ -1,0 +1,2 @@
+import NotificationTabBarIconContainer from './NotificationTabBarIconContainer';
+export default NotificationTabBarIconContainer;
