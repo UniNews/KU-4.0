@@ -37,11 +37,6 @@ class NewsCard extends Component {
 
     render() {
         const { style, data, onNewsPressed, ...restProps } = this.props
-        let inlineStyle = []
-        if (style)
-            inlineStyle = style
-        else
-            inlineStyle = styles.container
         return (
             <TouchableNativeFeedback
                 activeOpacity={1}
@@ -50,7 +45,7 @@ class NewsCard extends Component {
                 }
                 {...restProps}
             >
-                <View style={inlineStyle}>
+                <View style={[style, styles.container]}>
                     <View style={styles.topContainer}>
                         <View style={styles.leftContainer}>
                             <Text style={styles.nameText}>

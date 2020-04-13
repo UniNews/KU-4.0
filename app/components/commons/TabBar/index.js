@@ -15,7 +15,7 @@ class NewsTabView extends React.Component {
 
     goSearch = () => {
         const { navigation } = this.props
-        navigation.navigate('Search')
+        navigation.navigate('TagSearch')
     }
 
     render() {

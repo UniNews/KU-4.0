@@ -22,7 +22,8 @@ import FollowingScreen from '../screens/profile/Following'
 import FollowerScreen from '../screens/profile/Follower'
 import CommentScreen from '../screens/news/Comment'
 import CommunityTab from '../screens/community/CommunityTab'
-import MainSearchScreen from '../screens/search/MainSearch'
+import NewsTagSearchScreen from '../screens/search/NewsTagSearch'
+import CommunityTagSearchScreen from '../screens/search/CommunityTagSearch'
 import AnyNewsScreen from '../screens/news/AnyNews'
 import AuthLoadingScreen from '../screens/auth/Loading'
 import TabBar from '../components/commons/TabBar'
@@ -40,6 +41,7 @@ const newsTab = createMaterialTopTabNavigator({
 
 const newsStack = createStackNavigator({
   Home: newsTab,
+  TagSearch: NewsTagSearchScreen,
   NewsDetail: NewsDetailScreen,
   CommunityDetail: CommunityDetailScreen,
   Comment: CommentScreen,
@@ -68,6 +70,7 @@ newsStack.navigationOptions = ({ navigation }) => {
 
 const communityStack = createStackNavigator({
   Home: CommunityTab,
+  TagSearch: CommunityTagSearchScreen,
   CommunityDetail: CommunityDetailScreen,
   Following: FollowingScreen,
   Follower: FollowerScreen,
@@ -115,28 +118,28 @@ const profileStack = createStackNavigator({
 // }, {
 //   tabBarComponent: SearchTab,
 //   swipeEnabled: true,
-//   tabBarOptions: {
-//     scrollEnabled: true,
-//   },
+// tabBarOptions: {
+//   scrollEnabled: true,
+// },
 // })
 
-const searchStack = createStackNavigator({
-  MainSearch: MainSearchScreen,
-  Following: FollowingScreen,
-  Follower: FollowerScreen,
-  AnyNews: AnyNewsScreen,
-  ProfileDetail: UserProfileScreen,
-  CommunityDetail: CommunityDetailScreen,
-  NewsDetail: NewsDetailScreen,
-  TagNews: TagNewsScreen
-},
-  {
-    headerMode: 'none',
-    navigationOptions: {
-      headerVisible: false,
-    }
-  }
-)
+// const searchStack = createStackNavigator({
+// MainSearch: MainSearchScreen,
+//   Following: FollowingScreen,
+//   Follower: FollowerScreen,
+//   AnyNews: AnyNewsScreen,
+//   ProfileDetail: UserProfileScreen,
+//   CommunityDetail: CommunityDetailScreen,
+//   NewsDetail: NewsDetailScreen,
+//   TagNews: TagNewsScreen
+// },
+//   {
+//     headerMode: 'none',
+//     navigationOptions: {
+//       headerVisible: false,
+//     }
+//   }
+// )
 
 const notificationStack = createStackNavigator({
   Notification: NotificationScreen,
@@ -208,7 +211,7 @@ const tabNavigator = createBottomTabNavigator({
 
 const tabStack = createStackNavigator({
   Tabs: tabNavigator,
-  Search: searchStack
+  // Search: searchStack
 },
   {
     headerMode: 'none',
