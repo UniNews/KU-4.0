@@ -1,4 +1,10 @@
-export const SEARCH_LOADING = 'SEARCH_LOADING';
-export const SEARCH_OK = 'SEARCH_OK';
-export const SEARCH_FAIL = 'SEARCH_FAIL';
+export const SET_QUERY = 'SET_QUERY'
 export const SEARCH_RESET = 'SEARCH_RESET'
+/* news search actions */
+export const NEWS_SEARCH_LOADING = 'NEWS_SEARCH_LOADING'
+export const NEWS_SEARCH_OK = 'NEWS_SEARCH_OK'
+export const NEWS_SEARCH_FAIL = 'NEWS_SEARCH_FAIL'
+/* user search actions */
+export const USER_SEARCH_LOADING = 'USER_SEARCH_LOADING'
+export const USER_SEARCH_OK = 'USER_SEARCH_OK'
+export const USER_SEARCH_FAIL = 'USER_SEARCH_FAIL'

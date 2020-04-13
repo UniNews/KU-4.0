@@ -1,9 +1,9 @@
 import React from 'react'
 import { Text, View, ActivityIndicator, ScrollView, Keyboard } from 'react-native'
 import styles from './styles'
-import { PRIMARY_COLOR } from '../../../assets/css/color'
-import ProfileThread from '../../../components/profile/ProfileThread'
-import Hr from '../../../components/commons/Hr'
+import { PRIMARY_COLOR } from '../../../../assets/css/color'
+import ProfileThread from '../../../../components/profile/ProfileThread'
+import Hr from '../../../../components/commons/Hr'
 
 class ProfileSearchView extends React.Component {
 

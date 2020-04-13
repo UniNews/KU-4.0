@@ -1,9 +1,9 @@
 import React from 'react'
 import { Text, View, ActivityIndicator, ScrollView, Keyboard } from 'react-native'
 import styles from './styles'
-import { PRIMARY_COLOR } from '../../../assets/css/color'
-import NewsCard from '../../../components/news/NewsThread'
-import Hr from '../../../components/commons/Hr'
+import { PRIMARY_COLOR } from '../../../../assets/css/color'
+import NewsCard from '../../../../components/news/NewsThread'
+import Hr from '../../../../components/commons/Hr'
 
 class NewsSearchNews extends React.Component {
 

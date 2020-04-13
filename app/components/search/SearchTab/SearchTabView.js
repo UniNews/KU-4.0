@@ -1,15 +1,14 @@
-import React from 'react';
-import { View, TouchableWithoutFeedback, TextInput } from 'react-native';
-import styles from './styles';
-import CustomTab from './CustomTab'
-import PropTypes from 'prop-types';
+import React from 'react'
+import { View, TouchableWithoutFeedback, TextInput } from 'react-native'
+import styles from './styles'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
-import StatusBar from '../../commons/StatusBar'
+import { MaterialTopTabBar } from 'react-navigation-tabs'
+import { KU_SECONDARY_COLOR } from '../../../assets/css/color'
 
 class SearchTabView extends React.Component {
 
     constructor(props) {
-        super(props);
+        super(props)
         this.state = {
             query: '',
         }
@@ -31,10 +30,10 @@ class SearchTabView extends React.Component {
     }
 
     search = () => {
-        const { search } = this.props
+        const { setQuery } = this.props
         const { query } = this.state
         if (query)
-            search(query)
+            setQuery(query)
     }
 
     clearQuery = () => {
@@ -49,23 +48,13 @@ class SearchTabView extends React.Component {
     }
 
     render() {
-        const { navigation } = this.props
         const { query } = this.state
-        const routes = navigation.state.routes
         return (
             <View style={styles.container}>
-                <StatusBar />
                 <View style={styles.inputContainer}>
-                    <View style={styles.searchIconContainer}>
-                        <MaterialCommunityIcons
-                            onPress={this.goBack}
-                            size={26}
-                            name={'arrow-left'}
-                        />
-                    </View>
                     <TextInput
                         value={query}
-                        autoFocus={true}
+                        // autoFocus={true}
                         placeholderTextColor={'grey'}
                         style={styles.textInputField}
                         placeholder={'ค้นหาข่าว, ชุมชน, ชื่อผู้ใช้...'}
@@ -84,32 +73,18 @@ class SearchTabView extends React.Component {
                         null
                     }
                 </View>
-                <View style={styles.listContainer}>
-                    {routes.map((route, index) => {
-                        return (
-                            <View key={route.key} style={styles.listItem}>
-                                <CustomTab
-                                    routeName={route.routeName}
-                                    onPress={() => this.navigationHandler(route.routeName)}
-                                    focused={navigation.state.index === index}
-                                />
-                            </View>
-                        )
-                    }
-                    )}
-                </View>
+                <MaterialTopTabBar
+                    {...this.props}
+                    activeTintColor={KU_SECONDARY_COLOR}
+                    inactiveTintColor={'grey'}
+                    scrollEnabled={false}
+                    labelStyle={styles.labelStyle}
+                    indicatorStyle={styles.indicatorStyle}
+                    style={styles.tabStyle}
+                />
             </View>
-        );
-    }
-
-    navigationHandler = (routeName) => {
-        const { navigation } = this.props
-        navigation.navigate(routeName);
+        )
     }
 }
 
-SearchTabView.propTypes = {
-    navigation: PropTypes.object.isRequired,
-};
-
-export default SearchTabView;
+export default SearchTabView

@@ -1,15 +1,15 @@
-import { connect } from 'react-redux';
-import SearchTabView from './SearchTabView';
-import { search, reset } from '../../../reducers/SearchReducer/actions';
+import { connect } from 'react-redux'
+import SearchTabView from './SearchTabView'
+import { setQuery, reset } from '../../../reducers/SearchReducer/actions'
 
 const mapStateToProps = state => {
     return {
     }
-};
+}
 
 const mapDispatchToProps = {
-    search,
+    setQuery,
     reset
-};
+}
 
-export default connect(mapStateToProps, mapDispatchToProps)(SearchTabView);
+export default connect(mapStateToProps, mapDispatchToProps)(SearchTabView)

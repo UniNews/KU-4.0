@@ -1,45 +1,43 @@
-import * as types from './actionTypes';
+import * as types from './actionTypes'
 
 const initialState = {
-    loading: false,
+    newsLoading: false,
     news: null,
     user: null,
-    error: false,
+    newsError: false,
     query: '',
-};
+}
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
-        case types.SEARCH_LOADING:
+        case types.SET_QUERY:
             return {
                 ...state,
-                loading: true,
-                error: false,
+                newsLoading: true,
+                newsError: false,
                 news: null,
                 user: null,
                 query: action.payload
-            };
-        case types.SEARCH_OK:
+            }
+        case types.NEWS_SEARCH_OK:
             return {
                 ...state,
-                loading: false,
-                error: false,
+                newsLoading: false,
+                newsError: false,
                 news: action.payload.news,
-                user: action.payload.user,
-            };
-        case types.SEARCH_FAIL:
+            }
+        case types.NEWS_SEARCH_FAIL:
             return {
                 ...state,
-                loading: false,
+                newsLoading: false,
+                newsError: true,
                 news: null,
-                user: null,
-                error: true,
-            };
+            }
         case types.SEARCH_RESET:
-            return initialState;
+            return initialState
         default:
-            return state;
+            return state
     }
-};
+}
 
-export default reducer;
+export default reducer

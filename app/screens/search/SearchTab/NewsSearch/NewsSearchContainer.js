@@ -1,5 +1,5 @@
-import { connect } from 'react-redux';
-import NewsSearchView from './NewsSearchView';
+import { connect } from 'react-redux'
+import NewsSearchView from './NewsSearchView'
 
 const mapStateToProps = state => {
     return {
@@ -8,10 +8,10 @@ const mapStateToProps = state => {
         error: state.searchReducer.error,
         query: state.searchReducer.query
     }
-};
+}
 
 const mapDispatchToProps = {
 
-};
+}
 
-export default connect(mapStateToProps, mapDispatchToProps)(NewsSearchView);
+export default connect(mapStateToProps, mapDispatchToProps)(NewsSearchView)

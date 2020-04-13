@@ -47,7 +47,6 @@ export function register(username, password) {
         ] = `Bearer ${user.accessToken}`
         const payload = await service.getProfile()
         await AsyncStorage.setItem('accessToken', user.accessToken);
-        console.log(payload.data)
         dispatch(userOk(payload.data))
       })
       .catch((err) => {

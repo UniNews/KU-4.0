@@ -1,2 +1,2 @@
-import SearchTabContainer from './SearchTabContainer';
-export default SearchTabContainer;
+import SearchTabContainer from './SearchTabContainer'
+export default SearchTabContainer

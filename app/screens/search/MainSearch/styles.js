@@ -37,7 +37,8 @@ export default StyleSheet.create({
         marginHorizontal: 5,
         flexDirection: 'row',
         alignItems: 'center',
-        padding: 10,
+        padding: 5,
+        borderRadius: 30,
     },
     tagText: {
         flex: 1,

@@ -63,4 +63,8 @@ export default {
             headers: { 'Content-Type': 'application/json' }
         })
     },
+    getNewsByTag: (tag, page) => {
+        const offset = (page - 1) * ARTICLES_PER_PAGE
+        return axios.get(`${constants.API_URL}/articles/news/?offset=${offset}&limit=${ARTICLES_PER_PAGE}&tag=${tag}`)
+    }
 }

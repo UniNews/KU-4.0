@@ -3,7 +3,7 @@ import { createAppContainer, createSwitchNavigator } from 'react-navigation'
 import { createBottomTabNavigator, createMaterialTopTabNavigator } from 'react-navigation-tabs'
 import { createStackNavigator } from 'react-navigation-stack'
 import { FontAwesome } from '@expo/vector-icons'
-import SearchTab from '../components/search/SearchTab'
+import SearchTab from '../screens/search/SearchTab'
 import NotificationScreen from '../screens/notification/Notification'
 import MyProfileScreen from '../screens/profile/MyProfile'
 import UserProfileScreen from '../screens/profile/UserProfile'
@@ -23,12 +23,11 @@ import FollowerScreen from '../screens/profile/Follower'
 import CommentScreen from '../screens/news/Comment'
 import CommunityTab from '../screens/community/CommunityTab'
 import MainSearchScreen from '../screens/search/MainSearch'
-import NewsSearchScreen from '../screens/search/NewsSearch'
-import ProfileSearchScreen from '../screens/search/ProfileSearch'
 import AnyNewsScreen from '../screens/news/AnyNews'
 import AuthLoadingScreen from '../screens/auth/Loading'
 import TabBar from '../components/commons/TabBar'
 import PostCommunityScreen from '../screens/community/PostCommunity'
+import TagNewsScreen from '../screens/news/TagNews'
 
 const newsTab = createMaterialTopTabNavigator({
   'สำหรับคุณ': RecommendationScreen,
@@ -110,26 +109,26 @@ const profileStack = createStackNavigator({
   }
 )
 
-const searchTab = createMaterialTopTabNavigator({
-  'ข่าว': NewsSearchScreen,
-  'โปรไฟล์': ProfileSearchScreen,
-}, {
-  tabBarComponent: SearchTab,
-  swipeEnabled: true,
-  tabBarOptions: {
-    scrollEnabled: true,
-  },
-})
+// const searchTab = createMaterialTopTabNavigator({
+//   'ข่าว': NewsSearchScreen,
+//   'โปรไฟล์': ProfileSearchScreen,
+// }, {
+//   tabBarComponent: SearchTab,
+//   swipeEnabled: true,
+//   tabBarOptions: {
+//     scrollEnabled: true,
+//   },
+// })
 
 const searchStack = createStackNavigator({
   MainSearch: MainSearchScreen,
-  SearchTab: searchTab,
   Following: FollowingScreen,
   Follower: FollowerScreen,
   AnyNews: AnyNewsScreen,
   ProfileDetail: UserProfileScreen,
   CommunityDetail: CommunityDetailScreen,
   NewsDetail: NewsDetailScreen,
+  TagNews: TagNewsScreen
 },
   {
     headerMode: 'none',
@@ -160,6 +159,7 @@ const notificationStack = createStackNavigator({
 const tabNavigator = createBottomTabNavigator({
   'หน้าหลัก': newsStack,
   'พูดคุย': communityStack,
+  'ค้นหา': SearchTab,
   'แจ้งเตือน': notificationStack,
   'โปรไฟล์': profileStack,
 },
@@ -184,6 +184,10 @@ const tabNavigator = createBottomTabNavigator({
         else if (routeName === 'โปรไฟล์') {
           iconName = 'user'
           size = 26
+        }
+        else if (routeName === 'ค้นหา') {
+          iconName = 'search'
+          size = 23
         }
         return <IconComponent name={iconName} size={size} color={tintColor} />
       },
