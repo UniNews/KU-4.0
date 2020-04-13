@@ -66,5 +66,9 @@ export default {
     getNewsByTag: (tag, page) => {
         const offset = (page - 1) * ARTICLES_PER_PAGE
         return axios.get(`${constants.API_URL}/articles/news/?offset=${offset}&limit=${ARTICLES_PER_PAGE}&tag=${tag}`)
+    },
+    getCommunitiesByTag: (tag, page) => {
+        const offset = (page - 1) * ARTICLES_PER_PAGE
+        return axios.get(`${constants.API_URL}/articles/communities/?offset=${offset}&limit=${ARTICLES_PER_PAGE}&tag=${tag}`)
     }
 }
