@@ -43,6 +43,7 @@ class DetailView extends React.Component {
                 refreshing: false,
                 error: true
             })
+            this.props.showModal()
         }
     }
 
