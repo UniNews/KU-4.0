@@ -33,9 +33,8 @@ class MyProfileView extends React.Component {
     }
 
     goProfileSetting = () => {
-        const { navigation, showModal } = this.props
+        const { navigation } = this.props
         navigation.navigate('ProfileSetting')
-        // showModal()
     }
 
     logout = () => {
