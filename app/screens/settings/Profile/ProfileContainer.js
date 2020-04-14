@@ -1,6 +1,7 @@
 import { connect } from 'react-redux'
 import ProfileView from './ProfileView'
 import { updateProfile } from '../../../reducers/UserReducer/actions'
+import { showModal } from '../../../reducers/ErrorModalReducer/actions'
 
 const mapStateToProps = state => {
     return {
@@ -10,7 +11,8 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = {
-    updateProfile
+    updateProfile,
+    showModal
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProfileView)
