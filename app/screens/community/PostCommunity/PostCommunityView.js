@@ -96,6 +96,7 @@ class PostCommunityView extends React.Component {
                 error: true,
                 loading: false
             })
+            this.props.showModal()
         }
     }
 
