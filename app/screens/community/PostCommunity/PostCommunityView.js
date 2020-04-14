@@ -80,16 +80,21 @@ class PostCommunityView extends React.Component {
         navigation.goBack()
     }
 
+    goCommunityDetail = (newsId) => {
+        this.props.navigation.replace('CommunityDetail', { newsId })
+    }
+
     postCommunity = async () => {
         try {
             this.setState({
                 loading: true
             })
             const { description, selectedTag } = this.state
-            await newsService.postCommunity(description, selectedTag.text)
+            const community = await newsService.postCommunity(description, selectedTag.text)
             this.setState({
                 loading: false
             })
+            this.goCommunityDetail(community.data._id)
         }
         catch (err) {
             this.setState({
