@@ -24,6 +24,7 @@ class LoadingView extends React.Component {
                 this.goLogin()
         } catch (err) {
             this.goLogin()
+            this.props.showModal()
         }
     }
 

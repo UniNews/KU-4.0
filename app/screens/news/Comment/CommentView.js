@@ -55,6 +55,7 @@ class CommentView extends React.Component {
         error: false,
         posting: false
       })
+      this.props.showModal()
     }
   }
 

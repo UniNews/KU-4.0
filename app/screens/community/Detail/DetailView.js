@@ -49,6 +49,7 @@ class DetailView extends React.Component {
                 fetching: false,
                 posting: false,
             })
+            this.props.showModal()
         }
     }
 
@@ -71,6 +72,7 @@ class DetailView extends React.Component {
                 fetching: false,
                 posting: false,
             })
+            this.props.showModal()
         }
     }
 

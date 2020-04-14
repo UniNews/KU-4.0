@@ -7,6 +7,8 @@ import Spinner from '../../../../components/commons/Spinner'
 import { PRIMARY_COLOR } from '../../../../assets/css/color'
 import Button from '../../../../components/commons/Button'
 import { Entypo } from '@expo/vector-icons'
+import { connect } from 'react-redux';
+import { showModal } from '../../../../reducers/ErrorModalReducer/actions';
 
 class HottestView extends React.Component {
 
@@ -41,6 +43,7 @@ class HottestView extends React.Component {
                 fetching: false,
                 refreshing: false
             })
+            this.props.showModal()
         }
     }
 
@@ -120,4 +123,15 @@ class HottestView extends React.Component {
     }
 }
 
-export default HottestView
+const mapStateToProps = (state) => {
+  return {
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    showModal
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(HottestView)

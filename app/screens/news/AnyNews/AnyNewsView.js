@@ -34,6 +34,7 @@ class ClubView extends React.Component {
                 loading: false,
                 error: true
             })
+            this.props.showModal()
         }
     }
 

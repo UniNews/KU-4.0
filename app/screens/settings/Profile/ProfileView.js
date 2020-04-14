@@ -77,6 +77,7 @@ class ProfileSettingView extends React.Component {
                 uploading: false,
                 error: true
             })
+            this.props.showModal()
         }
     }
 
