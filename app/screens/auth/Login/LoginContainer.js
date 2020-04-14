@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import LoginView from './LoginView';
 import { login, loginByFacebook, loginByGoogle } from '../../../reducers/UserReducer/actions';
+import { showModal } from '../../../reducers/ErrorModalReducer/actions';
 
 const mapStateToProps = state => {
     return {
@@ -12,7 +13,7 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = {
-    login, loginByFacebook, loginByGoogle
+    login, loginByFacebook, loginByGoogle, showModal
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginView);

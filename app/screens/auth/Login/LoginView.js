@@ -27,6 +27,7 @@ class LoginView extends React.Component {
         }
         else if (error && prevProps.error != error)
             AlertHelper.alert('error', 'เกิดข้อผิดพลาด', 'บัญชีผู้ใช้ หรือรหัสผ่านไม่ถูกต้อง')
+            this.props.showModal()
     }
 
     goRegister = () => {
