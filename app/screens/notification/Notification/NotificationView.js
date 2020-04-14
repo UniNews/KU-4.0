@@ -63,6 +63,7 @@ class NotificationView extends React.Component {
                 fetching: false,
                 refreshing: false
             })
+            this.props.showModal()
         }
     }
 
