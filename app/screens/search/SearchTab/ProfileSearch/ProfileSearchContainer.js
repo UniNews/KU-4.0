@@ -1,19 +1,15 @@
 import { connect } from 'react-redux'
 import ProfileSearchView from './ProfileSearchView'
-import { followUserById } from '../../../../reducers/UserReducer/actions'
+import { showModal } from '../../../../reducers/ErrorModalReducer/actions'
 
 const mapStateToProps = state => {
     return {
-        loading: state.searchReducer.loading,
-        result: state.searchReducer.user,
-        error: state.searchReducer.error,
-        query: state.searchReducer.query,
-        user: state.userReducer.user
+        query: state.searchReducer.query
     }
 }
 
 const mapDispatchToProps = {
-    followUserById
+    showModal
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ProfileSearchView)

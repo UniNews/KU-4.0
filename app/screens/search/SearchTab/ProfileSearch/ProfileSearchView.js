@@ -1,24 +1,34 @@
 import React from 'react'
-import { Text, View, ActivityIndicator, ScrollView, Keyboard } from 'react-native'
+import { View, FlatList, ActivityIndicator } from 'react-native'
 import styles from './styles'
-import { PRIMARY_COLOR } from '../../../../assets/css/color'
 import ProfileThread from '../../../../components/profile/ProfileThread'
-import Hr from '../../../../components/commons/Hr'
+import userService from '../../../../services/user'
+import Spinner from '../../../../components/commons/Spinner'
+import { PRIMARY_COLOR } from '../../../../assets/css/color'
+import searchService from '../../../../services/search'
 
 class ProfileSearchView extends React.Component {
 
     constructor(props) {
         super(props)
+        this.page = 1
+        this.onEndReachedCalledDuringMomentum = false
+        this.state = {
+            users: [],
+            loading: false,
+            error: false,
+            fetching: false,
+            refreshing: false,
+        }
     }
 
-    isFollowing = (profile) => {
-        const { user } = this.props
-        return user.following.indexOf(profile._id) > -1
-    }
-
-    follow = (id) => {
-        const { followUserById } = this.props
-        followUserById(id)
+    follow = (profile) => {
+        profile.isFollowing = !profile.isFollowing
+        this.setState({ users: [...this.state.users] })
+        if (profile.isFollowing)
+            userService.followUserById(profile._id)
+        else
+            userService.unfollowUserById(profile._id)
     }
 
     goProfile = (id) => {
@@ -28,46 +38,102 @@ class ProfileSearchView extends React.Component {
         })
     }
 
-    render() {
-        const { loading, user, error, query, result } = this.props
+    goBack = () => {
+        const { navigation } = this.props
+        navigation.goBack()
+    }
+
+    componentDidUpdate(prevProps) {
+        const { query } = this.props
+        if (query && prevProps.query != query) {
+            this.page = 1
+            this.setState({
+                loading: true
+            })
+            this.fetchUsers()
+        }
+    }
+
+    async fetchUsers() {
+        try {
+            const { query } = this.props
+            const res = await searchService.getUsersByName(query, this.page)
+            this.setState({
+                users: this.page === 1 ? res.data.users : [...this.state.users, ...res.data.users],
+                error: false,
+                loading: false,
+                fetching: false,
+                refreshing: false
+            })
+        }
+        catch (err) {
+            this.setState({
+                error: true,
+                loading: false,
+                fetching: false,
+                refreshing: false
+            })
+            const { showModal } = this.props
+            showModal()
+        }
+    }
+
+    onEndReached = () => {
+        if (!this.onEndReachedCalledDuringMomentum) {
+            this.setState({ fetching: true })
+            this.page += 1
+            this.fetchUsers()
+            this.onEndReachedCalledDuringMomentum = true
+        }
+    }
+
+    renderFooter = () => {
+        if (!this.state.fetching)
+            return null
         return (
-            <View style={styles.container}>
-                <ScrollView onScroll={() => Keyboard.dismiss()}>
-                    {
-                        loading ?
-                            <View style={styles.indicatorContainer}>
-                                <Text style={styles.indicatorText}>
-                                    กำลังค้นหา...
-                            </Text>
-                                <View style={styles.spinner}>
-                                    <ActivityIndicator color={PRIMARY_COLOR} size={17} />
-                                </View>
-                            </View>
-                            :
-                            result ?
-                                result.length > 0 ?
-                                    result.map((profile) => {
-                                        return (
-                                            <View style={styles.newsContainer} key={profile._id} >
-                                                <Hr />
-                                                <ProfileThread following={this.isFollowing(profile)} onFollowPressed={this.follow} onProfilePressed={this.goProfile} data={profile} />
-                                            </View>
-                                        )
-                                    })
-                                    :
-                                    <View style={styles.indicatorContainer}>
-                                        <Text style={styles.indicatorText}>
-                                            {'ไม่พบผลลัพธ์สำหรับ '}
-                                        </Text>
-                                        <Text style={styles.queryText}>
-                                            {query}
-                                        </Text>
-                                    </View>
-                                :
-                                null
-                    }
-                </ScrollView>
-            </View >
+            <ActivityIndicator
+                color={PRIMARY_COLOR}
+            />
+        )
+    }
+
+    renderItem = ({ item }) => {
+        return <View style={styles.profileThreadContainer} key={item._id}>
+            <ProfileThread following={item.isFollowing} onFollowPressed={this.follow} onProfilePressed={this.goProfile} data={item} />
+        </View>
+    }
+
+    onRefresh = () => {
+        this.setState({ refreshing: true })
+        this.page = 1
+        this.fetchUsers()
+    }
+
+    render() {
+        const { users, loading, refreshing } = this.state
+        return (
+            <View style={styles.containter}>
+                {
+                    !loading
+                        ?
+                        <FlatList
+                            refreshing={refreshing}
+                            onRefresh={this.onRefresh}
+                            keyExtractor={(news) => news._id}
+                            data={users}
+                            initialNumToRender={12}
+                            renderItem={this.renderItem}
+                            ListFooterComponent={this.renderFooter}
+                            onEndReachedThreshold={0.5}
+                            onEndReached={this.onEndReached}
+                            onMomentumScrollBegin={() => {
+                                this.onEndReachedCalledDuringMomentum = false
+                            }}
+                        />
+                        :
+                        <Spinner />
+                }
+            </View>
         )
     }
 }

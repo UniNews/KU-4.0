@@ -1,10 +1,11 @@
-import { StyleSheet, } from 'react-native'
+import { StyleSheet } from 'react-native'
+import { KU_SECONDARY_COLOR } from '../../../../assets/css/color'
 
 export default StyleSheet.create({
     containter: {
-        flex: 1
+        flex: 1,
     },
-    newsContainer: {
+    threadContainer: {
         backgroundColor: 'white',
         marginHorizontal: 10,
         marginVertical: 5,

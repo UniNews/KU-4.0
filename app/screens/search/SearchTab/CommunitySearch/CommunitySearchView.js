@@ -1,49 +1,32 @@
 import React from 'react'
-import { FlatList, View, ActivityIndicator } from 'react-native'
+import { View, ActivityIndicator, FlatList } from 'react-native'
 import styles from './styles'
-import NewsCard from '../../../../components/news/NewsThread'
+import Thread from '../../../../components/community/Thread'
 import searchService from '../../../../services/search'
 import Spinner from '../../../../components/commons/Spinner'
 import { PRIMARY_COLOR } from '../../../../assets/css/color'
 
-class NewsSearchView extends React.Component {
+class CommunitySearchView extends React.Component {
 
     constructor(props) {
         super(props)
         this.page = 1
         this.onEndReachedCalledDuringMomentum = false
         this.state = {
-            news: [],
+            communities: [],
             error: false,
+            loading: false,
             fetching: false,
-            refreshing: false,
-            loading: false
+            refreshing: false
         }
     }
 
-    componentDidUpdate(prevProps) {
-        const { query } = this.props
-        if (query && prevProps.query != query) {
-            this.page = 1
-            this.setState({
-                loading: true
-            })
-            this.fetchNews()
-        }
-    }
-
-    renderItem = ({ item }) => {
-        return <View key={item._id} style={styles.newsContainer}>
-            <NewsCard onNewsPressed={this.goNews} data={item} />
-        </View>
-    }
-
-    async fetchNews() {
+    async fetchCommunities() {
         try {
             const { query } = this.props
-            const res = await searchService.getNewsByDescription(query, this.page)
+            const res = await searchService.getCommunitiesByDescription(query, this.page)
             this.setState({
-                news: this.page === 1 ? res.data.articles : [...this.state.news, ...res.data.articles],
+                communities: this.page === 1 ? res.data.articles : [...this.state.communities, ...res.data.articles],
                 error: false,
                 loading: false,
                 fetching: false,
@@ -62,6 +45,22 @@ class NewsSearchView extends React.Component {
         }
     }
 
+    componentDidUpdate(prevProps) {
+        const { query } = this.props
+        if (query && prevProps.query != query) {
+            this.page = 1
+            this.setState({
+                loading: true
+            })
+            this.fetchCommunities()
+        }
+    }
+
+
+    renderItem = ({ item }) => {
+        return <Thread style={styles.threadContainer} key={item._id} data={item} onThreadPressed={this.onThreadPressed} />
+    }
+
     renderFooter = () => {
         if (!this.state.fetching)
             return null
@@ -75,29 +74,28 @@ class NewsSearchView extends React.Component {
     onRefresh = () => {
         this.setState({ refreshing: true })
         this.page = 1
-        this.fetchNews()
+        this.fetchCommunities()
     }
 
     onEndReached = () => {
         if (!this.onEndReachedCalledDuringMomentum) {
             this.setState({ fetching: true })
             this.page += 1
-            this.fetchNews()
+            this.fetchCommunities()
             this.onEndReachedCalledDuringMomentum = true
         }
     }
 
-    goNews = (newsId) => {
-        this.props.navigation.push('NewsDetail', { newsId })
+    onThreadPressed = (newsId) => {
+        this.props.navigation.push('CommunityDetail', { newsId })
     }
 
-    goBack = () => {
-        const { navigation } = this.props
-        navigation.goBack()
+    goPostCommunity = () => {
+        this.props.navigation.navigate('PostCommunity')
     }
 
     render() {
-        const { news, loading, refreshing } = this.state
+        const { communities, refreshing, loading } = this.state
         return (
             <View style={styles.containter}>
                 {
@@ -108,8 +106,8 @@ class NewsSearchView extends React.Component {
                         <FlatList
                             refreshing={refreshing}
                             onRefresh={this.onRefresh}
-                            keyExtractor={(news) => news._id}
-                            data={news}
+                            keyExtractor={(community) => community._id}
+                            data={communities}
                             initialNumToRender={10}
                             renderItem={this.renderItem}
                             ListFooterComponent={this.renderFooter}
@@ -125,4 +123,4 @@ class NewsSearchView extends React.Component {
     }
 }
 
-export default NewsSearchView
+export default CommunitySearchView

@@ -1,5 +1,5 @@
 import { connect } from 'react-redux'
-import NewsSearchView from './NewsSearchView'
+import CommunitySearchView from './CommunitySearchView'
 import { showModal } from '../../../../reducers/ErrorModalReducer/actions'
 
 const mapStateToProps = state => {
@@ -12,4 +12,4 @@ const mapDispatchToProps = {
     showModal
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(NewsSearchView)
+export default connect(mapStateToProps, mapDispatchToProps)(CommunitySearchView)

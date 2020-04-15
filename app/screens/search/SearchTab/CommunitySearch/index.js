@@ -1,0 +1,2 @@
+import CommunitySearchContainer from './CommunitySearchContainer'
+export default CommunitySearchContainer
