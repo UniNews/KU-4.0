@@ -9,6 +9,7 @@ import communityService from '../../../services/news'
 import { PRIMARY_COLOR } from '../../../assets/css/color'
 import Comment from '../../../components/commons/Comment'
 import Spinner from '../../../components/commons/Spinner'
+import PostPopupModal from '../../../components/modals/PostPopupModal'
 
 class DetailView extends React.Component {
 
@@ -22,6 +23,9 @@ class DetailView extends React.Component {
             refreshing: false,
             loading: true,
             error: false,
+            /* popup modal */
+            modal: false,
+            report: null
         }
     }
 
@@ -139,6 +143,25 @@ class DetailView extends React.Component {
         this.setState({ refreshing: false })
     }
 
+    showPopupModal = (commentId) => {
+        this.setState({
+            modal: true,
+            report: commentId
+        })
+    }
+
+    goReport = () => {
+        const { report } = this.state
+        this.closeModal()
+        this.props.navigation.push('PostReport', { report })
+    }
+
+    closeModal = () => {
+        this.setState({
+            modal: false
+        })
+    }
+
     renderComment = ({ item }) => {
         return <Comment
             style={styles.commentContainer}
@@ -146,11 +169,12 @@ class DetailView extends React.Component {
             onProfilePressed={this.goProfile}
             onLikePressed={() => this.likeComment(item)}
             data={item}
+            onReportPressed={this.showPopupModal} 
         />
     }
 
     renderHeader = () => {
-        const { community, comments } = this.state
+        const { community, comments, modal } = this.state
         return <View>
             <TouchableNativeFeedback>
                 <View style={styles.headerContainer}>
@@ -221,7 +245,7 @@ class DetailView extends React.Component {
     }
 
     render() {
-        const { myComment, loading, posting, comments, refreshing } = this.state
+        const { myComment, loading, posting, comments, refreshing, modal } = this.state
         return (
             <View style={styles.containter}>
                 <Header title={'ชุมชน'} leftIconComponent={
@@ -265,6 +289,7 @@ class DetailView extends React.Component {
                         }
                     </View>
                 </KeyboardAvoidingView>
+                <PostPopupModal onClosePressed={this.closeModal} onReportPressed={this.goReport} visible={modal} />
             </View>
         )
     }
