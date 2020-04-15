@@ -2,7 +2,7 @@ import React from 'react'
 import { Text, View, Modal, Alert } from 'react-native'
 import styles from './styles'
 import { MaterialIcons, AntDesign } from '@expo/vector-icons'
-import Button from '../Button'
+import Button from '../../commons/Button'
 
 class ErrorModalView extends React.Component {
 
