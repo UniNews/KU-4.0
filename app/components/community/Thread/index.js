@@ -4,6 +4,7 @@ import { FontAwesome, MaterialCommunityIcons, } from '@expo/vector-icons'
 import styles from './styles'
 import PropTypes from 'prop-types';
 import { convertTimestamptoDate } from '../../../assets/javascripts/date'
+import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
 
 class Thread extends Component {
 
@@ -29,6 +30,12 @@ class Thread extends Component {
             onCommentPressed(data.author._id)
     }
 
+    onReportPressHandler = () => {
+        const { onReportPressed, data } = this.props
+        if (onReportPressed)
+            onReportPressed(data._id)
+    }
+
     render() {
         const { data, style } = this.props
         let container = {}
@@ -37,14 +44,18 @@ class Thread extends Component {
         else
             container = styles.container
         return (
-            <TouchableNativeFeedback onPress={this.onThreadPressedHandler}>
+            <TouchableNativeFeedback
+                onLongPress={this.onReportPressHandler}
+                onPress={this.onThreadPressedHandler}>
                 <View style={container}>
                     <View style={styles.innerContainer}>
                         <View style={styles.nameContainer}>
                             <Text style={styles.nameText}>
                                 {data.author.displayName}
                             </Text>
-                            <MaterialCommunityIcons style={styles.icon} name='dots-vertical' size={15} color='black' />
+                            {/* <TouchableWithoutFeedback onPress={this.onReportPressHandler} >
+                                <MaterialCommunityIcons style={styles.dotIcon} name='dots-vertical' size={20} color='black' />
+                            </TouchableWithoutFeedback> */}
                         </View>
                         <View style={styles.iconContainer}>
                             <FontAwesome name='clock-o' size={15} color='grey' />
@@ -106,6 +117,7 @@ Thread.propTypes = {
     ).isRequired,
     onLikePressed: PropTypes.func,
     onCommentPressed: PropTypes.func,
+    onReportPressed: PropTypes.func
 }
 
 Thread.defaultProps = {

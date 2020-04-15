@@ -5,6 +5,7 @@ import NewsCard from '../../../components/news/NewsThread'
 import newsService from '../../../services/news'
 import Spinner from '../../../components/commons/Spinner'
 import { PRIMARY_COLOR } from '../../../assets/css/color'
+import PostPopupModal from '../../../components/modals/PostPopupModal'
 
 class UniversityView extends React.Component {
 
@@ -17,7 +18,10 @@ class UniversityView extends React.Component {
             error: false,
             fetching: false,
             refreshing: false,
-            loading: true
+            loading: true,
+            /* popup modal */
+            modal: false,
+            report: null
         }
     }
 
@@ -27,7 +31,7 @@ class UniversityView extends React.Component {
 
     renderItem = ({ item }) => {
         return <View key={item._id} style={styles.newsContainer}>
-            <NewsCard onNewsPressed={this.goNews} data={item} />
+            <NewsCard onReportPressed={this.showPopupModal} onNewsPressed={this.goNews} data={item} />
         </View>
     }
 
@@ -82,8 +86,27 @@ class UniversityView extends React.Component {
         this.props.navigation.push('NewsDetail', { newsId })
     }
 
+    showPopupModal = (newsId) => {
+        this.setState({
+            modal: true,
+            report: newsId
+        })
+    }
+
+    goReport = () => {
+        const { report } = this.state
+        this.closeModal()
+        this.props.navigation.push('PostReport', { report })
+    }
+
+    closeModal = () => {
+        this.setState({
+            modal: false
+        })
+    }
+
     render() {
-        const { news, loading, refreshing } = this.state
+        const { news, loading, refreshing, modal } = this.state
         return (
             <View style={styles.containter}>
                 {
@@ -106,6 +129,7 @@ class UniversityView extends React.Component {
                             }}
                         />
                 }
+                <PostPopupModal onClosePressed={this.closeModal} onReportPressed={this.goReport} visible={modal} />
             </View>
         )
     }

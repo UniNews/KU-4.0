@@ -27,6 +27,12 @@ class Comment extends Component {
     if (onProfilePressed) onProfilePressed(data.author._id)
   }
 
+  onReportPressHandler = () => {
+    const { onReportPressed, data } = this.props
+    if (onReportPressed)
+      onReportPressed(data._id)
+  }
+
   render() {
     const { data, liked, style } = this.props
     let profileContainer = []
@@ -35,7 +41,9 @@ class Comment extends Component {
     else
       profileContainer = styles.profileContainer
     return (
-      <TouchableNativeFeedback>
+      <TouchableNativeFeedback
+        onLongPress={this.onReportPressHandler}
+      >
         <View style={profileContainer}>
           <View style={styles.infoContainer}>
             <TouchableWithoutFeedback onPress={this.onProfilePressedHandler}>
@@ -49,7 +57,9 @@ class Comment extends Component {
                 <Text style={styles.userText}>
                   {data.author ? data.author.displayName : null}
                 </Text>
-                <MaterialCommunityIcons name='dots-vertical' size={15} color='black' />
+                <TouchableWithoutFeedback onPress={this.onReportPressHandler}>
+                  <MaterialCommunityIcons name='dots-vertical' size={15} color='black' />
+                </TouchableWithoutFeedback>
               </View>
               <View style={styles.clockIconContainer}>
                 <FontAwesome name='clock-o' size={15} color='grey' />

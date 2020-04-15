@@ -4,6 +4,7 @@ import { setQuery, reset } from '../../../reducers/SearchReducer/actions'
 
 const mapStateToProps = state => {
     return {
+        // query: state.searchReduer.query,
     }
 }
 

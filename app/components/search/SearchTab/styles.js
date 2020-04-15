@@ -13,7 +13,7 @@ export default StyleSheet.create({
         borderRadius: 20,
     },
     clearIconContainer: {
-        paddingHorizontal: 10
+        paddingHorizontal: 10,
     },
     textInputField: {
         flex: 1,
@@ -27,11 +27,13 @@ export default StyleSheet.create({
         textAlign: 'center',
     },
     indicatorStyle: {
-        marginBottom: 3,
-        // backgroundColor: 'white',
+        // marginBottom: 3,
         backgroundColor: KU_SECONDARY_COLOR,
     },
     tabStyle: {
         backgroundColor: 'transparent',
-    }
+    },
+    searchIconContainer: {
+        paddingLeft: 15
+    },
 })

@@ -10,7 +10,7 @@ import DropdownAlert from 'react-native-dropdownalert'
 import { AlertHelper } from './app/configs/alertHelper'
 import { BOLD_FONT, REGULAR_FONT } from './app/assets/css/typography'
 import SafeAreaView from './app/components/commons/SafeAreaView'
-import ErrorModal from './app/components/commons/ErrorModal'
+import ErrorModal from './app/components/modals/ErrorModal'
 
 const store = createStore(reducers, applyMiddleware(thunkMiddleware))
 

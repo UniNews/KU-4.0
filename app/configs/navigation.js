@@ -3,7 +3,7 @@ import { createAppContainer, createSwitchNavigator } from 'react-navigation'
 import { createBottomTabNavigator, createMaterialTopTabNavigator } from 'react-navigation-tabs'
 import { createStackNavigator } from 'react-navigation-stack'
 import { FontAwesome } from '@expo/vector-icons'
-import SearchTab from '../screens/search/SearchTab'
+import SearchTabScreen from '../screens/search/SearchTab'
 import NotificationScreen from '../screens/notification/Notification'
 import MyProfileScreen from '../screens/profile/MyProfile'
 import UserProfileScreen from '../screens/profile/UserProfile'
@@ -29,6 +29,7 @@ import AuthLoadingScreen from '../screens/auth/Loading'
 import TabBar from '../components/commons/TabBar'
 import PostCommunityScreen from '../screens/community/PostCommunity'
 import TagNewsScreen from '../screens/news/TagNews'
+import PostReportScreen from '../screens/report/PostReport'
 
 const newsTab = createMaterialTopTabNavigator({
   'สำหรับคุณ': RecommendationScreen,
@@ -159,10 +160,28 @@ const notificationStack = createStackNavigator({
   }
 )
 
+const searchStack = createStackNavigator({
+  SearchTab: SearchTabScreen,
+  Following: FollowingScreen,
+  Follower: FollowerScreen,
+  AnyNews: AnyNewsScreen,
+  ProfileDetail: UserProfileScreen,
+  CommunityDetail: CommunityDetailScreen,
+  NewsDetail: NewsDetailScreen,
+  Comment: CommentScreen,
+},
+  {
+    headerMode: 'none',
+    navigationOptions: {
+      headerVisible: false,
+    }
+  }
+)
+
 const tabNavigator = createBottomTabNavigator({
   'หน้าหลัก': newsStack,
   'พูดคุย': communityStack,
-  'ค้นหา': SearchTab,
+  'ค้นหา': searchStack,
   'แจ้งเตือน': notificationStack,
   'โปรไฟล์': profileStack,
 },
@@ -208,10 +227,9 @@ const tabNavigator = createBottomTabNavigator({
   }
 )
 
-
 const tabStack = createStackNavigator({
   Tabs: tabNavigator,
-  // Search: searchStack
+  PostReport: PostReportScreen
 },
   {
     headerMode: 'none',

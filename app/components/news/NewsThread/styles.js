@@ -1,8 +1,8 @@
-import { StyleSheet, Platform } from 'react-native';
-import { BOLD_FONT, REGULAR_FONT } from '../../../assets/css/typography';
-import { KU_SECONDARY_COLOR } from '../../../assets/css/color';
+import { StyleSheet, Platform } from 'react-native'
+import { BOLD_FONT, REGULAR_FONT } from '../../../assets/css/typography'
+import { KU_SECONDARY_COLOR } from '../../../assets/css/color'
 
-const entryBorderRadius = 10;
+const entryBorderRadius = 10
 
 export default StyleSheet.create({
     container: {
@@ -19,15 +19,11 @@ export default StyleSheet.create({
     },
     rightContainer: {
         flex: 4,
+        flexDirection: 'row'
     },
-    bottomContainer: {
-        flex: 1,
-        flexDirection: 'row',
-        paddingTop: 5,
-    },
-
     imageContainer: {
         height: 100,
+        flex: 1
     },
     image: {
         ...StyleSheet.absoluteFillObject,
@@ -64,7 +60,9 @@ export default StyleSheet.create({
         fontFamily: REGULAR_FONT,
     },
     iconContainer: {
-        flex: 1,
-        flexDirection: 'row-reverse',
+        flexDirection: 'row',
+    },
+    descriptionContainer: {
+        paddingVertical: 10,
     }
-});
+})

@@ -46,4 +46,9 @@ export default StyleSheet.create({
         fontSize: 13,
         fontFamily: REGULAR_FONT,
     },
+    // dotIcon: {
+    //     width: 30,
+    //     backgroundColor: 'red',
+    //     textAlign: 'right'
+    // }
 });

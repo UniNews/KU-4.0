@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
 import { View, Text, Image, TouchableOpacity, TouchableNativeFeedback } from 'react-native'
 import styles from './styles'
-import PropTypes from 'prop-types';
+import PropTypes from 'prop-types'
 import { convertTimestamptoDate } from '../../../assets/javascripts/date'
-import { FontAwesome, } from '@expo/vector-icons'
+import { FontAwesome } from '@expo/vector-icons'
 
 class NewsCard extends Component {
 
@@ -35,11 +35,17 @@ class NewsCard extends Component {
             onProfilePressed(profileId)
     }
 
+    onReportPressHandler = () => {
+        const { onReportPressed, data } = this.props
+        if (onReportPressed)
+            onReportPressed(data._id)
+    }
+
     render() {
         const { style, data, onNewsPressed, ...restProps } = this.props
         return (
             <TouchableNativeFeedback
-                activeOpacity={1}
+                onLongPress={this.onReportPressHandler}
                 onPress={() =>
                     this.onNewsPressedHandler(data._id)
                 }
@@ -51,10 +57,46 @@ class NewsCard extends Component {
                             <Text style={styles.nameText}>
                                 {data.author.displayName}
                             </Text>
-                            <View style={{ paddingTop: 5 }}>
+                            <View style={styles.icon}>
+                                <FontAwesome name='clock-o' size={15} color='grey' />
+                                <Text style={styles.date}>
+                                    {` ${convertTimestamptoDate(data.createdAt)}`}
+                                </Text>
+                            </View>
+                            <View style={styles.descriptionContainer}>
                                 <Text numberOfLines={2} style={styles.title}>
                                     {data.title}
                                 </Text>
+                            </View>
+                            <View style={styles.iconContainer}>
+                                <TouchableOpacity onPress={
+                                    this.onLikePressedHandler
+                                }>
+                                    <View style={styles.icon}>
+
+                                        <FontAwesome name='heart-o' size={15} color='grey' />
+                                        <Text style={styles.numberText}>
+                                            {data.like ? data.like.length : 0}
+                                        </Text>
+                                        <Text style={styles.indicatorText}>
+                                            {` ถูกใจ`}
+                                        </Text>
+                                    </View>
+                                </TouchableOpacity>
+                                <TouchableOpacity onPress={
+                                    this.onCommentPressedHandler
+                                }>
+                                    <View style={styles.icon}>
+
+                                        <FontAwesome name='commenting-o' size={15} color='grey' />
+                                        <Text style={styles.numberText}>
+                                            {data.comments ? data.comments.length : 0}
+                                        </Text>
+                                        <Text style={styles.indicatorText}>
+                                            {` ความเห็น`}
+                                        </Text>
+                                    </View>
+                                </TouchableOpacity>
                             </View>
                         </View>
                         <View style={styles.rightContainer}>
@@ -63,46 +105,6 @@ class NewsCard extends Component {
                                     source={{ uri: data.imageURL }}
                                     style={styles.image}
                                 />
-                            </View>
-                        </View>
-                    </View>
-                    <View style={styles.bottomContainer}>
-                        <View style={styles.icon}>
-                            <TouchableOpacity onPress={
-                                this.onLikePressedHandler
-                            }>
-                                <FontAwesome name='clock-o' size={15} color='grey' />
-                            </TouchableOpacity>
-                            <Text style={styles.date}>
-                                {` ${convertTimestamptoDate(data.createdAt)}`}
-                            </Text>
-                        </View>
-                        <View style={styles.iconContainer}>
-                            <View style={styles.icon}>
-                                <TouchableOpacity onPress={
-                                    this.onCommentPressedHandler
-                                }>
-                                    <FontAwesome name='commenting-o' size={15} color='grey' />
-                                </TouchableOpacity>
-                                <Text style={styles.numberText}>
-                                    {data.comments ? data.comments.length : 0}
-                                </Text>
-                                <Text style={styles.indicatorText}>
-                                    {` ความเห็น`}
-                                </Text>
-                            </View>
-                            <View style={styles.icon}>
-                                <TouchableOpacity onPress={
-                                    this.onLikePressedHandler
-                                }>
-                                    <FontAwesome name='heart-o' size={15} color='grey' />
-                                </TouchableOpacity>
-                                <Text style={styles.numberText}>
-                                    {data.like ? data.like.length : 0}
-                                </Text>
-                                <Text style={styles.indicatorText}>
-                                    {` ถูกใจ`}
-                                </Text>
                             </View>
                         </View>
                     </View>
@@ -127,6 +129,7 @@ NewsCard.propTypes = {
     onProfilePressed: PropTypes.func,
     onLikePressed: PropTypes.func,
     onCommentPressed: PropTypes.func,
-};
+    onReportPressed: PropTypes.func
+}
 
-export default NewsCard;
+export default NewsCard

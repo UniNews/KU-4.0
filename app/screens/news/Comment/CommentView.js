@@ -19,6 +19,7 @@ import Spinner from '../../../components/commons/Spinner'
 import { STATUS_BAR_HEIGHT } from '../../../assets/css/device'
 
 class CommentView extends React.Component {
+
   constructor(props) {
     super(props)
     this.state = {

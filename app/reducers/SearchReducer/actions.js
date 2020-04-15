@@ -1,20 +1,11 @@
 import * as types from './actionTypes'
-import service from '../../services/search'
 
 const setSearchQuery = (payload) => {
-  return { type: types.SEARCH_QUERY, payload }
-}
-
-const articlesSearchOk = (payload, type) => {
-  return { type: types.SEARCH_OK, payload }
-}
-
-const articlesSearchFail = (type) => {
-  return { type: types.SEARCH_FAIL }
+  return { type: types.SET_QUERY, payload }
 }
 
 const searchReset = () => {
-  return { type: types.SEARCH_RESET }
+  return { type: types.RESET_QUERY }
 }
 
 export function setQuery(query) {
