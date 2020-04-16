@@ -71,11 +71,11 @@ export default {
         const offset = (page - 1) * ARTICLES_PER_PAGE
         return axios.get(`${constants.API_URL}/articles/communities/?offset=${offset}&limit=${ARTICLES_PER_PAGE}&tag=${tag}`)
     },
-    reportNews: (newsId, description) => {
+    report: (id, type, description) => {
         const json = {
             description,
-            type: 'article',
-            destinationId: newsId,
+            type,
+            destinationId: id,
         }
         return axios.post(`${constants.API_URL}/reports/`, json, {
             headers: { 'Content-Type': 'application/json' }

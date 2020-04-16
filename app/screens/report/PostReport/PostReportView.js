@@ -38,9 +38,9 @@ class PostReportView extends React.Component {
     report = async () => {
         const { description } = this.state
         const { navigation } = this.props
-        const { report } = this.props.navigation.state.params
+        const { report, type } = this.props.navigation.state.params
         if (description !== '') {
-            await newsService.reportNews(report, description)
+            await newsService.report(report, type, description)
             AlertHelper.alert('success', 'ส่งการรายงานแล้ว', 'ขอบคุณที่เสริมสร้างสังคม')
             navigation.goBack()
         }

@@ -58,7 +58,7 @@ class Comment extends Component {
                   {data.author ? data.author.displayName : null}
                 </Text>
                 <TouchableWithoutFeedback onPress={this.onReportPressHandler}>
-                  <MaterialCommunityIcons name='dots-vertical' size={15} color='black' />
+                  <MaterialCommunityIcons style={styles.dotIcon} name='dots-vertical' size={15} color='black' />
                 </TouchableWithoutFeedback>
               </View>
               <View style={styles.clockIconContainer}>

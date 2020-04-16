@@ -2,7 +2,7 @@ import React from 'react'
 import { View, TouchableWithoutFeedback, KeyboardAvoidingView, Image, Text, TouchableOpacity, TextInput, ActivityIndicator, TouchableNativeFeedback, FlatList } from 'react-native'
 import styles from './styles'
 import Header from '../../../components/commons/Header'
-import { FontAwesome, Feather, MaterialCommunityIcons } from '@expo/vector-icons'
+import { FontAwesome, Feather, MaterialCommunityIcons, MaterialIcons, AntDesign } from '@expo/vector-icons'
 import Button from '../../../components/commons/Button'
 import { convertTimestamptoDate } from '../../../assets/javascripts/date'
 import communityService from '../../../services/news'
@@ -25,7 +25,8 @@ class DetailView extends React.Component {
             error: false,
             /* popup modal */
             modal: false,
-            report: null
+            report: '',
+            type: '',
         }
     }
 
@@ -143,17 +144,26 @@ class DetailView extends React.Component {
         this.setState({ refreshing: false })
     }
 
-    showPopupModal = (commentId) => {
+    showArticlePopupModal = (articleId) => {
         this.setState({
             modal: true,
-            report: commentId
+            report: articleId,
+            type: 'article'
+        })
+    }
+
+    showCommentPopupModal = (commentId) => {
+        this.setState({
+            modal: true,
+            report: commentId,
+            type: 'comment'
         })
     }
 
     goReport = () => {
-        const { report } = this.state
+        const { report, type } = this.state
         this.closeModal()
-        this.props.navigation.push('PostReport', { report })
+        this.props.navigation.push('PostReport', { report, type })
     }
 
     closeModal = () => {
@@ -169,14 +179,14 @@ class DetailView extends React.Component {
             onProfilePressed={this.goProfile}
             onLikePressed={() => this.likeComment(item)}
             data={item}
-            onReportPressed={this.showPopupModal} 
+            onReportPressed={this.showCommentPopupModal}
         />
     }
 
     renderHeader = () => {
-        const { community, comments, modal } = this.state
+        const { community, comments } = this.state
         return <View>
-            <TouchableNativeFeedback>
+            <TouchableNativeFeedback onLongPress={() => this.showArticlePopupModal(community._id)}>
                 <View style={styles.headerContainer}>
                     <View style={styles.contentContainer}>
                         <View style={styles.profileContainer}>
@@ -192,7 +202,7 @@ class DetailView extends React.Component {
                                         <Text style={styles.userText}>
                                             {community.author?.displayName}
                                         </Text>
-                                        <MaterialCommunityIcons style={styles.dotIcon} name='dots-vertical' size={15} color='black' />
+                                        {/* <MaterialCommunityIcons style={styles.dotIcon} name='dots-vertical' size={17} color='black' /> */}
                                     </View>
                                     <View style={styles.clockIconContainer}>
                                         <FontAwesome name='clock-o' size={15} color='grey' />
@@ -245,12 +255,18 @@ class DetailView extends React.Component {
     }
 
     render() {
-        const { myComment, loading, posting, comments, refreshing, modal } = this.state
+        const { myComment, loading, posting, comments, refreshing, modal, community } = this.state
         return (
             <View style={styles.containter}>
-                <Header title={'ชุมชน'} leftIconComponent={
-                    <Feather color='white' onPress={this.goBack} size={28} name={'chevron-left'} />
-                }
+                <Header title={'ชุมชน'}
+                    leftIconComponent={
+                        <Feather color='white' onPress={this.goBack} size={28} name={'chevron-left'} />
+                    }
+                    rightIconComponent={
+                        <MaterialCommunityIcons style={styles.dotIcon} onPress={() => {
+                            this.showArticlePopupModal(community._id)
+                        }} color='white' name='dots-vertical' size={25} />
+                    }
                 />
                 <KeyboardAvoidingView style={styles.keyboard} behavior='height'>
                     {

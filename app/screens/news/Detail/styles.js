@@ -82,4 +82,8 @@ export default StyleSheet.create({
         fontFamily: BOLD_FONT,
         fontSize: 15
     },
+    dotIcon: {
+        paddingTop: 3,
+        paddingRight: 3,
+    },
 })

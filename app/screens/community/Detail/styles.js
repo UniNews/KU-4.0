@@ -116,7 +116,8 @@ export default StyleSheet.create({
         justifyContent: 'space-between'
     },
     dotIcon: {
-        // alignSelf: 'flex-end'
+        paddingTop: 3,
+        paddingRight: 3,
     },
     infoGap: {
         paddingHorizontal: 10,

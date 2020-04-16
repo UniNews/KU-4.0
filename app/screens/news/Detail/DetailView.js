@@ -2,12 +2,13 @@ import React from 'react'
 import { Text, View, ImageBackground, Image, Linking, ScrollView, TouchableOpacity, TouchableWithoutFeedback, RefreshControl } from 'react-native'
 import styles from './styles'
 import Hyperlink from 'react-native-hyperlink'
-import { FontAwesome, Feather } from '@expo/vector-icons'
+import { FontAwesome, Feather, MaterialCommunityIcons } from '@expo/vector-icons'
 import Hr from '../../../components/commons/Hr'
 import Header from '../../../components/commons/Header'
 import newsService from '../../../services/news'
 import { convertTimestamptoDate } from '../../../assets/javascripts/date'
 import Spinner from '../../../components/commons/Spinner'
+import PostPopupModal from '../../../components/modals/PostPopupModal'
 
 class DetailView extends React.Component {
 
@@ -17,7 +18,8 @@ class DetailView extends React.Component {
             news: {},
             loading: true,
             refreshing: false,
-            error: false
+            error: false,
+            modal: false
         }
     }
 
@@ -60,6 +62,18 @@ class DetailView extends React.Component {
         })
     }
 
+    goReport = () => {
+        const { news } = this.state
+        this.closeModal()
+        this.props.navigation.push('PostReport', { report: news._id, type: 'article' })
+    }
+
+    closeModal = () => {
+        this.setState({
+            modal: false
+        })
+    }
+
     onRefresh = () => {
         this.setState({ refreshing: true })
         this.fetchNews()
@@ -70,13 +84,24 @@ class DetailView extends React.Component {
         this.props.navigation.push('Comment', { newsId: newsId })
     }
 
+    showPopupModal = () => {
+        this.setState({
+            modal: true,
+        })
+    }
+
     render() {
-        const { news, loading, refreshing } = this.state
+        const { news, loading, refreshing, modal } = this.state
         return (
             <View style={styles.container}>
-                <Header title={'ข่าวมหาลัย'} leftIconComponent={
-                    <Feather color='white' onPress={this.goBack} size={28} name={'chevron-left'} />
-                } />
+                <Header title={'ข่าวมหาลัย'}
+                    leftIconComponent={
+                        <Feather color='white' onPress={this.goBack} size={28} name={'chevron-left'} />
+                    }
+                    rightIconComponent={
+                        <MaterialCommunityIcons style={styles.dotIcon} onPress={this.showPopupModal} color='white' name='dots-vertical' size={25} />
+                    }
+                />
                 {
                     !loading ?
                         <ScrollView refreshControl={
@@ -139,9 +164,10 @@ class DetailView extends React.Component {
                         :
                         <Spinner />
                 }
+                <PostPopupModal onClosePressed={this.closeModal} onReportPressed={this.goReport} visible={modal} />
             </View>
-        );
+        )
     }
 }
 
-export default DetailView;
+export default DetailView

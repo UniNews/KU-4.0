@@ -108,22 +108,22 @@ class CommentView extends React.Component {
   }
 
   showPopupModal = (commentId) => {
-      this.setState({
-          modal: true,
-          report: commentId
-      })
+    this.setState({
+      modal: true,
+      report: commentId
+    })
   }
 
   goReport = () => {
-      const { report } = this.state
-      this.closeModal()
-      this.props.navigation.push('PostReport', { report })
+    const { report } = this.state
+    this.closeModal()
+    this.props.navigation.push('PostReport', { report, type: 'comment' })
   }
 
   closeModal = () => {
-      this.setState({
-          modal: false
-      })
+    this.setState({
+      modal: false
+    })
   }
 
   render() {
@@ -164,7 +164,7 @@ class CommentView extends React.Component {
                     onProfilePressed={this.goProfile}
                     onLikePressed={() => this.likeComment(comment)}
                     data={comment}
-                    onReportPressed={this.showPopupModal} 
+                    onReportPressed={this.showPopupModal}
                   />
                 )
               })}
