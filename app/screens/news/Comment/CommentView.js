@@ -17,6 +17,7 @@ import { Feather } from '@expo/vector-icons'
 import Button from '../../../components/commons/Button'
 import Spinner from '../../../components/commons/Spinner'
 import { STATUS_BAR_HEIGHT } from '../../../assets/css/device'
+import PostPopupModal from '../../../components/modals/PostPopupModal'
 
 class CommentView extends React.Component {
 
@@ -28,7 +29,10 @@ class CommentView extends React.Component {
       msg: '',
       refreshing: false,
       posting: false,
-      error: false
+      error: false,
+      /* popup modal */
+      modal: false,
+      report: null
     }
   }
 
@@ -103,8 +107,27 @@ class CommentView extends React.Component {
     })
   }
 
+  showPopupModal = (commentId) => {
+      this.setState({
+          modal: true,
+          report: commentId
+      })
+  }
+
+  goReport = () => {
+      const { report } = this.state
+      this.closeModal()
+      this.props.navigation.push('PostReport', { report })
+  }
+
+  closeModal = () => {
+      this.setState({
+          modal: false
+      })
+  }
+
   render() {
-    const { comments, loading, refreshing, posting, msg } = this.state
+    const { comments, loading, refreshing, posting, msg, modal } = this.state
     return (
       <View style={styles.container}>
         <Header
@@ -141,6 +164,7 @@ class CommentView extends React.Component {
                     onProfilePressed={this.goProfile}
                     onLikePressed={() => this.likeComment(comment)}
                     data={comment}
+                    onReportPressed={this.showPopupModal} 
                   />
                 )
               })}
@@ -168,6 +192,7 @@ class CommentView extends React.Component {
               )}
           </View>
         </KeyboardAvoidingView>
+        <PostPopupModal onClosePressed={this.closeModal} onReportPressed={this.goReport} visible={modal} />
       </View>
     )
   }
