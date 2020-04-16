@@ -11,7 +11,6 @@ class NotificationView extends React.Component {
 
     constructor(props) {
         super(props)
-        this.page = 1
         this.onEndReachedCalledDuringMomentum = false
         this.state = {
             notifications: [],
@@ -48,9 +47,10 @@ class NotificationView extends React.Component {
 
     async fetchNotifications() {
         try {
-            const res = await notificationsService.getNotifications(this.page)
+            const { getNotifications, notifications } = this.props
+            await getNotifications()
             this.setState({
-                notifications: this.page === 1 ? res.data.notifications : [...this.state.notifications, ...res.data.notifications],
+                notifications: notifications,
                 error: false,
                 loading: false,
                 fetching: false,
@@ -84,17 +84,7 @@ class NotificationView extends React.Component {
 
     onRefresh = () => {
         this.setState({ refreshing: true })
-        this.page = 1
         this.fetchNotifications()
-    }
-
-    onEndReached = () => {
-        if (!this.onEndReachedCalledDuringMomentum) {
-            this.setState({ fetching: true })
-            this.page += 1
-            this.fetchNotifications()
-            this.onEndReachedCalledDuringMomentum = true
-        }
     }
 
     render() {
@@ -116,8 +106,6 @@ class NotificationView extends React.Component {
                             initialNumToRender={10}
                             renderItem={this.renderItem}
                             ListFooterComponent={this.renderFooter}
-                            onEndReachedThreshold={0.5}
-                            onEndReached={this.onEndReached}
                             onMomentumScrollBegin={() => {
                                 this.onEndReachedCalledDuringMomentum = false
                             }}

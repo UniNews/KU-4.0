@@ -4,6 +4,7 @@ const initialState = {
     loading: false,
     notifications: [],
     error: false,
+    unreadNotifications:[]
 }
 
 const reducer = (state = initialState, action) => {
@@ -27,6 +28,13 @@ const reducer = (state = initialState, action) => {
                 loading: false,
                 notifications: [],
                 error: true,
+            }
+        case types.NOTIFICATION_UNREAD_OK:
+            return {
+                ...state,
+                loading: false,
+                error: false,
+                unreadNotifications: action.payload,
             }
         default:
             return state
