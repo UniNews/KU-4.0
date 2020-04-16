@@ -2,7 +2,7 @@ import * as types from './actionTypes'
 
 const initialState = {
     loading: false,
-    notification: null,
+    notifications: [],
     error: false,
 }
 
@@ -19,13 +19,13 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 loading: false,
                 error: false,
-                notification: action.payload,
+                notifications: action.payload,
             }
         case types.NOTIFICATION_FAIL:
             return {
                 ...state,
                 loading: false,
-                notification: null,
+                notifications: [],
                 error: true,
             }
         default:

@@ -1,6 +1,6 @@
 import { Notifications } from 'expo';
 import * as Permissions from 'expo-permissions';
-import userService from '../services/user'
+import notificationService from '../services/notifications'
 
 export default async function registerForPushNotificationsAsync() {
     const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS);
@@ -8,6 +8,6 @@ export default async function registerForPushNotificationsAsync() {
     if (status == 'granted') {
         // Get the token that identifies this device
         let token = await Notifications.getExpoPushTokenAsync()
-        return userService.postNotificationToken(token)
+        return notificationService.postNotificationToken(token)
     }
 }

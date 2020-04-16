@@ -18,8 +18,8 @@ export function getUnreadNotifications() {
     try {
       dispatch(notificationLoading())
       const result = await service.getAllNotifications()
-      const notification = result.data.notifications.filter(e => !e.isRead)
-      dispatch(notificationOk(notification))
+      const notifications = result.data.notifications.filter(e => !e.isRead)
+      dispatch(notificationOk(notifications))
     } catch (err) {
       dispatch(notificationFail())
     }
@@ -30,13 +30,14 @@ export function readNotification(id) {
   return async (dispatch, getState) => {
     try {
       dispatch(notificationLoading())
-      const { notification } = getState().notificationsReducer
-      const result = notification.find(e => e._id === id)
+      const { notifications } = getState().notificationsReducer
+      const updatedNotifications = [...notifications]
+      const result = updatedNotifications.find(e => e._id === id)
       if (result) {
-        const index = notification.indexOf(result)
+        const index = updatedNotifications.indexOf(result)
         if (index > -1) {
-          notification.splice(index, 1)
-          dispatch(notificationOk(notification))
+          updatedNotifications.splice(index, 1)
+          dispatch(notificationOk(updatedNotifications))
         }
       }
     } catch (err) {

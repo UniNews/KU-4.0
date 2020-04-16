@@ -1,9 +1,10 @@
 import React from 'react'
-import { View, AsyncStorage } from 'react-native'
+import { View, AsyncStorage, Vibration } from 'react-native'
 import styles from './styles'
 import { AlertHelper } from '../../../configs/alertHelper'
 import Spinner from '../../../components/commons/Spinner'
-// import registerForPushNotificationsAsync from '../../../configs/registerForPushNotificationsAsync'
+import registerForPushNotificationsAsync from '../../../configs/registerForPushNotificationsAsync'
+import { Notifications } from 'expo'
 
 class LoadingView extends React.Component {
 
@@ -12,13 +13,16 @@ class LoadingView extends React.Component {
     }
 
     async componentDidMount() {
-        // registerForPushNotificationsAsync()
+        registerForPushNotificationsAsync()
         const { autoLogin, getUnreadNotifications } = this.props
         try {
             const accessToken = await AsyncStorage.getItem('accessToken')
             if (accessToken) {
                 autoLogin(accessToken)
                 getUnreadNotifications()
+                Notifications.addListener(
+                    this.handleNotification
+                )
             }
             else
                 this.goLogin()
@@ -26,6 +30,13 @@ class LoadingView extends React.Component {
             this.goLogin()
             this.props.showModal()
         }
+    }
+
+    handleNotification = notification => {
+        if (notification.origin === 'selected')
+            this.props.navigation.navigate('แจ้งเตือน')
+        else
+            Vibration.vibrate()
     }
 
     goLogin = () => {
