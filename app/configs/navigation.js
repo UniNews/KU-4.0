@@ -179,14 +179,9 @@ const tabNavigator = createBottomTabNavigator({
           size = 27
         }
         else if (routeName === 'แจ้งเตือน') {
-            iconName = 'bell'
-            size = 22
-            const data = {
-              name: iconName,
-              size:size,
-              color:tintColor
-            }
-          return <NotificationTabBarIcon data = {data} />
+          iconName = 'bell'
+          size = 22
+          IconComponent = NotificationTabBarIcon
         }
         else if (routeName === 'โปรไฟล์') {
           iconName = 'user'

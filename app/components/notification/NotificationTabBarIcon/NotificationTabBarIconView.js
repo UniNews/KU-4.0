@@ -11,14 +11,14 @@ class IconWithBadge extends React.Component {
   }
 
   render() {
-    const { data , notifications } = this.props
+    const { name, color, size, notifications } = this.props
     return (
-      <View style={ styles.container }>
-        <FontAwesome name={ data.name } size={ data.size } color={ data.color } />
-        { 
+      <View style={styles.container}>
+        <FontAwesome name={name} size={size} color={color} />
+        {
           notifications !== null && notifications.length > 0 ? (
-            <View style={ styles.badge }>
-              <Text style={ styles.text }>{ notifications.length }</Text>
+            <View style={styles.badge}>
+              <Text style={styles.text}>{notifications.length}</Text>
             </View>
           ) : null
         }
@@ -28,11 +28,9 @@ class IconWithBadge extends React.Component {
 }
 
 IconWithBadge.propTypes = {
-  data: PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      color: PropTypes.string.isRequired,
-      size: PropTypes.number.isRequired
-  }).isRequired
+  name: PropTypes.string.isRequired,
+  color: PropTypes.string.isRequired,
+  size: PropTypes.number.isRequired
 }
 
 export default IconWithBadge

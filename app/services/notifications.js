@@ -19,8 +19,7 @@ export default {
     postNotificationsView: (id) => {
         return axios.post(`${constants.API_URL}/notifications/${id}/view`)
     },
-    getALLNotifications: async() => {
-        const result = await axios.get(`${constants.API_URL}/notifications`)
-        return result
+    getAllNotifications: () => {
+        return axios.get(`${constants.API_URL}/notifications`)
     }
 }
