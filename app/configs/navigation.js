@@ -30,6 +30,7 @@ import TabBar from '../components/commons/TabBar'
 import PostCommunityScreen from '../screens/community/PostCommunity'
 import TagNewsScreen from '../screens/news/TagNews'
 import PostReportScreen from '../screens/report/PostReport'
+import NotificationTabBarIcon from '../components/notification/NotificationTabBarIcon'
 
 const newsTab = createMaterialTopTabNavigator({
   'สำหรับคุณ': RecommendationScreen,
@@ -202,6 +203,7 @@ const tabNavigator = createBottomTabNavigator({
         else if (routeName === 'แจ้งเตือน') {
           iconName = 'bell'
           size = 22
+          IconComponent = NotificationTabBarIcon
         }
         else if (routeName === 'โปรไฟล์') {
           iconName = 'user'

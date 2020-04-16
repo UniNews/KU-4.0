@@ -3,7 +3,6 @@ import { View, AsyncStorage } from 'react-native'
 import styles from './styles'
 import { AlertHelper } from '../../../configs/alertHelper'
 import Spinner from '../../../components/commons/Spinner'
-import { Notifications } from 'expo'
 // import registerForPushNotificationsAsync from '../../../configs/registerForPushNotificationsAsync'
 
 class LoadingView extends React.Component {
@@ -14,22 +13,19 @@ class LoadingView extends React.Component {
 
     async componentDidMount() {
         // registerForPushNotificationsAsync()
-        Notifications.addListener(this.handleNotification)
-        const { autoLogin } = this.props
+        const { autoLogin, getUnreadNotifications } = this.props
         try {
             const accessToken = await AsyncStorage.getItem('accessToken')
-            if (accessToken)
+            if (accessToken) {
                 autoLogin(accessToken)
+                getUnreadNotifications()
+            }
             else
                 this.goLogin()
         } catch (err) {
             this.goLogin()
             this.props.showModal()
         }
-    }
-
-    handleNotification = notification => {
-        console.log(notification)
     }
 
     goLogin = () => {

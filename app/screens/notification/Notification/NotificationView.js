@@ -23,13 +23,14 @@ class NotificationView extends React.Component {
     }
 
     onNotificationPressed = (notification) => {
-        const { navigation } = this.props
+        const { navigation, readNotification } = this.props
         if (notification.type === 'article') {
             navigation.push('NewsDetail', { newsId: notification.redirectId })
             notification.isRead = true
             this.setState({
                 notifications: [...this.state.notifications]
             })
+            readNotification(notification._id)
             notificationsService.postNotificationsView(notification._id)
         }
     }

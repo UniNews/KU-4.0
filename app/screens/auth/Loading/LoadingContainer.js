@@ -1,7 +1,8 @@
-import { connect } from 'react-redux';
-import LoadingView from './LoadingView';
-import { autoLogin } from '../../../reducers/UserReducer/actions';
-import { showModal } from '../../../reducers/ErrorModalReducer/actions';
+import { connect } from 'react-redux'
+import LoadingView from './LoadingView'
+import { autoLogin } from '../../../reducers/UserReducer/actions'
+import { showModal } from '../../../reducers/ErrorModalReducer/actions'
+import { getUnreadNotifications } from '../../../reducers/NotificationReducer/actions'
 
 const mapStateToProps = state => {
     return {
@@ -9,11 +10,12 @@ const mapStateToProps = state => {
         user: state.userReducer.user,
         error: state.userReducer.error,
     }
-};
+}
 
 const mapDispatchToProps = {
     autoLogin,
-    showModal
-};
+    showModal,
+    getUnreadNotifications
+}
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoadingView);
+export default connect(mapStateToProps, mapDispatchToProps)(LoadingView)
