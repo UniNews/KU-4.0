@@ -56,18 +56,18 @@ export default {
     loginByGoogle: async () => {
         try {
             const { type, accessToken, user } = await Google.logInAsync({
-                androidClientId: '319434606205-n3k9ijd91al3h7bcropp4e17rf8j1klk.apps.googleusercontent.com',
-                iosClientId: '319434606205-c5ooi2joi9d4un5pi227aitkpls5ku10.apps.googleusercontent.com',
+                androidClientId: '1045585339073-mi412ka3jab2bhktcjelgfr8jiracooq.apps.googleusercontent.com',
+                iosClientId: '1045585339073-vgejvthvp0173sdhbmelcmbe0hq5q0v4.apps.googleusercontent.com',
                 scopes: ['profile', 'email']
             })
             if (type === 'success') {
                 const json = {
                     access_token: accessToken
                 }
-                let user_token = await axios.post(`${constants.API_URL}/signin/google`, json, {
+                const response = await axios.post(`${constants.API_URL}/signin/google`, json, {
                     headers: { 'Content-Type': 'application/json' }
                 })
-                return Promise.resolve(user_token)
+                return Promise.resolve(response)
             }
             else
                 return Promise.reject('Cancel by user')

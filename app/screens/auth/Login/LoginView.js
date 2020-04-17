@@ -20,14 +20,14 @@ class LoginView extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        const { user, error } = this.props
+        const { user, error, getNotifications } = this.props
         if (user) {
+            getNotifications()
             this.props.navigation.navigate('Main')
             AlertHelper.alert('info', 'ล็อกอินสำเร็จ', 'สวัสดีคุณ ' + user.displayName)
         }
         else if (error && prevProps.error != error) {
             AlertHelper.alert('error', 'เกิดข้อผิดพลาด', 'บัญชีผู้ใช้ หรือรหัสผ่านไม่ถูกต้อง')
-            this.props.showModal()
         }
     }
 

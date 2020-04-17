@@ -1,7 +1,6 @@
 import * as types from './actionTypes'
 import service from '../../services/user'
 import notifications from '../../configs/notifications'
-
 import axios from 'axios'
 import { AsyncStorage } from 'react-native'
 
@@ -50,7 +49,7 @@ export function register(username, password) {
         ] = `Bearer ${user.accessToken}`
         const payload = await service.getProfile()
         await notifications.registerForPushNotificationsAsync()
-        await AsyncStorage.setItem('accessToken', user.accessToken);
+        await AsyncStorage.setItem('accessToken', user.accessToken)
         dispatch(userOk(payload.data))
       })
       .catch((err) => {
@@ -71,7 +70,7 @@ export function login(username, password) {
         ] = `Bearer ${user.accessToken}`
         const payload = await service.getProfile()
         await notifications.registerForPushNotificationsAsync()
-        await AsyncStorage.setItem('accessToken', user.accessToken);
+        await AsyncStorage.setItem('accessToken', user.accessToken)
         dispatch(userOk(payload.data))
       })
       .catch(err => {
@@ -107,8 +106,8 @@ export function loginByFacebook() {
         ] = `Bearer ${user.accessToken}`
         const payload = await service.getProfile()
         await notifications.registerForPushNotificationsAsync()
-        await AsyncStorage.setItem('accessToken', user.access_token);
-        dispatch(userOk(payload.data.result))
+        await AsyncStorage.setItem('accessToken', user.accessToken)
+        dispatch(userOk(payload.data))
       })
       .catch(err => {
         dispatch(userFail())
@@ -128,8 +127,8 @@ export function loginByGoogle() {
         ] = `Bearer ${user.accessToken}`
         const payload = await service.getProfile()
         await notifications.registerForPushNotificationsAsync()
-        await AsyncStorage.setItem('accessToken', user.accessToken);
-        dispatch(userOk(payload.data.result))
+        await AsyncStorage.setItem('accessToken', user.accessToken)
+        dispatch(userOk(payload.data))
       })
       .catch(err => {
         dispatch(userFail())
