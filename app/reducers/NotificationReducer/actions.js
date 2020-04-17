@@ -9,17 +9,25 @@ const notificationOk = payload => {
   return { type: types.NOTIFICATION_OK, payload }
 }
 
+const unReadnotificationOk = payload => {
+  return { type: types.NOTIFICATION_UNREAD_OK, payload }
+}
+
 const notificationFail = () => {
   return { type: types.NOTIFICATION_FAIL }
 }
 
-export function getUnreadNotifications() {
-  return async dispatch => {
+export function getNotifications() {
+  return async (dispatch, getState) => {
     try {
       dispatch(notificationLoading())
       const result = await service.getAllNotifications()
-      const notifications = result.data.notifications.filter(e => !e.isRead)
-      dispatch(notificationOk(notifications))
+      // const allnotification = [...getState().notificationsReducer.notifications, ...result.data.notifications]
+      const oldData = result.data.notifications.filter(data => !getState().notificationsReducer.notifications.some(newData => newData._id === data._id));
+      const allnotification = oldData.concat(getState().notificationsReducer.notifications);
+      const notifications = allnotification.filter(e => !e.isRead)
+      dispatch(unReadnotificationOk(notifications))
+      dispatch(notificationOk(allnotification))
     } catch (err) {
       dispatch(notificationFail())
     }
@@ -30,14 +38,14 @@ export function readNotification(id) {
   return async (dispatch, getState) => {
     try {
       dispatch(notificationLoading())
-      const { notifications } = getState().notificationsReducer
-      const updatedNotifications = [...notifications]
+      const { unreadNotifications } = getState().notificationsReducer
+      const updatedNotifications = [...unreadNotifications]
       const result = updatedNotifications.find(e => e._id === id)
       if (result) {
         const index = updatedNotifications.indexOf(result)
         if (index > -1) {
           updatedNotifications.splice(index, 1)
-          dispatch(notificationOk(updatedNotifications))
+          dispatch(unReadnotificationOk(updatedNotifications))
         }
       }
     } catch (err) {

@@ -2,7 +2,7 @@ import { connect } from 'react-redux'
 import LoadingView from './LoadingView'
 import { autoLogin } from '../../../reducers/UserReducer/actions'
 import { showModal } from '../../../reducers/ErrorModalReducer/actions'
-import { getUnreadNotifications } from '../../../reducers/NotificationReducer/actions'
+import { getNotifications } from '../../../reducers/NotificationReducer/actions'
 
 const mapStateToProps = state => {
     return {
@@ -15,7 +15,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = {
     autoLogin,
     showModal,
-    getUnreadNotifications
+    getNotifications
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoadingView)

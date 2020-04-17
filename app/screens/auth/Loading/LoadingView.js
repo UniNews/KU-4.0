@@ -14,12 +14,12 @@ class LoadingView extends React.Component {
 
     async componentDidMount() {
         registerForPushNotificationsAsync()
-        const { autoLogin, getUnreadNotifications } = this.props
+        const { autoLogin, getNotifications } = this.props
         try {
             const accessToken = await AsyncStorage.getItem('accessToken')
             if (accessToken) {
                 autoLogin(accessToken)
-                getUnreadNotifications()
+                getNotifications()
                 Notifications.addListener(
                     this.handleNotification
                 )
@@ -35,8 +35,10 @@ class LoadingView extends React.Component {
     handleNotification = notification => {
         if (notification.origin === 'selected')
             this.props.navigation.navigate('แจ้งเตือน')
-        else
+        else {
+            this.props.getNotifications()
             Vibration.vibrate()
+        }
     }
 
     goLogin = () => {

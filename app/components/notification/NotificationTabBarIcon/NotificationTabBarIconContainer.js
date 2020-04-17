@@ -3,7 +3,7 @@ import NotificationView from './NotificationTabBarIconView'
 
 const mapStateToProps = state => {
     return {
-        notifications: state.notificationsReducer.notifications,
+        notifications: state.notificationsReducer.unreadNotifications,
     }
 }
 
