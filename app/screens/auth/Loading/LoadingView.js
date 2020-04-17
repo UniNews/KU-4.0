@@ -3,7 +3,7 @@ import { View, AsyncStorage, Vibration } from 'react-native'
 import styles from './styles'
 import { AlertHelper } from '../../../configs/alertHelper'
 import Spinner from '../../../components/commons/Spinner'
-import registerForPushNotificationsAsync from '../../../configs/registerForPushNotificationsAsync'
+// import notifications from '../../../configs/notifications'
 import { Notifications } from 'expo'
 
 class LoadingView extends React.Component {
@@ -13,12 +13,12 @@ class LoadingView extends React.Component {
     }
 
     async componentDidMount() {
-        registerForPushNotificationsAsync()
         const { autoLogin, getNotifications } = this.props
         try {
             const accessToken = await AsyncStorage.getItem('accessToken')
             if (accessToken) {
                 autoLogin(accessToken)
+                // notifications.registerForPushNotificationsAsync()
                 getNotifications()
                 Notifications.addListener(
                     this.handleNotification

@@ -36,8 +36,11 @@ class DetailView extends React.Component {
     }
 
     async fetchCommunity() {
+
         try {
             const newsId = this.props.navigation.state.params.newsId
+            console.log(newsId)
+
             const article = await communityService.getNewsById(newsId)
             this.setState({
                 community: article.data,
@@ -103,13 +106,12 @@ class DetailView extends React.Component {
         const { user } = this.props
         comment.isLiked = !comment.isLiked
         this.setState({ comments: [...this.state.comments] })
-        const newsId = this.props.navigation.state.params.newsId
         if (comment.isLiked) {
-            communityService.likeComment(newsId, comment._id)
+            communityService.likeComment(comment._id)
             comment.likes.push(user._id)
         }
         else {
-            communityService.unlikeComment(newsId, comment._id)
+            communityService.unlikeComment(comment._id)
             const indexToRemove = comment.likes.indexOf(user._id)
             if (indexToRemove > -1)
                 comment.likes.splice(indexToRemove, 1)

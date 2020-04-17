@@ -3,12 +3,17 @@ import { Text, View, Image, TouchableNativeFeedback } from 'react-native'
 import { Feather } from '@expo/vector-icons'
 import styles from './styles'
 import { LinearGradient } from 'expo-linear-gradient'
-import PropTypes from 'prop-types'
 
 class MyProfileView extends React.Component {
 
     constructor(props) {
         super(props)
+    }
+
+    componentDidUpdate() {
+        const { user } = this.props
+        if (!user)
+            this.goLogin()
     }
 
     goFollowing = async () => {
@@ -37,28 +42,27 @@ class MyProfileView extends React.Component {
         navigation.navigate('ProfileSetting')
     }
 
-    logout = () => {
+    logout = async () => {
         const { logoutUser } = this.props
-        this.goLogin()
         logoutUser()
     }
 
     render() {
-        const { user, navigation } = this.props
+        const { user } = this.props
         return (
             <View style={styles.containter}>
                 <View style={styles.headContainer}>
                     <LinearGradient style={styles.linearGradient} start={{ x: 0, y: 0 }} end={{ x: 0, y: 0.8 }} colors={['#465859', '#588E57']}>
                         <View style={styles.innerHeadContainer}>
                             <Image
-                                source={{ uri: user.avatarURL }}
+                                source={{ uri: user?.avatarURL }}
                                 style={styles.avatar}
                             />
                             <Text style={styles.name}>
-                                {user.displayName}
+                                {user?.displayName}
                             </Text>
                             <Text style={styles.faculty}>
-                                {user.bio}
+                                {user?.bio}
                             </Text>
                         </View>
                     </LinearGradient>
@@ -89,16 +93,6 @@ class MyProfileView extends React.Component {
             </View>
         )
     }
-}
-
-MyProfileView.propTypes = {
-    user: PropTypes.shape({
-        _id: PropTypes.string,
-        avatarURL: PropTypes.string,
-        displayName: PropTypes.string,
-        description: PropTypes.string,
-    }).isRequired,
-    navigation: PropTypes.object.isRequired,
 }
 
 export default MyProfileView

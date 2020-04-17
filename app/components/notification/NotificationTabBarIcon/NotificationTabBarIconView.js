@@ -8,30 +8,31 @@ class IconWithBadge extends React.Component {
 
   constructor(props) {
     super(props)
-    this.state = {
-      notificationsCount: this.props.notifications ? this.props.notifications.length : 0
-    }
+    // this.state = {
+    //   notificationsCount: this.props.notifications ? this.props.notifications.length : 0
+    // }
   }
 
-  componentDidUpdate(prevProps) {
-    const { notifications } = this.props
-    const { notificationsCount } = this.state
-    if (notifications && notifications.length != notificationsCount)
-      this.setState({
-        notificationsCount: notifications.length
-      })
-  }
+  // componentDidUpdate(prevProps) {
+  //   const { notifications } = this.props
+  //   const { notificationsCount } = this.state
+  //   if (notifications && notifications.length != notificationsCount)
+  //     this.setState({
+  //       notificationsCount: notifications.length
+  //     })
+  // }
 
   render() {
-    const { name, color, size } = this.props
-    const { notificationsCount } = this.state
+    const { name, color, size, notifications } = this.props
+    const unread = notifications.filter(e => !e.isRead)
+    // const { notificationsCount } = this.state
     return (
       <View style={styles.container}>
         <FontAwesome name={name} size={size} color={color} />
         {
-          notificationsCount > 0 ? (
+          unread.length > 0 ? (
             <View style={styles.badge}>
-              <Text style={styles.text}>{notificationsCount}</Text>
+              <Text style={styles.text}>{unread.length}</Text>
             </View>
           ) : null
         }

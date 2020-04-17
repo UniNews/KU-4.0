@@ -30,14 +30,14 @@ export default {
             headers: { 'Content-Type': 'application/json' }
         })
     },
-    likeComment: (newsId, commentId) => {
-        return axios.post(`${constants.API_URL}/articles/${newsId}/comments/${commentId}/like`)
+    likeComment: (commentId) => {
+        return axios.post(`${constants.API_URL}/comments/${commentId}/like`)
     },
     getComments: (communityId) => {
         return axios.get(`${constants.API_URL}/articles/${communityId}/comments`)
     },
-    unlikeComment: (newsId, commentId) => {
-        return axios.delete(`${constants.API_URL}/articles/${newsId}/comments/${commentId}/like`)
+    unlikeComment: (commentId) => {
+        return axios.delete(`${constants.API_URL}/comments/${commentId}/like`)
     },
     likeNews: (newsId) => {
         return axios.post(`${constants.API_URL}/articles/${newsId}/like`)

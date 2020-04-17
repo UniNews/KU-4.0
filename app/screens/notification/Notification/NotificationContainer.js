@@ -5,7 +5,9 @@ import { readNotification, getNotifications } from '../../../reducers/Notificati
 
 const mapStateToProps = state => {
   return {
-    notifications: state.notificationsReducer.notifications
+    notifications: state.notificationsReducer.notifications,
+    loading: state.notificationsReducer.loading,
+    error: state.notificationsReducer.error
   }
 }
 

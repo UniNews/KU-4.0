@@ -87,13 +87,12 @@ class CommentView extends React.Component {
     const { user } = this.props
     comment.isLiked = !comment.isLiked
     this.setState({ comments: [...this.state.comments] })
-    const newsId = this.props.navigation.state.params.newsId
     if (comment.isLiked) {
-      newsService.likeComment(newsId, comment._id)
+      newsService.likeComment(comment._id)
       comment.likes.push(user._id)
     }
     else {
-      newsService.unlikeComment(newsId, comment._id)
+      newsService.unlikeComment(comment._id)
       const indexToRemove = comment.likes.indexOf(user._id)
       if (indexToRemove > -1)
         comment.likes.splice(indexToRemove, 1)

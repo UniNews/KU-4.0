@@ -12,6 +12,14 @@ export default {
             headers: { 'Content-Type': 'application/json' }
         })
     },
+    deleteNotificationToken: (token) => {
+        const json = {
+            token
+        }
+        return axios.delete(`${constants.API_URL}/notifications/token`, {
+            data: json
+        })
+    },
     getNotifications: (page) => {
         const offset = (page - 1) * NOTIFICATIONS_PER_PAGE
         return axios.get(`${constants.API_URL}/notifications?offset=${offset}&limit=${NOTIFICATIONS_PER_PAGE}`)

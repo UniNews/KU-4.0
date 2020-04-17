@@ -1,5 +1,7 @@
 import * as types from './actionTypes'
 import service from '../../services/user'
+import notifications from '../../configs/notifications'
+
 import axios from 'axios'
 import { AsyncStorage } from 'react-native'
 
@@ -27,6 +29,7 @@ export function autoLogin(accessToken) {
         'Authorization'
       ] = `Bearer ${accessToken}`
       const payload = await service.getProfile()
+      await notifications.registerForPushNotificationsAsync()
       dispatch(userOk(payload.data))
     }
     catch (err) {
@@ -46,6 +49,7 @@ export function register(username, password) {
           'Authorization'
         ] = `Bearer ${user.accessToken}`
         const payload = await service.getProfile()
+        await notifications.registerForPushNotificationsAsync()
         await AsyncStorage.setItem('accessToken', user.accessToken);
         dispatch(userOk(payload.data))
       })
@@ -66,6 +70,7 @@ export function login(username, password) {
           'Authorization'
         ] = `Bearer ${user.accessToken}`
         const payload = await service.getProfile()
+        await notifications.registerForPushNotificationsAsync()
         await AsyncStorage.setItem('accessToken', user.accessToken);
         dispatch(userOk(payload.data))
       })
@@ -76,9 +81,10 @@ export function login(username, password) {
 }
 
 export function logoutUser() {
-  return dispatch => {
+  return async dispatch => {
     try {
       dispatch(userLoading())
+      await notifications.unregisterForPushNotificationsAsync()
       AsyncStorage.clear()
       delete axios.defaults.headers.common['Authorization']
       dispatch(userPurge())
@@ -100,6 +106,7 @@ export function loginByFacebook() {
           'Authorization'
         ] = `Bearer ${user.accessToken}`
         const payload = await service.getProfile()
+        await notifications.registerForPushNotificationsAsync()
         await AsyncStorage.setItem('accessToken', user.access_token);
         dispatch(userOk(payload.data.result))
       })
@@ -120,6 +127,7 @@ export function loginByGoogle() {
           'Authorization'
         ] = `Bearer ${user.accessToken}`
         const payload = await service.getProfile()
+        await notifications.registerForPushNotificationsAsync()
         await AsyncStorage.setItem('accessToken', user.accessToken);
         dispatch(userOk(payload.data.result))
       })
