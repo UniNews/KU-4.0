@@ -20,6 +20,18 @@ class RegisterView extends React.Component {
         }
     }
 
+    register = () => {
+        const { password, username, passwordConfirm } = this.state
+        const { register } = this.props
+        if (!this.isPasswordMatch(password, passwordConfirm))
+            AlertHelper.alert('error', 'เกิดข้อผิดพลาด', 'รหัสผ่านไม่ตรงกัน')
+        else if (username.length < 5 || username.length > 12)
+            AlertHelper.alert('error', 'เกิดข้อผิดพลาด', 'ชื่อผู้ใช้ต้องมีขนาดมากกว่า 5 ตัวอักษร')
+        else if (password.length < 5 || password.length > 12)
+            AlertHelper.alert('error', 'เกิดข้อผิดพลาด', 'รหัสผ่านต้องมีขนาดมากกว่า 5 ตัวอักษร')
+        else register()
+    }
+
     goBack = () => {
         const { navigation } = this.props
         navigation.goBack()
@@ -34,19 +46,13 @@ class RegisterView extends React.Component {
         )
     }
 
-    renderButton() {
-        const { loading } = this.props
-        return loading ? <ActivityIndicator size='small' color='#69C4BF' />
-            : <Text style={styles.textButton}>ลงทะเบียน</Text>
-    }
-
     isPasswordMatch(password, passwordConfirm) {
         return (password === passwordConfirm)
     }
 
     render() {
-        const { isHide, username, password, passwordConfirm } = this.state
-        const { login, loading, loginByFacebook, loginByGoogle, register } = this.props
+        const { isHide } = this.state
+        const { loading, loginByFacebook, loginByGoogle } = this.props
         return (
             <LinearGradient colors={[KU_PRIMARY_COLOR, KU_SECONDARY_COLOR]} style={styles.container} >
                 <View style={styles.innerContainer}>
@@ -93,11 +99,8 @@ class RegisterView extends React.Component {
                                 value={this.state.text}>
                             </TextInput>
                         </View>
-                        <Button rounded style={styles.buttonContainer} disabled={loading} onPress={() => {
-                            if (this.isPasswordMatch(password, passwordConfirm)) register(username, password)
-                            else AlertHelper.alert('error', 'เกิดข้อผิดพลาด', 'รหัสผ่านไม่ตรงกัน')
-                        }}>
-                            {this.renderButton()}
+                        <Button rounded style={styles.buttonContainer} disabled={loading} onPress={this.register}>
+                            <Text style={styles.textButton}>ลงทะเบียน</Text>
                         </Button>
                     </View>
                     <TouchableOpacity onPress={this.goBack} style={styles.registerContainer}>
@@ -137,7 +140,7 @@ class RegisterView extends React.Component {
 RegisterView.propTypes = {
     loading: PropTypes.bool,
     user: PropTypes.object,
-    error: PropTypes.bool,
+    error: PropTypes.string,
     completed: PropTypes.bool,
     navigation: PropTypes.object
 }

@@ -12,8 +12,8 @@ const userOk = payload => {
   return { type: types.USER_OK, payload }
 }
 
-const userFail = () => {
-  return { type: types.USER_FAIL }
+const userFail = payload => {
+  return { type: types.USER_FAIL, payload }
 }
 
 const userPurge = () => {
@@ -32,7 +32,7 @@ export function autoLogin(accessToken) {
       dispatch(userOk(payload.data))
     }
     catch (err) {
-      dispatch(userFail())
+      dispatch(userFail('การเข้าสู่ระบบผิดพลาด'))
     }
   }
 }
@@ -53,7 +53,11 @@ export function register(username, password) {
         dispatch(userOk(payload.data))
       })
       .catch((err) => {
-        dispatch(userFail())
+        const statusCode = err.response.status
+        if (statusCode === 409)
+          dispatch(userFail('บัญชีผู้ใช้ถูกใช้ไปแล้ว'))
+        else
+          dispatch(userFail('การสมัครบัญชีผู้ใช้ผิดพลาด'))
       })
   }
 }
@@ -74,7 +78,11 @@ export function login(username, password) {
         dispatch(userOk(payload.data))
       })
       .catch(err => {
-        dispatch(userFail())
+        const statusCode = err.response.status
+        if (statusCode === 422)
+          dispatch(userFail('บัญชีผู้ใช้ หรือรหัสผ่านไม่ถูกต้อง'))
+        else
+          dispatch(userFail('การเข้าสู่ระบบผิดพลาด'))
       })
   }
 }
@@ -89,7 +97,7 @@ export function logoutUser() {
       dispatch(userPurge())
     }
     catch (err) {
-      dispatch(userFail())
+      dispatch(userFail('การออกสู่ระบบผิดพลาด'))
     }
   }
 }
@@ -110,7 +118,7 @@ export function loginByFacebook() {
         dispatch(userOk(payload.data))
       })
       .catch(err => {
-        dispatch(userFail())
+        dispatch(userFail('การเข้าสู่ระบบผิดพลาด'))
       })
   }
 }
@@ -131,7 +139,7 @@ export function loginByGoogle() {
         dispatch(userOk(payload.data))
       })
       .catch(err => {
-        dispatch(userFail())
+        dispatch(userFail('การเข้าสู่ระบบผิดพลาด'))
       })
   }
 }
@@ -144,7 +152,7 @@ export function updateProfile(profile) {
       const payloads = await service.getProfile()
       dispatch(userOk(payloads.data))
     } catch (err) {
-      dispatch(userFail())
+      dispatch(userFail('การอัพเดตโปรไฟล์ผิดพลาด'))
     }
   }
 }

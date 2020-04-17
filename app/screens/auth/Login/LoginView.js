@@ -7,6 +7,7 @@ import PropTypes from 'prop-types'
 import { AlertHelper } from '../../../configs/alertHelper'
 import Button from '../../../components/commons/Button'
 import { KU_PRIMARY_COLOR, KU_SECONDARY_COLOR } from '../../../assets/css/color'
+import LoadingModal from '../../../components/modals/LoadingModal'
 
 class LoginView extends React.Component {
 
@@ -27,7 +28,7 @@ class LoginView extends React.Component {
             AlertHelper.alert('info', 'ล็อกอินสำเร็จ', 'สวัสดีคุณ ' + user.displayName)
         }
         else if (error && prevProps.error != error) {
-            AlertHelper.alert('error', 'เกิดข้อผิดพลาด', 'บัญชีผู้ใช้ หรือรหัสผ่านไม่ถูกต้อง')
+            AlertHelper.alert('error', 'เกิดข้อผิดพลาด', error)
         }
     }
 
@@ -42,12 +43,6 @@ class LoginView extends React.Component {
                 <FontAwesome style={styles.icon} name={isHide ? 'eye' : 'eye-slash'} size={20} color='white' />
             </TouchableWithoutFeedback>
         )
-    }
-
-    renderButton() {
-        const { loading } = this.props
-        return loading ? <ActivityIndicator size='small' color='#69C4BF' />
-            : <Text style={styles.textButton}>เข้าสู่ระบบ</Text>
     }
 
     render() {
@@ -90,7 +85,7 @@ class LoginView extends React.Component {
                         <Button rounded style={styles.buttonContainer} disabled={loading} onPress={() => {
                             login(username, password)
                         }}>
-                            {this.renderButton()}
+                            <Text style={styles.textButton}>เข้าสู่ระบบ</Text>
                         </Button>
                     </View>
                     <TouchableOpacity onPress={this.goRegister} style={styles.registerContainer}>
@@ -122,7 +117,8 @@ class LoginView extends React.Component {
                         </Button>
                     </View>
                 </View>
-            </LinearGradient >
+                <LoadingModal visible={loading} />
+            </LinearGradient>
         )
     }
 }
@@ -130,7 +126,7 @@ class LoginView extends React.Component {
 LoginView.propTypes = {
     loading: PropTypes.bool,
     user: PropTypes.object,
-    error: PropTypes.bool,
+    error: PropTypes.string,
     completed: PropTypes.bool,
     navigation: PropTypes.object
 }

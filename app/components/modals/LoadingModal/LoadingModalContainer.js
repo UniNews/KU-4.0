@@ -1,6 +1,5 @@
 import { connect } from 'react-redux'
-import ErrorModalView from './ErrorModalView'
-import { hideModal } from '../../../reducers/ErrorModalReducer/actions'
+import LoadingModalView from './LoadingModalView'
 
 const mapStateToProps = state => {
     return {
@@ -9,7 +8,7 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = {
-    hideModal
+
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoadingModalView)

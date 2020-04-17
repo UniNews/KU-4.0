@@ -1,10 +1,10 @@
-import * as types from './actionTypes';
+import * as types from './actionTypes'
 
 const initialState = {
     loading: false,
     user: null,
-    error: false,
-};
+    error: null,
+}
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
@@ -12,27 +12,27 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 loading: true,
-                error: false,
-            };
+                error: null,
+            }
         case types.USER_OK:
             return {
                 ...state,
                 loading: false,
-                error: false,
+                error: null,
                 user: action.payload,
-            };
+            }
         case types.USER_FAIL:
             return {
                 ...state,
                 loading: false,
                 user: null,
-                error: true,
-            };
+                error: action.payload,
+            }
         case types.USER_PURGE:
-            return initialState;
+            return initialState
         default:
-            return state;
+            return state
     }
-};
+}
 
-export default reducer;
+export default reducer
