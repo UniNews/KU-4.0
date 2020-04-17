@@ -20,7 +20,7 @@ class NotificationItem extends Component {
     onProfilePressedHandler = () => {
         const { onProfilePressed, data } = this.props
         if (onProfilePressed)
-            onProfilePressed(data.sender._id)
+            onProfilePressed(data.sender?._id)
     }
 
     render() {
@@ -32,13 +32,13 @@ class NotificationItem extends Component {
                         <View style={styles.leftContainer}>
                             <TouchableWithoutFeedback onPress={this.onProfilePressedHandler}>
                                 <Image
-                                    source={{ uri: data.sender.avatarURL }}
+                                    source={{ uri: data.sender?.avatarURL }}
                                     style={styles.avatar}
                                 />
                             </TouchableWithoutFeedback>
                             <View style={styles.descriptionContainer}>
                                 <Text style={styles.profileNameText}>
-                                    {data.sender.displayName}
+                                    {data.sender?.displayName}
                                 </Text>
                                 <Text numberOfLines={2} style={styles.description}>
                                     {data.title}

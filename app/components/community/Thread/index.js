@@ -27,7 +27,7 @@ class Thread extends Component {
     onCommentPressedHandler = () => {
         const { onCommentPressed, data } = this.props
         if (onCommentPressed)
-            onCommentPressed(data.author._id)
+            onCommentPressed(data.author?._id)
     }
 
     onReportPressHandler = () => {
@@ -51,7 +51,7 @@ class Thread extends Component {
                     <View style={styles.innerContainer}>
                         <View style={styles.nameContainer}>
                             <Text style={styles.nameText}>
-                                {data.author.displayName}
+                                {data.author?.displayName}
                             </Text>
                             {/* <TouchableWithoutFeedback onPress={this.onReportPressHandler} >
                                 <MaterialCommunityIcons style={styles.dotIcon} name='dots-vertical' size={20} color='black' />

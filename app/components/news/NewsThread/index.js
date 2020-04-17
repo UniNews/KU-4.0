@@ -26,7 +26,7 @@ class NewsCard extends Component {
     onCommentPressedHandler = () => {
         const { onCommentPressed, data } = this.props
         if (onCommentPressed)
-            onCommentPressed(data.author._id)
+            onCommentPressed(data.author?._id)
     }
 
     onProfilePressedHandler = (profileId) => {
@@ -55,7 +55,7 @@ class NewsCard extends Component {
                     <View style={styles.topContainer}>
                         <View style={styles.leftContainer}>
                             <Text style={styles.nameText}>
-                                {data.author.displayName}
+                                {data.author?.displayName}
                             </Text>
                             <View style={styles.icon}>
                                 <FontAwesome name='clock-o' size={15} color='grey' />
