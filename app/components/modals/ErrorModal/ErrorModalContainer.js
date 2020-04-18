@@ -12,4 +12,4 @@ const mapDispatchToProps = {
     hideModal
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(LoadingModalView)
+export default connect(mapStateToProps, mapDispatchToProps)(ErrorModalView)
