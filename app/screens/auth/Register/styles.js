@@ -139,5 +139,10 @@ export default StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         alignSelf: 'center'
+    },
+    errorText: {
+      color: 'red',
+      fontSize: 13,
+      fontFamily: REGULAR_FONT,
     }
 });
