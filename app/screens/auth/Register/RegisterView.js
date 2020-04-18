@@ -7,6 +7,7 @@ import PropTypes from 'prop-types'
 import { AlertHelper } from '../../../configs/alertHelper'
 import Button from '../../../components/commons/Button'
 import { KU_PRIMARY_COLOR, KU_SECONDARY_COLOR } from '../../../assets/css/color'
+import userservice from '../../../services/user'
 
 class RegisterView extends React.Component {
 
@@ -16,20 +17,68 @@ class RegisterView extends React.Component {
             username: '',
             password: '',
             passwordConfirm: '',
-            isHide: true
+            isHide: true,
+            usernameError: false,
+            usernameErrorMessage: null,
+            passwordError: false,
+            passwordErrorMessage: null,
         }
     }
 
     register = () => {
         const { password, username, passwordConfirm } = this.state
-        const { register } = this.props
-        if (!this.isPasswordMatch(password, passwordConfirm))
+        const { register, login } = this.props
+        this.setError('reset', null)
+        if (!this.isPasswordMatch(password, passwordConfirm)) {
             AlertHelper.alert('error', 'เกิดข้อผิดพลาด', 'รหัสผ่านไม่ตรงกัน')
-        else if (username.length < 5 || username.length > 12)
-            AlertHelper.alert('error', 'เกิดข้อผิดพลาด', 'ชื่อผู้ใช้ต้องมีขนาดมากกว่า 5 ตัวอักษร')
-        else if (password.length < 5 || password.length > 12)
-            AlertHelper.alert('error', 'เกิดข้อผิดพลาด', 'รหัสผ่านต้องมีขนาดมากกว่า 5 ตัวอักษร')
-        else register()
+            this.setError('password', 'รหัสผ่านไม่ตรงกัน')
+        }
+        else if (username.length < 5 || username.length > 12) {
+            AlertHelper.alert('error', 'เกิดข้อผิดพลาด', username.length < 5 ? 'ชื่อผู้ใช้ต้องมีขนาดมากกว่า 5 ตัวอักษร' : 'ชื่อผู้ใช้ต้องมีขนาดน้อยกว่า 12 ตัวอักษร')
+            this.setError('username', username.length < 5 ? 'ชื่อผู้ใช้ต้องมีขนาดมากกว่า 5 ตัวอักษร' : 'ชื่อผู้ใช้ต้องมีขนาดน้อยกว่า 12 ตัวอักษร')
+        }
+        else if (password.length < 5 || password.length > 12) {
+            AlertHelper.alert('error', 'เกิดข้อผิดพลาด', password.length < 5 ? 'รหัสผ่านต้องมีขนาดมากกว่า 5 ตัวอักษร' : 'รหัสผ่านต้องมีขนาดน้อยกว่า 12 ตัวอักษร')
+            this.setError('password', password.length < 5 ? 'รหัสผ่านต้องมีขนาดมากกว่า 5 ตัวอักษร' : 'รหัสผ่านต้องมีขนาดน้อยกว่า 12 ตัวอักษร')
+        }
+        // else register()
+        else {
+          userservice.register(username, password)
+            .then(res => {
+              login(username, password)
+              this.setError('reset', null)
+            })
+            .catch(err => {
+              const statusCode = err.response.status
+              let message = null
+              if (statusCode === 409)
+                message = 'บัญชีผู้ใช้ถูกใช้ไปแล้ว'
+              else
+                message = 'การสมัครบัญชีผู้ใช้ผิดพลาด'
+              this.setError('username', message)
+            })
+        }
+    }
+
+    setError = (type, message) => {
+        if(type === 'username') {
+            this.setState({
+              usernameError: true,
+              usernameErrorMessage: message
+            })
+        } else if(type === 'password') {
+          this.setState({
+            passwordError: true,
+            passwordErrorMessage: message
+          })
+        } else if(type === 'reset') {
+            this.setState({
+              usernameError: false,
+              usernameErrorMessage: null,
+              passwordError: false,
+              passwordErrorMessage: null
+            })
+        }
     }
 
     goBack = () => {
@@ -44,6 +93,28 @@ class RegisterView extends React.Component {
                 <FontAwesome style={styles.icon} name={isHide ? 'eye' : 'eye-slash'} size={20} color='white' />
             </TouchableWithoutFeedback>
         )
+    }
+
+    renderUserValidationMessage() {
+      const { usernameError, usernameErrorMessage } = this.state
+      if(usernameError)
+        return (
+          <View>
+            <Text style={styles.errorText}>{usernameErrorMessage}</Text>
+          </View>
+        )
+      else return null
+    }
+
+    renderPasswordValidationMessage() {
+      const { passwordError, passwordErrorMessage } = this.state
+      if(passwordError)
+        return (
+          <View>
+            <Text style={styles.errorText}>{passwordErrorMessage}</Text>
+          </View>
+        )
+      else return null
     }
 
     isPasswordMatch(password, passwordConfirm) {
@@ -75,6 +146,7 @@ class RegisterView extends React.Component {
                             >
                             </TextInput>
                         </View>
+                        {this.renderUserValidationMessage()}
                         <View style={styles.textInputContainer}>
                             <FontAwesome name='lock' style={styles.icon} size={20} color='white' />
                             <TextInput
@@ -87,6 +159,7 @@ class RegisterView extends React.Component {
                             </TextInput>
                             {this.renderHideIcon()}
                         </View>
+                        {this.renderPasswordValidationMessage()}
                         <View style={styles.textInputContainer}>
                             <FontAwesome name='lock' style={styles.icon} size={20} color='white' />
                             <TextInput
@@ -99,6 +172,7 @@ class RegisterView extends React.Component {
                                 value={this.state.text}>
                             </TextInput>
                         </View>
+                        {this.renderPasswordValidationMessage()}
                         <Button rounded style={styles.buttonContainer} disabled={loading} onPress={this.register}>
                             <Text style={styles.textButton}>ลงทะเบียน</Text>
                         </Button>
