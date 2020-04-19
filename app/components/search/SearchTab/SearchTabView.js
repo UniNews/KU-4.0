@@ -23,8 +23,7 @@ class SearchTabView extends React.Component {
     search = () => {
         const { setQuery } = this.props
         const { query } = this.state
-        if (query)
-            setQuery(query)
+        setQuery(query)
     }
 
     clearQuery = () => {

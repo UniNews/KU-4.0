@@ -5,6 +5,7 @@ import SliderBox from '../../../components/news/PaginationSlider'
 import SectionHeader from '../../../components/commons/SectionHeader'
 import NewsCard from '../../../components/news/NewsCard'
 import newsService from '../../../services/news'
+import Spinner from '../../../components/commons/Spinner'
 
 class RecommendationView extends React.Component {
 
@@ -18,6 +19,11 @@ class RecommendationView extends React.Component {
         }
     }
 
+    onRefresh = () => {
+        this.setState({ refreshing: true })
+        this.fetchNews()
+    }
+
     componentDidMount() {
         this.fetchNews()
     }
@@ -27,20 +33,22 @@ class RecommendationView extends React.Component {
             const res = await newsService.getRecommendations()
             const sections = []
             for (const recommendation of res.data) {
-                let section = {}
-                if (recommendation.type === 'feed')
-                    section.title = `ข่าวล่าสุด`
-                else if (recommendation.type === 'tags') {
-                    section.title = `ข่าวที่คุณน่าสนใจ (${recommendation.tags?.join(', ')})`
-                    section.tags = recommendation.tags
+                if (recommendation.articles?.length > 0) {
+                    let section = {}
+                    if (recommendation.type === 'feed')
+                        section.title = `ข่าวล่าสุด`
+                    else if (recommendation.type === 'tags') {
+                        section.title = `ข่าวที่คุณน่าสนใจ (${recommendation.tags?.join(', ')})`
+                        section.tags = recommendation.tags
+                    }
+                    else if (recommendation.type === 'popular')
+                        section.title = `ข่าวที่กำลังฮิตตอนนี้`
+                    else if (recommendation.type === 'ads')
+                        section.title = `แนะนำ`
+                    section.data = [recommendation.articles]
+                    section.type = recommendation.type
+                    sections.push(section)
                 }
-                else if (recommendation.type === 'popular')
-                    section.title = `ข่าวที่กำลังฮิตตอนนี้`
-                else if (recommendation.type === 'ads')
-                    section.title = `แนะนำ`
-                section.data = [recommendation.articles]
-                section.type = recommendation.type
-                sections.push(section)
             }
             this.setState({
                 sections,
@@ -69,41 +77,46 @@ class RecommendationView extends React.Component {
     }
 
     render() {
-        const { sections } = this.state
+        const { sections, refreshing, loading } = this.state
         return (
-            <SectionList
-                contentContainerStyle={styles.sectionList}
-                sections={sections}
-                renderSectionHeader={({ section }) => (
-                    <TouchableNativeFeedback onPress={() => {
-                        this.goSectionHeader(section)
-                    }}>
-                        <View style={styles.section}>
-                            <SectionHeader title={section.title} subtitle={'เพิ่มเติม'} />
-                        </View>
-                    </TouchableNativeFeedback>
-                )}
-                renderItem={(news) =>
-                    news.section.title === 'แนะนำ' ?
-                        <SliderBox
-                            sliderBoxHeight={175}
-                            data={news.item}
-                            onPressed={this.goNews}
-                        />
-                        :
-                        <FlatList
-                            contentContainerStyle={styles.flatList}
-                            showsHorizontalScrollIndicator={false}
-                            data={news.item}
-                            horizontal
-                            keyExtractor={(item) => item._id}
-                            renderItem={({ item, index }) =>
-                                <NewsCard style={index != news.item?.length - 1 ? styles.newsCardContainer : styles.lastNewsCardContainer} onNewsPressed={this.goNews} data={item} />
-                            }
-                        />
-                }
-                keyExtractor={(item) => item._id}
-            />
+            !loading ?
+                <SectionList
+                    refreshing={refreshing}
+                    onRefresh={this.onRefresh}
+                    contentContainerStyle={styles.sectionList}
+                    sections={sections}
+                    renderSectionHeader={({ section }) => (
+                        <TouchableNativeFeedback onPress={() => {
+                            this.goSectionHeader(section)
+                        }}>
+                            <View style={styles.section}>
+                                <SectionHeader title={section.title} subtitle={'เพิ่มเติม'} />
+                            </View>
+                        </TouchableNativeFeedback>
+                    )}
+                    renderItem={(news) =>
+                        news.section.title === 'แนะนำ' ?
+                            <SliderBox
+                                sliderBoxHeight={175}
+                                data={news.item}
+                                onPressed={this.goNews}
+                            />
+                            :
+                            <FlatList
+                                contentContainerStyle={styles.flatList}
+                                showsHorizontalScrollIndicator={false}
+                                data={news.item}
+                                horizontal
+                                keyExtractor={(item) => item._id}
+                                renderItem={({ item, index }) =>
+                                    <NewsCard style={index != news.item?.length - 1 ? styles.newsCardContainer : styles.lastNewsCardContainer} onNewsPressed={this.goNews} data={item} />
+                                }
+                            />
+                    }
+                    keyExtractor={(item) => item._id}
+                />
+                :
+                <Spinner />
         )
     }
 }

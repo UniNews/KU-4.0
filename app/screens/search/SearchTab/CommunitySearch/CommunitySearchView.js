@@ -1,9 +1,8 @@
 import React from 'react'
-import { View, ActivityIndicator, FlatList } from 'react-native'
+import { View, ActivityIndicator, FlatList, Text } from 'react-native'
 import styles from './styles'
 import Thread from '../../../../components/community/Thread'
 import searchService from '../../../../services/search'
-import Spinner from '../../../../components/commons/Spinner'
 import { PRIMARY_COLOR } from '../../../../assets/css/color'
 
 class CommunitySearchView extends React.Component {
@@ -19,6 +18,23 @@ class CommunitySearchView extends React.Component {
             fetching: false,
             refreshing: false
         }
+    }
+
+    renderEmpty = () => {
+        const { query } = this.props
+        return (
+            query !== '' ?
+                <View style={styles.textContainer}>
+                    <Text style={styles.indicatorText}>
+                        ไม่พบชุมชนสำหรับ
+                </Text>
+                    <Text style={styles.queryText}>
+                        {` ${query}`}
+                    </Text>
+                </View>
+                :
+                null
+        )
     }
 
     async fetchCommunities() {
@@ -101,9 +117,17 @@ class CommunitySearchView extends React.Component {
                 {
                     loading
                         ?
-                        <Spinner />
+                        <View style={styles.textContainer}>
+                            <Text style={styles.indicatorText}>
+                                {`กำลังค้นหาชุมชน... `}
+                            </Text>
+                            <View>
+                                <ActivityIndicator color={PRIMARY_COLOR} />
+                            </View>
+                        </View>
                         :
                         <FlatList
+                            ListEmptyComponent={this.renderEmpty}
                             refreshing={refreshing}
                             onRefresh={this.onRefresh}
                             keyExtractor={(community) => community._id}

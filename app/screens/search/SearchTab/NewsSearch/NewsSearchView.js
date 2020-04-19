@@ -1,9 +1,8 @@
 import React from 'react'
-import { FlatList, View, ActivityIndicator } from 'react-native'
+import { FlatList, View, ActivityIndicator, Text } from 'react-native'
 import styles from './styles'
 import NewsCard from '../../../../components/news/NewsThread'
 import searchService from '../../../../services/search'
-import Spinner from '../../../../components/commons/Spinner'
 import { PRIMARY_COLOR } from '../../../../assets/css/color'
 
 class NewsSearchView extends React.Component {
@@ -96,6 +95,23 @@ class NewsSearchView extends React.Component {
         navigation.goBack()
     }
 
+    renderEmpty = () => {
+        const { query } = this.props
+        return (
+            query !== '' ?
+                <View style={styles.textContainer}>
+                    <Text style={styles.indicatorText}>
+                        ไม่พบข่าวสำหรับ
+                </Text>
+                    <Text style={styles.queryText}>
+                        {` ${query}`}
+                    </Text>
+                </View>
+                :
+                null
+        )
+    }
+
     render() {
         const { news, loading, refreshing } = this.state
         return (
@@ -103,9 +119,17 @@ class NewsSearchView extends React.Component {
                 {
                     loading
                         ?
-                        <Spinner />
+                        <View style={styles.textContainer}>
+                            <Text style={styles.indicatorText}>
+                                {`กำลังค้นหาข่าว... `}
+                            </Text>
+                            <View>
+                                <ActivityIndicator color={PRIMARY_COLOR} />
+                            </View>
+                        </View>
                         :
                         <FlatList
+                            ListEmptyComponent={this.renderEmpty}
                             refreshing={refreshing}
                             onRefresh={this.onRefresh}
                             keyExtractor={(news) => news._id}

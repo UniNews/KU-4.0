@@ -1,9 +1,8 @@
 import React from 'react'
-import { View, FlatList, ActivityIndicator } from 'react-native'
+import { View, FlatList, ActivityIndicator, Text } from 'react-native'
 import styles from './styles'
 import ProfileThread from '../../../../components/profile/ProfileThread'
 import userService from '../../../../services/user'
-import Spinner from '../../../../components/commons/Spinner'
 import { PRIMARY_COLOR } from '../../../../assets/css/color'
 import searchService from '../../../../services/search'
 
@@ -109,6 +108,23 @@ class ProfileSearchView extends React.Component {
         this.fetchUsers()
     }
 
+    renderEmpty = () => {
+        const { query } = this.props
+        return (
+            query !== '' ?
+                <View style={styles.textContainer}>
+                    <Text style={styles.indicatorText}>
+                        ไม่พบโปรไฟล์สำหรับ
+                </Text>
+                    <Text style={styles.queryText}>
+                        {` ${query}`}
+                    </Text>
+                </View>
+                :
+                null
+        )
+    }
+
     render() {
         const { users, loading, refreshing } = this.state
         return (
@@ -117,6 +133,7 @@ class ProfileSearchView extends React.Component {
                     !loading
                         ?
                         <FlatList
+                            ListEmptyComponent={this.renderEmpty}
                             refreshing={refreshing}
                             onRefresh={this.onRefresh}
                             keyExtractor={(news) => news._id}
@@ -131,7 +148,14 @@ class ProfileSearchView extends React.Component {
                             }}
                         />
                         :
-                        <Spinner />
+                        <View style={styles.textContainer}>
+                            <Text style={styles.indicatorText}>
+                                {`กำลังค้นหาโปรไฟล์... `}
+                            </Text>
+                            <View>
+                                <ActivityIndicator color={PRIMARY_COLOR} />
+                            </View>
+                        </View>
                 }
             </View>
         )
