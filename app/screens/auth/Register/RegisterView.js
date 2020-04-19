@@ -1,13 +1,13 @@
 import React from 'react'
-import { Text, TextInput, View, TouchableWithoutFeedback, ActivityIndicator, TouchableOpacity } from 'react-native'
+import { Text, TextInput, View, TouchableWithoutFeedback, TouchableOpacity } from 'react-native'
 import styles from './styles'
 import { LinearGradient } from 'expo-linear-gradient'
 import { FontAwesome, Ionicons } from '@expo/vector-icons'
 import PropTypes from 'prop-types'
-import { AlertHelper } from '../../../configs/alertHelper'
 import Button from '../../../components/commons/Button'
 import { KU_PRIMARY_COLOR, KU_SECONDARY_COLOR } from '../../../assets/css/color'
 import userservice from '../../../services/user'
+import LoadingModal from '../../../components/modals/LoadingModal'
 
 class RegisterView extends React.Component {
 
@@ -18,6 +18,7 @@ class RegisterView extends React.Component {
             password: '',
             passwordConfirm: '',
             isHide: true,
+            loading: false,
             usernameError: false,
             usernameErrorMessage: null,
             passwordError: false,
@@ -25,58 +26,63 @@ class RegisterView extends React.Component {
         }
     }
 
-    register = () => {
+    register = async () => {
         const { password, username, passwordConfirm } = this.state
-        const { register, login } = this.props
+        const { login } = this.props
         this.setError('reset', null)
         if (!this.isPasswordMatch(password, passwordConfirm)) {
-            AlertHelper.alert('error', 'เกิดข้อผิดพลาด', 'รหัสผ่านไม่ตรงกัน')
             this.setError('password', 'รหัสผ่านไม่ตรงกัน')
         }
-        else if (username.length < 5 || username.length > 12) {
-            AlertHelper.alert('error', 'เกิดข้อผิดพลาด', username.length < 5 ? 'ชื่อผู้ใช้ต้องมีขนาดมากกว่า 5 ตัวอักษร' : 'ชื่อผู้ใช้ต้องมีขนาดน้อยกว่า 12 ตัวอักษร')
-            this.setError('username', username.length < 5 ? 'ชื่อผู้ใช้ต้องมีขนาดมากกว่า 5 ตัวอักษร' : 'ชื่อผู้ใช้ต้องมีขนาดน้อยกว่า 12 ตัวอักษร')
+        else if (username.length < 5) {
+            this.setError('username', 'ชื่อผู้ใช้ต้องมีขนาดมากกว่า 5 ตัวอักษร')
         }
-        else if (password.length < 5 || password.length > 12) {
-            AlertHelper.alert('error', 'เกิดข้อผิดพลาด', password.length < 5 ? 'รหัสผ่านต้องมีขนาดมากกว่า 5 ตัวอักษร' : 'รหัสผ่านต้องมีขนาดน้อยกว่า 12 ตัวอักษร')
-            this.setError('password', password.length < 5 ? 'รหัสผ่านต้องมีขนาดมากกว่า 5 ตัวอักษร' : 'รหัสผ่านต้องมีขนาดน้อยกว่า 12 ตัวอักษร')
+        else if (password.length < 5) {
+            this.setError('password', 'รหัสผ่านต้องมีขนาดมากกว่า 5 ตัวอักษร')
         }
-        // else register()
         else {
-          userservice.register(username, password)
-            .then(res => {
-              login(username, password)
-              this.setError('reset', null)
-            })
-            .catch(err => {
-              const statusCode = err.response.status
-              let message = null
-              if (statusCode === 409)
-                message = 'บัญชีผู้ใช้ถูกใช้ไปแล้ว'
-              else
-                message = 'การสมัครบัญชีผู้ใช้ผิดพลาด'
-              this.setError('username', message)
-            })
+            try {
+                this.setState({
+                    loading: true
+                })
+                const res = await userservice.register(username, password)
+                login(username, password)
+                this.setError('reset', null)
+            }
+            catch (err) {
+                const statusCode = err.response.status
+                let message = null
+                if (statusCode === 409)
+                    message = 'บัญชีผู้ใช้ถูกใช้ไปแล้ว'
+                else
+                    message = 'การสมัครบัญชีผู้ใช้ผิดพลาด'
+                this.setError('username', message)
+            }
+            finally {
+                this.setState({
+                    loading: false
+                })
+            }
         }
+
     }
 
     setError = (type, message) => {
-        if(type === 'username') {
+        if (type === 'username') {
             this.setState({
-              usernameError: true,
-              usernameErrorMessage: message
+                usernameError: true,
+                usernameErrorMessage: message
             })
-        } else if(type === 'password') {
-          this.setState({
-            passwordError: true,
-            passwordErrorMessage: message
-          })
-        } else if(type === 'reset') {
+        } else if (type === 'password') {
             this.setState({
-              usernameError: false,
-              usernameErrorMessage: null,
-              passwordError: false,
-              passwordErrorMessage: null
+                passwordError: true,
+                passwordErrorMessage: message
+            })
+        } else if (type === 'reset') {
+            this.setState({
+                usernameError: false,
+                usernameErrorMessage: null,
+                passwordError: false,
+                passwordErrorMessage: null
             })
         }
     }
@@ -96,25 +102,25 @@ class RegisterView extends React.Component {
     }
 
     renderUserValidationMessage() {
-      const { usernameError, usernameErrorMessage } = this.state
-      if(usernameError)
-        return (
-          <View>
-            <Text style={styles.errorText}>{usernameErrorMessage}</Text>
-          </View>
-        )
-      else return null
+        const { usernameError, usernameErrorMessage } = this.state
+        if (usernameError)
+            return (
+                <View>
+                    <Text style={styles.errorText}>{usernameErrorMessage}</Text>
+                </View>
+            )
+        else return null
     }
 
     renderPasswordValidationMessage() {
-      const { passwordError, passwordErrorMessage } = this.state
-      if(passwordError)
-        return (
-          <View>
-            <Text style={styles.errorText}>{passwordErrorMessage}</Text>
-          </View>
-        )
-      else return null
+        const { passwordError, passwordErrorMessage } = this.state
+        if (passwordError)
+            return (
+                <View>
+                    <Text style={styles.errorText}>{passwordErrorMessage}</Text>
+                </View>
+            )
+        else return null
     }
 
     isPasswordMatch(password, passwordConfirm) {
@@ -122,8 +128,8 @@ class RegisterView extends React.Component {
     }
 
     render() {
-        const { isHide } = this.state
-        const { loading, loginByFacebook, loginByGoogle } = this.props
+        const { isHide, loading } = this.state
+        const { loginByFacebook, loginByGoogle } = this.props
         return (
             <LinearGradient colors={[KU_PRIMARY_COLOR, KU_SECONDARY_COLOR]} style={styles.container} >
                 <View style={styles.innerContainer}>
@@ -139,6 +145,7 @@ class RegisterView extends React.Component {
                         <View style={styles.textInputContainer}>
                             <FontAwesome name='user' style={styles.icon} size={20} color='white' />
                             <TextInput
+                                maxLength={12}
                                 style={styles.textInput}
                                 placeholder='ชื่อผู้ใช้งาน'
                                 placeholderTextColor='white'
@@ -150,6 +157,7 @@ class RegisterView extends React.Component {
                         <View style={styles.textInputContainer}>
                             <FontAwesome name='lock' style={styles.icon} size={20} color='white' />
                             <TextInput
+                                maxLength={12}
                                 style={styles.textInput}
                                 placeholder='รหัสผ่าน'
                                 placeholderTextColor='white'
@@ -206,6 +214,7 @@ class RegisterView extends React.Component {
                         </Button>
                     </View>
                 </View>
+                <LoadingModal message={'กำลังสมัคร...'} visible={loading} />
             </LinearGradient >
         )
     }

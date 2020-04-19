@@ -10,7 +10,7 @@ class LoadingModalView extends React.Component {
     }
 
     render() {
-        const { visible } = this.props
+        const { visible, message } = this.props
         return (
             <Modal
                 animationType='fade'
@@ -22,7 +22,7 @@ class LoadingModalView extends React.Component {
                         <View style={styles.descriptionContainer}>
                             <ActivityIndicator size={10} color={PRIMARY_COLOR} size='large' />
                             <Text style={styles.loadingText}>
-                                กำลังดึงข้อมูล...
+                                {message}
                             </Text>
                         </View>
                     </View>

@@ -1,7 +1,8 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native'
 import { wp, viewportWidth } from '../../../assets/javascripts/spacing'
 import { BOLD_FONT, REGULAR_FONT } from '../../../assets/css/typography'
-const textInputContainerHorizontalMargin = viewportWidth - wp(20);
+import { SECONDARY_COLOR, PRIMARY_COLOR } from '../../../assets/css/color'
+const textInputContainerHorizontalMargin = viewportWidth - wp(20)
 
 export default StyleSheet.create({
     container: {
@@ -141,8 +142,9 @@ export default StyleSheet.create({
         alignSelf: 'center'
     },
     errorText: {
-      color: 'red',
-      fontSize: 13,
-      fontFamily: REGULAR_FONT,
+        color: 'red',
+        fontSize: 13,
+        // alignSelf: 'flex-end',
+        fontFamily: BOLD_FONT,
     }
-});
+})

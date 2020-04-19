@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import RegisterView from './RegisterView'
-import { login, loginByFacebook, loginByGoogle, register } from '../../../reducers/UserReducer/actions'
+import { login, loginByFacebook, loginByGoogle } from '../../../reducers/UserReducer/actions'
 
 const mapStateToProps = state => {
     return {
@@ -12,7 +12,7 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = {
-    login, loginByFacebook, loginByGoogle, register
+    login, loginByFacebook, loginByGoogle
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(RegisterView)

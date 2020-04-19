@@ -63,6 +63,7 @@ class LoginView extends React.Component {
                         <View style={styles.textInputContainer}>
                             <FontAwesome name='user' style={styles.icon} size={20} color='white' />
                             <TextInput
+                                maxLength={12}
                                 style={styles.textInput}
                                 placeholder='ชื่อผู้ใช้งาน'
                                 placeholderTextColor='white'
@@ -73,6 +74,7 @@ class LoginView extends React.Component {
                         <View style={styles.textInputContainer}>
                             <FontAwesome name='lock' style={styles.icon} size={20} color='white' />
                             <TextInput
+                                maxLength={12}
                                 style={styles.textInput}
                                 placeholder='รหัสผ่าน'
                                 placeholderTextColor='white'
@@ -117,7 +119,7 @@ class LoginView extends React.Component {
                         </Button>
                     </View>
                 </View>
-                <LoadingModal visible={loading} />
+                <LoadingModal message={'กำลังดึงข้อมูล...'} visible={loading} />
             </LinearGradient>
         )
     }
