@@ -33,6 +33,7 @@ export default StyleSheet.create({
     },
     titleContainer: {
         flexDirection: 'row',
+        alignItems: 'center'
     },
     topContainer: {
         padding: 15,
@@ -45,12 +46,23 @@ export default StyleSheet.create({
     iconContainer: {
         paddingTop: 5,
         flexDirection: 'row',
-        // justifyContent: 'space-between'
+        // justifyContent: 'space-around'
     },
-    iconText: {
-        paddingLeft: 5,
+    dateText: {
+        fontFamily: REGULAR_FONT,
+    },
+    numberText: {
+        fontSize: 13,
+        fontFamily: BOLD_FONT,
+    },
+    indicatorText: {
         fontSize: 13,
         fontFamily: REGULAR_FONT,
+    },
+    iconTextContainer: {
+        paddingLeft: 5,
+        flexDirection: 'row',
+        alignItems: 'center'
     },
     newsInfoText: {
         fontFamily: REGULAR_FONT,

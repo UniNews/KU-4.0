@@ -1,19 +1,18 @@
 import React, { Component } from 'react'
 import { View, Text, TouchableOpacity, TouchableNativeFeedback } from 'react-native'
-import { FontAwesome, MaterialCommunityIcons, } from '@expo/vector-icons'
+import { FontAwesome } from '@expo/vector-icons'
 import styles from './styles'
-import PropTypes from 'prop-types';
+import PropTypes from 'prop-types'
 import { convertTimestamptoDate } from '../../../assets/javascripts/date'
-import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
-import newsService from './../../../services/news';
-import { PRIMARY_COLOR } from '../../../assets/css/color';
+import newsService from './../../../services/news'
+import { PRIMARY_COLOR } from '../../../assets/css/color'
 
 class Thread extends Component {
 
     constructor(props) {
         super(props)
         this.state = {
-          likes: [...props.data.likes]
+            news: this.props.data
         }
     }
 
@@ -24,19 +23,20 @@ class Thread extends Component {
     }
 
     onLikePressedHandler = () => {
-        const { data, user } = this.props
-        data.isLiked = !data.isLiked
-        if (data.isLiked) {
-          newsService.likeNews(data._id)
-          data.likes.push(user._id)
+        const { user } = this.props
+        const { news } = this.state
+        news.isLiked = !news.isLiked
+        if (news.isLiked) {
+            newsService.likeNews(news._id)
+            news.likes.push(user._id)
         }
         else {
-          newsService.unlikeNews(data._id)
-          const indexToRemove = data.likes.indexOf(user._id)
-          if (indexToRemove > -1)
-            data.likes.splice(indexToRemove, 1)
+            newsService.unlikeNews(news._id)
+            const indexToRemove = news.likes.indexOf(user._id)
+            if (indexToRemove > -1)
+                news.likes.splice(indexToRemove, 1)
         }
-        this.setState({ likes: [...data.likes] })
+        this.setState({ news })
     }
 
     onCommentPressedHandler = () => {
@@ -53,7 +53,7 @@ class Thread extends Component {
 
     render() {
         const { data, style } = this.props
-        const { likes } = this.state
+        const { news } = this.state
         let container = {}
         if (style)
             container = style
@@ -67,7 +67,7 @@ class Thread extends Component {
                     <View style={styles.innerContainer}>
                         <View style={styles.nameContainer}>
                             <Text style={styles.nameText}>
-                                {data.author?.displayName}
+                                {news.author?.displayName}
                             </Text>
                             {/* <TouchableWithoutFeedback onPress={this.onReportPressHandler} >
                                 <MaterialCommunityIcons style={styles.dotIcon} name='dots-vertical' size={20} color='black' />
@@ -76,26 +76,27 @@ class Thread extends Component {
                         <View style={styles.iconContainer}>
                             <FontAwesome name='clock-o' size={15} color='grey' />
                             <Text style={styles.dateText}>
-                                {` ${convertTimestamptoDate(data.createdAt)}`}
+                                {` ${convertTimestamptoDate(news.createdAt)}`}
                             </Text>
                         </View>
                         <Text style={styles.descriptionText}>
-                            {data.description}
+                            {news.description}
                         </Text>
                         <View style={styles.bottomContainer}>
-                            <View style={styles.iconContainer}>
-                                <TouchableOpacity onPress={
-                                    this.onLikePressedHandler
-                                }>
-                                  <FontAwesome name={data.isLiked ? 'heart' : 'heart-o'} size={15} color={data.isLiked ? PRIMARY_COLOR : 'grey'} />
-                                </TouchableOpacity>
-                                <Text style={styles.numberText}>
-                                    {likes ? likes.length : 0}
-                                </Text>
-                                <Text style={styles.indicatorText}>
-                                    {` ถูกใจ`}
-                                </Text>
-                            </View>
+                            <TouchableOpacity onPress={
+                                this.onLikePressedHandler
+                            }>
+                                <View style={styles.iconContainer}>
+
+                                    <FontAwesome name={news.isLiked ? 'heart' : 'heart-o'} size={15} color={news.isLiked ? PRIMARY_COLOR : 'grey'} />
+                                    <Text style={styles.numberText}>
+                                        {news.likes ? news.likes.length : 0}
+                                    </Text>
+                                    <Text style={styles.indicatorText}>
+                                        {` ถูกใจ`}
+                                    </Text>
+                                </View>
+                            </TouchableOpacity>
                             <View style={styles.iconContainer}>
                                 <TouchableOpacity onPress={
                                     this.onCommentPressedHandler
@@ -103,7 +104,7 @@ class Thread extends Component {
                                     <FontAwesome name='commenting-o' size={15} color='grey' />
                                 </TouchableOpacity>
                                 <Text style={styles.numberText}>
-                                    {data.comments ? data.comments.length : 0}
+                                    {news.comments ? news.comments.length : 0}
                                 </Text>
                                 <Text style={styles.indicatorText}>
                                     {` ความเห็น`}

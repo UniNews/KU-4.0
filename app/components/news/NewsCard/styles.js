@@ -48,14 +48,13 @@ export default StyleSheet.create({
         fontSize: 13,
     },
     border: {
-        // elevation: 2,
+        elevation: 3,
+        marginBottom: 5, // for shadow
         backgroundColor: 'white',
         borderTopLeftRadius: entryBorderRadius,
         borderTopRightRadius: entryBorderRadius,
         borderBottomLeftRadius: entryBorderRadius,
         borderBottomRightRadius: entryBorderRadius,
-        // borderWidth: 0.5,
-        // borderColor: 'grey'
     },
     iconContainer: {
         paddingRight: 10,

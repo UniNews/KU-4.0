@@ -204,7 +204,6 @@ class DetailView extends React.Component {
                                         <Text style={styles.userText}>
                                             {community.author?.displayName}
                                         </Text>
-                                        {/* <MaterialCommunityIcons style={styles.dotIcon} name='dots-vertical' size={17} color='black' /> */}
                                     </View>
                                     <View style={styles.clockIconContainer}>
                                         <FontAwesome name='clock-o' size={15} color='grey' />
@@ -250,7 +249,13 @@ class DetailView extends React.Component {
             </TouchableNativeFeedback>
             <View style={styles.commentHeaderContainer}>
                 <Text style={styles.commentHeaderText}>
-                    {`ความคิดเห็น (${community.comment ? community.comment.length : 0})`}
+                    {
+                        community.comments && community.comments.length !== 0
+                            ?
+                            `ความคิดเห็น (${community.comments.length})`
+                            :
+                            ``
+                    }
                 </Text>
             </View>
         </View>

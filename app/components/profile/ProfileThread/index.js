@@ -37,10 +37,10 @@ class ProfileThread extends Component {
                                 {data.displayName}
                             </Text>
                             {
-                                data.displayName
+                                data.bio
                                     ?
                                     <Text numberOfLines={1} style={styles.bioText}>
-                                        เงี่ยนว่ะ
+                                        {data.bio}
                                     </Text>
                                     :
                                     null

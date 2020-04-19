@@ -43,6 +43,12 @@ class NewsCard extends Component {
                         >
                             {data.author?.displayName}
                         </Text>
+                        <View style={styles.iconContainer}>
+                            <FontAwesome name='clock-o' size={13} color='grey' />
+                            <Text style={styles.date}>
+                                {` ${convertTimestamptoDate(data.createdAt)}`}
+                            </Text>
+                        </View>
 
                         <Text
                             style={[styles.title]}
@@ -50,12 +56,7 @@ class NewsCard extends Component {
                         >
                             {data.title}
                         </Text>
-                        <View style={styles.iconContainer}>
-                            <FontAwesome name='clock-o' size={13} color='grey' />
-                            <Text style={styles.date}>
-                                {` ${convertTimestamptoDate(data.createdAt)}`}
-                            </Text>
-                        </View>
+
                     </View>
                 </View>
             </TouchableNativeFeedback>

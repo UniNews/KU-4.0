@@ -12,7 +12,7 @@ class NewsCard extends Component {
     constructor(props) {
         super(props)
         this.state = {
-          likes: [...props.data.likes]
+            news: this.props.data
         }
     }
 
@@ -20,22 +20,23 @@ class NewsCard extends Component {
         const { onNewsPressed } = this.props
         if (onNewsPressed)
             onNewsPressed(newsId)
-    } 
+    }
 
     onLikePressedHandler = () => {
-        const { data, user } = this.props
-        data.isLiked = !data.isLiked
-        if(data.isLiked) {
-          newsService.likeNews(data._id)
-          data.likes.push(user._id)
+        const { user } = this.props
+        const { news } = this.state
+        news.isLiked = !news.isLiked
+        if (news.isLiked) {
+            newsService.likeNews(news._id)
+            news.likes.push(user._id)
         }
         else {
-          newsService.unlikeNews(data._id)
-          const indexToRemove = data.likes.indexOf(user._id)
-          if (indexToRemove > -1)
-            data.likes.splice(indexToRemove, 1)
+            newsService.unlikeNews(news._id)
+            const indexToRemove = news.likes.indexOf(user._id)
+            if (indexToRemove > -1)
+                news.likes.splice(indexToRemove, 1)
         }
-        this.setState({ likes: [...data.likes] })
+        this.setState({ news })
     }
 
     onCommentPressedHandler = () => {
@@ -57,13 +58,13 @@ class NewsCard extends Component {
     }
 
     render() {
-        const { style, data, onNewsPressed, ...restProps } = this.props
-        const { likes } = this.state
+        const { style, onNewsPressed, ...restProps } = this.props
+        const { news } = this.state
         return (
             <TouchableNativeFeedback
                 onLongPress={this.onReportPressHandler}
                 onPress={() =>
-                    this.onNewsPressedHandler(data._id)
+                    this.onNewsPressedHandler(news._id)
                 }
                 {...restProps}
             >
@@ -71,17 +72,17 @@ class NewsCard extends Component {
                     <View style={styles.topContainer}>
                         <View style={styles.leftContainer}>
                             <Text style={styles.nameText}>
-                                {data.author?.displayName}
+                                {news.author?.displayName}
                             </Text>
                             <View style={styles.icon}>
                                 <FontAwesome name='clock-o' size={15} color='grey' />
                                 <Text style={styles.date}>
-                                    {` ${convertTimestamptoDate(data.createdAt)}`}
+                                    {` ${convertTimestamptoDate(news.createdAt)}`}
                                 </Text>
                             </View>
                             <View style={styles.descriptionContainer}>
                                 <Text numberOfLines={2} style={styles.title}>
-                                    {data.title}
+                                    {news.title}
                                 </Text>
                             </View>
                             <View style={styles.iconContainer}>
@@ -89,9 +90,9 @@ class NewsCard extends Component {
                                     this.onLikePressedHandler
                                 }>
                                     <View style={styles.icon}>
-                                        <FontAwesome name={data.isLiked ? 'heart' : 'heart-o'} size={15} color={data.isLiked ? PRIMARY_COLOR : 'grey'} />
+                                        <FontAwesome name={news.isLiked ? 'heart' : 'heart-o'} size={15} color={news.isLiked ? PRIMARY_COLOR : 'grey'} />
                                         <Text style={styles.numberText}>
-                                            {likes ? likes.length : 0}
+                                            {news.likes ? news.likes.length : 0}
                                         </Text>
                                         <Text style={styles.indicatorText}>
                                             {` ถูกใจ`}
@@ -105,7 +106,7 @@ class NewsCard extends Component {
 
                                         <FontAwesome name='commenting-o' size={15} color='grey' />
                                         <Text style={styles.numberText}>
-                                            {data.comments ? data.comments.length : 0}
+                                            {news.comments ? news.comments.length : 0}
                                         </Text>
                                         <Text style={styles.indicatorText}>
                                             {` ความเห็น`}
@@ -117,7 +118,7 @@ class NewsCard extends Component {
                         <View style={styles.rightContainer}>
                             <View style={[styles.imageContainer]}>
                                 <Image
-                                    source={{ uri: data.imageURL }}
+                                    source={{ uri: news.imageURL }}
                                     style={styles.image}
                                 />
                             </View>

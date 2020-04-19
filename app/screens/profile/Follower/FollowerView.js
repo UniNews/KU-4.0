@@ -25,7 +25,7 @@ class FollowerView extends React.Component {
 
     follow = (profile) => {
         profile.isFollowing = !profile.isFollowing
-        this.setState({ followers: [...this.state.followers] })
+        this.setState({ followers: this.state.followers })
         if (profile.isFollowing)
             userService.followUserById(profile._id)
         else

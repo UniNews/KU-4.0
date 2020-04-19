@@ -92,20 +92,19 @@ class DetailView extends React.Component {
     }
 
     likePost = () => {
-      const { user } = this.props
-      const { news } = this.state
-      let updatedNews = {...news}
-      updatedNews.isLiked = !updatedNews.isLiked
-      if(updatedNews.isLiked) {
-        newsService.likeNews(updatedNews._id)
-        updatedNews.likes.push(user._id)
-      } else {
-        newsService.unlikeNews(updatedNews._id)
-        const indexToRemove = updatedNews.likes.indexOf(user._id)
-        if (indexToRemove > -1)
-        updatedNews.likes.splice(indexToRemove, 1)
-      }
-      this.setState({news: updatedNews})
+        const { user } = this.props
+        const { news } = this.state
+        news.isLiked = !news.isLiked
+        if (news.isLiked) {
+            newsService.likeNews(news._id)
+            news.likes.push(user._id)
+        } else {
+            newsService.unlikeNews(news._id)
+            const indexToRemove = news.likes.indexOf(user._id)
+            if (indexToRemove > -1)
+                news.likes.splice(indexToRemove, 1)
+        }
+        this.setState({ news })
     }
 
     render() {
@@ -149,42 +148,48 @@ class DetailView extends React.Component {
                                         <View style={styles.iconContainer}>
                                             <View style={styles.textIconContainer}>
                                                 <FontAwesome name='calendar' size={15} color='grey' />
-                                                <Text style={styles.iconText}>
-                                                    {convertTimestamptoDate(news.createdAt)}
-                                                </Text>
-                                            </View>
-                                            {
-                                                <TouchableOpacity
-                                                    onPress={this.goComments}
-                                                    style={styles.textIconContainer}>
-                                                    <FontAwesome name='commenting-o' size={18} color='grey' />
-                                                    <Text style={styles.iconText}>
-                                                        {this.state.news.comments.length} ความเห็น
+                                                <View style={styles.iconTextContainer}>
+                                                    <Text style={styles.dateText}>
+                                                        {convertTimestamptoDate(news.createdAt)}
                                                     </Text>
-                                                </TouchableOpacity>
-                                            }
-                                            {
-                                              <TouchableOpacity style={styles.textIconContainer} onPress={this.likePost}>
-                                                  <FontAwesome name={news.isLiked ? 'heart' : 'heart-o'} size={15} color={news.isLiked ? PRIMARY_COLOR : 'grey'} />
-                                                  <View style={styles.textIconContainer}>
-                                                      <Text style={styles.iconText}>
-                                                          {`${news.likes ? news.likes.length : 0} `}
-                                                      </Text>
-                                                      <Text style={styles.iconText}>
-                                                          ถูกใจ
-                                                      </Text>
-                                                  </View>
-                                              </TouchableOpacity>
-                                            }
+                                                </View>
+                                            </View>
+
+                                            <TouchableOpacity style={styles.textIconContainer} onPress={this.likePost}>
+                                                <FontAwesome name={news.isLiked ? 'heart' : 'heart-o'} size={15} color={news.isLiked ? PRIMARY_COLOR : 'grey'} />
+                                                <View style={styles.iconTextContainer}>
+                                                    <Text style={styles.numberText}>
+                                                        {`${news.likes ? news.likes.length : 0} `}
+                                                    </Text>
+                                                    <Text style={styles.indicatorText}>
+                                                        ถูกใจ
+                                                    </Text>
+                                                </View>
+                                            </TouchableOpacity>
+
+                                            <TouchableOpacity
+                                                onPress={this.goComments}
+                                                style={styles.textIconContainer}>
+                                                <FontAwesome name='commenting-o' size={18} color='grey' />
+                                                <View style={styles.iconTextContainer}>
+                                                    <Text style={styles.numberText}>
+                                                        {`${news.comments ? news.comments.length : 0} `}
+                                                    </Text>
+                                                    <Text style={styles.indicatorText}>
+                                                        ความเห็น
+                                                    </Text>
+                                                </View>
+                                            </TouchableOpacity>
                                         </View>
                                     </View>
                                 </View>
+
                                 <Hr style={styles.hr} />
                                 <View>
                                     <Text style={styles.descriptionHeaderText}>
                                         รายละเอียด
                                     </Text>
-                                    <Hyperlink style={{ paddingBottom: 100 }} linkStyle={{ textDecorationLine: 'underline', color: 'green', fontFamily: 'Kanit-Regular' }} onPress={(url, text) => Linking.openURL(url)}>
+                                    <Hyperlink linkStyle={{ textDecorationLine: 'underline', color: 'green', fontFamily: 'Kanit-Regular' }} onPress={(url, text) => Linking.openURL(url)}>
                                         <Text style={styles.newsInfoText}>
                                             {news.description}
                                         </Text>
