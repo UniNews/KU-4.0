@@ -29,7 +29,7 @@ export default StyleSheet.create({
         paddingTop: entryBorderRadius,
         paddingBottom: entryBorderRadius,
         paddingHorizontal: 14,
-        backgroundColor: 'white',
+        // backgroundColor: 'white',
         borderBottomLeftRadius: entryBorderRadius,
         borderBottomRightRadius: entryBorderRadius,
     },
@@ -62,4 +62,4 @@ export default StyleSheet.create({
         alignItems: 'center',
         flexDirection: 'row',
     },
-});
+})

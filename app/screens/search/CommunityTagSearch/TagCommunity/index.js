@@ -32,7 +32,7 @@ class TagCommunityView extends React.Component {
     async fetchNews() {
         try {
             const tag = this.props.navigation.state.routeName
-            const res = await newsService.getCommunitiesByTag(tag, this.page)
+            const res = await newsService.getCommunitiesByTags([tag], this.page)
             this.setState({
                 news: this.page === 1 ? res.data.articles : [...this.state.news, ...res.data.articles],
                 error: false,

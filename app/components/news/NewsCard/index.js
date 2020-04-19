@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
-import { View, Text, Image, TouchableWithoutFeedback } from 'react-native'
+import { View, Text, Image, TouchableNativeFeedback } from 'react-native'
 import styles from './styles'
-import PropTypes from 'prop-types';
 import { convertTimestamptoDate } from '../../../assets/javascripts/date'
 import { FontAwesome, } from '@expo/vector-icons'
 
@@ -11,16 +10,10 @@ class NewsCard extends Component {
         super(props)
     }
 
-    onNewsPressedHandler = (newsId) => {
-        const { onNewsPressed } = this.props
+    onNewsPressedHandler = () => {
+        const { onNewsPressed, data } = this.props
         if (onNewsPressed)
-            onNewsPressed(newsId)
-    }
-
-    onProfilePressedHandler = (profileId) => {
-        const { onProfilePressed } = this.props
-        if (onProfilePressed)
-            onProfilePressed(profileId)
+            onNewsPressed(data._id)
     }
 
     render() {
@@ -31,36 +24,26 @@ class NewsCard extends Component {
         else
             inlineStyle = styles.cardContainer
         return (
-            <TouchableWithoutFeedback
-                activeOpacity={1}
-                onPress={() =>
-                    this.onNewsPressedHandler(data.newsId)
-                }
-                {...restProps}
+            <TouchableNativeFeedback
+                onPress={this.onNewsPressedHandler}
+            // {...restProps}
             >
                 <View style={[inlineStyle, styles.border]}>
                     <View style={[styles.imageContainer]}>
                         <Image
-                            source={{ uri: data.imgUrl }}
+                            source={{ uri: data.imageURL }}
                             style={styles.image}
                         />
                     </View>
-
                     <View style={[styles.textContainer]}>
-                        <TouchableWithoutFeedback
-                            underlayColor='white'
-                            onPress={() => {
-                                this.onProfilePressedHandler(data.profileId)
-                            }
-                            }>
-                            <Text
-                                style={[styles.nameText]}
-                                numberOfLines={1}
-                            >
-                                {data.user}
-                            </Text>
 
-                        </TouchableWithoutFeedback>
+                        <Text
+                            style={[styles.nameText]}
+                            numberOfLines={1}
+                        >
+                            {data.author?.displayName}
+                        </Text>
+
                         <Text
                             style={[styles.title]}
                             numberOfLines={2}
@@ -75,33 +58,9 @@ class NewsCard extends Component {
                         </View>
                     </View>
                 </View>
-            </TouchableWithoutFeedback>
+            </TouchableNativeFeedback>
         )
     }
 }
 
-NewsCard.propTypes = {
-    data: PropTypes.shape({
-        newsId: PropTypes.string.isRequired,
-        title: PropTypes.string.isRequired,
-        imgUrl: PropTypes.string.isRequired,
-        user: PropTypes.string.isRequired,
-        date: PropTypes.string.isRequired,
-        profileId: PropTypes.string.isRequired,
-    }).isRequired,
-    onNewsPressed: PropTypes.func,
-    onProfilePressed: PropTypes.func,
-};
-
-NewsCard.defaultProps = {
-    data: {
-        newsId: null,
-        profileId: null,
-        title: '',
-        imgUrl: '',
-        user: '',
-        date: '',
-    },
-}
-
-export default NewsCard;
+export default NewsCard

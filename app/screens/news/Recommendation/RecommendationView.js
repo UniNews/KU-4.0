@@ -1,15 +1,67 @@
-import React from 'react';
-import { ScrollView, View } from 'react-native';
-import styles from './styles';
-import SliderBox from '../../../components/news/PaginationSlider';
+import React from 'react'
+import { SectionList, FlatList, TouchableNativeFeedback, View } from 'react-native'
+import styles from './styles'
+import SliderBox from '../../../components/news/PaginationSlider'
 import SectionHeader from '../../../components/commons/SectionHeader'
-import Hr from '../../../components/commons/Hr'
 import NewsCard from '../../../components/news/NewsCard'
+import newsService from '../../../services/news'
 
 class RecommendationView extends React.Component {
 
     constructor(props) {
-        super(props);
+        super(props)
+        this.state = {
+            sections: [],
+            error: false,
+            refreshing: false,
+            loading: true
+        }
+    }
+
+    componentDidMount() {
+        this.fetchNews()
+    }
+
+    async fetchNews() {
+        try {
+            const res = await newsService.getRecommendations()
+            const sections = []
+            for (const recommendation of res.data) {
+                let section = {}
+                if (recommendation.type === 'feed')
+                    section.title = `ข่าวล่าสุด`
+                else if (recommendation.type === 'tags') {
+                    section.title = `ข่าวที่คุณน่าสนใจ (${recommendation.tags?.join(', ')})`
+                    section.tags = recommendation.tags
+                }
+                else if (recommendation.type === 'popular')
+                    section.title = `ข่าวที่กำลังฮิตตอนนี้`
+                else if (recommendation.type === 'ads')
+                    section.title = `แนะนำ`
+                section.data = [recommendation.articles]
+                section.type = recommendation.type
+                sections.push(section)
+            }
+            this.setState({
+                sections,
+                error: false,
+                loading: false,
+                refreshing: false
+            })
+        }
+        catch (err) {
+            this.setState({
+                sections: [],
+                error: true,
+                loading: false,
+                refreshing: false
+            })
+            this.props.showModal()
+        }
+    }
+
+    goSectionHeader = (section) => {
+        this.props.navigation.push('AnyNews', { recommendation: section })
     }
 
     goNews = (newsId) => {
@@ -17,85 +69,43 @@ class RecommendationView extends React.Component {
     }
 
     render() {
-        const images = [
-            'https://cdn.majorcineplex.com/uploads/content/12694/cover_12694.jpg',
-            'https://www.ku.ac.th/web2012/resources/upload/content/images/symbol_KU62.png',
-            'https://www.mannaturecoconutmilk.com/uploads/110862coconutmilktabletforcowsmilkallergy.jpg',
-            'https://i.ebayimg.com/images/g/vuoAAOSw~M5cWv1Y/s-l1600.jpg',
-        ]
-        const ENTRIES1 = [
-            {
-                title: 'CPSK E-SPORT WEEK 2019 การแข่งขันเพื่อหาตัวแทนภาควิชาไปแข่งในงาน ENIAC #16 โดยในปีนี้เราจัดการแข่งขันด้วยกันถึง 5 เกม',
-                date: '2020-01-30T09:38:20.898+00:00',
-                user: 'CPE30 & SKE14',
-                imgUrl: 'https://scontent.fbkk11-1.fna.fbcdn.net/v/t1.0-9/80691891_1798624946938448_2257699926223880192_n.jpg?_nc_cat=102&_nc_oc=AQmJ0rHR0_BmC2QmIegAodJ2ja4ePEhY7bipbxurTuh-zUdy0r9eaCAqBAdVS3MdXHY&_nc_ht=scontent.fbkk11-1.fna&oh=77755394e7c6b88ceeeead47e843f4d9&oe=5ED0A121',
-                newsId: '1',
-                profileId: '1',
-            },
-            {
-                title: 'ขอเชิญพี่ทุกท่านร่วมงาน CPSK Byenior 2020',
-                date: '2020-01-30T09:38:20.898+00:00',
-                user: 'CPE30 & SKE14',
-                imgUrl: 'https://scontent.fbkk11-1.fna.fbcdn.net/v/t1.0-9/82455162_2650962754951104_1823354414769897472_o.jpg?_nc_cat=100&_nc_oc=AQnbCb-nUl-v2ktZq6MktcrFTEtsIJeICaVnhAEJ3ZW28lWXMkfT6KdjmL_IA3my7DA&_nc_ht=scontent.fbkk11-1.fna&oh=dfcba49dfc3321aad780dac2f8f9ebc1&oe=5EC3E1FB',
-                newsId: '2',
-                profileId: '2',
-            },
-        ];
-
-        const ENTRIES2 = [
-            {
-                title: 'แจกหน้ากากอนามัยสำหรับนิสิตมหาวิทยาลัยเกษตรศาสตร์',
-                date: '2020-01-30T09:38:20.898+00:00',
-                user: 'Kasetsart University',
-                imgUrl: 'https://scontent.fbkk11-1.fna.fbcdn.net/v/t1.0-9/83660591_3004694642894240_1009796547010887680_o.jpg?_nc_cat=102&_nc_oc=AQmFmXiA4FwodBhO10BsbxSi1SAsVXB9oHLzDGuZl21gGnM-JaqaPQJ5QeQNlqSR2tE&_nc_ht=scontent.fbkk11-1.fna&oh=441217e8ca2714b4713a83cbc99c4abf&oe=5EBF0F7D',
-                newsId: '1',
-                profileId: '1',
-            },
-            {
-                title: 'หนุ่มหล่อ บอกต่อ งานเกษตรแฟร์ 2019 !!!!',
-                date: '2020-01-30T09:38:20.898+00:00',
-                user: 'Kasetsart University',
-                imgUrl: 'https://scontent.fbkk11-1.fna.fbcdn.net/v/t1.0-9/83803508_572276910169434_6315681337831325696_o.jpg?_nc_cat=106&_nc_oc=AQnC2lmRbDzc8ZD3YNHEL3nzmOIgTORsdOPcnC5RxZiKFFLk3VtK8xSCmMZo188D_GY&_nc_ht=scontent.fbkk11-1.fna&oh=603d3fe2cb8e226417543f92c5e939f4&oe=5EBA282A',
-                newsId: '2',
-                profileId: '2',
-            },
-        ];
-
+        const { sections } = this.state
         return (
-            <ScrollView style={styles.containter}>
-                <View style={styles.borderBottom}>
-                    <SectionHeader style={styles.section} title={'โฆษณา'} subtitle={'เพิ่มเติม'} />
-                    <View style={styles.newsScrollView}>
+            <SectionList
+                contentContainerStyle={styles.sectionList}
+                sections={sections}
+                renderSectionHeader={({ section }) => (
+                    <TouchableNativeFeedback onPress={() => {
+                        this.goSectionHeader(section)
+                    }}>
+                        <View style={styles.section}>
+                            <SectionHeader title={section.title} subtitle={'เพิ่มเติม'} />
+                        </View>
+                    </TouchableNativeFeedback>
+                )}
+                renderItem={(news) =>
+                    news.section.title === 'แนะนำ' ?
                         <SliderBox
                             sliderBoxHeight={175}
-                            data={images}
-                            onPressed={() => this.goNews('eiei')}
+                            data={news.item}
+                            onPressed={this.goNews}
                         />
-                    </View>
-                </View>
-                <View style={styles.borderBottom}>
-                    <SectionHeader style={styles.section} title={'ข่าวยอดนิยม'} subtitle={'เพิ่มเติม'} />
-                    <ScrollView style={styles.newsScrollView} showsHorizontalScrollIndicator={false} horizontal={true}>
-                        {ENTRIES1.map((news, index, newsArray) => {
-                            return (
-                                <NewsCard style={index != newsArray.length - 1 ? styles.newsCardContainer : styles.lastNewsCardContainer} key={news.newsId} onNewsPressed={this.goNews} data={news} />
-                            )
-                        })}
-                    </ScrollView>
-                </View>
-                <View>
-                    <SectionHeader style={styles.section} title={'ข่าวยอดนิยม'} subtitle={'เพิ่มเติม'} />
-                    <ScrollView style={styles.newsScrollView} showsHorizontalScrollIndicator={false} horizontal={true}>
-                        {ENTRIES2.map((news, index, newsArray) => {
-                            return (
-                                <NewsCard style={index != newsArray.length - 1 ? styles.newsCardContainer : styles.lastNewsCardContainer} key={news.newsId} onNewsPressed={this.goNews} data={news} />
-                            )
-                        })}
-                    </ScrollView>
-                </View>
-            </ScrollView >
-        );
+                        :
+                        <FlatList
+                            contentContainerStyle={styles.flatList}
+                            showsHorizontalScrollIndicator={false}
+                            data={news.item}
+                            horizontal
+                            keyExtractor={(item) => item._id}
+                            renderItem={({ item, index }) =>
+                                <NewsCard style={index != news.item?.length - 1 ? styles.newsCardContainer : styles.lastNewsCardContainer} onNewsPressed={this.goNews} data={item} />
+                            }
+                        />
+                }
+                keyExtractor={(item) => item._id}
+            />
+        )
     }
 }
 
-export default RecommendationView;
+export default RecommendationView

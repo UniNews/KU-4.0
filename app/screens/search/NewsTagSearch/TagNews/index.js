@@ -34,7 +34,7 @@ class TagNewsView extends React.Component {
     async fetchNews() {
         try {
             const tag = this.props.navigation.state.routeName
-            const res = await newsService.getNewsByTag(tag, this.page)
+            const res = await newsService.getNewsByTags([tag], this.page)
             this.setState({
                 news: this.page === 1 ? res.data.articles : [...this.state.news, ...res.data.articles],
                 error: false,

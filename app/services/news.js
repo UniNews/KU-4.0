@@ -63,13 +63,27 @@ export default {
             headers: { 'Content-Type': 'application/json' }
         })
     },
-    getNewsByTag: (tag, page) => {
+    getNewsByTags: (tags, page) => {
+        const params = new URLSearchParams()
+        for (const tag of tags) {
+            params.append('tags', tag)
+        }
+        const request = {
+            params
+        }
         const offset = (page - 1) * ARTICLES_PER_PAGE
-        return axios.get(`${constants.API_URL}/articles/news/?offset=${offset}&limit=${ARTICLES_PER_PAGE}&tag=${tag}`)
+        return axios.get(`${constants.API_URL}/articles/news/?offset=${offset}&limit=${ARTICLES_PER_PAGE}`, request)
     },
-    getCommunitiesByTag: (tag, page) => {
+    getCommunitiesByTags: (tags, page) => {
+        const params = new URLSearchParams()
+        for (const tag of tags) {
+            params.append('tags', tag)
+        }
+        const request = {
+            params
+        }
         const offset = (page - 1) * ARTICLES_PER_PAGE
-        return axios.get(`${constants.API_URL}/articles/communities/?offset=${offset}&limit=${ARTICLES_PER_PAGE}&tag=${tag}`)
+        return axios.get(`${constants.API_URL}/articles/communities/?offset=${offset}&limit=${ARTICLES_PER_PAGE}`, request)
     },
     report: (id, type, description) => {
         const json = {
@@ -80,5 +94,20 @@ export default {
         return axios.post(`${constants.API_URL}/reports/`, json, {
             headers: { 'Content-Type': 'application/json' }
         })
+    },
+    getRecommendations: () => {
+        return axios.get(`${constants.API_URL}/articles/recommendations`)
+    },
+    getLatestNews: (page) => {
+        const offset = (page - 1) * ARTICLES_PER_PAGE
+        return axios.get(`${constants.API_URL}/articles/news/?offset=${offset}&limit=${ARTICLES_PER_PAGE}`)
+    },
+    getHottestNews: (page) => {
+        const offset = (page - 1) * ARTICLES_PER_PAGE
+        return axios.get(`${constants.API_URL}/articles/news/trending?offset=${offset}&limit=${ARTICLES_PER_PAGE}`)
+    },
+    getAds: (page) => {
+        const offset = (page - 1) * ARTICLES_PER_PAGE
+        return axios.get(`${constants.API_URL}/articles/ads?offset=${offset}&limit=${ARTICLES_PER_PAGE}`)
     }
 }

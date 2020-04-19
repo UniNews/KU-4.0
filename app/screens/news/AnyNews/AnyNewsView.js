@@ -1,46 +1,26 @@
 import React from 'react'
-import { ScrollView, View } from 'react-native'
+import { View, FlatList, ActivityIndicator } from 'react-native'
 import styles from './styles'
 import NewsCard from '../../../components/news/NewsThread'
-import Hr from '../../../components/commons/Hr'
+import newsService from '../../../services/news'
+import Spinner from '../../../components/commons/Spinner'
+import { PRIMARY_COLOR } from '../../../assets/css/color'
 import Header from '../../../components/commons/Header'
 import { Feather } from '@expo/vector-icons'
-import userService from '../../../services/user'
-import Spinner from '../../../components/commons/Spinner'
 
-class ClubView extends React.Component {
+class AnyNewsView extends React.Component {
 
     constructor(props) {
         super(props)
+        this.page = 1
+        this.onEndReachedCalledDuringMomentum = false
         this.state = {
             news: [],
-            loading: true,
-            error: false
+            error: false,
+            fetching: false,
+            refreshing: false,
+            loading: true
         }
-    }
-
-    async componentDidMount() {
-        const { userId } = this.props.navigation.state.params
-        try {
-            const response = await userService.getUserById(userId)
-            this.setState({
-                loading: false,
-                error: false,
-                news: response.data.news
-            })
-        }
-        catch (err) {
-            this.setState({
-                loading: false,
-                error: true
-            })
-            this.props.showModal()
-        }
-    }
-
-    goNews = (newsId) => {
-        const { navigation } = this.props
-        navigation.push('NewsDetail', { newsId })
     }
 
     goBack = () => {
@@ -48,15 +28,87 @@ class ClubView extends React.Component {
         navigation.goBack()
     }
 
+    componentDidMount() {
+        this.fetchNews()
+    }
+
+    renderItem = ({ item }) => {
+        return <View key={item._id} style={styles.newsContainer}>
+            <NewsCard onNewsPressed={this.goNews} data={item} />
+        </View>
+    }
+
+    async fetchNews() {
+        try {
+            const { recommendation } = this.props.navigation.state.params
+            let res
+            if (recommendation.type === 'feed')
+                res = await newsService.getLatestNews(this.page)
+            else if (recommendation.type === 'tags')
+                res = await newsService.getNewsByTags(recommendation.tags, this.page)
+            else if (recommendation.type === 'popular')
+                res = await newsService.getHottestNews(this.page)
+            else if (recommendation.type === 'ads')
+                res = await newsService.getAds(this.page)
+            this.setState({
+                news: this.page === 1 ? res.data.articles : [...this.state.news, ...res.data.articles],
+                error: false,
+                loading: false,
+                fetching: false,
+                refreshing: false
+            })
+        }
+        catch (err) {
+            this.setState({
+                error: true,
+                loading: false,
+                fetching: false,
+                refreshing: false
+            })
+            this.props.showModal()
+        }
+    }
+
+    renderFooter = () => {
+        if (!this.state.fetching)
+            return null
+        return (
+            <ActivityIndicator
+                color={PRIMARY_COLOR}
+            />
+        )
+    }
+
+    onRefresh = () => {
+        this.setState({ refreshing: true })
+        this.page = 1
+        this.fetchNews()
+    }
+
+    onEndReached = () => {
+        if (!this.onEndReachedCalledDuringMomentum) {
+            this.setState({ fetching: true })
+            this.page += 1
+            this.fetchNews()
+            this.onEndReachedCalledDuringMomentum = true
+        }
+    }
+
+    goNews = (newsId) => {
+        this.props.navigation.push('NewsDetail', { newsId })
+    }
+
     render() {
-        const { news, loading } = this.state
+        const { news, loading, refreshing } = this.state
+        const { recommendation } = this.props.navigation.state.params
+
         return (
             <View style={styles.containter}>
                 <Header
-                    title={'โพสต์ทั้งหมด'}
+                    title={recommendation.title}
                     leftIconComponent={
                         <Feather
-                            color='white'
+                            color={'white'}
                             onPress={this.goBack}
                             size={28}
                             name={'chevron-left'}
@@ -64,30 +116,28 @@ class ClubView extends React.Component {
                     }
                 />
                 {
-                    !loading
+                    loading
                         ?
-                        <ScrollView>
-                            {news?.map((news, index, newsArray) => {
-                                return (
-                                    <View key={news._id} style={styles.newsContainer}>
-                                        <NewsCard onNewsPressed={this.goNews} data={news} />
-                                        {
-                                            index == newsArray.length - 1
-                                                ?
-                                                null
-                                                :
-                                                <Hr />
-                                        }
-                                    </View>
-                                )
-                            })}
-                        </ScrollView>
-                        :
                         <Spinner />
+                        :
+                        <FlatList
+                            refreshing={refreshing}
+                            onRefresh={this.onRefresh}
+                            keyExtractor={(news) => news._id}
+                            data={news}
+                            initialNumToRender={10}
+                            renderItem={this.renderItem}
+                            ListFooterComponent={this.renderFooter}
+                            onEndReachedThreshold={0.5}
+                            onEndReached={this.onEndReached}
+                            onMomentumScrollBegin={() => {
+                                this.onEndReachedCalledDuringMomentum = false
+                            }}
+                        />
                 }
             </View>
         )
     }
 }
 
-export default ClubView
+export default AnyNewsView
