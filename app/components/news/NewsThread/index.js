@@ -4,23 +4,38 @@ import styles from './styles'
 import PropTypes from 'prop-types'
 import { convertTimestamptoDate } from '../../../assets/javascripts/date'
 import { FontAwesome } from '@expo/vector-icons'
+import newsService from '../../../services/news'
+import { PRIMARY_COLOR } from '../../../assets/css/color'
 
 class NewsCard extends Component {
 
     constructor(props) {
         super(props)
+        this.state = {
+          likes: [...props.data.likes]
+        }
     }
 
     onNewsPressedHandler = (newsId) => {
         const { onNewsPressed } = this.props
         if (onNewsPressed)
             onNewsPressed(newsId)
-    }
+    } 
 
     onLikePressedHandler = () => {
-        const { onLikePressed, data } = this.props
-        if (onLikePressed)
-            onLikePressed(data._id)
+        const { data, user } = this.props
+        data.isLiked = !data.isLiked
+        if (data.isLiked) {
+          newsService.likeNews(data._id)
+          data.likes.push(user._id)
+        }
+        else {
+          newsService.unlikeNews(data._id)
+          const indexToRemove = data.likes.indexOf(user._id)
+          if (indexToRemove > -1)
+            data.likes.splice(indexToRemove, 1)
+        }
+        this.setState({ likes: [...data.likes] })
     }
 
     onCommentPressedHandler = () => {
@@ -43,6 +58,7 @@ class NewsCard extends Component {
 
     render() {
         const { style, data, onNewsPressed, ...restProps } = this.props
+        const { likes } = this.state
         return (
             <TouchableNativeFeedback
                 onLongPress={this.onReportPressHandler}
@@ -73,10 +89,9 @@ class NewsCard extends Component {
                                     this.onLikePressedHandler
                                 }>
                                     <View style={styles.icon}>
-
-                                        <FontAwesome name='heart-o' size={15} color='grey' />
+                                        <FontAwesome name={data.isLiked ? 'heart' : 'heart-o'} size={15} color={data.isLiked ? PRIMARY_COLOR : 'grey'} />
                                         <Text style={styles.numberText}>
-                                            {data.like ? data.like.length : 0}
+                                            {likes ? likes.length : 0}
                                         </Text>
                                         <Text style={styles.indicatorText}>
                                             {` ถูกใจ`}
