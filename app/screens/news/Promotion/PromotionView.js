@@ -27,7 +27,7 @@ class PromotionView extends React.Component {
 
     renderItem = ({ item }) => {
         return <View key={item._id} style={styles.newsContainer}>
-            <NewsCard onNewsPressed={this.goNews} data={item} />
+            <NewsCard onNewsPressed={this.goNews} user={this.props.user} data={item} />
         </View>
     }
 
