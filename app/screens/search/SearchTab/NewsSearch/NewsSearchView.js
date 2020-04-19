@@ -41,7 +41,7 @@ class NewsSearchView extends React.Component {
     async fetchNews() {
         try {
             const { query } = this.props
-            const res = await searchService.getNewsByDescription(query, this.page)
+            const res = await searchService.getNewsByTitle(query, this.page)
             this.setState({
                 news: this.page === 1 ? res.data.articles : [...this.state.news, ...res.data.articles],
                 error: false,
