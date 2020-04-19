@@ -9,6 +9,7 @@ import newsService from '../../../services/news'
 import { convertTimestamptoDate } from '../../../assets/javascripts/date'
 import Spinner from '../../../components/commons/Spinner'
 import PostPopupModal from '../../../components/modals/PostPopupModal'
+import { PRIMARY_COLOR } from '../../../assets/css/color'
 
 class DetailView extends React.Component {
 
@@ -90,6 +91,23 @@ class DetailView extends React.Component {
         })
     }
 
+    likePost = () => {
+      const { user } = this.props
+      const { news } = this.state
+      let updatedNews = {...news}
+      updatedNews.isLiked = !updatedNews.isLiked
+      if(updatedNews.isLiked) {
+        newsService.likeNews(updatedNews._id)
+        updatedNews.likes.push(user._id)
+      } else {
+        newsService.unlikeNews(updatedNews._id)
+        const indexToRemove = updatedNews.likes.indexOf(user._id)
+        if (indexToRemove > -1)
+        updatedNews.likes.splice(indexToRemove, 1)
+      }
+      this.setState({news: updatedNews})
+    }
+
     render() {
         const { news, loading, refreshing, modal } = this.state
         return (
@@ -142,8 +160,21 @@ class DetailView extends React.Component {
                                                     <FontAwesome name='commenting-o' size={18} color='grey' />
                                                     <Text style={styles.iconText}>
                                                         {this.state.news.comments.length} ความเห็น
-                                                        </Text>
+                                                    </Text>
                                                 </TouchableOpacity>
+                                            }
+                                            {
+                                              <TouchableOpacity style={styles.textIconContainer} onPress={this.likePost}>
+                                                  <FontAwesome name={news.isLiked ? 'heart' : 'heart-o'} size={15} color={news.isLiked ? PRIMARY_COLOR : 'grey'} />
+                                                  <View style={styles.textIconContainer}>
+                                                      <Text style={styles.iconText}>
+                                                          {`${news.likes ? news.likes.length : 0} `}
+                                                      </Text>
+                                                      <Text style={styles.iconText}>
+                                                          ถูกใจ
+                                                      </Text>
+                                                  </View>
+                                              </TouchableOpacity>
                                             }
                                         </View>
                                     </View>
