@@ -6,5 +6,15 @@ export default StyleSheet.create({
     },
     listContainer: {
         backgroundColor: 'white'
-    }
+    },
+    // emptyText: {
+    //     fontFamily: REGULAR_FONT,
+    //     fontSize: 15,
+    //     textAlign: 'center'
+    // },
+    // emptyContainer: {
+    //     flex: 1,
+    //     justifyContent: 'center',
+    //     paddingTop: 10,
+    // }
 })

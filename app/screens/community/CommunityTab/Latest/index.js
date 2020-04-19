@@ -6,9 +6,9 @@ import communityService from '../../../../services/news'
 import Spinner from '../../../../components/commons/Spinner'
 import { PRIMARY_COLOR } from '../../../../assets/css/color'
 import Button from '../../../../components/commons/Button'
-import { Entypo } from '@expo/vector-icons'
-import { connect } from 'react-redux';
-import { showModal } from '../../../../reducers/ErrorModalReducer/actions';
+import { FontAwesome } from '@expo/vector-icons'
+import { connect } from 'react-redux'
+import { showModal } from '../../../../reducers/ErrorModalReducer/actions'
 
 class LatestView extends React.Component {
 
@@ -113,25 +113,25 @@ class LatestView extends React.Component {
                                     this.onEndReachedCalledDuringMomentum = false
                                 }}
                             />
-                            <Button onPress={this.goPostCommunity} activeOpacity={0.7} style={styles.floatingButtonContainer} >
-                                <Entypo name='new-message' size={20} color='white' />
-                            </Button>
                         </View>
                 }
+                <Button onPress={this.goPostCommunity} activeOpacity={0.7} style={styles.floatingButtonContainer} >
+                    <FontAwesome name='pencil' size={25} color='white' />
+                </Button>
             </View>
         )
     }
 }
 
 const mapStateToProps = (state) => {
-  return {
-  }
+    return {
+    }
 }
 
 const mapDispatchToProps = (dispatch) => {
-  return {
-    showModal
-  }
+    return {
+        showModal
+    }
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(LatestView)

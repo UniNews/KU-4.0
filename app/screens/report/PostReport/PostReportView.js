@@ -1,5 +1,5 @@
 import React from 'react'
-import { TouchableNativeFeedback, View, Text, TouchableWithoutFeedback } from 'react-native'
+import { TouchableNativeFeedback, View, Text, TouchableWithoutFeedback, ActivityIndicator } from 'react-native'
 import styles from './styles'
 import Header from '../../../components/commons/Header'
 import { Feather, FontAwesome } from '@expo/vector-icons'
@@ -36,13 +36,27 @@ class PostReportView extends React.Component {
     }
 
     report = async () => {
-        const { description } = this.state
-        const { navigation } = this.props
-        const { report, type } = this.props.navigation.state.params
-        if (description !== '') {
-            await newsService.report(report, type, description)
-            AlertHelper.alert('success', 'ส่งการรายงานแล้ว', 'ขอบคุณที่เสริมสร้างสังคม')
-            navigation.goBack()
+        try {
+            const { description } = this.state
+            const { navigation } = this.props
+            const { report, type } = this.props.navigation.state.params
+            this.setState({
+                loading: true
+            })
+            if (description !== '') {
+                await newsService.report(report, type, description)
+                AlertHelper.alert('info', 'ส่งการรายงานแล้ว', 'ขอบคุณที่ช่วยเสริมสร้างสังคม')
+                navigation.goBack()
+            }
+        }
+        catch (err) {
+            const { showModal } = this.props
+            showModal()
+        }
+        finally {
+            this.setState({
+                loading: false
+            })
         }
     }
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, FlatList } from 'react-native'
+import { View, FlatList, Text } from 'react-native'
 import styles from './styles'
 import Header from '../../../components/commons/Header'
 import NotificationItem from '../../../components/notification/NotificationItem'
@@ -36,6 +36,14 @@ class NotificationView extends React.Component {
         this.props.getNotifications()
     }
 
+    // renderEmpty = () => {
+    //     return <View style={styles.emptyContainer}>
+    //         <Text style={styles.emptyText}>
+    //             ไม่มีการแจ้งเตือนเลย ลองติดตามใครซักคนสิ
+    //         </Text>
+    //     </View>
+    // }
+
     render() {
         const { notifications, loading } = this.props
         return (
@@ -43,6 +51,7 @@ class NotificationView extends React.Component {
                 <Header title={'การแจ้งเตือน'} />
                 {
                     <FlatList
+                        // ListEmptyComponent={this.renderEmpty}
                         contentContainerStyle={styles.listContainer}
                         refreshing={loading}
                         onRefresh={this.onRefresh}
