@@ -25,7 +25,7 @@ class NewsCard extends Component {
     onLikePressedHandler = () => {
         const { data, user } = this.props
         data.isLiked = !data.isLiked
-        if (data.isLiked) {
+        if(data.isLiked) {
           newsService.likeNews(data._id)
           data.likes.push(user._id)
         }
