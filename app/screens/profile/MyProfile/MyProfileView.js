@@ -32,6 +32,14 @@ class MyProfileView extends React.Component {
         })
     }
 
+    goMyPost = () => {
+        const { user } = this.props
+        const { navigation } = this.props
+        navigation.push('MyPosts', {
+            userId: user._id
+        })
+    }
+
     goLogin = () => {
         const { navigation } = this.props
         navigation.navigate('Auth')
@@ -82,6 +90,12 @@ class MyProfileView extends React.Component {
                 <TouchableNativeFeedback onPress={this.goFollower}>
                     <View style={styles.settingContainer}>
                         <Text style={styles.settingText}>ผู้ติดตาม</Text>
+                        <Feather name={'chevron-right'} size={20} color={'gray'} />
+                    </View>
+                </TouchableNativeFeedback>
+                <TouchableNativeFeedback onPress={this.goMyPost}>
+                    <View style={styles.settingContainer}>
+                        <Text style={styles.settingText}>โพสต์ของฉัน</Text>
                         <Feather name={'chevron-right'} size={20} color={'gray'} />
                     </View>
                 </TouchableNativeFeedback>
