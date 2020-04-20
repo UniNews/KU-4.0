@@ -142,48 +142,47 @@ class DetailView extends React.Component {
                                         <Text style={styles.posterText}>
                                             {news.author.displayName}
                                         </Text>
+                                        <View style={[styles.textIconContainer,styles.iconContainerDate]}>
+                                            <FontAwesome name='calendar' size={15} color='grey' />
+                                            <View style={styles.iconTextContainer}>
+                                                <Text style={styles.dateText}>
+                                                    {convertTimestamptoDate(news.createdAt)}
+                                                </Text>
+                                            </View>
+                                        </View>
                                         <Text style={styles.titleText}>
                                             {news.title}
                                         </Text>
-                                        <View style={styles.iconContainer}>
-                                            <View style={styles.textIconContainer}>
-                                                <FontAwesome name='calendar' size={15} color='grey' />
-                                                <View style={styles.iconTextContainer}>
-                                                    <Text style={styles.dateText}>
-                                                        {convertTimestamptoDate(news.createdAt)}
-                                                    </Text>
-                                                </View>
-                                            </View>
-
-                                            <TouchableOpacity style={styles.textIconContainer} onPress={this.likePost}>
-                                                <FontAwesome name={news.isLiked ? 'heart' : 'heart-o'} size={15} color={news.isLiked ? PRIMARY_COLOR : 'grey'} />
-                                                <View style={styles.iconTextContainer}>
-                                                    <Text style={styles.numberText}>
-                                                        {`${news.likes ? news.likes.length : 0} `}
-                                                    </Text>
-                                                    <Text style={styles.indicatorText}>
-                                                        ถูกใจ
-                                                    </Text>
-                                                </View>
-                                            </TouchableOpacity>
-
-                                            <TouchableOpacity
-                                                onPress={this.goComments}
-                                                style={styles.textIconContainer}>
-                                                <FontAwesome name='commenting-o' size={18} color='grey' />
-                                                <View style={styles.iconTextContainer}>
-                                                    <Text style={styles.numberText}>
-                                                        {`${news.comments ? news.comments.length : 0} `}
-                                                    </Text>
-                                                    <Text style={styles.indicatorText}>
-                                                        ความเห็น
-                                                    </Text>
-                                                </View>
-                                            </TouchableOpacity>
-                                        </View>
                                     </View>
                                 </View>
 
+                                <View style={styles.iconContainer}>
+                                    <TouchableOpacity style={styles.textIconContainer} onPress={this.likePost}>
+                                        <FontAwesome name={news.isLiked ? 'heart' : 'heart-o'} size={15} color={news.isLiked ? PRIMARY_COLOR : 'grey'} />
+                                        <View style={styles.iconTextContainer}>
+                                            <Text style={styles.numberText}>
+                                                {`${news.likes ? news.likes.length : 0} `}
+                                            </Text>
+                                            <Text style={styles.indicatorText}>
+                                                ถูกใจ
+                                            </Text>
+                                        </View>
+                                    </TouchableOpacity>
+
+                                    <TouchableOpacity
+                                        onPress={this.goComments}
+                                        style={styles.textIconContainer}>
+                                        <FontAwesome name='commenting-o' size={18} color='grey' />
+                                        <View style={styles.iconTextContainer}>
+                                            <Text style={styles.numberText}>
+                                                {`${news.comments ? news.comments.length : 0} `}
+                                            </Text>
+                                            <Text style={styles.indicatorText}>
+                                                ความเห็น
+                                            </Text>
+                                        </View>
+                                    </TouchableOpacity>
+                                </View>
                                 <Hr style={styles.hr} />
                                 <View>
                                     <Text style={styles.descriptionHeaderText}>

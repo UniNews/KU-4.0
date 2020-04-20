@@ -46,7 +46,10 @@ export default StyleSheet.create({
     iconContainer: {
         paddingTop: 5,
         flexDirection: 'row',
-        // justifyContent: 'space-around'
+        justifyContent: 'center'
+    },
+    iconContainerDate: {
+        paddingTop: 5,
     },
     dateText: {
         fontFamily: REGULAR_FONT,
