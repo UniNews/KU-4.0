@@ -10,6 +10,7 @@ import { PRIMARY_COLOR } from '../../../assets/css/color'
 import Comment from '../../../components/commons/Comment'
 import Spinner from '../../../components/commons/Spinner'
 import PostPopupModal from '../../../components/modals/PostPopupModal'
+import { STATUS_BAR_HEIGHT } from '../../../assets/css/device'
 
 class DetailView extends React.Component {
 
@@ -275,7 +276,7 @@ class DetailView extends React.Component {
                         }} color='white' name='dots-vertical' size={25} />
                     }
                 />
-                <KeyboardAvoidingView style={styles.keyboard} behavior='height'>
+                <KeyboardAvoidingView style={styles.keyboard} behavior='height' keyboardVerticalOffset={STATUS_BAR_HEIGHT}>
                     {
                         !loading ?
                             <View style={styles.commentsContainer}>
