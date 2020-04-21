@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, View, Animated } from 'react-native'
+import { Text, View, Animated, FlatList } from 'react-native'
 import styles from './styles'
 
 class ProfileInfo extends React.Component {
@@ -14,11 +14,18 @@ class ProfileInfo extends React.Component {
     }
 
     render() {
-        const { user } = this.props.screenProps
+        const { user, scroll, handleProfileScroll } = this.props.screenProps
         return (
-            <Animated.View
+            <Animated.ScrollView
+                contentContainerStyle={styles.profileContainer}
+                showsVerticalScrollIndicator={false}
+                onScroll={Animated.event(
+                    [{ nativeEvent: { contentOffset: { y: scroll } } }],
+                    { listener: (event) => handleProfileScroll(event) },
+                    { useNativeDriver: true }
+                )}
+                scrollEventThrottle={0}
                 style={[
-                    styles.profileContainer,
                     {
                         transform: [
                             {
@@ -35,11 +42,7 @@ class ProfileInfo extends React.Component {
                     <Text style={styles.profileTitleText}>สถานะ</Text>
                     <Text style={styles.profileValueText}>{user.bio}</Text>
                 </View>
-                <View style={styles.profileSectionContainer}>
-                    <Text style={styles.profileTitleText}>หมวดหมู่</Text>
-                    <Text style={styles.profileValueText}>{user.tags}</Text>
-                </View>
-            </Animated.View>
+            </Animated.ScrollView>
         )
     }
 }

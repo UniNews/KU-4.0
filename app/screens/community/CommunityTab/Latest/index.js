@@ -29,7 +29,11 @@ class LatestView extends React.Component {
         try {
             const res = await communityService.getLatestCommunities(this.page)
             this.setState({
-                communities: this.page === 1 ? res.data.articles : [...this.state.communities, ...res.data.articles],
+                communities: this.page === 1 ? res.data.articles
+                    : [
+                        ...this.state.communities,
+                        ...res.data.articles.filter(n => !this.state.communities.some(p => p._id === n._id))
+                    ],
                 error: false,
                 loading: false,
                 fetching: false,
@@ -66,7 +70,7 @@ class LatestView extends React.Component {
     }
 
     onRefresh = () => {
-        this.setState({ refreshing: true })
+        this.setState({ refreshing: true, communities: [] })
         this.page = 1
         this.fetchCommunities()
     }

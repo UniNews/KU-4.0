@@ -32,12 +32,9 @@ class MyProfileView extends React.Component {
         })
     }
 
-    goMyPost = () => {
-        const { user } = this.props
+    goMyPosts = () => {
         const { navigation } = this.props
-        navigation.push('MyPosts', {
-            userId: user._id
-        })
+        navigation.push('MyPosts')
     }
 
     goLogin = () => {
@@ -81,6 +78,12 @@ class MyProfileView extends React.Component {
                         <Feather name={'chevron-right'} size={20} color={'gray'} />
                     </View>
                 </TouchableNativeFeedback>
+                <TouchableNativeFeedback onPress={this.goMyPosts}>
+                    <View style={styles.settingContainer}>
+                        <Text style={styles.settingText}>โพสต์ของฉัน</Text>
+                        <Feather name={'chevron-right'} size={20} color={'gray'} />
+                    </View>
+                </TouchableNativeFeedback>
                 <TouchableNativeFeedback onPress={this.goFollowing}>
                     <View style={styles.settingContainer}>
                         <Text style={styles.settingText}>กำลังติดตาม</Text>
@@ -90,12 +93,6 @@ class MyProfileView extends React.Component {
                 <TouchableNativeFeedback onPress={this.goFollower}>
                     <View style={styles.settingContainer}>
                         <Text style={styles.settingText}>ผู้ติดตาม</Text>
-                        <Feather name={'chevron-right'} size={20} color={'gray'} />
-                    </View>
-                </TouchableNativeFeedback>
-                <TouchableNativeFeedback onPress={this.goMyPost}>
-                    <View style={styles.settingContainer}>
-                        <Text style={styles.settingText}>โพสต์ของฉัน</Text>
                         <Feather name={'chevron-right'} size={20} color={'gray'} />
                     </View>
                 </TouchableNativeFeedback>

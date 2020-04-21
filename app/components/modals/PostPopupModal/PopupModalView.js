@@ -6,22 +6,52 @@ class PopupModalView extends React.Component {
 
     constructor(props) {
         super(props)
+        this.state = {
+            visible: false,
+            post: null,
+        }
+    }
+
+    componentDidMount() {
+        const { childRef } = this.props
+        if (childRef)
+            childRef(this)
+    }
+
+    componentWillUnmount() {
+        const { childRef } = this.props
+        if (childRef)
+            childRef(undefined)
+    }
+
+    show(post) {
+        this.setState({
+            visible: true,
+            post
+        })
     }
 
     closeHandler = () => {
-        const { onClosePressed } = this.props
-        if (onClosePressed)
-            onClosePressed()
+        this.setState({
+            visible: false,
+            postId: null,
+            postType: null
+        })
     }
 
     reportHandler = () => {
         const { onReportPressed } = this.props
+        const { post } = this.state
+        this.setState({
+            visible: false,
+            post: null
+        })
         if (onReportPressed)
-            onReportPressed()
+            onReportPressed(post)
     }
 
     render() {
-        const { visible } = this.props
+        const { visible } = this.state
         return (
             <Modal
                 animationType='fade'

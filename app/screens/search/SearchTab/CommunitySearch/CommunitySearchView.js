@@ -88,7 +88,7 @@ class CommunitySearchView extends React.Component {
     }
 
     onRefresh = () => {
-        this.setState({ refreshing: true })
+        this.setState({ refreshing: true, communities: [], })
         this.page = 1
         this.fetchCommunities()
     }

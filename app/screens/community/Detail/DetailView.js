@@ -40,8 +40,6 @@ class DetailView extends React.Component {
 
         try {
             const newsId = this.props.navigation.state.params.newsId
-            console.log(newsId)
-
             const article = await communityService.getNewsById(newsId)
             this.setState({
                 community: article.data,
@@ -67,7 +65,7 @@ class DetailView extends React.Component {
             const newsId = this.props.navigation.state.params.newsId
             const comments = await communityService.getComments(newsId)
             this.setState({
-                comments: comments.data,
+                comments: [...comments.data],
                 error: false,
                 loading: false,
                 fetching: false,
@@ -106,7 +104,7 @@ class DetailView extends React.Component {
     likeComment = (comment) => {
         const { user } = this.props
         comment.isLiked = !comment.isLiked
-        this.setState({ comments: [...this.state.comments] })
+        this.setState({ comments: this.state.comments })
         if (comment.isLiked) {
             communityService.likeComment(comment._id)
             comment.likes.push(user._id)
@@ -248,17 +246,17 @@ class DetailView extends React.Component {
                     </View>
                 </View>
             </TouchableNativeFeedback>
-            <View style={styles.commentHeaderContainer}>
-                <Text style={styles.commentHeaderText}>
-                    {
-                        community.comments && community.comments.length !== 0
-                            ?
-                            `ความคิดเห็น (${community.comments.length})`
-                            :
-                            ``
-                    }
-                </Text>
-            </View>
+            {
+                comments && comments.length !== 0
+                    ?
+                    <View style={styles.commentHeaderContainer}>
+                        <Text style={styles.commentHeaderText}>
+                            {`ความคิดเห็น (${comments.length})`}
+                        </Text>
+                    </View>
+                    :
+                    null
+            }
         </View>
     }
 

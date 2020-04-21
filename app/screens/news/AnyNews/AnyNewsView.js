@@ -80,7 +80,7 @@ class AnyNewsView extends React.Component {
     }
 
     onRefresh = () => {
-        this.setState({ refreshing: true })
+        this.setState({ refreshing: true, news: [], })
         this.page = 1
         this.fetchNews()
     }

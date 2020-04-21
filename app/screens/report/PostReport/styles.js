@@ -47,10 +47,17 @@ export default StyleSheet.create({
         borderRadius: 20,
         backgroundColor: 'white',
     },
+    textInputFieldContainer: {
+        marginTop: 10,
+        borderRadius: 10,
+        // height: 50,
+        padding: 10,
+        borderWidth: StyleSheet.hairlineWidth,
+        borderColor: 'grey',
+        backgroundColor: 'white',
+    },
     textInputField: {
-        flex: 1,
-        paddingLeft: 20,
-        height: 40,
         fontFamily: REGULAR_FONT,
+
     }
 })

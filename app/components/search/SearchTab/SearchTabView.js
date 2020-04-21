@@ -47,7 +47,7 @@ class SearchTabView extends React.Component {
                     </View>
                     <TextInput
                         value={query}
-                        // autoFocus={true}
+                        autoFocus={true}
                         placeholderTextColor={'grey'}
                         style={styles.textInputField}
                         placeholder={'ค้นหาข่าว, ชุมชน, ชื่อผู้ใช้...'}

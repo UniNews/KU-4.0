@@ -39,7 +39,7 @@ class NewsList extends React.Component {
 
     render() {
         const { news } = this.state
-        const { scroll, handleScroll, user } = this.props.screenProps
+        const { scroll, handleNewsScroll } = this.props.screenProps
         return (
             <View style={styles.containter}>
                 {
@@ -51,7 +51,7 @@ class NewsList extends React.Component {
                         keyExtractor={(news, i) => news._id}
                         onScroll={Animated.event(
                             [{ nativeEvent: { contentOffset: { y: scroll } } }],
-                            { listener: (event) => handleScroll(event) },
+                            { listener: (event) => handleNewsScroll(event) },
                             { useNativeDriver: true }
                         )}
                         scrollEventThrottle={0}

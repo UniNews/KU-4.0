@@ -1,5 +1,6 @@
 import { StyleSheet } from 'react-native'
 import { BOLD_FONT, REGULAR_FONT } from '../../../assets/css/typography'
+import { KU_PRIMARY_COLOR, SECONDARY_COLOR, KU_SECONDARY_COLOR } from '../../../assets/css/color'
 
 export default StyleSheet.create({
     container: {
@@ -21,7 +22,8 @@ export default StyleSheet.create({
     },
     posterText: {
         fontSize: 15,
-        fontFamily: REGULAR_FONT
+        color: KU_SECONDARY_COLOR,
+        fontFamily: BOLD_FONT
     },
     titleText: {
         fontSize: 20,
@@ -41,18 +43,19 @@ export default StyleSheet.create({
     textIconContainer: {
         flexDirection: 'row',
         alignItems: 'center',
-        paddingHorizontal: 5
+        paddingRight: 10
     },
     iconContainer: {
         paddingTop: 5,
         flexDirection: 'row',
-        justifyContent: 'center'
+        // justifyContent: 'center'
     },
     iconContainerDate: {
         paddingTop: 5,
     },
     dateText: {
         fontFamily: REGULAR_FONT,
+        color: 'grey'
     },
     numberText: {
         fontSize: 13,
@@ -101,4 +104,9 @@ export default StyleSheet.create({
         paddingTop: 3,
         paddingRight: 3,
     },
+    descriptionHeaderContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center'
+    }
 })

@@ -103,7 +103,7 @@ class ProfileSearchView extends React.Component {
     }
 
     onRefresh = () => {
-        this.setState({ refreshing: true })
+        this.setState({ refreshing: true, users: [] })
         this.page = 1
         this.fetchUsers()
     }

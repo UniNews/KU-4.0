@@ -24,7 +24,8 @@ class UserProfileView extends React.Component {
     constructor(props) {
         super(props)
         this.scroll = new Animated.Value(0)
-        this.offset = 0
+        this.newsOffset = 0
+        this.profileOffset = 0
         this.state = {
             user: {},
             news: [],
@@ -33,8 +34,12 @@ class UserProfileView extends React.Component {
         }
     }
 
-    handleScroll = (event) => {
-        this.offset = event.nativeEvent.contentOffset.y
+    handleNewsScroll = (event) => {
+        this.newsOffset = event.nativeEvent.contentOffset.y
+    }
+
+    handleProfileScroll = (event) => {
+        this.profileOffset = event.nativeEvent.contentOffset.y
     }
 
     onRefresh = () => {
@@ -75,18 +80,18 @@ class UserProfileView extends React.Component {
             <View style={styles.containter}>
                 {
                     !loading ?
-                        <Navigator screenProps={{ handleScroll: this.handleScroll, scroll, navigation, user, news, onRefresh: this.onRefresh }}
+                        <Navigator screenProps={{ handleNewsScroll: this.handleNewsScroll, handleProfileScroll: this.handleProfileScroll, scroll, navigation, user, news, onRefresh: this.onRefresh }}
                             onNavigationStateChange={(prevState, currentState) => {
                                 if (currentState.index === 0) {
                                     Animated.timing(scroll, {
-                                        toValue: 0,
+                                        toValue: this.profileOffset,
                                         duration: 500,
                                         useNativeDriver: true
                                     }).start()
                                 }
                                 else {
                                     Animated.timing(scroll, {
-                                        toValue: this.offset,
+                                        toValue: this.newsOffset,
                                         duration: 500,
                                         useNativeDriver: true
                                     }).start()

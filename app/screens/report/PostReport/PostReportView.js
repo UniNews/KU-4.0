@@ -1,12 +1,11 @@
 import React from 'react'
-import { TouchableNativeFeedback, View, Text, TouchableWithoutFeedback, ActivityIndicator ,TextInput } from 'react-native'
+import { TouchableNativeFeedback, View, Text, TouchableWithoutFeedback, ActivityIndicator, TextInput } from 'react-native'
 import styles from './styles'
 import Header from '../../../components/commons/Header'
 import { Feather, FontAwesome } from '@expo/vector-icons'
 import { KU_SECONDARY_COLOR } from '../../../assets/css/color'
 import newsService from '../../../services/news'
 import { AlertHelper } from '../../../configs/alertHelper'
-import Button from '../../../components/commons/Button'
 
 const TOPICS = [
     'สแปม',
@@ -21,14 +20,14 @@ class PostReportView extends React.Component {
         super(props)
         this.state = {
             loading: false,
-            description: '',
-            query:''
+            title: '',
+            detail: ''
         }
     }
 
     selectTopic = (topic) => {
         this.setState({
-            description: topic
+            title: topic
         })
     }
 
@@ -39,19 +38,19 @@ class PostReportView extends React.Component {
 
     report = async () => {
         try {
-            const { description, query } = this.state
+            const { title, detail } = this.state
             const { navigation } = this.props
             const { report, type } = this.props.navigation.state.params
-            this.setState({
-                loading: true
-            })
-            if (description !== '') {
-                if (description!=='อื่นๆ') {
-                    await newsService.report(report, type, description)
+            if (title !== '') {
+                this.setState({
+                    loading: true
+                })
+                if (title !== 'อื่นๆ') {
+                    await newsService.report(report, type, title)
                     AlertHelper.alert('info', 'ส่งการรายงานแล้ว', 'ขอบคุณที่ช่วยเสริมสร้างสังคม')
                     navigation.goBack()
-                } else {
-                    await newsService.report(report, type, query)
+                } else if (title === 'อื่นๆ' && detail.length > 0) {
+                    await newsService.report(report, type, detail)
                     AlertHelper.alert('info', 'ส่งการรายงานแล้ว', 'ขอบคุณที่ช่วยเสริมสร้างสังคม')
                     navigation.goBack()
                 }
@@ -68,14 +67,23 @@ class PostReportView extends React.Component {
         }
     }
 
-    updateSearch = text => {
+    updateDetail = text => {
         this.setState({
-            query: text,
+            detail: text,
         })
     }
 
+    validate = () => {
+        const { title, detail } = this.state
+        if (title === 'อื่นๆ' && detail.length <= 0)
+            return false
+        if (title === '')
+            return false
+        return true
+    }
+
     render() {
-        const { loading, description, query } = this.state
+        const { loading, title, detail } = this.state
         return (
             <View style={styles.containter}>
                 <Header
@@ -96,7 +104,7 @@ class PostReportView extends React.Component {
                                     <ActivityIndicator color={'white'} />
                                     :
                                     <TouchableWithoutFeedback onPress={this.report}>
-                                        <Feather name={'check'} size={25} color={description !== '' ? 'white' : 'rgba(255, 255, 255, 0.4)'} />
+                                        <Feather name={'check'} size={25} color={this.validate() ? 'white' : 'rgba(255, 255, 255, 0.4)'} />
                                     </TouchableWithoutFeedback>
                             }
                         </View>
@@ -104,7 +112,7 @@ class PostReportView extends React.Component {
                     }
                 />
 
-                < View style={styles.descriptionContainer}>
+                <View style={styles.descriptionContainer}>
                     <Text style={styles.descriptionText}>
                         โปรดเลือกหัวข้อที่ต้องการรายงาน
                     </Text>
@@ -115,7 +123,7 @@ class PostReportView extends React.Component {
                                 <View style={styles.topicContainer}>
                                     <View style={styles.selectIconContainer}>
                                         {
-                                            description === topic
+                                            title === topic
                                                 ?
                                                 <FontAwesome name={'check-circle'} size={24} color={KU_SECONDARY_COLOR} />
                                                 :
@@ -129,20 +137,28 @@ class PostReportView extends React.Component {
                             </TouchableNativeFeedback>
                         })
                         }
-                    {description==='อื่นๆ'?
-                        <View style={styles.inputContainer}>
-                            <TextInput
-                                value={query}
-                                placeholderTextColor={'grey'}
-                                style={styles.textInputField}
-                                placeholder={'ข้อความ'}
-                                onChangeText={this.updateSearch}
-                                returnKeyType={'search'}
-                            />
-                        </View>
-                        :null
-                    }
                     </View>
+                    {
+                        title === 'อื่นๆ' ?
+                            <View>
+                                <Text style={styles.descriptionText}>
+                                    โปรดกรอกรายละเอียดเพื่อดำเนินการต่อ
+                                </Text>
+                                <View style={styles.textInputFieldContainer}>
+                                    <TextInput
+                                        maxLength={1000}
+                                        value={detail}
+                                        placeholderTextColor={'grey'}
+                                        style={styles.textInputField}
+                                        placeholder={'รายละเอียด'}
+                                        onChangeText={this.updateDetail}
+                                        multiline
+                                    />
+                                </View>
+                            </View>
+                            :
+                            null
+                    }
                 </View>
             </View >
         )

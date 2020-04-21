@@ -97,7 +97,7 @@ class FollowerView extends React.Component {
     }
 
     onRefresh = () => {
-        this.setState({ refreshing: true })
+        this.setState({ refreshing: true, followers: [] })
         this.page = 1
         this.fetchFollowers()
     }

@@ -20,7 +20,6 @@ class DetailView extends React.Component {
             loading: true,
             refreshing: false,
             error: false,
-            modal: false
         }
     }
 
@@ -63,16 +62,8 @@ class DetailView extends React.Component {
         })
     }
 
-    goReport = () => {
-        const { news } = this.state
-        this.closeModal()
-        this.props.navigation.push('PostReport', { report: news._id, type: 'article' })
-    }
-
-    closeModal = () => {
-        this.setState({
-            modal: false
-        })
+    goReport = (post) => {
+        this.props.navigation.push('PostReport', { report: post._id, type: 'article' })
     }
 
     onRefresh = () => {
@@ -86,9 +77,8 @@ class DetailView extends React.Component {
     }
 
     showPopupModal = () => {
-        this.setState({
-            modal: true,
-        })
+        const { news } = this.state
+        this.popupRef.show(news)
     }
 
     likePost = () => {
@@ -107,11 +97,23 @@ class DetailView extends React.Component {
         this.setState({ news })
     }
 
+    newsType = () => {
+        const { news } = this.state
+        if (news.newsType === 'club')
+            return 'ข่าวชมรม'
+        else if (news.newsType === 'promotion')
+            return 'ข่าวโปรโมชั่น'
+        else if (news.newsType === 'lost-found')
+            return 'ข่าวของหาย'
+        else if (news.newsType === 'university')
+            return 'ข่าวมหาลัย'
+    }
+
     render() {
-        const { news, loading, refreshing, modal } = this.state
+        const { news, loading, refreshing, } = this.state
         return (
             <View style={styles.container}>
-                <Header title={'ข่าวมหาลัย'}
+                <Header title={this.newsType()}
                     leftIconComponent={
                         <Feather color='white' onPress={this.goBack} size={28} name={'chevron-left'} />
                     }
@@ -142,7 +144,11 @@ class DetailView extends React.Component {
                                         <Text style={styles.posterText}>
                                             {news.author.displayName}
                                         </Text>
-                                        <View style={[styles.textIconContainer,styles.iconContainerDate]}>
+
+                                        <Text style={styles.titleText}>
+                                            {news.title}
+                                        </Text>
+                                        <View style={[styles.textIconContainer, styles.iconContainerDate]}>
                                             <FontAwesome name='calendar' size={15} color='grey' />
                                             <View style={styles.iconTextContainer}>
                                                 <Text style={styles.dateText}>
@@ -150,44 +156,44 @@ class DetailView extends React.Component {
                                                 </Text>
                                             </View>
                                         </View>
-                                        <Text style={styles.titleText}>
-                                            {news.title}
-                                        </Text>
                                     </View>
                                 </View>
 
-                                <View style={styles.iconContainer}>
-                                    <TouchableOpacity style={styles.textIconContainer} onPress={this.likePost}>
-                                        <FontAwesome name={news.isLiked ? 'heart' : 'heart-o'} size={15} color={news.isLiked ? PRIMARY_COLOR : 'grey'} />
-                                        <View style={styles.iconTextContainer}>
-                                            <Text style={styles.numberText}>
-                                                {`${news.likes ? news.likes.length : 0} `}
-                                            </Text>
-                                            <Text style={styles.indicatorText}>
-                                                ถูกใจ
-                                            </Text>
-                                        </View>
-                                    </TouchableOpacity>
-
-                                    <TouchableOpacity
-                                        onPress={this.goComments}
-                                        style={styles.textIconContainer}>
-                                        <FontAwesome name='commenting-o' size={18} color='grey' />
-                                        <View style={styles.iconTextContainer}>
-                                            <Text style={styles.numberText}>
-                                                {`${news.comments ? news.comments.length : 0} `}
-                                            </Text>
-                                            <Text style={styles.indicatorText}>
-                                                ความเห็น
-                                            </Text>
-                                        </View>
-                                    </TouchableOpacity>
-                                </View>
                                 <Hr style={styles.hr} />
-                                <View>
+
+                                <View style={styles.descriptionHeaderContainer}>
                                     <Text style={styles.descriptionHeaderText}>
                                         รายละเอียด
                                     </Text>
+                                    <View style={styles.iconContainer}>
+                                        <TouchableOpacity style={styles.textIconContainer} onPress={this.likePost}>
+                                            <FontAwesome name={news.isLiked ? 'heart' : 'heart-o'} size={15} color={news.isLiked ? PRIMARY_COLOR : 'grey'} />
+                                            <View style={styles.iconTextContainer}>
+                                                <Text style={styles.numberText}>
+                                                    {`${news.likes ? news.likes.length : 0} `}
+                                                </Text>
+                                                <Text style={styles.indicatorText}>
+                                                    ถูกใจ
+                                            </Text>
+                                            </View>
+                                        </TouchableOpacity>
+
+                                        <TouchableOpacity
+                                            onPress={this.goComments}
+                                            style={styles.textIconContainer}>
+                                            <FontAwesome name='commenting-o' size={18} color='grey' />
+                                            <View style={styles.iconTextContainer}>
+                                                <Text style={styles.numberText}>
+                                                    {`${news.comments ? news.comments.length : 0} `}
+                                                </Text>
+                                                <Text style={styles.indicatorText}>
+                                                    ความเห็น
+                                            </Text>
+                                            </View>
+                                        </TouchableOpacity>
+                                    </View>
+                                </View>
+                                <View>
                                     <Hyperlink linkStyle={{ textDecorationLine: 'underline', color: 'green', fontFamily: 'Kanit-Regular' }} onPress={(url, text) => Linking.openURL(url)}>
                                         <Text style={styles.newsInfoText}>
                                             {news.description}
@@ -199,7 +205,7 @@ class DetailView extends React.Component {
                         :
                         <Spinner />
                 }
-                <PostPopupModal onClosePressed={this.closeModal} onReportPressed={this.goReport} visible={modal} />
+                <PostPopupModal childRef={(c) => this.popupRef = c} onReportPressed={this.goReport} />
             </View>
         )
     }
