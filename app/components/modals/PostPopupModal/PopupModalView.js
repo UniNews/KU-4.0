@@ -50,8 +50,20 @@ class PopupModalView extends React.Component {
             onReportPressed(post)
     }
 
+    deleteHandler = () => {
+        const { onDeletePressed } = this.props
+        const { post } = this.state
+        this.setState({
+            visible: false,
+            post: null
+        })
+        if (onDeletePressed)
+            onDeletePressed(post)
+    }
+
     render() {
-        const { visible } = this.state
+        const { user } = this.props
+        const { visible, post } = this.state
         return (
             <Modal
                 animationType='fade'
@@ -67,6 +79,14 @@ class PopupModalView extends React.Component {
                                 </Text>
                             </View>
                         </TouchableNativeFeedback>
+                        { post ? user._id === post.author._id ? 
+                          <TouchableNativeFeedback onPress={this.deleteHandler}>
+                              <View style={styles.modalView}>
+                                  <Text style={styles.modalText}>
+                                      ลบโพสต์
+                                  </Text>
+                              </View>
+                          </TouchableNativeFeedback> : null : null }
                     </View>
                 </TouchableWithoutFeedback>
             </Modal>

@@ -18,6 +18,5 @@ export default StyleSheet.create({
     },
     modalText: {
         fontFamily: REGULAR_FONT,
-
     }
 })
