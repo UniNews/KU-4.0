@@ -106,11 +106,7 @@ class CommentView extends React.Component {
     })
   }
 
-  showPopupModal = (commentId) => {
-    const { comments } = this.state
-    let comment = comments.find(el => {
-      return el._id === commentId
-    })
+  showPopupModal = (comment) => {
     this.popupRef.show(comment)
   }
 
