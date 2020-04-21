@@ -24,10 +24,6 @@ class DetailView extends React.Component {
             refreshing: false,
             loading: true,
             error: false,
-            /* popup modal */
-            modal: false,
-            report: '',
-            type: '',
         }
     }
 
@@ -37,7 +33,6 @@ class DetailView extends React.Component {
     }
 
     async fetchCommunity() {
-
         try {
             const newsId = this.props.navigation.state.params.newsId
             const article = await communityService.getNewsById(newsId)
@@ -146,38 +141,31 @@ class DetailView extends React.Component {
     }
 
     showArticlePopupModal = (community) => {
-        this.popupRef.show({type: 'article', ...community})
+        this.popupRef.show({ type: 'article', ...community })
     }
 
     showCommentPopupModal = (comment) => {
-        this.popupRef.show({type: 'comment', ...comment})
+        this.popupRef.show({ type: 'comment', ...comment })
     }
 
     goReport = (post) => {
         this.props.navigation.push('PostReport', { report: post._id, type: post.type })
     }
 
-    goDelete = (post) => {
-      switch(post.type) {
-        case "article":
-          communityService.deleteArticle(post._id)
-            .then(res => this.props.navigation.goBack())
-            .catch(err => console.log(err.response))
-          break;
-        case "comment":
-          communityService.deleteComment(post._id)
-            .then(res => this.onRefresh())
-            .catch(err => console.log(err.response))
-          break;
-        default: 
-          break;
-      }
-    }
-
-    closeModal = () => {
-        this.setState({
-            modal: false
-        })
+    goDelete = async (post) => {
+        try {
+            if (post.type === 'article') {
+                await communityService.deleteArticle(post._id)
+                this.props.navigation.goBack()
+            }
+            else if (post.type === 'comment') {
+                await communityService.deleteComment(post._id)
+                this.onRefresh()
+            }
+        }
+        catch (err) {
+            this.props.showModal()
+        }
     }
 
     renderComment = ({ item }) => {
@@ -268,7 +256,7 @@ class DetailView extends React.Component {
     }
 
     render() {
-        const { myComment, loading, posting, comments, refreshing, modal, community } = this.state
+        const { myComment, loading, posting, comments, refreshing, community } = this.state
         return (
             <View style={styles.containter}>
                 <Header title={'ชุมชน'}
@@ -318,7 +306,7 @@ class DetailView extends React.Component {
                         }
                     </View>
                 </KeyboardAvoidingView>
-                <PostPopupModal childRef={(c) => this.popupRef = c} onReportPressed={this.goReport} onDeletePressed={this.goDelete}/>
+                <PostPopupModal childRef={(c) => this.popupRef = c} onReportPressed={this.goReport} onDeletePressed={this.goDelete} />
             </View>
         )
     }

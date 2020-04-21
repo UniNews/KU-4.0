@@ -114,6 +114,6 @@ export default {
         return axios.delete(`${constants.API_URL}/articles/${id}`)
     },
     deleteComment: (id) => {
-      return axios.delete(`${constants.API_URL}/comments/${id}`)
+        return axios.delete(`${constants.API_URL}/comments/${id}`)
     }
 }

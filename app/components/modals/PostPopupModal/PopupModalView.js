@@ -79,14 +79,17 @@ class PopupModalView extends React.Component {
                                 </Text>
                             </View>
                         </TouchableNativeFeedback>
-                        { post ? user._id === post.author._id ? 
-                          <TouchableNativeFeedback onPress={this.deleteHandler}>
-                              <View style={styles.modalView}>
-                                  <Text style={styles.modalText}>
-                                      ลบโพสต์
-                                  </Text>
-                              </View>
-                          </TouchableNativeFeedback> : null : null }
+                        {
+                            post && (user._id === post.author._id) ?
+                                <TouchableNativeFeedback onPress={this.deleteHandler}>
+                                    <View style={styles.modalView}>
+                                        <Text style={styles.modalText}>
+                                            ลบโพสต์
+                                        </Text>
+                                    </View>
+                                </TouchableNativeFeedback>
+                                : null
+                        }
                     </View>
                 </TouchableWithoutFeedback>
             </Modal>
