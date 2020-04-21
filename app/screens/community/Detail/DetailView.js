@@ -146,15 +146,20 @@ class DetailView extends React.Component {
     }
 
     showArticlePopupModal = (community) => {
-        this.popupRef.show({type: 'article', data: community})
+        this.popupRef.show({type: 'article', ...community})
     }
 
     showCommentPopupModal = (comment) => {
-        this.popupRef.show({type: 'comment', data: comment})
+        this.popupRef.show({type: 'comment', ...comment})
     }
 
     goReport = (post) => {
-        this.props.navigation.push('PostReport', { report: post.data._id, type: post.type })
+        this.props.navigation.push('PostReport', { report: post._id, type: post.type })
+    }
+
+    goDelete = (post) => {
+      console.log('DELETE POST !!!');
+      console.log(post);
     }
 
     closeModal = () => {
@@ -260,7 +265,7 @@ class DetailView extends React.Component {
                     }
                     rightIconComponent={
                         <MaterialCommunityIcons style={styles.dotIcon} onPress={() => {
-                            this.showArticlePopupModal(community._id)
+                            this.showArticlePopupModal(community)
                         }} color='white' name='dots-vertical' size={25} />
                     }
                 />
@@ -301,7 +306,7 @@ class DetailView extends React.Component {
                         }
                     </View>
                 </KeyboardAvoidingView>
-                <PostPopupModal childRef={(c) => this.popupRef = c} onReportPressed={this.goReport} />
+                <PostPopupModal childRef={(c) => this.popupRef = c} onReportPressed={this.goReport} onDeletePressed={this.goDelete}/>
             </View>
         )
     }

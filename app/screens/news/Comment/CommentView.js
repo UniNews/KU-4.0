@@ -114,6 +114,11 @@ class CommentView extends React.Component {
     this.props.navigation.push('PostReport', { report: post._id, type: 'comment' })
   }
 
+  goDelete = (post) => {
+    console.log('DELETE POST !!!');
+    console.log(post);
+  }
+
   closeModal = () => {
     this.setState({
       modal: false
@@ -186,7 +191,7 @@ class CommentView extends React.Component {
               )}
           </View>
         </KeyboardAvoidingView>
-        <PostPopupModal childRef={(c) => this.popupRef = c} onReportPressed={this.goReport} />
+        <PostPopupModal childRef={(c) => this.popupRef = c} onReportPressed={this.goReport} onDeletePressed={this.goDelete}/>
       </View>
     )
   }

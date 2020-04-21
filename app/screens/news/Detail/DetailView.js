@@ -66,6 +66,11 @@ class DetailView extends React.Component {
         this.props.navigation.push('PostReport', { report: post._id, type: 'article' })
     }
 
+    goDelete = (post) => {
+      console.log('DELETE POST !!!');
+      console.log(post);
+    }
+
     onRefresh = () => {
         this.setState({ refreshing: true })
         this.fetchNews()
@@ -205,7 +210,7 @@ class DetailView extends React.Component {
                         :
                         <Spinner />
                 }
-                <PostPopupModal childRef={(c) => this.popupRef = c} onReportPressed={this.goReport} />
+                <PostPopupModal childRef={(c) => this.popupRef = c} onReportPressed={this.goReport} onDeletePressed={this.goDelete}/>
             </View>
         )
     }
