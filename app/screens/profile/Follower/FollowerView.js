@@ -53,7 +53,11 @@ class FollowerView extends React.Component {
             const { userId } = this.props.navigation.state.params
             const res = await userService.getUserFollowers(userId, this.page)
             this.setState({
-                followers: this.page === 1 ? res.data.followers : [...this.state.followers, ...res.data.followers],
+                followers: this.page === 1 ? res.data.followers :
+                    [
+                        ...this.state.followers,
+                        ...res.data.followers.filter(n => !this.state.followers.some(p => p._id === n._id))
+                    ],
                 error: false,
                 loading: false,
                 fetching: false,

@@ -58,7 +58,10 @@ class ProfileSearchView extends React.Component {
             const { query } = this.props
             const res = await searchService.getUsersByName(query, this.page)
             this.setState({
-                users: this.page === 1 ? res.data.users : [...this.state.users, ...res.data.users],
+                users: this.page === 1 ? res.data.users : [
+                    ...this.state.users,
+                    ...res.data.users.filter(n => !this.state.users.some(p => p._id === n._id))
+                ],
                 error: false,
                 loading: false,
                 fetching: false,

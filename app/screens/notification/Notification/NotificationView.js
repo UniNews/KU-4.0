@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, FlatList, Text } from 'react-native'
+import { View, FlatList } from 'react-native'
 import styles from './styles'
 import Header from '../../../components/commons/Header'
 import NotificationItem from '../../../components/notification/NotificationItem'

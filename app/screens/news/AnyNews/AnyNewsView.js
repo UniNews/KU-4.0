@@ -51,7 +51,11 @@ class AnyNewsView extends React.Component {
             else if (recommendation.type === 'ads')
                 res = await newsService.getAds(this.page)
             this.setState({
-                news: this.page === 1 ? res.data.articles : [...this.state.news, ...res.data.articles],
+                news: this.page === 1 ? res.data.articles
+                    : [
+                        ...this.state.news,
+                        ...res.data.articles.filter(n => !this.state.news.some(p => p._id === n._id))
+                    ],
                 error: false,
                 loading: false,
                 fetching: false,

@@ -42,7 +42,10 @@ class CommunitySearchView extends React.Component {
             const { query } = this.props
             const res = await searchService.getCommunitiesByDescription(query, this.page)
             this.setState({
-                communities: this.page === 1 ? res.data.articles : [...this.state.communities, ...res.data.articles],
+                communities: this.page === 1 ? res.data.articles : [
+                    ...this.state.communities,
+                    ...res.data.articles.filter(n => !this.state.communities.some(p => p._id === n._id))
+                ],
                 error: false,
                 loading: false,
                 fetching: false,
