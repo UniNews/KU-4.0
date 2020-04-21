@@ -145,26 +145,16 @@ class DetailView extends React.Component {
         this.setState({ refreshing: false })
     }
 
-    showArticlePopupModal = (articleId) => {
-        this.setState({
-            modal: true,
-            report: articleId,
-            type: 'article'
-        })
+    showArticlePopupModal = (community) => {
+        this.popupRef.show({type: 'article', data: community})
     }
 
-    showCommentPopupModal = (commentId) => {
-        this.setState({
-            modal: true,
-            report: commentId,
-            type: 'comment'
-        })
+    showCommentPopupModal = (comment) => {
+        this.popupRef.show({type: 'comment', data: comment})
     }
 
-    goReport = () => {
-        const { report, type } = this.state
-        this.closeModal()
-        this.props.navigation.push('PostReport', { report, type })
+    goReport = (post) => {
+        this.props.navigation.push('PostReport', { report: post.data._id, type: post.type })
     }
 
     closeModal = () => {
@@ -187,7 +177,7 @@ class DetailView extends React.Component {
     renderHeader = () => {
         const { community, comments } = this.state
         return <View>
-            <TouchableNativeFeedback onLongPress={() => this.showArticlePopupModal(community._id)}>
+            <TouchableNativeFeedback onLongPress={() => this.showArticlePopupModal(community)}>
                 <View style={styles.headerContainer}>
                     <View style={styles.contentContainer}>
                         <View style={styles.profileContainer}>
@@ -311,7 +301,7 @@ class DetailView extends React.Component {
                         }
                     </View>
                 </KeyboardAvoidingView>
-                <PostPopupModal onClosePressed={this.closeModal} onReportPressed={this.goReport} visible={modal} />
+                <PostPopupModal childRef={(c) => this.popupRef = c} onReportPressed={this.goReport} />
             </View>
         )
     }
