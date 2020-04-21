@@ -5,6 +5,7 @@ import PopupModalView from './PopupModalView'
 const mapStateToProps = state => {
     return {
         // isShowing: state.errorReducer.isShowing,
+        user: state.userReducer.user
     }
 }
 
