@@ -109,5 +109,11 @@ export default {
     getAds: (page) => {
         const offset = (page - 1) * ARTICLES_PER_PAGE
         return axios.get(`${constants.API_URL}/articles/ads?offset=${offset}&limit=${ARTICLES_PER_PAGE}`)
+    },
+    deleteArticle: (id) => {
+        return axios.delete(`${constants.API_URL}/articles/${id}`)
+    },
+    deleteComment: (id) => {
+      return axios.delete(`${constants.API_URL}/comments/${id}`)
     }
 }
