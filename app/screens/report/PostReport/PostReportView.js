@@ -1,11 +1,12 @@
 import React from 'react'
-import { TouchableNativeFeedback, View, Text, TouchableWithoutFeedback, ActivityIndicator } from 'react-native'
+import { TouchableNativeFeedback, View, Text, TouchableWithoutFeedback, ActivityIndicator ,TextInput } from 'react-native'
 import styles from './styles'
 import Header from '../../../components/commons/Header'
 import { Feather, FontAwesome } from '@expo/vector-icons'
 import { KU_SECONDARY_COLOR } from '../../../assets/css/color'
 import newsService from '../../../services/news'
 import { AlertHelper } from '../../../configs/alertHelper'
+import Button from '../../../components/commons/Button'
 
 const TOPICS = [
     'สแปม',
@@ -20,7 +21,8 @@ class PostReportView extends React.Component {
         super(props)
         this.state = {
             loading: false,
-            description: ''
+            description: '',
+            query:''
         }
     }
 
@@ -37,16 +39,22 @@ class PostReportView extends React.Component {
 
     report = async () => {
         try {
-            const { description } = this.state
+            const { description, query } = this.state
             const { navigation } = this.props
             const { report, type } = this.props.navigation.state.params
             this.setState({
                 loading: true
             })
             if (description !== '') {
-                await newsService.report(report, type, description)
-                AlertHelper.alert('info', 'ส่งการรายงานแล้ว', 'ขอบคุณที่ช่วยเสริมสร้างสังคม')
-                navigation.goBack()
+                if (description!=='อื่นๆ') {
+                    await newsService.report(report, type, description)
+                    AlertHelper.alert('info', 'ส่งการรายงานแล้ว', 'ขอบคุณที่ช่วยเสริมสร้างสังคม')
+                    navigation.goBack()
+                } else {
+                    await newsService.report(report, type, query)
+                    AlertHelper.alert('info', 'ส่งการรายงานแล้ว', 'ขอบคุณที่ช่วยเสริมสร้างสังคม')
+                    navigation.goBack()
+                }
             }
         }
         catch (err) {
@@ -60,8 +68,14 @@ class PostReportView extends React.Component {
         }
     }
 
+    updateSearch = text => {
+        this.setState({
+            query: text,
+        })
+    }
+
     render() {
-        const { loading, description } = this.state
+        const { loading, description, query } = this.state
         return (
             <View style={styles.containter}>
                 <Header
@@ -115,6 +129,19 @@ class PostReportView extends React.Component {
                             </TouchableNativeFeedback>
                         })
                         }
+                    {description==='อื่นๆ'?
+                        <View style={styles.inputContainer}>
+                            <TextInput
+                                value={query}
+                                placeholderTextColor={'grey'}
+                                style={styles.textInputField}
+                                placeholder={'ข้อความ'}
+                                onChangeText={this.updateSearch}
+                                returnKeyType={'search'}
+                            />
+                        </View>
+                        :null
+                    }
                     </View>
                 </View>
             </View >

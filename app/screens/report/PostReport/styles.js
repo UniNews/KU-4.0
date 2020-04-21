@@ -39,4 +39,18 @@ export default StyleSheet.create({
         paddingTop: 5,
         paddingRight: 15,
     },
+    inputContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginTop: 10,
+        marginHorizontal: 10,
+        borderRadius: 20,
+        backgroundColor: 'white',
+    },
+    textInputField: {
+        flex: 1,
+        paddingLeft: 20,
+        height: 40,
+        fontFamily: REGULAR_FONT,
+    }
 })

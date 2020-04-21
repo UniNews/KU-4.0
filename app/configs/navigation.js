@@ -31,6 +31,7 @@ import PostCommunityScreen from '../screens/community/PostCommunity'
 import TagNewsScreen from '../screens/news/TagNews'
 import PostReportScreen from '../screens/report/PostReport'
 import NotificationTabBarIcon from '../components/notification/NotificationTabBarIcon'
+import MyPostsScreen from '../screens/profile/MyPosts'
 
 const newsTab = createMaterialTopTabNavigator({
   'สำหรับคุณ': RecommendationScreen,
@@ -105,6 +106,7 @@ const profileStack = createStackNavigator({
   ProfileDetail: UserProfileScreen,
   Following: FollowingScreen,
   Follower: FollowerScreen,
+  MyPosts: MyPostsScreen
 },
   {
     headerMode: 'none',
