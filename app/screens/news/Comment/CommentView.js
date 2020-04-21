@@ -107,16 +107,15 @@ class CommentView extends React.Component {
   }
 
   showPopupModal = (commentId) => {
-    this.setState({
-      modal: true,
-      report: commentId
+    const { comments } = this.state
+    let comment = comments.find(el => {
+      return el._id === commentId
     })
+    this.popupRef.show(comment)
   }
 
-  goReport = () => {
-    const { report } = this.state
-    this.closeModal()
-    this.props.navigation.push('PostReport', { report, type: 'comment' })
+  goReport = (post) => {
+    this.props.navigation.push('PostReport', { report: post._id, type: 'comment' })
   }
 
   closeModal = () => {
@@ -191,7 +190,7 @@ class CommentView extends React.Component {
               )}
           </View>
         </KeyboardAvoidingView>
-        <PostPopupModal onClosePressed={this.closeModal} onReportPressed={this.goReport} visible={modal} />
+        <PostPopupModal childRef={(c) => this.popupRef = c} onReportPressed={this.goReport} />
       </View>
     )
   }
