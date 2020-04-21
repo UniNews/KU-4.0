@@ -30,7 +30,7 @@ class Comment extends Component {
   onReportPressHandler = () => {
     const { onReportPressed, data } = this.props
     if (onReportPressed)
-      onReportPressed(data._id)
+      onReportPressed(data)
   }
 
   render() {
