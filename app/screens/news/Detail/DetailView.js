@@ -67,8 +67,9 @@ class DetailView extends React.Component {
     }
 
     goDelete = (post) => {
-      console.log('DELETE POST !!!');
-      console.log(post);
+      newsService.deleteArticle(post._id)
+        .then(res => this.props.navigation.goBack())
+        .catch(err => console.log(err.response))
     }
 
     onRefresh = () => {

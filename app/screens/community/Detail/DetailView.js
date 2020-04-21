@@ -158,8 +158,20 @@ class DetailView extends React.Component {
     }
 
     goDelete = (post) => {
-      console.log('DELETE POST !!!');
-      console.log(post);
+      switch(post.type) {
+        case "article":
+          communityService.deleteArticle(post._id)
+            .then(res => this.props.navigation.goBack())
+            .catch(err => console.log(err.response))
+          break;
+        case "comment":
+          communityService.deleteComment(post._id)
+            .then(res => this.onRefresh())
+            .catch(err => console.log(err.response))
+          break;
+        default: 
+          break;
+      }
     }
 
     closeModal = () => {

@@ -115,8 +115,9 @@ class CommentView extends React.Component {
   }
 
   goDelete = (post) => {
-    console.log('DELETE POST !!!');
-    console.log(post);
+    newsService.deleteComment(post._id)
+      .then(res => this.onRefresh())
+      .catch(err => console.log(err.response))
   }
 
   closeModal = () => {
