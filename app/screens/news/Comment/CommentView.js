@@ -30,9 +30,6 @@ class CommentView extends React.Component {
       refreshing: false,
       posting: false,
       error: false,
-      /* popup modal */
-      modal: false,
-      report: null
     }
   }
 
@@ -122,12 +119,6 @@ class CommentView extends React.Component {
     catch (err) {
       this.props.showModal()
     }
-  }
-
-  closeModal = () => {
-    this.setState({
-      modal: false
-    })
   }
 
   render() {

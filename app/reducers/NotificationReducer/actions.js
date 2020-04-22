@@ -31,7 +31,7 @@ export function readNotification(id) {
     try {
       const { notifications } = getState().notificationsReducer
       const result = notifications.find(e => e._id === id)
-      if (result) {
+      if (result && !result.isRead) {
         result.isRead = true
         service.postNotificationsView(id)
         dispatch(notificationOk([...notifications]))
