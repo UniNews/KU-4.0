@@ -59,6 +59,12 @@ class CommentView extends React.Component {
       })
       this.props.showModal()
     }
+    finally {
+      const { comments } = this.state
+      const { setDetailComments } = this.props.navigation.state.params
+      if (setDetailComments)
+        setDetailComments(comments)
+    }
   }
 
   goBack = () => {

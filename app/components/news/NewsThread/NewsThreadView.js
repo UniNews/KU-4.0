@@ -21,8 +21,28 @@ class NewsCard extends Component {
         const { news } = this.state
         navigation.push('NewsDetail', {
             newsId: news._id,
-            onLikePressedHandler: this.onLikePressedHandler
+            setNewsThreadLikes: this.setNewsThreadLikes,
+            setNewsThreadComments: this.setNewsThreadComments
         })
+    }
+
+    /* for sync likes between navigations */
+    setNewsThreadLikes = (likes) => {
+        const { news } = this.state
+        const { user } = this.props
+        news.likes = likes
+        if (news.likes?.indexOf(user._id) > -1)
+            news.isLiked = true
+        else
+            news.isLiked = false
+        this.setState({ news })
+    }
+
+    /* for sync comments between navigations */
+    setNewsThreadComments = (comments) => {
+        const { news } = this.state
+        news.comments = comments
+        this.setState({ news })
     }
 
     onLikePressedHandler = () => {
@@ -86,7 +106,7 @@ class NewsCard extends Component {
                                     </View>
                                 </TouchableOpacity>
                                 <TouchableOpacity
-                                    // onPress={this.onCommentPressedHandler}
+                                // onPress={this.onCommentPressedHandler}
                                 >
                                     <View style={styles.icon}>
                                         <FontAwesome name='commenting-o' size={15} color='grey' />

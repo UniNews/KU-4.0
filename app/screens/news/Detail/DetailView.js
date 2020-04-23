@@ -47,6 +47,25 @@ class DetailView extends React.Component {
             })
             this.props.showModal()
         }
+        finally {
+            const { news } = this.state
+            const { setNewsThreadLikes, setNewsThreadComments } = this.props.navigation.state.params
+            if (setNewsThreadLikes)
+                setNewsThreadLikes(news.likes)
+            if (setNewsThreadComments)
+                setNewsThreadComments(news.comments)
+        }
+    }
+
+    /* for sync comments between detail and comment page */
+    setDetailComments = (comments) => {
+        const { news } = this.state
+        news.comments = comments
+        this.setState({ news })
+        /* also send comments data to news thread */
+        const { setNewsThreadComments } = this.props.navigation.state.params
+        if (setNewsThreadComments)
+            setNewsThreadComments(comments)
     }
 
     goBack = () => {
@@ -58,7 +77,7 @@ class DetailView extends React.Component {
         const { navigation } = this.props
         const { news } = this.state
         navigation.push('ProfileDetail', {
-            userId: news.author._id
+            userId: news.author._id,
         })
     }
 
@@ -79,7 +98,10 @@ class DetailView extends React.Component {
 
     goComments = () => {
         const newsId = this.props.navigation.state.params.newsId
-        this.props.navigation.push('Comment', { newsId: newsId })
+        this.props.navigation.push('Comment', {
+            newsId: newsId,
+            setDetailComments: this.setDetailComments
+        })
     }
 
     showPopupModal = () => {
@@ -88,22 +110,22 @@ class DetailView extends React.Component {
     }
 
     likePost = () => {
-        const onLikePressedHandler = this.props.navigation.state.params.onLikePressedHandler
+        const setNewsThreadLikes = this.props.navigation.state.params.setNewsThreadLikes
         const { user } = this.props
         const { news } = this.state
         news.isLiked = !news.isLiked
         if (news.isLiked) {
-            // newsService.likeNews(news._id)
+            newsService.likeNews(news._id)
             news.likes.push(user._id)
         } else {
-            // newsService.unlikeNews(news._id)
+            newsService.unlikeNews(news._id)
             const indexToRemove = news.likes.indexOf(user._id)
             if (indexToRemove > -1)
                 news.likes.splice(indexToRemove, 1)
         }
         this.setState({ news })
-        if (onLikePressedHandler)
-            onLikePressedHandler()
+        if (setNewsThreadLikes)
+            setNewsThreadLikes(news.likes)
     }
 
     newsType = () => {
