@@ -1,7 +1,5 @@
 import { StyleSheet, } from 'react-native'
-import { BOLD_FONT, REGULAR_FONT } from '../../../assets/css/typography'
-
-const errorColor = '#AE2519'
+import { REGULAR_FONT } from '../../../assets/css/typography'
 
 export default StyleSheet.create({
     centeredView: {
@@ -27,5 +25,4 @@ export default StyleSheet.create({
         fontSize: 15,
         textAlign: 'center'
     }
-
 })

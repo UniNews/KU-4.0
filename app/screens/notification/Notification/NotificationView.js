@@ -16,15 +16,12 @@ class NotificationView extends React.Component {
     onNotificationPressed = (notification) => {
         const { navigation, readNotification } = this.props
         readNotification(notification._id)
-        if (notification.type === 'news') {
+        if (notification.type === 'news')
             navigation.push('NewsDetail', { newsId: notification.redirectId })
-        }
-        else if (notification.type === 'community') {
+        else if (notification.type === 'community')
             this.props.navigation.push('CommunityDetail', { newsId: notification.redirectId })
-        }
-        else if (notification.type === 'follower') {
+        else if (notification.type === 'follower')
             navigation.push('ProfileDetail', { userId: notification.redirectId })
-        }
     }
 
     goProfile = (profileId) => {

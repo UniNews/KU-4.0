@@ -82,17 +82,7 @@ class tabBarComponent extends React.Component {
                     ]}>
 
                     <LinearGradient start={{ x: 0, y: 0 }} end={{ x: 0, y: 1 }} colors={[KU_PRIMARY_COLOR, KU_SECONDARY_COLOR]} style={styles.profileInfoContainer}>
-                        <ScrollView
-                            showsVerticalScrollIndicator={false}
-                            contentContainerStyle={{
-                                alignItems: 'center',
-                            }}
-                            refreshControl={
-                                <RefreshControl
-                                    onRefresh={this.onRefresh}
-                                />
-                            }
-                        >
+                        <View style={{ alignItems: 'center' }}>
                             <View style={styles.backButton}>
                                 <Feather
                                     color='white'
@@ -135,9 +125,8 @@ class tabBarComponent extends React.Component {
                                         </Text>
                                     </View>
                                 </TouchableNativeFeedback>
-
                             </View>
-                        </ScrollView>
+                        </View>
 
                     </LinearGradient>
                     <MaterialTopTabBar

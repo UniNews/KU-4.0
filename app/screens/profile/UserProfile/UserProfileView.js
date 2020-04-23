@@ -42,11 +42,6 @@ class UserProfileView extends React.Component {
         this.profileOffset = event.nativeEvent.contentOffset.y
     }
 
-    onRefresh = () => {
-        this.setState({ loading: true })
-        this.fetchUser()
-    }
-
     async componentDidMount() {
         this.fetchUser()
     }
@@ -80,7 +75,7 @@ class UserProfileView extends React.Component {
             <View style={styles.containter}>
                 {
                     !loading ?
-                        <Navigator screenProps={{ handleNewsScroll: this.handleNewsScroll, handleProfileScroll: this.handleProfileScroll, scroll, navigation, user, news, onRefresh: this.onRefresh }}
+                        <Navigator screenProps={{ handleNewsScroll: this.handleNewsScroll, handleProfileScroll: this.handleProfileScroll, scroll, navigation, user, news }}
                             onNavigationStateChange={(prevState, currentState) => {
                                 if (currentState.index === 0) {
                                     Animated.timing(scroll, {

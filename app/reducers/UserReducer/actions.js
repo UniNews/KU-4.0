@@ -37,31 +37,6 @@ export function autoLogin(accessToken) {
   }
 }
 
-// export function register(username, password) {
-//   return dispatch => {
-//     dispatch(userLoading())
-//     service
-//       .register(username, password)
-//       .then(async (res) => {
-//         const user = res.data
-//         axios.defaults.headers.common[
-//           'Authorization'
-//         ] = `Bearer ${user.accessToken}`
-//         const payload = await service.getProfile()
-//         await notifications.registerForPushNotificationsAsync()
-//         await AsyncStorage.setItem('accessToken', user.accessToken)
-//         dispatch(userOk(payload.data))
-//       })
-//       .catch((err) => {
-//         const statusCode = err.response.status
-//         if (statusCode === 409)
-//           dispatch(userFail('บัญชีผู้ใช้ถูกใช้ไปแล้ว'))
-//         else
-//           dispatch(userFail('การสมัครบัญชีผู้ใช้ผิดพลาด'))
-//       })
-//   }
-// }
-
 export function login(username, password) {
   return dispatch => {
     dispatch(userLoading())
