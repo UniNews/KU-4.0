@@ -1,6 +1,6 @@
 import React from 'react'
 import { Text, View, Image, TouchableWithoutFeedback, TextInput, ActivityIndicator } from 'react-native'
-import { Feather } from '@expo/vector-icons'
+import { Feather, MaterialCommunityIcons } from '@expo/vector-icons'
 import styles from './styles'
 import { LinearGradient } from 'expo-linear-gradient'
 import uploadService from '../../../services/uploads'
@@ -8,6 +8,7 @@ import * as ImagePicker from 'expo-image-picker'
 import constants from '../../../configs/constants'
 import Constants from 'expo-constants'
 import { PRIMARY_COLOR } from '../../../assets/css/color'
+import Hr from '../../../components/commons/Hr'
 
 class ProfileSettingView extends React.Component {
 
@@ -18,7 +19,10 @@ class ProfileSettingView extends React.Component {
             bio: this.props.user.bio,
             avatarURL: this.props.user.avatarURL,
             uploading: false,
-            error: false
+            error: false,
+            /* error validation */
+            displayNameError: '',
+            bioError: ''
         }
     }
 
@@ -37,14 +41,16 @@ class ProfileSettingView extends React.Component {
     }
 
     save = () => {
-        const { displayName, avatarURL, bio } = this.state
-        const { updateProfile } = this.props
-        const data = {
-            displayName,
-            avatarURL,
-            bio,
+        if (!this.isBioError() && !this.isDisplayNameError()) {
+            const { displayName, avatarURL, bio } = this.state
+            const { updateProfile } = this.props
+            const data = {
+                displayName,
+                avatarURL,
+                bio: bio,
+            }
+            updateProfile(data)
         }
-        updateProfile(data)
     }
 
     componentDidMount() {
@@ -81,9 +87,36 @@ class ProfileSettingView extends React.Component {
         }
     }
 
+    updateDisplayName = (text) => {
+        this.setState({ displayName: text })
+        if (text.length < 3 || text.length > 20)
+            this.setState({ displayNameError: 'ต้องมีขนาด 3 ถึง 20 ตัวอักษร' })
+        else
+            this.setState({ displayNameError: '' })
+    }
+
+    updateBio = (text) => {
+        this.setState({ bio: text })
+        if (text.length > 50)
+            this.setState({ bioError: 'ต้องมีขนาดน้อยกว่า 50 ตัวอักษร' })
+        else
+            this.setState({ bioError: '' })
+    }
+
+    isDisplayNameError = () => {
+        return this.state.displayNameError !== ''
+    }
+
+    isBioError = () => {
+        return this.state.bioError !== ''
+    }
+
     render() {
-        const { uploading, displayName, avatarURL, bio } = this.state
+        const { uploading, displayName, avatarURL, bio, displayNameError, bioError } = this.state
         const { loading } = this.props
+        const isDisplayNameError = this.isDisplayNameError()
+        const isBioError = this.isBioError()
+
         return (
             <View style={styles.containter}>
                 <LinearGradient style={styles.linearGradient} start={{ x: 0, y: 0 }} end={{ x: 0, y: 1 }} colors={['#465859', '#588E57']}>
@@ -101,7 +134,7 @@ class ProfileSettingView extends React.Component {
                                     <ActivityIndicator color={'white'} />
                                     :
                                     <TouchableWithoutFeedback onPress={this.save}>
-                                        <Feather name={'check'} size={25} color={'white'} />
+                                        <Feather name={'check'} size={25} color={isDisplayNameError || isBioError ? 'rgba(255, 255, 255, 0.5)' : 'white'} />
                                     </TouchableWithoutFeedback>
                             }
                         </View>
@@ -113,10 +146,15 @@ class ProfileSettingView extends React.Component {
                             <ActivityIndicator color={PRIMARY_COLOR} style={styles.uploadingSpinner} />
                             :
                             <TouchableWithoutFeedback onPress={this.pickImage}>
-                                <Image
-                                    source={{ uri: avatarURL }}
-                                    style={styles.avatar}
-                                />
+                                <View>
+                                    <Image
+                                        source={{ uri: avatarURL }}
+                                        style={styles.avatar}
+                                    />
+                                    <View style={styles.uploadIconContainer}>
+                                        <MaterialCommunityIcons name={'image-plus'} size={30} color={'white'} />
+                                    </View>
+                                </View>
                             </TouchableWithoutFeedback>
                         }
                     </View>
@@ -124,22 +162,24 @@ class ProfileSettingView extends React.Component {
                 <View style={styles.descriptionContainer}>
                     <TouchableWithoutFeedback>
                         <View style={styles.settingContainer}>
-                            <Text style={styles.settingTitleText}>ชื่อผู้ใช้</Text>
+                            <Text style={isDisplayNameError ? styles.settingErrorTitleText : styles.settingTitleText}>{`ชื่อผู้ใช้ ${displayNameError}`}</Text>
                             <TextInput
                                 style={styles.settingValueText}
-                                onChangeText={(text) => this.setState({ displayName: text })}
+                                onChangeText={this.updateDisplayName}
                                 value={displayName} />
                         </View>
                     </TouchableWithoutFeedback>
+                    <Hr style={isDisplayNameError ? styles.errorHr : null} />
                     <TouchableWithoutFeedback>
                         <View style={styles.settingContainer}>
-                            <Text style={styles.settingTitleText}>สถานะ</Text>
+                            <Text style={isBioError ? styles.settingErrorTitleText : styles.settingTitleText}>{`สถานะ ${bioError}`}</Text>
                             <TextInput
                                 style={styles.settingValueText}
-                                onChangeText={(text) => this.setState({ bio: text })}
+                                onChangeText={this.updateBio}
                                 value={bio} />
                         </View>
                     </TouchableWithoutFeedback>
+                    <Hr style={isBioError ? styles.errorHr : null} />
                 </View>
             </View>
         )

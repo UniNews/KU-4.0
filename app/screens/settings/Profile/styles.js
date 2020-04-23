@@ -1,6 +1,7 @@
 import { StyleSheet } from 'react-native'
 import { viewportWidth } from '../../../assets/javascripts/spacing'
 import { BOLD_FONT, REGULAR_FONT } from '../../../assets/css/typography'
+import { PRIMARY_COLOR, SECONDARY_COLOR, KU_SECONDARY_COLOR, KU_PRIMARY_COLOR } from '../../../assets/css/color'
 
 const circleWidth = viewportWidth
 
@@ -15,16 +16,26 @@ export default StyleSheet.create({
         marginTop: 75,
         position: 'absolute',
         alignSelf: 'center',
-        backgroundColor: 'white'
-    },
-    avatar: {
-        width: 150,
-        height: 150,
+        backgroundColor: 'white',
         borderRadius: 150 / 2,
         borderWidth: 4,
         borderColor: 'white',
+
+    },
+    avatar: {
+        width: '100%',
+        height: '100%',
+        borderRadius: 150 / 2,
+        alignSelf: 'center'
+    },
+    uploadIconContainer: {
+        paddingTop: 55,
+        paddingLeft: 55,
+        backgroundColor: 'rgba(0,0,0,0.3)',
         position: 'absolute',
-        alignSelf: 'center',
+        width: '100%',
+        height: '100%',
+        borderRadius: 150 / 2,
     },
     headerContainer: {
         paddingTop: 20,
@@ -55,12 +66,15 @@ export default StyleSheet.create({
     settingContainer: {
         paddingHorizontal: 20,
         paddingVertical: 13,
-        borderBottomWidth: 0.5,
-        borderColor: 'grey'
     },
     settingTitleText: {
         fontFamily: REGULAR_FONT,
         color: 'grey',
+        fontSize: 15,
+    },
+    settingErrorTitleText: {
+        fontFamily: REGULAR_FONT,
+        color: 'red',
         fontSize: 15,
     },
     settingValueText: {
@@ -73,7 +87,15 @@ export default StyleSheet.create({
     uploadingSpinner: {
         flex: 1,
     },
-    updaingSpinner: {
-        
-    }
+    errorHr: {
+        backgroundColor: 'red'
+    },
+    // uploadImageIconContainer: {
+    //     backgroundColor: KU_SECONDARY_COLOR,
+    //     position: 'absolute',
+    //     left: 150 - 20,
+    //     top: 150 - 20,
+    //     padding: 5,
+    //     borderRadius: 30,
+    // }
 })
