@@ -67,9 +67,9 @@ class DetailView extends React.Component {
     }
 
     goDelete = (post) => {
-      newsService.deleteArticle(post._id)
-        .then(res => this.props.navigation.goBack())
-        .catch(err => console.log(err.response))
+        newsService.deleteArticle(post._id)
+            .then(res => this.props.navigation.goBack())
+            .catch(err => console.log(err.response))
     }
 
     onRefresh = () => {
@@ -88,19 +88,22 @@ class DetailView extends React.Component {
     }
 
     likePost = () => {
+        const onLikePressedHandler = this.props.navigation.state.params.onLikePressedHandler
         const { user } = this.props
         const { news } = this.state
         news.isLiked = !news.isLiked
         if (news.isLiked) {
-            newsService.likeNews(news._id)
+            // newsService.likeNews(news._id)
             news.likes.push(user._id)
         } else {
-            newsService.unlikeNews(news._id)
+            // newsService.unlikeNews(news._id)
             const indexToRemove = news.likes.indexOf(user._id)
             if (indexToRemove > -1)
                 news.likes.splice(indexToRemove, 1)
         }
         this.setState({ news })
+        if (onLikePressedHandler)
+            onLikePressedHandler()
     }
 
     newsType = () => {
@@ -211,7 +214,7 @@ class DetailView extends React.Component {
                         :
                         <Spinner />
                 }
-                <PostPopupModal childRef={(c) => this.popupRef = c} onReportPressed={this.goReport} onDeletePressed={this.goDelete}/>
+                <PostPopupModal childRef={(c) => this.popupRef = c} onReportPressed={this.goReport} onDeletePressed={this.goDelete} />
             </View>
         )
     }

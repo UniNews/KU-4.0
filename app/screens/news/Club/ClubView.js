@@ -27,7 +27,7 @@ class ClubView extends React.Component {
 
     renderItem = ({ item }) => {
         return <View key={item._id} style={styles.newsContainer}>
-            <NewsCard onNewsPressed={this.goNews} data={item} />
+            <NewsCard data={item} navigation={this.props.navigation} />
         </View>
     }
 
@@ -81,10 +81,6 @@ class ClubView extends React.Component {
             this.fetchNews()
             this.onEndReachedCalledDuringMomentum = true
         }
-    }
-
-    goNews = (newsId) => {
-        this.props.navigation.push('NewsDetail', { newsId })
     }
 
     render() {

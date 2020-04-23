@@ -16,10 +16,13 @@ class NewsCard extends Component {
         }
     }
 
-    onNewsPressedHandler = (newsId) => {
-        const { onNewsPressed } = this.props
-        if (onNewsPressed)
-            onNewsPressed(newsId)
+    onNewsPressedHandler = () => {
+        const { navigation } = this.props
+        const { news } = this.state
+        navigation.push('NewsDetail', {
+            newsId: news._id,
+            onLikePressedHandler: this.onLikePressedHandler
+        })
     }
 
     onLikePressedHandler = () => {
@@ -39,33 +42,18 @@ class NewsCard extends Component {
         this.setState({ news })
     }
 
-    onCommentPressedHandler = () => {
-        const { onCommentPressed, data } = this.props
-        if (onCommentPressed)
-            onCommentPressed(data.author?._id)
-    }
-
-    onProfilePressedHandler = (profileId) => {
-        const { onProfilePressed } = this.props
-        if (onProfilePressed)
-            onProfilePressed(profileId)
-    }
-
-    onReportPressHandler = () => {
-        const { onReportPressed, data } = this.props
-        if (onReportPressed)
-            onReportPressed(data._id)
-    }
+    // onCommentPressedHandler = () => {
+    //     const { navigation } = this.props
+    //     const { news } = this.state
+    //     navigation.push('Comment', { newsId: news._id })
+    // }
 
     render() {
         const { style, onNewsPressed, ...restProps } = this.props
         const { news } = this.state
         return (
             <TouchableNativeFeedback
-                onLongPress={this.onReportPressHandler}
-                onPress={() =>
-                    this.onNewsPressedHandler(news._id)
-                }
+                onPress={this.onNewsPressedHandler}
                 {...restProps}
             >
                 <View style={[style, styles.container]}>
@@ -86,9 +74,7 @@ class NewsCard extends Component {
                                 </Text>
                             </View>
                             <View style={styles.iconContainer}>
-                                <TouchableOpacity onPress={
-                                    this.onLikePressedHandler
-                                }>
+                                <TouchableOpacity onPress={this.onLikePressedHandler}>
                                     <View style={styles.icon}>
                                         <FontAwesome name={news.isLiked ? 'heart' : 'heart-o'} size={15} color={news.isLiked ? PRIMARY_COLOR : 'grey'} />
                                         <Text style={styles.numberText}>
@@ -99,11 +85,10 @@ class NewsCard extends Component {
                                         </Text>
                                     </View>
                                 </TouchableOpacity>
-                                <TouchableOpacity onPress={
-                                    this.onCommentPressedHandler
-                                }>
+                                <TouchableOpacity
+                                    // onPress={this.onCommentPressedHandler}
+                                >
                                     <View style={styles.icon}>
-
                                         <FontAwesome name='commenting-o' size={15} color='grey' />
                                         <Text style={styles.numberText}>
                                             {news.comments ? news.comments.length : 0}
@@ -141,11 +126,11 @@ NewsCard.propTypes = {
         }),
         createdAt: PropTypes.string.isRequired,
     }).isRequired,
-    onNewsPressed: PropTypes.func,
-    onProfilePressed: PropTypes.func,
-    onLikePressed: PropTypes.func,
-    onCommentPressed: PropTypes.func,
-    onReportPressed: PropTypes.func
+    navigation: PropTypes.object.isRequired,
+    // onNewsPressed: PropTypes.func,
+    // onProfilePressed: PropTypes.func,
+    // onLikePressed: PropTypes.func,
+    // onCommentPressed: PropTypes.func,
 }
 
 export default NewsCard
