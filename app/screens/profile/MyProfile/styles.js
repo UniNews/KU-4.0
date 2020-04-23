@@ -43,11 +43,13 @@ export default StyleSheet.create({
         fontFamily: BOLD_FONT,
         fontSize: 30,
         color: 'white',
+        textAlign: 'center'
     },
-    faculty: {
+    bio: {
         fontFamily: REGULAR_FONT,
         fontSize: 20,
         color: 'white',
+        textAlign: 'center'
     },
     settingText: {
         fontFamily: REGULAR_FONT,
@@ -60,16 +62,10 @@ export default StyleSheet.create({
         borderBottomWidth: 0.5,
         borderColor: 'grey'
     },
-    flagContainer: {
-        flexDirection: 'row'
+    nameContainer: {
+        width: wp(100),
     },
-    flagImage: {
-        width: 30,
-        height: 20,
-        borderRadius: 2,
-        marginHorizontal: 5
-    },
-    isFocused: {
-        opacity: 0.2
+    bioContainer: {
+        width: wp(80),
     }
 })

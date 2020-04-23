@@ -3,11 +3,15 @@ import { Text, View, Image, TouchableNativeFeedback } from 'react-native'
 import { Feather } from '@expo/vector-icons'
 import styles from './styles'
 import { LinearGradient } from 'expo-linear-gradient'
+import LoadingModal from '../../../components/modals/LoadingModal'
 
 class MyProfileView extends React.Component {
 
     constructor(props) {
         super(props)
+        this.state = {
+            loading: false
+        }
     }
 
     componentDidUpdate() {
@@ -48,12 +52,26 @@ class MyProfileView extends React.Component {
     }
 
     logout = async () => {
-        const { logoutUser } = this.props
-        logoutUser()
+        const { logoutUser, showModal } = this.props
+        try {
+            this.setState({
+                loading: true
+            })
+            await logoutUser()
+        }
+        catch (err) {
+            showModal()
+        }
+        finally {
+            this.setState({
+                loading: false
+            })
+        }
     }
 
     render() {
         const { user } = this.props
+        const { loading } = this.state
         return (
             <View style={styles.containter}>
                 <View style={styles.headContainer}>
@@ -63,12 +81,16 @@ class MyProfileView extends React.Component {
                                 source={{ uri: user?.avatarURL }}
                                 style={styles.avatar}
                             />
-                            <Text style={styles.name}>
-                                {user?.displayName}
-                            </Text>
-                            <Text style={styles.faculty}>
-                                {user?.bio}
-                            </Text>
+                            <View style={styles.nameContainer}>
+                                <Text style={styles.name}>
+                                    {user?.displayName}
+                                </Text>
+                            </View>
+                            <View style={styles.bioContainer}>
+                                <Text style={styles.bio}>
+                                    {user?.bio}
+                                </Text>
+                            </View>
                         </View>
                     </LinearGradient>
                 </View>
@@ -101,6 +123,7 @@ class MyProfileView extends React.Component {
                         <Text style={styles.settingText}>ออกจากระบบ</Text>
                     </View>
                 </TouchableNativeFeedback>
+                <LoadingModal message={'ออกจากระบบ...'} visible={loading} />
             </View>
         )
     }
