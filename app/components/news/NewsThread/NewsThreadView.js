@@ -62,12 +62,6 @@ class NewsCard extends Component {
         this.setState({ news })
     }
 
-    // onCommentPressedHandler = () => {
-    //     const { navigation } = this.props
-    //     const { news } = this.state
-    //     navigation.push('Comment', { newsId: news._id })
-    // }
-
     render() {
         const { style, onNewsPressed, ...restProps } = this.props
         const { news } = this.state

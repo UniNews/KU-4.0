@@ -109,7 +109,7 @@ class RecommendationView extends React.Component {
                                 horizontal
                                 keyExtractor={(item) => item._id}
                                 renderItem={({ item, index }) =>
-                                    <NewsCard style={index != news.item?.length - 1 ? styles.newsCardContainer : styles.lastNewsCardContainer} onNewsPressed={this.goNews} data={item} />
+                                    <NewsCard style={index != news.item?.length - 1 ? styles.newsCardContainer : styles.lastNewsCardContainer} navigation={this.props.navigation} data={item} />
                                 }
                             />
                     }

@@ -21,6 +21,7 @@ class ProfileThread extends Component {
             userService.followUserById(profile._id)
         else
             userService.unfollowUserById(profile._id)
+        console.log(profile)
         this.setState({ profile })
     }
 
@@ -41,6 +42,9 @@ class ProfileThread extends Component {
 
     render() {
         const { profile } = this.state
+        console.log(profile)
+        console.log("++")
+
         return (
             <TouchableNativeFeedback onPress={this.onProfilePressedHandler}>
                 <View style={styles.container}>

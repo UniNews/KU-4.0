@@ -35,7 +35,8 @@ export default StyleSheet.create({
     },
     title: {
         fontFamily: BOLD_FONT,
-        letterSpacing: 0.5
+        letterSpacing: 0.5,
+        paddingVertical:5,
     },
     nameText: {
         fontFamily: BOLD_FONT,
@@ -57,8 +58,23 @@ export default StyleSheet.create({
         borderBottomRightRadius: entryBorderRadius,
     },
     iconContainer: {
+
+        alignItems: 'center',
+        flexDirection: 'row',
+    },
+    icon: {
+        paddingTop: 5,
         paddingRight: 10,
         alignItems: 'center',
         flexDirection: 'row',
+    },
+    numberText: {
+        fontSize: 13,
+        paddingLeft: 5,
+        fontFamily: BOLD_FONT,
+    },
+    indicatorText: {
+        fontSize: 13,
+        fontFamily: REGULAR_FONT,
     },
 })
