@@ -88,19 +88,22 @@ class NewsCard extends Component {
                         >
                             {news.author?.displayName}
                         </Text>
-                        <View style={styles.iconContainer}>
+                        <View style={styles.dateIconContainer}>
                             <FontAwesome name='clock-o' size={13} color='grey' />
                             <Text style={styles.date}>
                                 {` ${convertTimestamptoDate(news.createdAt)}`}
                             </Text>
                         </View>
 
-                        <Text
-                            style={[styles.title]}
-                            numberOfLines={2}
-                        >
-                            {news.title}
-                        </Text>
+                        <View style={styles.titleContainer}>
+                            <Text
+                                style={[styles.title]}
+                                numberOfLines={2}
+                            >
+                                {news.title}
+                            </Text>
+                        </View>
+
 
                         <View style={styles.iconContainer}>
                             <TouchableOpacity onPress={this.onLikePressedHandler}>

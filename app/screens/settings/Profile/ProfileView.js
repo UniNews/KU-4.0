@@ -40,16 +40,17 @@ class ProfileSettingView extends React.Component {
         navigation.goBack()
     }
 
-    save = () => {
+    save = async () => {
         if (!this.isBioError() && !this.isDisplayNameError()) {
             const { displayName, avatarURL, bio } = this.state
-            const { updateProfile } = this.props
+            const { updateProfile, navigation } = this.props
             const data = {
                 displayName,
                 avatarURL,
                 bio: bio,
             }
-            updateProfile(data)
+            await updateProfile(data)
+            navigation.goBack()
         }
     }
 

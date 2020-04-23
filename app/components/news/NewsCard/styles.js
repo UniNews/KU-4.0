@@ -33,10 +33,15 @@ export default StyleSheet.create({
         borderBottomLeftRadius: entryBorderRadius,
         borderBottomRightRadius: entryBorderRadius,
     },
+    titleContainer: {
+        paddingVertical: 5,
+        flex: 1,
+        justifyContent: 'center',
+    },
     title: {
         fontFamily: BOLD_FONT,
         letterSpacing: 0.5,
-        paddingVertical:5,
+        // backgroundColor: 'black',
     },
     nameText: {
         fontFamily: BOLD_FONT,
@@ -57,13 +62,16 @@ export default StyleSheet.create({
         borderBottomLeftRadius: entryBorderRadius,
         borderBottomRightRadius: entryBorderRadius,
     },
-    iconContainer: {
-
+    dateIconContainer: {
         alignItems: 'center',
         flexDirection: 'row',
     },
+    iconContainer: {
+        flex: 1,
+        alignItems: 'flex-end',
+        flexDirection: 'row',
+    },
     icon: {
-        paddingTop: 5,
         paddingRight: 10,
         alignItems: 'center',
         flexDirection: 'row',
