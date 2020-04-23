@@ -2,7 +2,6 @@ import React from 'react'
 import { View, FlatList, ActivityIndicator, Text } from 'react-native'
 import styles from './styles'
 import ProfileThread from '../../../../components/profile/ProfileThread'
-import userService from '../../../../services/user'
 import { PRIMARY_COLOR } from '../../../../assets/css/color'
 import searchService from '../../../../services/search'
 
@@ -19,22 +18,6 @@ class ProfileSearchView extends React.Component {
             fetching: false,
             refreshing: false,
         }
-    }
-
-    follow = (profile) => {
-        profile.isFollowing = !profile.isFollowing
-        this.setState({ users: [...this.state.users] })
-        if (profile.isFollowing)
-            userService.followUserById(profile._id)
-        else
-            userService.unfollowUserById(profile._id)
-    }
-
-    goProfile = (id) => {
-        const { navigation } = this.props
-        navigation.push('ProfileDetail', {
-            userId: id
-        })
     }
 
     goBack = () => {
@@ -101,7 +84,7 @@ class ProfileSearchView extends React.Component {
 
     renderItem = ({ item }) => {
         return <View style={styles.profileThreadContainer} key={item._id}>
-            <ProfileThread following={item.isFollowing} onFollowPressed={this.follow} onProfilePressed={this.goProfile} data={item} />
+            <ProfileThread navigation={this.props.navigation} data={item} />
         </View>
     }
 

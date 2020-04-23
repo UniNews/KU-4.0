@@ -17,10 +17,6 @@ class NewsList extends React.Component {
         }
     }
 
-    goNews = (newsId) => {
-        this.props.screenProps.navigation.push('NewsDetail', { newsId })
-    }
-
     goCommunity = (newsId) => {
         this.props.screenProps.navigation.push('CommunityDetail', { newsId })
     }
@@ -30,7 +26,7 @@ class NewsList extends React.Component {
             {
                 item.articleType === 'news'
                     ?
-                    <NewsCard style={styles.newsContainer} onNewsPressed={this.goNews} data={item} />
+                    <NewsCard navigation={this.props.screenProps.navigation} style={styles.newsContainer} data={item} />
                     :
                     <Thread data={item} style={styles.newsContainer} onThreadPressed={this.goCommunity} />
             }

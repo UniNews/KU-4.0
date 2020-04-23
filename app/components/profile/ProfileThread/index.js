@@ -3,62 +3,78 @@ import { View, Image, Text, TouchableNativeFeedback } from 'react-native'
 import styles from './styles'
 import PropTypes from 'prop-types'
 import Button from '../../commons/Button'
+import userService from '../../../services/user'
 
 class ProfileThread extends Component {
 
     constructor(props) {
         super(props)
+        this.state = {
+            profile: this.props.data
+        }
     }
 
-    onButtonPressedHandler = () => {
-        const { onFollowPressed, data } = this.props
-        if (onFollowPressed)
-            onFollowPressed(data)
+    onFollowPressedHandler = () => {
+        const { profile } = this.state
+        profile.isFollowing = !profile.isFollowing
+        if (profile.isFollowing)
+            userService.followUserById(profile._id)
+        else
+            userService.unfollowUserById(profile._id)
+        this.setState({ profile })
     }
 
     onProfilePressedHandler = () => {
-        const { onProfilePressed, data } = this.props
-        if (onProfilePressed)
-            onProfilePressed(data._id)
+        const { navigation } = this.props
+        const { profile } = this.state
+        navigation.push('ProfileDetail', {
+            userId: profile._id,
+            setProfileThreadIsFollowing: this.setProfileThreadIsFollowing
+        })
+    }
+
+    setProfileThreadIsFollowing = (isFollowing) => {
+        const { profile } = this.state
+        profile.isFollowing = isFollowing
+        this.setState({ profile })
     }
 
     render() {
-        const { data, following } = this.props
+        const { profile } = this.state
         return (
             <TouchableNativeFeedback onPress={this.onProfilePressedHandler}>
                 <View style={styles.container}>
                     <View style={styles.leftContainer}>
                         <Image
-                            source={{ uri: data.avatarURL }}
+                            source={{ uri: profile.avatarURL }}
                             style={styles.avatar}
                         />
                         <View style={styles.profileDescriptionContainer}>
                             <Text numberOfLines={1} style={styles.nameText}>
-                                {data.displayName}
+                                {profile.displayName}
                             </Text>
                             {
-                                data.bio
+                                profile.bio
                                     ?
                                     <Text numberOfLines={1} style={styles.bioText}>
-                                        {data.bio}
+                                        {profile.bio}
                                     </Text>
                                     :
                                     null
                             }
-
                         </View>
                     </View>
                     <View style={styles.rightContainer}>
                         {
-                            following
+                            profile.isFollowing
                                 ?
-                                <Button style={styles.followingButton} rounded onPress={this.onButtonPressedHandler}>
+                                <Button style={styles.followingButton} rounded onPress={this.onFollowPressedHandler}>
                                     <Text style={styles.followingText}>
                                         กำลังติดตาม
                                     </Text>
                                 </Button>
                                 :
-                                <Button style={styles.followButton} rounded onPress={this.onButtonPressedHandler}>
+                                <Button style={styles.followButton} rounded onPress={this.onFollowPressedHandler}>
                                     <Text style={styles.followText}>
                                         ติดตาม
                                     </Text>
@@ -77,9 +93,10 @@ ProfileThread.propTypes = {
         displayName: PropTypes.string.isRequired,
         avatarURL: PropTypes.string.isRequired,
     }).isRequired,
-    following: PropTypes.bool,
-    onProfilePressed: PropTypes.func,
-    onFollowPressed: PropTypes.func
+    navigation: PropTypes.object.isRequired,
+    // following: PropTypes.bool,
+    // onProfilePressed: PropTypes.func,
+    // onFollowPressed: PropTypes.func
 }
 
 export default ProfileThread

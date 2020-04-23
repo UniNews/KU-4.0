@@ -71,11 +71,20 @@ class UserProfileView extends React.Component {
         const { user, loading, news } = this.state
         const { navigation } = this.props
         const scroll = this.scroll
+        const { setProfileThreadIsFollowing } = this.props.navigation.state.params // for sync data between UserProfileView and FollowerView or FollowingView
         return (
             <View style={styles.containter}>
                 {
                     !loading ?
-                        <Navigator screenProps={{ handleNewsScroll: this.handleNewsScroll, handleProfileScroll: this.handleProfileScroll, scroll, navigation, user, news }}
+                        <Navigator screenProps={{
+                            handleNewsScroll: this.handleNewsScroll,
+                            handleProfileScroll: this.handleProfileScroll,
+                            scroll,
+                            navigation,
+                            user,
+                            news,
+                            setProfileThreadIsFollowing
+                        }}
                             onNavigationStateChange={(prevState, currentState) => {
                                 if (currentState.index === 0) {
                                     Animated.timing(scroll, {

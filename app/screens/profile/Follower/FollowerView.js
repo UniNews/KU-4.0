@@ -23,22 +23,6 @@ class FollowerView extends React.Component {
         }
     }
 
-    follow = (profile) => {
-        profile.isFollowing = !profile.isFollowing
-        this.setState({ followers: this.state.followers })
-        if (profile.isFollowing)
-            userService.followUserById(profile._id)
-        else
-            userService.unfollowUserById(profile._id)
-    }
-
-    goProfile = (id) => {
-        const { navigation } = this.props
-        navigation.push('ProfileDetail', {
-            userId: id
-        })
-    }
-
     goBack = () => {
         const { navigation } = this.props
         navigation.goBack()
@@ -96,7 +80,7 @@ class FollowerView extends React.Component {
 
     renderItem = ({ item }) => {
         return <View style={styles.profileThreadContainer} key={item._id}>
-            <ProfileThread following={item.isFollowing} onFollowPressed={this.follow} onProfilePressed={this.goProfile} data={item} />
+            <ProfileThread navigation={this.props.navigation} data={item} />
         </View>
     }
 

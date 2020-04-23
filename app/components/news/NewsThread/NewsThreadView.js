@@ -105,19 +105,15 @@ class NewsCard extends Component {
                                         </Text>
                                     </View>
                                 </TouchableOpacity>
-                                <TouchableOpacity
-                                // onPress={this.onCommentPressedHandler}
-                                >
-                                    <View style={styles.icon}>
-                                        <FontAwesome name='commenting-o' size={15} color='grey' />
-                                        <Text style={styles.numberText}>
-                                            {news.comments ? news.comments.length : 0}
-                                        </Text>
-                                        <Text style={styles.indicatorText}>
-                                            {` ความเห็น`}
-                                        </Text>
-                                    </View>
-                                </TouchableOpacity>
+                                <View style={styles.icon}>
+                                    <FontAwesome name='commenting-o' size={15} color='grey' />
+                                    <Text style={styles.numberText}>
+                                        {news.comments ? news.comments.length : 0}
+                                    </Text>
+                                    <Text style={styles.indicatorText}>
+                                        {` ความเห็น`}
+                                    </Text>
+                                </View>
                             </View>
                         </View>
                         <View style={styles.rightContainer}>

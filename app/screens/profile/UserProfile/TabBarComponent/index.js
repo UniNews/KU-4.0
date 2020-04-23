@@ -16,7 +16,6 @@ class tabBarComponent extends React.Component {
         this.state = {
             user: this.props.screenProps.user,
         }
-
         this.tabTranslateY = this.props.screenProps.scroll.interpolate({
             inputRange: [0, 350],
             outputRange: [0, - 350],
@@ -25,9 +24,10 @@ class tabBarComponent extends React.Component {
     }
 
     follow = () => {
+        const { setProfileThreadIsFollowing } = this.props.screenProps
         const { user } = this.state
         user.isFollowing = !user.isFollowing
-        this.setState({ user: { ...this.state.user } })
+        this.setState({ user })
         if (user.isFollowing) {
             userService.followUserById(user._id)
             user.followers.push('')
@@ -36,6 +36,8 @@ class tabBarComponent extends React.Component {
             userService.unfollowUserById(user._id)
             user.followers.pop()
         }
+        if (setProfileThreadIsFollowing)
+            setProfileThreadIsFollowing(user.isFollowing)
     }
 
     goBack = () => {
