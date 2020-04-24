@@ -53,6 +53,12 @@ class DetailView extends React.Component {
             })
             this.props.showModal()
         }
+        finally {
+            const { community } = this.state
+            const { setCommunityThreadLikes } = this.props.navigation.state.params
+            if (setCommunityThreadLikes)
+                setCommunityThreadLikes(community.likes)
+        }
     }
 
     async fetchComments() {
@@ -76,13 +82,18 @@ class DetailView extends React.Component {
             })
             this.props.showModal()
         }
+        finally {
+            const { comments } = this.state
+            const { setCommunityThreadComments } = this.props.navigation.state.params
+            if (setCommunityThreadComments)
+                setCommunityThreadComments(comments)
+        }
     }
 
     likePost = () => {
         const { community } = this.state
         const { user } = this.props
         community.isLiked = !community.isLiked
-        this.setState({ community: community })
         const newsId = this.props.navigation.state.params.newsId
         if (community.isLiked) {
             communityService.likeNews(newsId)
@@ -94,6 +105,10 @@ class DetailView extends React.Component {
             if (indexToRemove > -1)
                 community.likes.splice(indexToRemove, 1)
         }
+        this.setState({ community: community })
+        const { setCommunityThreadLikes } = this.props.navigation.state.params
+        if (setCommunityThreadLikes)
+            setCommunityThreadLikes(community.likes)
     }
 
     likeComment = (comment) => {

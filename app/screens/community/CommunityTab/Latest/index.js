@@ -56,7 +56,7 @@ class LatestView extends React.Component {
     }
 
     renderItem = ({ item }) => {
-        return <Thread style={styles.threadContainer} key={item._id} data={item} onThreadPressed={this.onThreadPressed} />
+        return <Thread style={styles.threadContainer} key={item._id} data={item} navigation={this.props.navigation} />
     }
 
     renderFooter = () => {
@@ -82,10 +82,6 @@ class LatestView extends React.Component {
             this.fetchCommunities()
             this.onEndReachedCalledDuringMomentum = true
         }
-    }
-
-    onThreadPressed = (newsId) => {
-        this.props.navigation.push('CommunityDetail', { newsId })
     }
 
     goPostCommunity = () => {

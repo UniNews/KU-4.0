@@ -17,9 +17,34 @@ class Thread extends Component {
     }
 
     onThreadPressedHandler = () => {
-        const { onThreadPressed, data } = this.props
-        if (onThreadPressed)
-            onThreadPressed(data._id)
+        const { navigation } = this.props
+        const { news } = this.state
+        if (navigation)
+            navigation.push('CommunityDetail', {
+                newsId: news._id,
+                setCommunityThreadLikes: this.setCommunityThreadLikes,
+                setCommunityThreadComments: this.setCommunityThreadComments
+            })
+    }
+
+
+    /* for sync likes between navigations */
+    setCommunityThreadLikes = (likes) => {
+        const { news } = this.state
+        const { user } = this.props
+        news.likes = likes
+        if (news.likes?.indexOf(user._id) > -1)
+            news.isLiked = true
+        else
+            news.isLiked = false
+        this.setState({ news })
+    }
+
+    /* for sync comments between navigations */
+    setCommunityThreadComments = (comments) => {
+        const { news } = this.state
+        news.comments = comments
+        this.setState({ news })
     }
 
     onLikePressedHandler = () => {
@@ -39,20 +64,8 @@ class Thread extends Component {
         this.setState({ news })
     }
 
-    onCommentPressedHandler = () => {
-        const { onCommentPressed, data } = this.props
-        if (onCommentPressed)
-            onCommentPressed(data.author?._id)
-    }
-
-    onReportPressHandler = () => {
-        const { onReportPressed, data } = this.props
-        if (onReportPressed)
-            onReportPressed(data._id)
-    }
-
     render() {
-        const { data, style } = this.props
+        const { style } = this.props
         const { news } = this.state
         let container = {}
         if (style)
@@ -61,7 +74,6 @@ class Thread extends Component {
             container = styles.container
         return (
             <TouchableNativeFeedback
-                onLongPress={this.onReportPressHandler}
                 onPress={this.onThreadPressedHandler}>
                 <View style={container}>
                     <View style={styles.innerContainer}>
@@ -69,9 +81,6 @@ class Thread extends Component {
                             <Text style={styles.nameText}>
                                 {news.author?.displayName}
                             </Text>
-                            {/* <TouchableWithoutFeedback onPress={this.onReportPressHandler} >
-                                <MaterialCommunityIcons style={styles.dotIcon} name='dots-vertical' size={20} color='black' />
-                            </TouchableWithoutFeedback> */}
                         </View>
                         <View style={styles.iconContainer}>
                             <FontAwesome name='clock-o' size={15} color='grey' />
@@ -98,11 +107,7 @@ class Thread extends Component {
                                 </View>
                             </TouchableOpacity>
                             <View style={styles.iconContainer}>
-                                <TouchableOpacity onPress={
-                                    this.onCommentPressedHandler
-                                }>
-                                    <FontAwesome name='commenting-o' size={15} color='grey' />
-                                </TouchableOpacity>
+                                <FontAwesome name='commenting-o' size={15} color='grey' />
                                 <Text style={styles.numberText}>
                                     {news.comments ? news.comments.length : 0}
                                 </Text>
@@ -120,7 +125,7 @@ class Thread extends Component {
 
 Thread.propTypes = {
     data: PropTypes.shape({
-        user: PropTypes.shape({
+        author: PropTypes.shape({
             avatarURL: PropTypes.string,
             displayName: PropTypes.string,
             _id: PropTypes.string
@@ -132,24 +137,7 @@ Thread.propTypes = {
         _id: PropTypes.string
     }
     ).isRequired,
-    onLikePressed: PropTypes.func,
-    onCommentPressed: PropTypes.func,
-    onReportPressed: PropTypes.func
-}
-
-Thread.defaultProps = {
-    data: {
-        user: {
-            avatarURl: null,
-            displayName: '',
-            _id: null
-        },
-        createdAt: '',
-        description: '',
-        likes: [],
-        comments: [],
-        _id: null,
-    },
+    navigation: PropTypes.object.isRequired,
 }
 
 export default Thread

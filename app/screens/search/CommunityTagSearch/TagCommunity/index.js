@@ -26,7 +26,7 @@ class TagCommunityView extends React.Component {
     }
 
     renderItem = ({ item }) => {
-        return <Thread key={item._id} style={styles.newsContainer} onNewsPressed={this.goNews} data={item} />
+        return <Thread style={styles.newsContainer} key={item._id} data={item} navigation={this.props.navigation} />
     }
 
     async fetchNews() {
@@ -78,10 +78,6 @@ class TagCommunityView extends React.Component {
             this.fetchNews()
             this.onEndReachedCalledDuringMomentum = true
         }
-    }
-
-    goNews = (newsId) => {
-        this.props.navigation.push('NewsDetail', { newsId })
     }
 
     goBack = () => {
