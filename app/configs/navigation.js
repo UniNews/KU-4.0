@@ -2,7 +2,7 @@ import React from 'react'
 import { createAppContainer, createSwitchNavigator } from 'react-navigation'
 import { createBottomTabNavigator, createMaterialTopTabNavigator } from 'react-navigation-tabs'
 import { createStackNavigator } from 'react-navigation-stack'
-import { FontAwesome } from '@expo/vector-icons'
+import { MaterialCommunityIcons } from '@expo/vector-icons'
 import SearchTabScreen from '../screens/search/SearchTab'
 import NotificationScreen from '../screens/notification/Notification'
 import MyProfileScreen from '../screens/profile/MyProfile'
@@ -56,8 +56,9 @@ const newsStack = createStackNavigator({
     headerMode: 'none',
     navigationOptions: {
       headerVisible: false,
-    }
-  }
+    },
+
+  },
 )
 
 newsStack.navigationOptions = ({ navigation }) => {
@@ -181,7 +182,6 @@ const searchStack = createStackNavigator({
 const tabNavigator = createBottomTabNavigator({
   'หน้าหลัก': newsStack,
   'พูดคุย': communityStack,
-  'ค้นหา': searchStack,
   'แจ้งเตือน': notificationStack,
   'โปรไฟล์': profileStack,
 },
@@ -190,31 +190,27 @@ const tabNavigator = createBottomTabNavigator({
     defaultNavigationOptions: ({ navigation }) => ({
       tabBarIcon: ({ focused, horizontal, tintColor }) => {
         const { routeName } = navigation.state
-        let IconComponent = FontAwesome
+        let IconComponent = MaterialCommunityIcons
         let iconName, size
+        size = 28
         if (routeName === 'หน้าหลัก') {
-          iconName = 'home'
-          size = 28
+          iconName = `${focused ? 'home' : 'home-outline'}`
         } else if (routeName === 'พูดคุย') {
-          iconName = 'comments'
-          size = 27
+          iconName = `${focused ? 'comment-processing' : 'comment-processing-outline'}`
         }
         else if (routeName === 'แจ้งเตือน') {
-          iconName = 'bell'
-          size = 22
+          iconName = `${focused ? 'bell' : 'bell-outline'}`
           IconComponent = NotificationTabBarIcon
         }
         else if (routeName === 'โปรไฟล์') {
-          iconName = 'user'
-          size = 26
-        }
-        else if (routeName === 'ค้นหา') {
-          iconName = 'search'
-          size = 23
+          iconName = `${focused ? 'account' : 'account-outline'}`
         }
         return <IconComponent name={iconName} size={size} color={tintColor} />
       },
     }),
+    sceneContainerStyle: {
+      // paddingTop: 200
+    },
     tabBarOptions: {
       activeTintColor: PRIMARY_COLOR,
       inactiveTintColor: SECONDARY_COLOR,
@@ -223,6 +219,12 @@ const tabNavigator = createBottomTabNavigator({
       },
       style: {
         height: 52,
+        elevation: 10,
+        backgroundColor: 'white',
+        // borderTopRightRadius: 20,
+        // borderTopLeftRadius: 20,
+        // position: 'absolute',
+        // bottom: 0,
       }
     },
   }
@@ -230,7 +232,8 @@ const tabNavigator = createBottomTabNavigator({
 
 const tabStack = createStackNavigator({
   Tabs: tabNavigator,
-  PostReport: PostReportScreen
+  PostReport: PostReportScreen,
+  Search: searchStack
 },
   {
     headerMode: 'none',

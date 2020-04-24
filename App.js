@@ -11,6 +11,7 @@ import { AlertHelper } from './app/configs/alertHelper'
 import { BOLD_FONT, REGULAR_FONT } from './app/assets/css/typography'
 import SafeAreaView from './app/components/commons/SafeAreaView'
 import ErrorModal from './app/components/modals/ErrorModal'
+import { View } from 'react-native'
 
 const store = createStore(reducers, applyMiddleware(thunkMiddleware))
 

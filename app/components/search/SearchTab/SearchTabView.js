@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, TouchableWithoutFeedback, TextInput } from 'react-native'
 import styles from './styles'
-import { MaterialCommunityIcons, FontAwesome } from '@expo/vector-icons'
+import { MaterialCommunityIcons, FontAwesome, Feather } from '@expo/vector-icons'
 import { MaterialTopTabBar } from 'react-navigation-tabs'
 import { KU_SECONDARY_COLOR } from '../../../assets/css/color'
 
@@ -37,17 +37,28 @@ class SearchTabView extends React.Component {
         reset()
     }
 
+    goBack = () => {
+        const { navigation } = this.props
+        navigation.pop()
+    }
+
     render() {
         const { query } = this.state
         return (
             <View style={styles.container}>
                 <View style={styles.inputContainer}>
                     <View style={styles.searchIconContainer}>
-                        <FontAwesome name='search' color='grey' size={16} />
+                        <MaterialCommunityIcons
+                            color='black'
+                            onPress={this.goBack}
+                            size={25}
+                            name={'arrow-left'}
+                        />
+                        {/* <FontAwesome name='search' color='grey' size={16} /> */}
                     </View>
                     <TextInput
                         value={query}
-                        // autoFocus={true}
+                        autoFocus={true}
                         placeholderTextColor={'grey'}
                         style={styles.textInputField}
                         placeholder={'ค้นหาข่าว, ชุมชน, ชื่อผู้ใช้...'}

@@ -1,14 +1,15 @@
 import { StyleSheet } from 'react-native'
 export default StyleSheet.create({
   container: {
-    width: 24,
-    height: 24,
-    margin: 5,
+    // width: 24,
+    // height: 24,
+    // margin: 5,
+    // alignItems:'center'
   },
   badge: {
     position: 'absolute',
-    right: -6,
-    top: -3,
+    right: -4,
+    top: 0,
     backgroundColor: 'red',
     borderRadius: 6,
     width: 12,

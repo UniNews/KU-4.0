@@ -1,7 +1,7 @@
 import React from 'react'
 import { Text, View } from 'react-native'
 import styles from './styles'
-import { FontAwesome } from '@expo/vector-icons'
+import { MaterialCommunityIcons } from '@expo/vector-icons'
 import PropTypes from 'prop-types'
 
 class IconWithBadge extends React.Component {
@@ -28,7 +28,7 @@ class IconWithBadge extends React.Component {
     // const { notificationsCount } = this.state
     return (
       <View style={styles.container}>
-        <FontAwesome name={name} size={size} color={color} />
+        <MaterialCommunityIcons name={name} size={size} color={color} />
         {
           unread.length > 0 ? (
             <View style={styles.badge}>

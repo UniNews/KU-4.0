@@ -19,9 +19,14 @@ class ExploreTabBar extends React.Component {
         navigation.navigate(routeName)
     }
 
+    goBack = () => {
+        const { navigation } = this.props
+        navigation.goBack()
+    }
+
     goSearch = () => {
         const { navigation } = this.props
-        navigation.navigate('ค้นหา')
+        navigation.navigate('Search')
     }
 
     render() {
