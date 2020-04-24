@@ -17,9 +17,9 @@ export default StyleSheet.create({
     },
     avatar: {
         alignSelf: 'flex-start',
-        width: 65,
-        height: 65,
-        borderRadius: 65 / 2,
+        width: 55,
+        height: 55,
+        borderRadius: 55 / 2,
     },
     profileNameText: {
         color: KU_SECONDARY_COLOR,
@@ -33,6 +33,7 @@ export default StyleSheet.create({
         fontFamily: REGULAR_FONT,
     },
     date: {
+        paddingLeft: 5,
         fontFamily: REGULAR_FONT,
         color: 'grey',
         fontSize: 13
@@ -41,9 +42,14 @@ export default StyleSheet.create({
         paddingHorizontal: 10,
     },
     notReadBackground: {
-        backgroundColor: 'rgba(88, 142, 87, 0.1)'
+        backgroundColor: 'rgba(88, 142, 87, 0.15)'
     },
     readBackground: {
         backgroundColor: 'white'
-    }
+    },
+    dateIconContainer: {
+        paddingTop: 2,
+        alignItems: 'center',
+        flexDirection: 'row',
+    },
 })

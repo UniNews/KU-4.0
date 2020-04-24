@@ -39,13 +39,13 @@ class NotificationView extends React.Component {
         this.props.getNotifications()
     }
 
-    // renderEmpty = () => {
-    //     return <View style={styles.emptyContainer}>
-    //         <Text style={styles.emptyText}>
-    //             ไม่มีการแจ้งเตือนเลย ลองติดตามใครซักคนสิ
-    //         </Text>
-    //     </View>
-    // }
+    renderEmpty = () => {
+        return <View style={styles.emptyContainer}>
+            <Text style={styles.emptyText}>
+                ไม่มีการแจ้งเตือนเลย ลองติดตามใครซักคนสิ
+            </Text>
+        </View>
+    }
 
     render() {
         const { notifications, loading } = this.props
@@ -54,7 +54,7 @@ class NotificationView extends React.Component {
                 <Header title={'การแจ้งเตือน'} />
                 {
                     <FlatList
-                        // ListEmptyComponent={this.renderEmpty}
+                        ListEmptyComponent={this.renderEmpty}
                         contentContainerStyle={styles.listContainer}
                         refreshing={loading}
                         onRefresh={this.onRefresh}
