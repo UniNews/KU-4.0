@@ -53,16 +53,12 @@ class MyPostsView extends React.Component {
     }
 
     renderItem = ({ item }) => {
-        return <Thread style={styles.threadContainer} key={item._id} data={item} onThreadPressed={this.onThreadPressed} />
+        return <Thread style={styles.threadContainer} key={item._id} data={item} navigation={this.props.navigation} />
     }
 
     onRefresh = () => {
         this.setState({ refreshing: true })
         this.fetchCommunities()
-    }
-
-    onThreadPressed = (newsId) => {
-        this.props.navigation.push('CommunityDetail', { newsId })
     }
 
     render() {

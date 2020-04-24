@@ -17,10 +17,6 @@ class NewsList extends React.Component {
         }
     }
 
-    goCommunity = (newsId) => {
-        this.props.screenProps.navigation.push('CommunityDetail', { newsId })
-    }
-
     renderNews = ({ item }) => {
         return <View key={item._id} >
             {
@@ -28,7 +24,7 @@ class NewsList extends React.Component {
                     ?
                     <NewsCard navigation={this.props.screenProps.navigation} style={styles.newsContainer} data={item} />
                     :
-                    <Thread data={item} style={styles.newsContainer} onThreadPressed={this.goCommunity} />
+                    <Thread data={item} style={styles.newsContainer} navigation={this.props.screenProps.navigation} />
             }
         </View>
     }

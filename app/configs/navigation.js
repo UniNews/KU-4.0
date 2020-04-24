@@ -44,13 +44,16 @@ const newsTab = createMaterialTopTabNavigator({
 const newsStack = createStackNavigator({
   Home: newsTab,
   TagSearch: NewsTagSearchScreen,
-  NewsDetail: NewsDetailScreen,
-  CommunityDetail: CommunityDetailScreen,
-  Comment: CommentScreen,
   AnyNews: AnyNewsScreen,
+  /* news */
+  NewsDetail: NewsDetailScreen,
+  Comment: CommentScreen,
+  /* profile */
   Following: FollowingScreen,
   Follower: FollowerScreen,
   ProfileDetail: UserProfileScreen,
+  /* community */
+  CommunityDetail: CommunityDetailScreen,
 },
   {
     headerMode: 'none',
@@ -64,6 +67,8 @@ const newsStack = createStackNavigator({
 newsStack.navigationOptions = ({ navigation }) => {
   let tabBarVisible = true
   let currentRoute = navigation.state.routes[navigation.state.routes.length - 1].routeName
+  if (currentRoute == 'CommunityDetail')
+    tabBarVisible = false
   if (currentRoute == 'Comment')
     tabBarVisible = false
   return {
@@ -75,10 +80,14 @@ const communityStack = createStackNavigator({
   Home: CommunityTab,
   TagSearch: CommunityTagSearchScreen,
   CommunityDetail: CommunityDetailScreen,
+  PostCommunity: PostCommunityScreen,
+  /* profile */
   Following: FollowingScreen,
   Follower: FollowerScreen,
   ProfileDetail: UserProfileScreen,
-  PostCommunity: PostCommunityScreen,
+  /* news */
+  NewsDetail: NewsDetailScreen,
+  Comment: CommentScreen,
 },
   {
     headerMode: 'none',
@@ -95,6 +104,8 @@ communityStack.navigationOptions = ({ navigation }) => {
     tabBarVisible = false
   if (currentRoute == 'PostCommunity')
     tabBarVisible = false
+  if (currentRoute == 'Comment')
+    tabBarVisible = false
   return {
     tabBarVisible
   }
@@ -103,10 +114,16 @@ communityStack.navigationOptions = ({ navigation }) => {
 const profileStack = createStackNavigator({
   MyProfile: MyProfileScreen,
   ProfileSetting: ProfileSetting,
+  MyPosts: MyPostsScreen,
+  /* profile */
   ProfileDetail: UserProfileScreen,
   Following: FollowingScreen,
   Follower: FollowerScreen,
-  MyPosts: MyPostsScreen
+  /* news */
+  NewsDetail: NewsDetailScreen,
+  Comment: CommentScreen,
+  /* community */
+  CommunityDetail: CommunityDetailScreen,
 },
   {
     headerMode: 'none',
@@ -116,41 +133,59 @@ const profileStack = createStackNavigator({
   }
 )
 
-// const searchTab = createMaterialTopTabNavigator({
-//   'ข่าว': NewsSearchScreen,
-//   'โปรไฟล์': ProfileSearchScreen,
-// }, {
-//   tabBarComponent: SearchTab,
-//   swipeEnabled: true,
-// tabBarOptions: {
-//   scrollEnabled: true,
-// },
-// })
-
-// const searchStack = createStackNavigator({
-// MainSearch: MainSearchScreen,
-//   Following: FollowingScreen,
-//   Follower: FollowerScreen,
-//   AnyNews: AnyNewsScreen,
-//   ProfileDetail: UserProfileScreen,
-//   CommunityDetail: CommunityDetailScreen,
-//   NewsDetail: NewsDetailScreen,
-//   TagNews: TagNewsScreen
-// },
-//   {
-//     headerMode: 'none',
-//     navigationOptions: {
-//       headerVisible: false,
-//     }
-//   }
-// )
+profileStack.navigationOptions = ({ navigation }) => {
+  let tabBarVisible = true
+  let currentRoute = navigation.state.routes[navigation.state.routes.length - 1].routeName
+  if (currentRoute == 'CommunityDetail')
+    tabBarVisible = false
+  if (currentRoute == 'Comment')
+    tabBarVisible = false
+  return {
+    tabBarVisible
+  }
+}
 
 const notificationStack = createStackNavigator({
   Notification: NotificationScreen,
+  /* profile */
   Following: FollowingScreen,
   Follower: FollowerScreen,
   ProfileDetail: UserProfileScreen,
+  /* news */
+  NewsDetail: NewsDetailScreen,
+  Comment: CommentScreen,
+  /* community */
   CommunityDetail: CommunityDetailScreen,
+},
+  {
+    headerMode: 'none',
+    navigationOptions: {
+      headerVisible: false,
+    }
+  }
+)
+
+notificationStack.navigationOptions = ({ navigation }) => {
+  let tabBarVisible = true
+  let currentRoute = navigation.state.routes[navigation.state.routes.length - 1].routeName
+  if (currentRoute == 'CommunityDetail')
+    tabBarVisible = false
+  if (currentRoute == 'Comment')
+    tabBarVisible = false
+  return {
+    tabBarVisible
+  }
+}
+
+const searchStack = createStackNavigator({
+  SearchTab: SearchTabScreen,
+  /* profile */
+  Following: FollowingScreen,
+  Follower: FollowerScreen,
+  ProfileDetail: UserProfileScreen,
+  /* community */
+  CommunityDetail: CommunityDetailScreen,
+  /* news */
   NewsDetail: NewsDetailScreen,
   Comment: CommentScreen,
 },
@@ -162,22 +197,17 @@ const notificationStack = createStackNavigator({
   }
 )
 
-const searchStack = createStackNavigator({
-  SearchTab: SearchTabScreen,
-  Following: FollowingScreen,
-  Follower: FollowerScreen,
-  ProfileDetail: UserProfileScreen,
-  CommunityDetail: CommunityDetailScreen,
-  NewsDetail: NewsDetailScreen,
-  Comment: CommentScreen,
-},
-  {
-    headerMode: 'none',
-    navigationOptions: {
-      headerVisible: false,
-    }
+searchStack.navigationOptions = ({ navigation }) => {
+  let tabBarVisible = true
+  let currentRoute = navigation.state.routes[navigation.state.routes.length - 1].routeName
+  if (currentRoute == 'CommunityDetail')
+    tabBarVisible = false
+  if (currentRoute == 'Comment')
+    tabBarVisible = false
+  return {
+    tabBarVisible
   }
-)
+}
 
 const tabNavigator = createBottomTabNavigator({
   'หน้าหลัก': newsStack,

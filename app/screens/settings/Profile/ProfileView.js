@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, View, Image, TouchableWithoutFeedback, TextInput, ActivityIndicator } from 'react-native'
+import { Text, View, Image, TouchableWithoutFeedback, TextInput, ActivityIndicator, } from 'react-native'
 import { Feather, MaterialCommunityIcons } from '@expo/vector-icons'
 import styles from './styles'
 import { LinearGradient } from 'expo-linear-gradient'
@@ -160,29 +160,26 @@ class ProfileSettingView extends React.Component {
                         }
                     </View>
                 </LinearGradient>
+
                 <View style={styles.descriptionContainer}>
-                    <TouchableWithoutFeedback>
-                        <View style={styles.settingContainer}>
-                            <Text style={isDisplayNameError ? styles.settingErrorTitleText : styles.settingTitleText}>{`ชื่อผู้ใช้ ${displayNameError}`}</Text>
-                            <TextInput
-                                style={styles.settingValueText}
-                                onChangeText={this.updateDisplayName}
-                                value={displayName} />
-                        </View>
-                    </TouchableWithoutFeedback>
+                    <View style={styles.settingContainer}>
+                        <Text style={isDisplayNameError ? styles.settingErrorTitleText : styles.settingTitleText}>{`ชื่อผู้ใช้ ${displayNameError}`}</Text>
+                        <TextInput
+                            style={styles.settingValueText}
+                            onChangeText={this.updateDisplayName}
+                            value={displayName} />
+                    </View>
                     <Hr style={isDisplayNameError ? styles.errorHr : null} />
-                    <TouchableWithoutFeedback>
-                        <View style={styles.settingContainer}>
-                            <Text style={isBioError ? styles.settingErrorTitleText : styles.settingTitleText}>{`สถานะ ${bioError}`}</Text>
-                            <TextInput
-                                style={styles.settingValueText}
-                                onChangeText={this.updateBio}
-                                value={bio} />
-                        </View>
-                    </TouchableWithoutFeedback>
+                    <View style={styles.settingContainer}>
+                        <Text style={isBioError ? styles.settingErrorTitleText : styles.settingTitleText}>{`สถานะ ${bioError}`}</Text>
+                        <TextInput
+                            style={styles.settingValueText}
+                            onChangeText={this.updateBio}
+                            value={bio} />
+                    </View>
                     <Hr style={isBioError ? styles.errorHr : null} />
                 </View>
-            </View>
+            </View >
         )
     }
 }

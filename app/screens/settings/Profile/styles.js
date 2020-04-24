@@ -82,6 +82,7 @@ export default StyleSheet.create({
         fontSize: 17,
     },
     descriptionContainer: {
+        // flex: 1,
         paddingVertical: 70,
     },
     uploadingSpinner: {
