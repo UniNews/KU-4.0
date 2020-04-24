@@ -1,7 +1,7 @@
-import { StyleSheet } from 'react-native';
+import { StyleSheet } from 'react-native'
 import { wp, viewportWidth } from '../../../assets/javascripts/spacing'
 import { BOLD_FONT, REGULAR_FONT } from '../../../assets/css/typography'
-const textInputContainerHorizontalMargin = viewportWidth - wp(20);
+const textInputContainerHorizontalMargin = viewportWidth - wp(20)
 
 export default StyleSheet.create({
     container: {
@@ -12,7 +12,7 @@ export default StyleSheet.create({
     },
     innerContainer: {
         flex: 1,
-        justifyContent: 'space-around'
+        justifyContent: 'space-around',
     },
     logoText: {
         fontSize: 50,
@@ -50,6 +50,7 @@ export default StyleSheet.create({
     },
     inputContainer: {
         alignItems: 'center',
+        // paddingTop: 200,
     },
     icon: {
         marginHorizontal: 10
@@ -138,5 +139,9 @@ export default StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         alignSelf: 'center'
+    },
+    keyboard: {
+        // flex: 1,
+        // backgroundColor:'black'
     }
-});
+})

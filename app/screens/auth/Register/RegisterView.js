@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, TextInput, View, TouchableWithoutFeedback, TouchableOpacity } from 'react-native'
+import { Text, TextInput, View, TouchableOpacity, KeyboardAvoidingView } from 'react-native'
 import styles from './styles'
 import { LinearGradient } from 'expo-linear-gradient'
 import { FontAwesome, Ionicons } from '@expo/vector-icons'
@@ -8,6 +8,8 @@ import Button from '../../../components/commons/Button'
 import { KU_PRIMARY_COLOR, KU_SECONDARY_COLOR } from '../../../assets/css/color'
 import userservice from '../../../services/user'
 import LoadingModal from '../../../components/modals/LoadingModal'
+import { STATUS_BAR_HEIGHT } from '../../../assets/css/device'
+import { AlertHelper } from '../../../configs/alertHelper'
 
 class RegisterView extends React.Component {
 
@@ -17,74 +19,70 @@ class RegisterView extends React.Component {
             username: '',
             password: '',
             passwordConfirm: '',
-            isHide: true,
             loading: false,
             usernameError: false,
-            usernameErrorMessage: null,
             passwordError: false,
-            passwordErrorMessage: null,
+            passwordConfirmError: false,
         }
     }
 
     register = async () => {
         const { password, username, passwordConfirm } = this.state
         const { login } = this.props
-        this.setError('reset', null)
-        if (!this.isPasswordMatch(password, passwordConfirm)) {
-            this.setError('password', 'รหัสผ่านไม่ตรงกัน')
+        this.setState({
+            loading: true,
+            usernameError: false,
+            passwordError: false,
+            passwordConfirmError: false,
+        })
+        let message = []
+        let valid = true
+        if (username.length < 5) {
+            this.setState({ usernameError: true })
+            message.push('ชื่อผู้ใช้ต้องมีขนาดมากกว่า 5 ตัวอักษร')
+            valid = false
         }
-        else if (username.length < 5) {
-            this.setError('username', 'ชื่อผู้ใช้ต้องมีขนาดมากกว่า 5 ตัวอักษร')
+        else if (!username.match(/^[0-9a-zA-Z]+$/)) {
+            this.setState({ usernameError: true })
+            message.push('ชื่อผู้ใช้ต้องเป็นตัวอักษร หรือตัวเลขเท่านั้น')
+            valid = false
         }
-        else if (password.length < 5) {
-            this.setError('password', 'รหัสผ่านต้องมีขนาดมากกว่า 5 ตัวอักษร')
+        if (password.length < 5) {
+            this.setState({ passwordError: true })
+            message.push('รหัสผ่านต้องมีขนาดมากกว่า 5 ตัวอักษร')
+            valid = false
         }
+        else if (!password.match(/^[0-9a-zA-Z]+$/)) {
+            this.setState({ passwordError: true })
+            message.push('รหัสผ่านต้องเป็นตัวอักษร หรือตัวเลขเท่านั้น')
+            valid = false
+        }
+        else if (!this.isPasswordMatch(password, passwordConfirm)) {
+            this.setState({ passwordConfirmError: true })
+            message.push('รหัสผ่านไม่ตรงกัน')
+            valid = false
+        }
+        if (!valid)
+            AlertHelper.alert('error', 'เกิดข้อผิดพลาด (422)', message.join('\n'))
         else {
             try {
-                this.setState({
-                    loading: true
-                })
                 const res = await userservice.register(username, password)
                 login(username, password)
                 this.setError('reset', null)
             }
             catch (err) {
                 const statusCode = err.response.status
-                let message = null
-                if (statusCode === 409)
-                    message = 'บัญชีผู้ใช้ถูกใช้ไปแล้ว'
+                if (statusCode === 409) {
+                    this.setState({ usernameError: true })
+                    AlertHelper.alert('error', 'เกิดข้อผิดพลาด', 'บัญชีผู้ใช้ถูกใช้ไปแล้ว')
+                }
                 else
-                    message = 'การสมัครบัญชีผู้ใช้ผิดพลาด'
-                this.setError('username', message)
-            }
-            finally {
-                this.setState({
-                    loading: false
-                })
+                    this.props.showModal()
             }
         }
-
-    }
-
-    setError = (type, message) => {
-        if (type === 'username') {
-            this.setState({
-                usernameError: true,
-                usernameErrorMessage: message
-            })
-        } else if (type === 'password') {
-            this.setState({
-                passwordError: true,
-                passwordErrorMessage: message
-            })
-        } else if (type === 'reset') {
-            this.setState({
-                usernameError: false,
-                usernameErrorMessage: null,
-                passwordError: false,
-                passwordErrorMessage: null
-            })
-        }
+        this.setState({
+            loading: false
+        })
     }
 
     goBack = () => {
@@ -92,43 +90,12 @@ class RegisterView extends React.Component {
         navigation.goBack()
     }
 
-    renderHideIcon() {
-        const { isHide } = this.state
-        return (
-            <TouchableWithoutFeedback onPress={() => this.setState({ isHide: !isHide })}>
-                <FontAwesome style={styles.icon} name={isHide ? 'eye' : 'eye-slash'} size={20} color='white' />
-            </TouchableWithoutFeedback>
-        )
-    }
-
-    renderUserValidationMessage() {
-        const { usernameError, usernameErrorMessage } = this.state
-        if (usernameError)
-            return (
-                <View>
-                    <Text style={styles.errorText}>{usernameErrorMessage}</Text>
-                </View>
-            )
-        else return null
-    }
-
-    renderPasswordValidationMessage() {
-        const { passwordError, passwordErrorMessage } = this.state
-        if (passwordError)
-            return (
-                <View>
-                    <Text style={styles.errorText}>{passwordErrorMessage}</Text>
-                </View>
-            )
-        else return null
-    }
-
     isPasswordMatch(password, passwordConfirm) {
         return (password === passwordConfirm)
     }
 
     render() {
-        const { isHide, loading } = this.state
+        const { loading, usernameError, passwordError, passwordConfirmError } = this.state
         const { loginByFacebook, loginByGoogle } = this.props
         return (
             <LinearGradient colors={[KU_PRIMARY_COLOR, KU_SECONDARY_COLOR]} style={styles.container} >
@@ -140,9 +107,9 @@ class RegisterView extends React.Component {
                         </View>
                         <Text style={styles.caption}>แหล่งข้อมูลสำหรับนิสิต</Text>
                     </View>
-                    <View style={styles.inputContainer}>
+                    <KeyboardAvoidingView style={styles.inputContainer} keyboardVerticalOffset={STATUS_BAR_HEIGHT + 60} behavior='padding' >
                         <Text style={styles.headLogin}>ลงทะเบียน</Text>
-                        <View style={styles.textInputContainer}>
+                        <View style={usernameError ? styles.textInputErrorContainer : styles.textInputContainer}>
                             <FontAwesome name='user' style={styles.icon} size={20} color='white' />
                             <TextInput
                                 maxLength={12}
@@ -150,41 +117,34 @@ class RegisterView extends React.Component {
                                 placeholder='ชื่อผู้ใช้งาน'
                                 placeholderTextColor='white'
                                 onChangeText={(text) => this.setState({ username: text })}
-                            >
-                            </TextInput>
+                            />
                         </View>
-                        {this.renderUserValidationMessage()}
-                        <View style={styles.textInputContainer}>
+                        <View style={passwordError ? styles.textInputErrorContainer : styles.textInputContainer}>
                             <FontAwesome name='lock' style={styles.icon} size={20} color='white' />
                             <TextInput
                                 maxLength={12}
                                 style={styles.textInput}
                                 placeholder='รหัสผ่าน'
                                 placeholderTextColor='white'
-                                secureTextEntry={isHide}
+                                secureTextEntry
                                 onChangeText={(text) => this.setState({ password: text })}
-                            >
-                            </TextInput>
-                            {this.renderHideIcon()}
+                            />
                         </View>
-                        {this.renderPasswordValidationMessage()}
-                        <View style={styles.textInputContainer}>
+                        <View style={passwordConfirmError ? styles.textInputErrorContainer : styles.textInputContainer}>
                             <FontAwesome name='lock' style={styles.icon} size={20} color='white' />
                             <TextInput
                                 secureTextEntry={true}
                                 style={styles.textInput}
                                 placeholder='ยืนยันรหัสผ่าน'
                                 placeholderTextColor='white'
-                                secureTextEntry={isHide}
+                                secureTextEntry
                                 onChangeText={(text) => this.setState({ passwordConfirm: text })}
-                                value={this.state.text}>
-                            </TextInput>
+                            />
                         </View>
-                        {this.renderPasswordValidationMessage()}
                         <Button rounded style={styles.buttonContainer} disabled={loading} onPress={this.register}>
                             <Text style={styles.textButton}>ลงทะเบียน</Text>
                         </Button>
-                    </View>
+                    </KeyboardAvoidingView>
                     <TouchableOpacity onPress={this.goBack} style={styles.registerContainer}>
                         <Ionicons name='ios-arrow-round-back' size={25} color='white' />
                         <Text style={[styles.regularText, styles.goBackText]}>

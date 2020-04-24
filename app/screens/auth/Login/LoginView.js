@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, TextInput, View, TouchableWithoutFeedback, ActivityIndicator, TouchableOpacity } from 'react-native'
+import { Text, TextInput, View, TouchableWithoutFeedback, TouchableOpacity, KeyboardAvoidingView } from 'react-native'
 import styles from './styles'
 import { LinearGradient } from 'expo-linear-gradient'
 import { FontAwesome, Ionicons } from '@expo/vector-icons'
@@ -8,6 +8,7 @@ import { AlertHelper } from '../../../configs/alertHelper'
 import Button from '../../../components/commons/Button'
 import { KU_PRIMARY_COLOR, KU_SECONDARY_COLOR } from '../../../assets/css/color'
 import LoadingModal from '../../../components/modals/LoadingModal'
+import { STATUS_BAR_HEIGHT } from '../../../assets/css/device'
 
 class LoginView extends React.Component {
 
@@ -58,7 +59,8 @@ class LoginView extends React.Component {
                         </View>
                         <Text style={styles.caption}>แหล่งข้อมูลสำหรับนิสิต</Text>
                     </View>
-                    <View style={styles.inputContainer}>
+
+                    <KeyboardAvoidingView behavior='padding' keyboardVerticalOffset={STATUS_BAR_HEIGHT + 50} style={styles.inputContainer}>
                         <Text style={styles.headLogin}>เข้าสู่ระบบ</Text>
                         <View style={styles.textInputContainer}>
                             <FontAwesome name='user' style={styles.icon} size={20} color='white' />
@@ -89,7 +91,7 @@ class LoginView extends React.Component {
                         }}>
                             <Text style={styles.textButton}>เข้าสู่ระบบ</Text>
                         </Button>
-                    </View>
+                    </KeyboardAvoidingView>
                     <TouchableOpacity onPress={this.goRegister} style={styles.registerContainer}>
                         <Text style={[styles.regularText]}>
                             {`ไม่มีบัญชีผู้ใช้งาน?`}
@@ -98,6 +100,7 @@ class LoginView extends React.Component {
                         <Ionicons name='ios-arrow-round-forward' size={25} color='white' />
                     </TouchableOpacity>
                 </View>
+
                 <View>
                     <Text style={styles.bottomText}>หรือเชื่อมต่อกับบัญชีอื่นของคุณ</Text>
                     <View style={styles.bottomContainer}>
@@ -120,7 +123,7 @@ class LoginView extends React.Component {
                     </View>
                 </View>
                 <LoadingModal message={'กำลังดึงข้อมูล...'} visible={loading} />
-            </LinearGradient>
+            </LinearGradient >
         )
     }
 }

@@ -1,7 +1,6 @@
 import { StyleSheet } from 'react-native'
 import { wp, viewportWidth } from '../../../assets/javascripts/spacing'
 import { BOLD_FONT, REGULAR_FONT } from '../../../assets/css/typography'
-import { SECONDARY_COLOR, PRIMARY_COLOR } from '../../../assets/css/color'
 const textInputContainerHorizontalMargin = viewportWidth - wp(20)
 
 export default StyleSheet.create({
@@ -47,7 +46,18 @@ export default StyleSheet.create({
         backgroundColor: '#FFFFFF60',
         borderRadius: 10,
         height: 50,
-        width: textInputContainerHorizontalMargin
+        width: textInputContainerHorizontalMargin,
+    },
+    textInputErrorContainer: {
+        marginVertical: 5,
+        flexDirection: 'row',
+        alignItems: 'center',
+        backgroundColor: '#FFFFFF60',
+        borderRadius: 10,
+        height: 50,
+        width: textInputContainerHorizontalMargin,
+        borderBottomWidth: 2,
+        borderBottomColor: 'red'
     },
     inputContainer: {
         alignItems: 'center',
