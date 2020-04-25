@@ -1,4 +1,3 @@
-
 import React from 'react'
 import { Text, TextInput, View, TouchableOpacity } from 'react-native'
 import styles from './styles'
@@ -102,7 +101,6 @@ class RegisterView extends React.Component {
             <LinearGradient colors={[KU_PRIMARY_COLOR, KU_SECONDARY_COLOR]} style={styles.container} >
                 <KeyboardShift>
                     <View style={styles.innerContainer}>
-
                         <View style={styles.logoContainer}>
                             <View style={styles.logoTextContainer}>
                                 <Text style={styles.logoText}>Uni</Text>

@@ -144,6 +144,7 @@ export default StyleSheet.create({
         paddingHorizontal: 5
     },
     registerContainer: {
+        paddingBottom: 20,
         flexDirection: 'row',
         alignItems: 'center',
         alignSelf: 'center'

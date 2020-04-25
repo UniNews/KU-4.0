@@ -29,7 +29,7 @@ export default StyleSheet.create({
     },
     logoContainer: {
         alignItems: 'center',
-        marginVertical: 50,
+        marginVertical: 60,
     },
     logoTextContainer: {
         flexDirection: 'row',
@@ -136,6 +136,7 @@ export default StyleSheet.create({
         fontFamily: REGULAR_FONT,
     },
     registerContainer: {
+        paddingBottom: 20,
         flexDirection: 'row',
         alignItems: 'center',
         alignSelf: 'center'

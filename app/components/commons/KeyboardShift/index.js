@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
-import { Animated, Dimensions, Keyboard, TextInput, UIManager, KeyboardAvoidingView, View, ScrollView } from 'react-native'
+import { Animated, Dimensions, Keyboard, TextInput, UIManager, } from 'react-native'
 import styles from './styles'
-import { STATUS_BAR_HEIGHT } from '../../../assets/css/device'
 
 const { State: TextInputState } = TextInput
 
@@ -38,7 +37,7 @@ export default class KeyboardShift extends Component {
         UIManager.measure(currentlyFocusedField, (originX, originY, width, height, pageX, pageY) => {
             const fieldHeight = height
             const fieldTop = pageY
-            const gap = (windowHeight - keyboardHeight) - (fieldTop + fieldHeight) - STATUS_BAR_HEIGHT * 2
+            const gap = (windowHeight - keyboardHeight) - (fieldTop + fieldHeight) - 50
             if (gap >= 0)
                 return
             Animated.timing(

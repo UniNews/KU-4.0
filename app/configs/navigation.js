@@ -138,6 +138,8 @@ profileStack.navigationOptions = ({ navigation }) => {
   let currentRoute = navigation.state.routes[navigation.state.routes.length - 1].routeName
   if (currentRoute == 'CommunityDetail')
     tabBarVisible = false
+  if (currentRoute == 'ProfileSetting')
+    tabBarVisible = false
   if (currentRoute == 'Comment')
     tabBarVisible = false
   return {

@@ -9,6 +9,7 @@ import constants from '../../../configs/constants'
 import Constants from 'expo-constants'
 import { PRIMARY_COLOR } from '../../../assets/css/color'
 import Hr from '../../../components/commons/Hr'
+import KeyboardShift from '../../../components/commons/KeyboardShift'
 
 class ProfileSettingView extends React.Component {
 
@@ -120,65 +121,68 @@ class ProfileSettingView extends React.Component {
 
         return (
             <View style={styles.containter}>
-                <LinearGradient style={styles.linearGradient} start={{ x: 0, y: 0 }} end={{ x: 0, y: 1 }} colors={['#465859', '#588E57']}>
-                    <TouchableWithoutFeedback onPress={this.goBack}>
-                        <Feather name={'chevron-left'} style={styles.backButton} size={28} color={'white'} />
-                    </TouchableWithoutFeedback>
-                    <Text style={styles.headerText}>
-                        แก้ไขโปรไฟล์
+                <KeyboardShift>
+
+                    <LinearGradient style={styles.linearGradient} start={{ x: 0, y: 0 }} end={{ x: 0, y: 1 }} colors={['#465859', '#588E57']}>
+                        <TouchableWithoutFeedback onPress={this.goBack}>
+                            <Feather name={'chevron-left'} style={styles.backButton} size={28} color={'white'} />
+                        </TouchableWithoutFeedback>
+                        <Text style={styles.headerText}>
+                            แก้ไขโปรไฟล์
                     </Text>
-                    {
-                        <View style={styles.saveButton}>
-                            {
-                                loading
-                                    ?
-                                    <ActivityIndicator color={'white'} />
-                                    :
-                                    <TouchableWithoutFeedback onPress={this.save}>
-                                        <Feather name={'check'} size={25} color={isDisplayNameError || isBioError ? 'rgba(255, 255, 255, 0.5)' : 'white'} />
-                                    </TouchableWithoutFeedback>
+                        {
+                            <View style={styles.saveButton}>
+                                {
+                                    loading
+                                        ?
+                                        <ActivityIndicator color={'white'} />
+                                        :
+                                        <TouchableWithoutFeedback onPress={this.save}>
+                                            <Feather name={'check'} size={25} color={isDisplayNameError || isBioError ? 'rgba(255, 255, 255, 0.5)' : 'white'} />
+                                        </TouchableWithoutFeedback>
+                                }
+                            </View>
+
+                        }
+                        <View style={styles.imageContainer}>
+                            {uploading
+                                ?
+                                <ActivityIndicator color={PRIMARY_COLOR} style={styles.uploadingSpinner} />
+                                :
+                                <TouchableWithoutFeedback onPress={this.pickImage}>
+                                    <View>
+                                        <Image
+                                            source={{ uri: avatarURL }}
+                                            style={styles.avatar}
+                                        />
+                                        <View style={styles.uploadIconContainer}>
+                                            <MaterialCommunityIcons name={'image-plus'} size={30} color={'white'} />
+                                        </View>
+                                    </View>
+                                </TouchableWithoutFeedback>
                             }
                         </View>
+                    </LinearGradient>
 
-                    }
-                    <View style={styles.imageContainer}>
-                        {uploading
-                            ?
-                            <ActivityIndicator color={PRIMARY_COLOR} style={styles.uploadingSpinner} />
-                            :
-                            <TouchableWithoutFeedback onPress={this.pickImage}>
-                                <View>
-                                    <Image
-                                        source={{ uri: avatarURL }}
-                                        style={styles.avatar}
-                                    />
-                                    <View style={styles.uploadIconContainer}>
-                                        <MaterialCommunityIcons name={'image-plus'} size={30} color={'white'} />
-                                    </View>
-                                </View>
-                            </TouchableWithoutFeedback>
-                        }
+                    <View style={styles.descriptionContainer}>
+                        <View style={styles.settingContainer}>
+                            <Text style={isDisplayNameError ? styles.settingErrorTitleText : styles.settingTitleText}>{`ชื่อผู้ใช้ ${displayNameError}`}</Text>
+                            <TextInput
+                                style={styles.settingValueText}
+                                onChangeText={this.updateDisplayName}
+                                value={displayName} />
+                        </View>
+                        <Hr style={isDisplayNameError ? styles.errorHr : null} />
+                        <View style={styles.settingContainer}>
+                            <Text style={isBioError ? styles.settingErrorTitleText : styles.settingTitleText}>{`สถานะ ${bioError}`}</Text>
+                            <TextInput
+                                style={styles.settingValueText}
+                                onChangeText={this.updateBio}
+                                value={bio} />
+                        </View>
+                        <Hr style={isBioError ? styles.errorHr : null} />
                     </View>
-                </LinearGradient>
-
-                <View style={styles.descriptionContainer}>
-                    <View style={styles.settingContainer}>
-                        <Text style={isDisplayNameError ? styles.settingErrorTitleText : styles.settingTitleText}>{`ชื่อผู้ใช้ ${displayNameError}`}</Text>
-                        <TextInput
-                            style={styles.settingValueText}
-                            onChangeText={this.updateDisplayName}
-                            value={displayName} />
-                    </View>
-                    <Hr style={isDisplayNameError ? styles.errorHr : null} />
-                    <View style={styles.settingContainer}>
-                        <Text style={isBioError ? styles.settingErrorTitleText : styles.settingTitleText}>{`สถานะ ${bioError}`}</Text>
-                        <TextInput
-                            style={styles.settingValueText}
-                            onChangeText={this.updateBio}
-                            value={bio} />
-                    </View>
-                    <Hr style={isBioError ? styles.errorHr : null} />
-                </View>
+                </KeyboardShift>
             </View >
         )
     }
