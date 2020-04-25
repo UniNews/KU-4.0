@@ -12,7 +12,7 @@ export default class KeyboardShift extends Component {
     }
 
     componentDidMount() {
-        this.keyboardDidShowSub = Keyboard.addListener('keyboardWillShow', this.handleKeyboardDidShow)
+        this.keyboardDidShowSub = Keyboard.addListener('keyboardDidShow', this.handleKeyboardDidShow)
         this.keyboardDidHideSub = Keyboard.addListener('keyboardDidHide', this.handleKeyboardDidHide)
     }
 
@@ -32,6 +32,8 @@ export default class KeyboardShift extends Component {
     }
 
     handleKeyboardDidShow = (event) => {
+        if (this.props.keyboardDidShow)
+            this.props.keyboardDidShow()
         const { height: windowHeight } = Dimensions.get('window')
         const keyboardHeight = event.endCoordinates.height
         const currentlyFocusedField = TextInputState.currentlyFocusedField()
@@ -50,11 +52,11 @@ export default class KeyboardShift extends Component {
                 }
             ).start()
         })
-        if (this.props.keyboardDidShow)
-            this.props.keyboardDidShow()
     }
 
     handleKeyboardDidHide = () => {
+        if (this.props.keyboardDidHide)
+            this.props.keyboardDidHide()
         Animated.timing(
             this.state.shift,
             {
@@ -63,7 +65,5 @@ export default class KeyboardShift extends Component {
                 useNativeDriver: true,
             }
         ).start()
-        if (this.props.keyboardDidHide)
-            this.props.keyboardDidHide()
     }
 }
