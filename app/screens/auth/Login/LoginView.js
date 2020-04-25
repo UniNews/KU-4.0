@@ -51,8 +51,9 @@ class LoginView extends React.Component {
         const { login, loading, loginByFacebook, loginByGoogle } = this.props
         return (
             <LinearGradient colors={[KU_PRIMARY_COLOR, KU_SECONDARY_COLOR]} style={styles.container} >
-                <View style={styles.innerContainer}>
-                    <KeyboardShift>
+                <KeyboardShift>
+
+                    <View style={styles.innerContainer}>
 
                         <View style={styles.logoContainer}>
                             <View style={styles.logoTextContainer}>
@@ -106,39 +107,39 @@ class LoginView extends React.Component {
                                 <Text style={styles.textButton}>เข้าสู่ระบบ</Text>
                             </Button>
                         </View>
-                    </KeyboardShift>
-                </View>
-                {
-                    <View style={styles.footerContainer}>
-                        <TouchableOpacity onPress={this.goRegister} style={styles.registerContainer}>
-                            <Text style={[styles.regularText]}>
-                                {`ไม่มีบัญชีผู้ใช้งาน?`}
-                            </Text>
-                            <Text style={styles.underlineText}>ลงทะเบียน</Text>
-                            <Ionicons name='ios-arrow-round-forward' size={25} color='white' />
-                        </TouchableOpacity>
-                        <Text style={styles.bottomText}>หรือเชื่อมต่อกับบัญชีอื่นของคุณ</Text>
-                        <View style={styles.bottomContainer}>
-                            <Button onPress={() => {
-                                loginByFacebook()
-                            }} style={styles.facebookButton}>
-                                <View style={styles.facebookContainer}>
-                                    <FontAwesome name='facebook' size={25} color='white' />
-                                    <Text style={styles.facebookText}>Facebook</Text>
-                                </View>
-                            </Button>
-                            <Button onPress={() => {
-                                loginByGoogle()
-                            }} style={styles.googleButton}>
-                                <View style={styles.googleContainer}>
-                                    <FontAwesome name='google' size={25} color='white' />
-                                    <Text style={styles.googleText}>Google</Text>
-                                </View>
-                            </Button>
-                        </View>
                     </View>
-                }
-                <LoadingModal message={'กำลังดึงข้อมูล...'} visible={loading} />
+                    {
+                        <View style={styles.footerContainer}>
+                            <TouchableOpacity onPress={this.goRegister} style={styles.registerContainer}>
+                                <Text style={[styles.regularText]}>
+                                    {`ไม่มีบัญชีผู้ใช้งาน?`}
+                                </Text>
+                                <Text style={styles.underlineText}>ลงทะเบียน</Text>
+                                <Ionicons name='ios-arrow-round-forward' size={25} color='white' />
+                            </TouchableOpacity>
+                            <Text style={styles.bottomText}>หรือเชื่อมต่อกับบัญชีอื่นของคุณ</Text>
+                            <View style={styles.bottomContainer}>
+                                <Button onPress={() => {
+                                    loginByFacebook()
+                                }} style={styles.facebookButton}>
+                                    <View style={styles.facebookContainer}>
+                                        <FontAwesome name='facebook' size={25} color='white' />
+                                        <Text style={styles.facebookText}>Facebook</Text>
+                                    </View>
+                                </Button>
+                                <Button onPress={() => {
+                                    loginByGoogle()
+                                }} style={styles.googleButton}>
+                                    <View style={styles.googleContainer}>
+                                        <FontAwesome name='google' size={25} color='white' />
+                                        <Text style={styles.googleText}>Google</Text>
+                                    </View>
+                                </Button>
+                            </View>
+                        </View>
+                    }
+                    <LoadingModal message={'กำลังดึงข้อมูล...'} visible={loading} />
+                </KeyboardShift>
             </LinearGradient>
         )
     }
