@@ -18,6 +18,8 @@ class LoginView extends React.Component {
             username: '',
             password: '',
             isHide: true,
+            hideFooter: false,
+            isHideLogo:false
         }
     }
 
@@ -46,22 +48,37 @@ class LoginView extends React.Component {
         )
     }
 
+    keyboardDidHide = () => {
+        this.setState({
+            isHideLogo: false
+        })
+    }
+
+    keyboardDidShow = () => {
+        this.setState({
+            isHideLogo: true
+        })
+    }
+
     render() {
-        const { isHide, username, password } = this.state
+        const { isHide, username, password,isHideLogo } = this.state
         const { login, loading, loginByFacebook, loginByGoogle } = this.props
         return (
             <LinearGradient colors={[KU_PRIMARY_COLOR, KU_SECONDARY_COLOR]} style={styles.container} >
-                <KeyboardShift>
-
+                <KeyboardShift keyboardDidShow={this.keyboardDidShow} keyboardDidHide={this.keyboardDidHide}>
+                <View style={styles.coverContainer}>
                     <View style={styles.innerContainer}>
 
-                        <View style={styles.logoContainer}>
+                        {!isHideLogo?
+                            <View style={styles.logoContainer}>
                             <View style={styles.logoTextContainer}>
                                 <Text style={styles.logoText}>Uni</Text>
                                 <Text style={[styles.logoText, styles.secondLogoText]}>News</Text>
                             </View>
                             <Text style={styles.caption}>แหล่งข้อมูลสำหรับนิสิต</Text>
                         </View>
+                        :null
+                        }
                         <View style={styles.inputContainer}>
                             <Text style={styles.headLogin}>เข้าสู่ระบบ</Text>
                             <View style={styles.textInputContainer}>
@@ -139,6 +156,7 @@ class LoginView extends React.Component {
                         </View>
                     }
                     <LoadingModal message={'กำลังดึงข้อมูล...'} visible={loading} />
+                    </View>
                 </KeyboardShift>
             </LinearGradient>
         )

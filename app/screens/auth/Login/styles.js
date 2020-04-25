@@ -141,7 +141,10 @@ export default StyleSheet.create({
     },
 
     footerContainer: {
-        // position: 'absolute',
-        // bottom: 0
+        position:'relative',
+        bottom: 0
+    },
+    coverContainer: {
+        height:'100%'
     }
 })
