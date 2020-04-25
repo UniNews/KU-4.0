@@ -139,8 +139,9 @@ export default StyleSheet.create({
         alignItems: 'center',
         alignSelf: 'center'
     },
-    keyboard: {
-        // flex: 1,
-        // backgroundColor:'black'
+
+    footerContainer: {
+        // position: 'absolute',
+        // bottom: 0
     }
 })

@@ -51,8 +51,9 @@ class LoginView extends React.Component {
         const { login, loading, loginByFacebook, loginByGoogle } = this.props
         return (
             <LinearGradient colors={[KU_PRIMARY_COLOR, KU_SECONDARY_COLOR]} style={styles.container} >
-                <KeyboardShift>
-                    <View style={styles.innerContainer}>
+                <View style={styles.innerContainer}>
+                    <KeyboardShift>
+
                         <View style={styles.logoContainer}>
                             <View style={styles.logoTextContainer}>
                                 <Text style={styles.logoText}>Uni</Text>
@@ -105,9 +106,8 @@ class LoginView extends React.Component {
                                 <Text style={styles.textButton}>เข้าสู่ระบบ</Text>
                             </Button>
                         </View>
-
-                    </View>
-                </KeyboardShift>
+                    </KeyboardShift>
+                </View>
                 {
                     <View style={styles.footerContainer}>
                         <TouchableOpacity onPress={this.goRegister} style={styles.registerContainer}>
