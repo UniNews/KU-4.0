@@ -12,7 +12,6 @@ export default StyleSheet.create({
     },
     innerContainer: {
         flex: 1,
-        justifyContent: 'space-around',
     },
     logoText: {
         fontSize: 50,
@@ -31,7 +30,8 @@ export default StyleSheet.create({
         fontFamily: BOLD_FONT
     },
     logoContainer: {
-        alignItems: 'center'
+        alignItems: 'center',
+        marginVertical: 50,
     },
     logoTextContainer: {
         flexDirection: 'row',
@@ -50,7 +50,9 @@ export default StyleSheet.create({
     },
     inputContainer: {
         alignItems: 'center',
-        // paddingTop: 200,
+        // justifyContent: 'center',
+        // flex: 1,
+        // backgroundColor: 'white'
     },
     icon: {
         marginHorizontal: 10

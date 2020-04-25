@@ -1,4 +1,3 @@
-import { PropTypes } from 'prop-types'
 import React, { Component } from 'react'
 import { Animated, Dimensions, Keyboard, TextInput, UIManager } from 'react-native'
 import styles from './styles'
@@ -51,6 +50,8 @@ export default class KeyboardShift extends Component {
                 }
             ).start()
         })
+        if (this.props.keyboardDidShow)
+            this.props.keyboardDidShow()
     }
 
     handleKeyboardDidHide = () => {
@@ -62,10 +63,7 @@ export default class KeyboardShift extends Component {
                 useNativeDriver: true,
             }
         ).start()
+        if (this.props.keyboardDidHide)
+            this.props.keyboardDidHide()
     }
-}
-
-
-KeyboardShift.propTypes = {
-    children: PropTypes.func.isRequired,
 }
