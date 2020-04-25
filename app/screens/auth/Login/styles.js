@@ -8,7 +8,8 @@ export default StyleSheet.create({
         flex: 1,
     },
     innerContainer: {
-        flex: 1,
+        // flex: 1,
+        // backgroundColor: "white"
     },
     logoText: {
         fontSize: 50,
@@ -139,8 +140,13 @@ export default StyleSheet.create({
         alignItems: 'center',
         alignSelf: 'center'
     },
-    keyboard: {
+    footerContainer: {
+        // height: 500,
+        // position: 'absolute',
+        // bottom: 0,
         // flex: 1,
-        // backgroundColor:'black'
+        // backgroundColor: 'black',
+        // justifyContent: 'flex-end'
+        // backgroundColor: 'white'
     }
 })

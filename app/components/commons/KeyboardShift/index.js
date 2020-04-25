@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Animated, Dimensions, Keyboard, TextInput, UIManager, KeyboardAvoidingView } from 'react-native'
+import { Animated, Dimensions, Keyboard, TextInput, UIManager, KeyboardAvoidingView, View, ScrollView } from 'react-native'
 import styles from './styles'
 import { STATUS_BAR_HEIGHT } from '../../../assets/css/device'
 
@@ -25,12 +25,9 @@ export default class KeyboardShift extends Component {
         const { children } = this.props
         const { shift } = this.state
         return (
-            <KeyboardAvoidingView style={{ flex: 1, }}
-                behavior={Platform.OS === 'ios' ? 'padding' : 'padding'} enabled>
-                <Animated.View style={[styles.container, { transform: [{ translateY: shift }] }]}>
-                    {children}
-                </Animated.View >
-            </KeyboardAvoidingView>
+            <Animated.View style={[styles.container, { transform: [{ translateY: shift }] }]}>
+                {children}
+            </Animated.View >
         )
     }
 
@@ -41,7 +38,7 @@ export default class KeyboardShift extends Component {
         UIManager.measure(currentlyFocusedField, (originX, originY, width, height, pageX, pageY) => {
             const fieldHeight = height
             const fieldTop = pageY
-            const gap = (windowHeight - keyboardHeight) - (fieldTop + fieldHeight) - STATUS_BAR_HEIGHT
+            const gap = (windowHeight - keyboardHeight) - (fieldTop + fieldHeight) - STATUS_BAR_HEIGHT * 2
             if (gap >= 0)
                 return
             Animated.timing(

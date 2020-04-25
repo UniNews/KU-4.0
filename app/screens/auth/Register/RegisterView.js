@@ -1,3 +1,4 @@
+
 import React from 'react'
 import { Text, TextInput, View, TouchableOpacity } from 'react-native'
 import styles from './styles'
@@ -23,7 +24,6 @@ class RegisterView extends React.Component {
             usernameError: false,
             passwordError: false,
             passwordConfirmError: false,
-            hideFooter: false
         }
     }
 
@@ -86,18 +86,6 @@ class RegisterView extends React.Component {
         })
     }
 
-    // keyboardDidHide = () => {
-    //     this.setState({
-    //         hideFooter: false
-    //     })
-    // }
-
-    // keyboardDidShow = () => {
-    //     this.setState({
-    //         hideFooter: true
-    //     })
-    // }
-
     goBack = () => {
         const { navigation } = this.props
         navigation.goBack()
@@ -108,12 +96,13 @@ class RegisterView extends React.Component {
     }
 
     render() {
-        const { loading, usernameError, passwordError, passwordConfirmError, hideFooter } = this.state
+        const { loading, usernameError, passwordError, passwordConfirmError } = this.state
         const { loginByFacebook, loginByGoogle } = this.props
         return (
             <LinearGradient colors={[KU_PRIMARY_COLOR, KU_SECONDARY_COLOR]} style={styles.container} >
                 <KeyboardShift>
                     <View style={styles.innerContainer}>
+
                         <View style={styles.logoContainer}>
                             <View style={styles.logoTextContainer}>
                                 <Text style={styles.logoText}>Uni</Text>
@@ -155,26 +144,12 @@ class RegisterView extends React.Component {
                                     onChangeText={(text) => this.setState({ passwordConfirm: text })}
                                 />
                             </View>
-                            <View style={passwordConfirmError ? styles.textInputErrorContainer : styles.textInputContainer}>
-                                <FontAwesome name='lock' style={styles.icon} size={20} color='white' />
-                                <TextInput
-                                    secureTextEntry={true}
-                                    style={styles.textInput}
-                                    placeholder='ยืนยันรหัสผ่าน'
-                                    placeholderTextColor='white'
-                                    secureTextEntry
-                                    onChangeText={(text) => this.setState({ passwordConfirm: text })}
-                                />
-                            </View>
                             <Button rounded style={styles.buttonContainer} disabled={loading} onPress={this.register}>
                                 <Text style={styles.textButton}>ลงทะเบียน</Text>
                             </Button>
                         </View>
-                    </View>
-                </KeyboardShift>
-                {
-                    !hideFooter ?
-                        <View style={{ position: 'absolute', bottom: 0 }}>
+                        <View style={{ flex: 1 }} />
+                        <View>
                             <TouchableOpacity onPress={this.goBack} style={styles.registerContainer}>
                                 <Ionicons name='ios-arrow-round-back' size={25} color='white' />
                                 <Text style={[styles.regularText, styles.goBackText]}>
@@ -202,11 +177,10 @@ class RegisterView extends React.Component {
                                 </Button>
                             </View>
                         </View>
-                        :
-                        null
-                }
-                <LoadingModal message={'กำลังสมัคร...'} visible={loading} />
-            </LinearGradient >
+                    </View>
+                    <LoadingModal message={'กำลังสมัคร...'} visible={loading} />
+                </KeyboardShift>
+            </LinearGradient>
         )
     }
 }
