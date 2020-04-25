@@ -25,12 +25,12 @@ export default class KeyboardShift extends Component {
         const { children } = this.props
         const { shift } = this.state
         return (
-            <KeyboardAvoidingView style={{ flex: 1, }}
-                behavior={Platform.OS === 'ios' ? 'padding' : 'padding'} enabled>
-                <Animated.View style={[styles.container, { transform: [{ translateY: shift }] }]}>
-                    {children}
-                </Animated.View >
-            </KeyboardAvoidingView>
+            // <KeyboardAvoidingView style={{ flex: 1, }}
+            // behavior={Platform.OS === 'ios' ? 'padding' : null} enabled>
+            <Animated.View style={[styles.container, { transform: [{ translateY: shift }] }]}>
+                {children}
+            </Animated.View >
+            // </KeyboardAvoidingView>
         )
     }
 
