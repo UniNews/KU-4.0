@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, FlatList } from 'react-native'
+import { View, FlatList, Text } from 'react-native'
 import styles from './styles'
 import Header from '../../../components/commons/Header'
 import NotificationItem from '../../../components/notification/NotificationItem'
@@ -8,9 +8,6 @@ class NotificationView extends React.Component {
 
     constructor(props) {
         super(props)
-        this.state = {
-            notifications: this.props.notifications,
-        }
     }
 
     onNotificationPressed = (notification) => {
@@ -49,20 +46,23 @@ class NotificationView extends React.Component {
 
     render() {
         const { notifications, loading } = this.props
+
         return (
             <View style={styles.containter}>
                 <Header title={'การแจ้งเตือน'} />
                 {
-                    <FlatList
-                        ListEmptyComponent={this.renderEmpty}
-                        contentContainerStyle={styles.listContainer}
-                        refreshing={loading}
-                        onRefresh={this.onRefresh}
-                        keyExtractor={(notification) => notification._id}
-                        data={notifications}
-                        initialNumToRender={10}
-                        renderItem={this.renderItem}
-                    />
+                    notifications && notifications.length < 0 ?
+                        <FlatList
+                            contentContainerStyle={styles.listContainer}
+                            refreshing={loading}
+                            onRefresh={this.onRefresh}
+                            keyExtractor={(notification) => notification._id}
+                            data={notifications}
+                            initialNumToRender={10}
+                            renderItem={this.renderItem}
+                        />
+                        :
+                        this.renderEmpty()
                 }
             </View>
         )
