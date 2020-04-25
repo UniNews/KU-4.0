@@ -6,13 +6,9 @@ const textInputContainerHorizontalMargin = viewportWidth - wp(20)
 export default StyleSheet.create({
     container: {
         flex: 1,
-        flexDirection: 'column',
-        justifyContent: 'space-between',
-        alignItems: 'center',
     },
     innerContainer: {
         flex: 1,
-        justifyContent: 'space-around'
     },
     logoText: {
         fontSize: 50,
@@ -31,7 +27,8 @@ export default StyleSheet.create({
         fontFamily: BOLD_FONT
     },
     logoContainer: {
-        alignItems: 'center'
+        alignItems: 'center',
+        marginVertical: 50,
     },
     logoTextContainer: {
         flexDirection: 'row',

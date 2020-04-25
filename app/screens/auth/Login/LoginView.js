@@ -47,23 +47,23 @@ class LoginView extends React.Component {
         )
     }
 
-    keyboardDidHide = () => {
-        this.setState({
-            hideFooter: false
-        })
-    }
+    // keyboardDidHide = () => {
+    //     this.setState({
+    //         hideFooter: false
+    //     })
+    // }
 
-    keyboardDidShow = () => {
-        this.setState({
-            hideFooter: true
-        })
-    }
+    // keyboardDidShow = () => {
+    //     this.setState({
+    //         hideFooter: true
+    //     })
+    // }
 
     render() {
         const { isHide, username, password, hideFooter } = this.state
         const { login, loading, loginByFacebook, loginByGoogle } = this.props
         return (
-            <KeyboardShift keyboardDidShow={this.keyboardDidShow} keyboardDidHide={this.keyboardDidHide} >
+            <KeyboardShift >
                 <LinearGradient colors={[KU_PRIMARY_COLOR, KU_SECONDARY_COLOR]} style={styles.container} >
                     <View style={styles.innerContainer}>
                         <View style={styles.logoContainer}>
@@ -119,10 +119,9 @@ class LoginView extends React.Component {
                             </Button>
                         </View>
                     </View>
-
                     {
                         !hideFooter ?
-                            <View>
+                            <View style={styles.footerContainer}>
                                 <TouchableOpacity onPress={this.goRegister} style={styles.registerContainer}>
                                     <Text style={[styles.regularText]}>
                                         {`ไม่มีบัญชีผู้ใช้งาน?`}
@@ -130,7 +129,6 @@ class LoginView extends React.Component {
                                     <Text style={styles.underlineText}>ลงทะเบียน</Text>
                                     <Ionicons name='ios-arrow-round-forward' size={25} color='white' />
                                 </TouchableOpacity>
-
                                 <Text style={styles.bottomText}>หรือเชื่อมต่อกับบัญชีอื่นของคุณ</Text>
                                 <View style={styles.bottomContainer}>
                                     <Button onPress={() => {
