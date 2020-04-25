@@ -26,18 +26,15 @@ export default class KeyboardShift extends Component {
         const { shift } = this.state
         return (
             <KeyboardAvoidingView style={{ flex: 1, }}
-                behavior={Platform.OS === 'ios' ? 'padding' : null} enabled>
+                behavior={Platform.OS === 'ios' ? 'padding' : 'padding'} enabled>
                 <Animated.View style={[styles.container, { transform: [{ translateY: shift }] }]}>
                     {children}
                 </Animated.View >
             </KeyboardAvoidingView>
-
         )
     }
 
     handleKeyboardDidShow = (event) => {
-        if (this.props.keyboardDidShow)
-            this.props.keyboardDidShow()
         const { height: windowHeight } = Dimensions.get('window')
         const keyboardHeight = event.endCoordinates.height
         const currentlyFocusedField = TextInputState.currentlyFocusedField()
@@ -56,11 +53,11 @@ export default class KeyboardShift extends Component {
                 }
             ).start()
         })
+        if (this.props.keyboardDidShow)
+            this.props.keyboardDidShow()
     }
 
     handleKeyboardDidHide = () => {
-        if (this.props.keyboardDidHide)
-            this.props.keyboardDidHide()
         Animated.timing(
             this.state.shift,
             {
@@ -69,5 +66,7 @@ export default class KeyboardShift extends Component {
                 useNativeDriver: true,
             }
         ).start()
+        if (this.props.keyboardDidHide)
+            this.props.keyboardDidHide()
     }
 }

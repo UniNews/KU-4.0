@@ -111,8 +111,8 @@ class RegisterView extends React.Component {
         const { loading, usernameError, passwordError, passwordConfirmError, hideFooter } = this.state
         const { loginByFacebook, loginByGoogle } = this.props
         return (
-            <KeyboardShift>
-                <LinearGradient colors={[KU_PRIMARY_COLOR, KU_SECONDARY_COLOR]} style={styles.container} >
+            <LinearGradient colors={[KU_PRIMARY_COLOR, KU_SECONDARY_COLOR]} style={styles.container} >
+                <KeyboardShift>
                     <View style={styles.innerContainer}>
                         <View style={styles.logoContainer}>
                             <View style={styles.logoTextContainer}>
@@ -155,47 +155,58 @@ class RegisterView extends React.Component {
                                     onChangeText={(text) => this.setState({ passwordConfirm: text })}
                                 />
                             </View>
+                            <View style={passwordConfirmError ? styles.textInputErrorContainer : styles.textInputContainer}>
+                                <FontAwesome name='lock' style={styles.icon} size={20} color='white' />
+                                <TextInput
+                                    secureTextEntry={true}
+                                    style={styles.textInput}
+                                    placeholder='ยืนยันรหัสผ่าน'
+                                    placeholderTextColor='white'
+                                    secureTextEntry
+                                    onChangeText={(text) => this.setState({ passwordConfirm: text })}
+                                />
+                            </View>
                             <Button rounded style={styles.buttonContainer} disabled={loading} onPress={this.register}>
                                 <Text style={styles.textButton}>ลงทะเบียน</Text>
                             </Button>
                         </View>
                     </View>
-                    {
-                        !hideFooter ?
-                            <View>
-                                <TouchableOpacity onPress={this.goBack} style={styles.registerContainer}>
-                                    <Ionicons name='ios-arrow-round-back' size={25} color='white' />
-                                    <Text style={[styles.regularText, styles.goBackText]}>
-                                        {`มีบัญชีผู้ใช้อยู่แล้ว?`}
-                                    </Text>
-                                    <Text style={styles.underlineText}>เข้าสู่ระบบ</Text>
-                                </TouchableOpacity>
-                                <Text style={styles.bottomText}>หรือเชื่อมต่อกับบัญชีอื่นของคุณ</Text>
-                                <View style={styles.bottomContainer}>
-                                    <Button onPress={() => {
-                                        loginByFacebook()
-                                    }} style={styles.facebookButton}>
-                                        <View style={styles.facebookContainer}>
-                                            <FontAwesome name='facebook' size={25} color='white' />
-                                            <Text style={styles.facebookText}>Facebook</Text>
-                                        </View>
-                                    </Button>
-                                    <Button onPress={() => {
-                                        loginByGoogle()
-                                    }} style={styles.googleButton}>
-                                        <View style={styles.googleContainer}>
-                                            <FontAwesome name='google' size={25} color='white' />
-                                            <Text style={styles.googleText}>Google</Text>
-                                        </View>
-                                    </Button>
-                                </View>
+                </KeyboardShift>
+                {
+                    !hideFooter ?
+                        <View style={{ position: 'absolute', bottom: 0 }}>
+                            <TouchableOpacity onPress={this.goBack} style={styles.registerContainer}>
+                                <Ionicons name='ios-arrow-round-back' size={25} color='white' />
+                                <Text style={[styles.regularText, styles.goBackText]}>
+                                    {`มีบัญชีผู้ใช้อยู่แล้ว?`}
+                                </Text>
+                                <Text style={styles.underlineText}>เข้าสู่ระบบ</Text>
+                            </TouchableOpacity>
+                            <Text style={styles.bottomText}>หรือเชื่อมต่อกับบัญชีอื่นของคุณ</Text>
+                            <View style={styles.bottomContainer}>
+                                <Button onPress={() => {
+                                    loginByFacebook()
+                                }} style={styles.facebookButton}>
+                                    <View style={styles.facebookContainer}>
+                                        <FontAwesome name='facebook' size={25} color='white' />
+                                        <Text style={styles.facebookText}>Facebook</Text>
+                                    </View>
+                                </Button>
+                                <Button onPress={() => {
+                                    loginByGoogle()
+                                }} style={styles.googleButton}>
+                                    <View style={styles.googleContainer}>
+                                        <FontAwesome name='google' size={25} color='white' />
+                                        <Text style={styles.googleText}>Google</Text>
+                                    </View>
+                                </Button>
                             </View>
-                            :
-                            null
-                    }
-                    <LoadingModal message={'กำลังสมัคร...'} visible={loading} />
-                </LinearGradient >
-            </KeyboardShift>
+                        </View>
+                        :
+                        null
+                }
+                <LoadingModal message={'กำลังสมัคร...'} visible={loading} />
+            </LinearGradient >
         )
     }
 }
