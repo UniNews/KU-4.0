@@ -6,9 +6,6 @@ const textInputContainerHorizontalMargin = viewportWidth - wp(20)
 export default StyleSheet.create({
     container: {
         flex: 1,
-        flexDirection: 'column',
-        justifyContent: 'space-between',
-        alignItems: 'center',
     },
     innerContainer: {
         flex: 1,

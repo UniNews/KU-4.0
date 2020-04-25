@@ -9,7 +9,6 @@ import Button from '../../../components/commons/Button'
 import { KU_PRIMARY_COLOR, KU_SECONDARY_COLOR } from '../../../assets/css/color'
 import LoadingModal from '../../../components/modals/LoadingModal'
 import KeyboardShift from '../../../components/commons/KeyboardShift'
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 class LoginView extends React.Component {
 
@@ -86,6 +85,19 @@ class LoginView extends React.Component {
                                     onChangeText={(text) => this.setState({ username: text })}
                                 >
                                 </TextInput>
+                            </View>
+                            <View style={styles.textInputContainer}>
+                                <FontAwesome name='lock' style={styles.icon} size={20} color='white' />
+                                <TextInput
+                                    maxLength={12}
+                                    style={styles.textInput}
+                                    placeholder='รหัสผ่าน'
+                                    placeholderTextColor='white'
+                                    secureTextEntry={isHide}
+                                    onChangeText={(text) => this.setState({ password: text })}
+                                >
+                                </TextInput>
+                                {this.renderHideIcon()}
                             </View>
                             <View style={styles.textInputContainer}>
                                 <FontAwesome name='lock' style={styles.icon} size={20} color='white' />
