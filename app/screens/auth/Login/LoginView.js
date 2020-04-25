@@ -118,6 +118,7 @@ class LoginView extends React.Component {
                                 <Text style={styles.textButton}>เข้าสู่ระบบ</Text>
                             </Button>
                         </View>
+
                     </View>
                     {
                         !hideFooter ?

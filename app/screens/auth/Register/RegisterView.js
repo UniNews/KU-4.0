@@ -86,17 +86,17 @@ class RegisterView extends React.Component {
         })
     }
 
-    keyboardDidHide = () => {
-        this.setState({
-            hideFooter: false
-        })
-    }
+    // keyboardDidHide = () => {
+    //     this.setState({
+    //         hideFooter: false
+    //     })
+    // }
 
-    keyboardDidShow = () => {
-        this.setState({
-            hideFooter: true
-        })
-    }
+    // keyboardDidShow = () => {
+    //     this.setState({
+    //         hideFooter: true
+    //     })
+    // }
 
     goBack = () => {
         const { navigation } = this.props
@@ -111,7 +111,7 @@ class RegisterView extends React.Component {
         const { loading, usernameError, passwordError, passwordConfirmError, hideFooter } = this.state
         const { loginByFacebook, loginByGoogle } = this.props
         return (
-            <KeyboardShift keyboardDidShow={this.keyboardDidShow} keyboardDidHide={this.keyboardDidHide} >
+            <KeyboardShift>
                 <LinearGradient colors={[KU_PRIMARY_COLOR, KU_SECONDARY_COLOR]} style={styles.container} >
                     <View style={styles.innerContainer}>
                         <View style={styles.logoContainer}>

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Animated, Dimensions, Keyboard, TextInput, UIManager } from 'react-native'
+import { Animated, Dimensions, Keyboard, TextInput, UIManager, KeyboardAvoidingView } from 'react-native'
 import styles from './styles'
 import { STATUS_BAR_HEIGHT } from '../../../assets/css/device'
 
@@ -25,9 +25,13 @@ export default class KeyboardShift extends Component {
         const { children } = this.props
         const { shift } = this.state
         return (
-            <Animated.View style={[styles.container, { transform: [{ translateY: shift }] }]}>
-                {children}
-            </Animated.View>
+            <KeyboardAvoidingView style={{ flex: 1, }}
+                behavior={Platform.OS === 'ios' ? 'padding' : null} enabled>
+                <Animated.View style={[styles.container, { transform: [{ translateY: shift }] }]}>
+                    {children}
+                </Animated.View >
+            </KeyboardAvoidingView>
+
         )
     }
 

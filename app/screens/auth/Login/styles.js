@@ -142,9 +142,5 @@ export default StyleSheet.create({
     keyboard: {
         // flex: 1,
         // backgroundColor:'black'
-    },
-    footerContainer: {
-        position: 'absolute',
-        bottom: 0
     }
 })
