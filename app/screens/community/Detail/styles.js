@@ -143,9 +143,14 @@ export default StyleSheet.create({
         height: 20,
         padding: 12,
         borderRadius: 30,
+        // flex: 1,
     },
     tagText: {
         color: SECONDARY_COLOR,
         fontFamily: REGULAR_FONT
+    },
+    tagButton: {
+        height: 20,
+        alignItems: 'center',
     }
 })

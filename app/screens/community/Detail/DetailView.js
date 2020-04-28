@@ -183,11 +183,9 @@ class DetailView extends React.Component {
         }
     }
 
-    goTag = () => {
+    goTag = (tag) => {
         const { navigation } = this.props
-        const { community } = this.state
-        if (community.tags[0])
-            navigation.navigate(community.tags[0] + 'TagCommunity')
+        navigation.navigate(tag + 'TagCommunity')
     }
 
     renderComment = ({ item }) => {
@@ -203,7 +201,7 @@ class DetailView extends React.Component {
 
     renderHeader = () => {
         const { community, comments } = this.state
-        return <View>
+        return <View >
             <TouchableNativeFeedback onLongPress={() => this.showArticlePopupModal(community)}>
                 <View style={styles.headerContainer}>
                     <View style={styles.contentContainer}>
@@ -228,14 +226,25 @@ class DetailView extends React.Component {
                                         </Text>
                                     </View>
                                 </View>
-                                <TouchableOpacity onPress={this.goTag}>
-                                    <View style={styles.tagIconContainer}>
-                                        <FontAwesome name='tag' size={15} color={SECONDARY_COLOR} />
-                                        <Text style={styles.tagText}>
-                                            {` ${community.tags?.join(', ')}`}
-                                        </Text>
-                                    </View>
-                                </TouchableOpacity>
+                                {
+                                    community.tags && community.tags.length > 0
+                                        ?
+                                        <View style={styles.tagIconContainer}>
+
+                                            <FontAwesome name='tag' size={15} color={SECONDARY_COLOR} />
+                                            {
+                                                community.tags.map((tag, index, tagArray) => {
+                                                    return <TouchableOpacity key={index} onPress={() => this.goTag(tag)} style={styles.tagButton}>
+                                                        <Text style={styles.tagText}>
+                                                            {` ${tag}`}{`${tagArray.length - 1 !== index ? ',' : ''}`}
+                                                        </Text>
+                                                    </TouchableOpacity>
+                                                })
+                                            }
+                                        </View>
+                                        :
+                                        null
+                                }
                             </View>
                         </View>
                         <View style={styles.descriptionContainer}>

@@ -130,5 +130,9 @@ export default StyleSheet.create({
         flex: 1,
         flexDirection: 'row',
         alignItems: 'center'
+    },
+    tagButton: {
+        height: 20,
+        alignItems: 'center',
     }
 })

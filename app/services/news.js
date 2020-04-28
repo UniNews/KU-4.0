@@ -53,10 +53,10 @@ export default {
         const offset = (page - 1) * ARTICLES_PER_PAGE
         return axios.get(`${constants.API_URL}/articles/communities/trending?offset=${offset}&limit=${ARTICLES_PER_PAGE}`)
     },
-    postCommunity: (description, tag) => {
+    postCommunity: (description, tags) => {
         const json = {
             description,
-            tags: [tag],
+            tags,
             articleType: 'community',
         }
         return axios.post(`${constants.API_URL}/articles/`, json, {

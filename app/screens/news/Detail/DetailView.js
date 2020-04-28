@@ -140,11 +140,9 @@ class DetailView extends React.Component {
             return 'ข่าวมหาลัย'
     }
 
-    goTag = () => {
+    goTag = (tag) => {
         const { navigation } = this.props
-        const { news } = this.state
-        if (news.tags[0])
-            navigation.navigate(news.tags[0] + 'TagNews')
+        navigation.navigate(tag + 'TagNews')
     }
 
     render() {
@@ -194,14 +192,25 @@ class DetailView extends React.Component {
                                                     </Text>
                                                 </View>
                                             </View>
-                                            <TouchableOpacity onPress={this.goTag}>
-                                                <View style={styles.tagIconContainer}>
-                                                    <FontAwesome name='tag' size={15} color={SECONDARY_COLOR} />
-                                                    <Text style={styles.tagText}>
-                                                        {` ${news.tags?.join(', ')}`}
-                                                    </Text>
-                                                </View>
-                                            </TouchableOpacity>
+                                            {
+                                                news.tags && news.tags.length > 0
+                                                    ?
+                                                    <View style={styles.tagIconContainer}>
+
+                                                        <FontAwesome name='tag' size={15} color={SECONDARY_COLOR} />
+                                                        {
+                                                            news.tags.map((tag, index, tagArray) => {
+                                                                return <TouchableOpacity key={index} onPress={() => this.goTag(tag)} style={styles.tagButton}>
+                                                                    <Text style={styles.tagText}>
+                                                                        {` ${tag}`}{`${tagArray.length - 1 !== index ? ',' : ''}`}
+                                                                    </Text>
+                                                                </TouchableOpacity>
+                                                            })
+                                                        }
+                                                    </View>
+                                                    :
+                                                    null
+                                            }
                                         </View>
                                     </View>
                                 </View>

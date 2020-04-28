@@ -2,43 +2,10 @@ import React from 'react'
 import { View, TextInput, Modal, Text, ActivityIndicator, ScrollView, TouchableOpacity, TouchableNativeFeedback } from 'react-native'
 import styles from './styles'
 import Header from '../../../components/commons/Header'
-import { Feather, FontAwesome, MaterialCommunityIcons, } from '@expo/vector-icons'
+import { Feather, FontAwesome, } from '@expo/vector-icons'
 import { KU_SECONDARY_COLOR } from '../../../assets/css/color'
 import newsService from '../../../services/news'
-
-const tags = [
-    {
-        outlineIconName: 'commenting-o',
-        iconName: 'commenting',
-        text: 'ทั่วไป',
-        iconComponent: FontAwesome
-    },
-    {
-        outlineIconName: 'heart-o',
-        iconName: 'heart',
-        text: 'ความรัก',
-        iconComponent: FontAwesome
-    },
-    {
-        outlineIconName: 'lightbulb-o',
-        iconName: 'lightbulb-o',
-        text: 'การเรียน',
-        iconComponent: FontAwesome
-    },
-    {
-        outlineIconName: 'futbol-o',
-        iconName: 'futbol-o',
-        text: 'กีฬา',
-        iconComponent: FontAwesome
-    },
-    {
-        outlineIconName: 'alert-circle-outline',
-        iconName: 'alert-circle',
-        text: 'เตือนภัย',
-        iconComponent: MaterialCommunityIcons
-    },
-
-]
+import constants from './../../../configs/constants'
 
 class PostCommunityView extends React.Component {
 
@@ -47,27 +14,51 @@ class PostCommunityView extends React.Component {
         this.state = {
             description: '',
             modalVisible: false,
-            selectedTag: {},
-            error: false
+            selectedTags: [],
+            error: false,
+            toBeSelectedTags: []
         }
     }
 
     onTagPressed = (tag) => {
-        const { selectedTag } = this.state
+        const { toBeSelectedTags } = this.state
+        let found = toBeSelectedTags.find(element => element.text === tag.text)
+        if (found) {
+            let index = toBeSelectedTags.indexOf(tag)
+            if (index > -1)
+                toBeSelectedTags.splice(index, 1)
+        }
+        else {
+            if (toBeSelectedTags.length >= 2)
+                toBeSelectedTags.pop()
+            toBeSelectedTags.push(tag)
+        }
         this.setState({
-            selectedTag: selectedTag.text === tag.text ? '' : tag
+            toBeSelectedTags
         })
     }
 
     closeModel = () => {
         this.setState({
-            modalVisible: false
+            modalVisible: false,
+            toBeSelectedTags: []
+        })
+    }
+
+    saveModel = () => {
+        const { toBeSelectedTags } = this.state
+        this.setState({
+            modalVisible: false,
+            selectedTags: toBeSelectedTags,
+            toBeSelectedTags: [],
         })
     }
 
     openModel = () => {
+        const { selectedTags } = this.state
         this.setState({
-            modalVisible: true
+            modalVisible: true,
+            toBeSelectedTags: [...selectedTags]
         })
     }
 
@@ -85,12 +76,14 @@ class PostCommunityView extends React.Component {
             this.setState({
                 loading: true
             })
-            const { description, selectedTag } = this.state
-            const community = await newsService.postCommunity(description, selectedTag.text)
+            const { description, selectedTags } = this.state
+            const community = await newsService.postCommunity(description, selectedTags.map(tag => tag.text))
             this.setState({
                 loading: false
             })
-            this.goCommunityDetail(community.data._id)
+            const { refreshCommunities } = this.props
+            refreshCommunities()
+            this.goCommunityDetail(community.data?._id)
         }
         catch (err) {
             this.setState({
@@ -102,8 +95,7 @@ class PostCommunityView extends React.Component {
     }
 
     render() {
-        const { modalVisible, selectedTag, loading, description } = this.state
-        const isPressed = Object.keys(selectedTag).length > 0
+        const { modalVisible, selectedTags, loading, description, toBeSelectedTags } = this.state
         const isMinLength = description.length >= 1
         return (
             <View style={styles.containter}>
@@ -138,29 +130,31 @@ class PostCommunityView extends React.Component {
                 <Modal
                     animationType='slide'
                     visible={modalVisible}
-                    onRequestClose={() => {
-                        this.setState({
-                            selectedTag: {},
-                            modalVisible: false
-
-                        })
-                    }}>
+                    onRequestClose={this.closeModel}>
                     <View style={styles.modelContainer}>
                         <Header
-                            title={'เลือกแท็ก'}
+                            title={`เลือกแท็ก (${toBeSelectedTags.length}/2)`}
+                            leftIconComponent={
+                                <Feather
+                                    color='white'
+                                    onPress={this.closeModel}
+                                    size={28}
+                                    name={'chevron-left'}
+                                />
+                            }
                             rightIconComponent={
                                 <Feather
                                     style={styles.saveButton}
                                     color='white'
-                                    onPress={this.closeModel}
+                                    onPress={this.saveModel}
                                     size={25}
                                     name={'check'}
                                 />
                             }
                         />
                         <ScrollView>
-                            {tags.map((tag, index) => {
-                                const isPressed = selectedTag.text === tag.text
+                            {constants.TAGS.map((tag, index) => {
+                                const isPressed = toBeSelectedTags.find(element => element.text === tag.text)
                                 const IconComponent = tag.iconComponent
                                 return (
                                     <TouchableNativeFeedback onPress={() => this.onTagPressed(tag)} key={index}  >
@@ -184,23 +178,32 @@ class PostCommunityView extends React.Component {
                     </View>
                 </Modal>
                 <View style={styles.contentContainer}>
-                    <View style={styles.topContainer} >
-                        <TouchableOpacity onPress={this.openModel}>
+                    <View>
+                        <ScrollView horizontal showsHorizontalScrollIndicator={false} >
                             {
-                                isPressed
-                                    ?
-                                    <View style={[styles.tagContainer, styles.pressedTagBackgroud]}>
-                                        <selectedTag.iconComponent name={selectedTag.iconName} size={20} color={'white'} />
-                                        <Text style={[styles.tagText, styles.pressedTagText]}>{selectedTag.text}</Text>
-                                        <FontAwesome name={'angle-down'} style={styles.tagText} size={20} color={'white'} />
-                                    </View>
-                                    :
-                                    <View style={[styles.tagContainer, styles.notPressedTagBackgroud]}>
-                                        <FontAwesome name={'angle-down'} size={20} color={'grey'} />
-                                        <Text style={[styles.tagText, styles.notPressedTagText]}>เลือกแท็ก</Text>
-                                    </View>
+                                selectedTags.map((tag, index) => {
+                                    return <TouchableOpacity key={index} onPress={this.openModel}>
+                                        <View style={[styles.tagContainer, styles.pressedTagBackgroud]}>
+                                            <tag.iconComponent name={tag.iconName} size={20} color={'white'} />
+                                            <Text style={[styles.tagText, styles.pressedTagText]}>{tag.text}</Text>
+                                            <FontAwesome name={'angle-down'} style={styles.tagText} size={20} color={'white'} />
+                                        </View>
+                                    </TouchableOpacity>
+                                })
                             }
-                        </TouchableOpacity>
+                            {
+                                selectedTags.length < 2
+                                    ?
+                                    <TouchableOpacity onPress={this.openModel}>
+                                        <View style={[styles.tagContainer, styles.notPressedTagBackgroud]}>
+                                            <FontAwesome name={'angle-down'} size={20} color={'grey'} />
+                                            <Text style={[styles.tagText, styles.notPressedTagText]}>เลือกแท็ก</Text>
+                                        </View>
+                                    </TouchableOpacity>
+                                    :
+                                    null
+                            }
+                        </ScrollView>
                     </View>
                     <TextInput
                         maxLength={1000}

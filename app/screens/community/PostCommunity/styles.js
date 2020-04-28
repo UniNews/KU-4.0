@@ -14,11 +14,9 @@ export default StyleSheet.create({
         fontFamily: REGULAR_FONT,
         color: 'black',
     },
-    topContainer: {
-        flexDirection: 'row',
-    },
     tagContainer: {
         padding: 6,
+        marginRight: 10,
         borderRadius: 30,
         flexDirection: 'row',
         backgroundColor: 'transparent',

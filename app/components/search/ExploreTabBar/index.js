@@ -29,11 +29,6 @@ class ExploreTabBar extends React.Component {
         navigation.navigate('Search')
     }
 
-    componentDidMount() {
-        const { navigation } = this.props
-        console.log(navigation)
-    }
-
     render() {
         const { navigation } = this.props
         const routes = navigation.state.routes
