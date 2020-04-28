@@ -134,5 +134,18 @@ export default StyleSheet.create({
     },
     commentsContainer: {
         flex: 1,
+    },
+    tagIconContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        borderColor: SECONDARY_COLOR,
+        borderWidth: 1,
+        height: 20,
+        padding: 12,
+        borderRadius: 30,
+    },
+    tagText: {
+        color: SECONDARY_COLOR,
+        fontFamily: REGULAR_FONT
     }
 })

@@ -51,7 +51,7 @@ class NotificationView extends React.Component {
             <View style={styles.containter}>
                 <Header title={'การแจ้งเตือน'} />
                 {
-                    notifications && notifications.length < 0 ?
+                    notifications && notifications.length > 0 ?
                         <FlatList
                             contentContainerStyle={styles.listContainer}
                             refreshing={loading}

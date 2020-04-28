@@ -29,6 +29,11 @@ class ExploreTabBar extends React.Component {
         navigation.navigate('Search')
     }
 
+    componentDidMount() {
+        const { navigation } = this.props
+        console.log(navigation)
+    }
+
     render() {
         const { navigation } = this.props
         const routes = navigation.state.routes
@@ -62,7 +67,7 @@ class ExploreTabBar extends React.Component {
                                 <Tag
                                     key={route.key}
                                     tag={route.params.tag}
-                                    routeName={route.routeName}
+                                    routeName={route.params.tag.text}
                                     onPress={() => this.navigationHandler(route.routeName)}
                                     focused={navigation.state.index === index}
                                 />

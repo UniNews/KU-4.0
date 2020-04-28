@@ -6,7 +6,7 @@ import { FontAwesome, Feather, MaterialCommunityIcons, MaterialIcons, AntDesign 
 import Button from '../../../components/commons/Button'
 import { convertTimestamptoDate } from '../../../assets/javascripts/date'
 import communityService from '../../../services/news'
-import { PRIMARY_COLOR } from '../../../assets/css/color'
+import { PRIMARY_COLOR, KU_PRIMARY_COLOR, KU_SECONDARY_COLOR, SECONDARY_COLOR } from '../../../assets/css/color'
 import Comment from '../../../components/commons/Comment'
 import Spinner from '../../../components/commons/Spinner'
 import PostPopupModal from '../../../components/modals/PostPopupModal'
@@ -183,6 +183,13 @@ class DetailView extends React.Component {
         }
     }
 
+    goTag = () => {
+        const { navigation } = this.props
+        const { community } = this.state
+        if (community.tags[0])
+            navigation.navigate(community.tags[0] + 'TagCommunity')
+    }
+
     renderComment = ({ item }) => {
         return <Comment
             style={styles.commentContainer}
@@ -221,9 +228,18 @@ class DetailView extends React.Component {
                                         </Text>
                                     </View>
                                 </View>
+                                <TouchableOpacity onPress={this.goTag}>
+                                    <View style={styles.tagIconContainer}>
+                                        <FontAwesome name='tag' size={15} color={SECONDARY_COLOR} />
+                                        <Text style={styles.tagText}>
+                                            {` ${community.tags?.join(', ')}`}
+                                        </Text>
+                                    </View>
+                                </TouchableOpacity>
                             </View>
                         </View>
                         <View style={styles.descriptionContainer}>
+
                             <Text style={styles.descriptionText}>
                                 {community.description}
                             </Text>

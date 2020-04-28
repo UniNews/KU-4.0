@@ -42,8 +42,7 @@ const newsTab = createMaterialTopTabNavigator({
 })
 
 const newsStack = createStackNavigator({
-  Home: newsTab,
-  TagSearch: NewsTagSearchScreen,
+  NewsHome: newsTab,
   AnyNews: AnyNewsScreen,
   /* news */
   NewsDetail: NewsDetailScreen,
@@ -54,6 +53,9 @@ const newsStack = createStackNavigator({
   ProfileDetail: UserProfileScreen,
   /* community */
   CommunityDetail: CommunityDetailScreen,
+  /* tag */
+  NewsTagSearch: NewsTagSearchScreen,
+  CommunityTagSearch: CommunityTagSearchScreen,
 },
   {
     headerMode: 'none',
@@ -77,8 +79,7 @@ newsStack.navigationOptions = ({ navigation }) => {
 }
 
 const communityStack = createStackNavigator({
-  Home: CommunityTab,
-  TagSearch: CommunityTagSearchScreen,
+  CommunityHome: CommunityTab,
   CommunityDetail: CommunityDetailScreen,
   PostCommunity: PostCommunityScreen,
   /* profile */
@@ -88,6 +89,9 @@ const communityStack = createStackNavigator({
   /* news */
   NewsDetail: NewsDetailScreen,
   Comment: CommentScreen,
+  /* tag */
+  NewsTagSearch: NewsTagSearchScreen,
+  CommunityTagSearch: CommunityTagSearchScreen,
 },
   {
     headerMode: 'none',
@@ -124,6 +128,9 @@ const profileStack = createStackNavigator({
   Comment: CommentScreen,
   /* community */
   CommunityDetail: CommunityDetailScreen,
+  /* tag */
+  NewsTagSearch: NewsTagSearchScreen,
+  CommunityTagSearch: CommunityTagSearchScreen,
 },
   {
     headerMode: 'none',
@@ -158,6 +165,9 @@ const notificationStack = createStackNavigator({
   Comment: CommentScreen,
   /* community */
   CommunityDetail: CommunityDetailScreen,
+  /* tag */
+  NewsTagSearch: NewsTagSearchScreen,
+  CommunityTagSearch: CommunityTagSearchScreen,
 },
   {
     headerMode: 'none',
@@ -190,6 +200,9 @@ const searchStack = createStackNavigator({
   /* news */
   NewsDetail: NewsDetailScreen,
   Comment: CommentScreen,
+  /* tag */
+  NewsTagSearch: NewsTagSearchScreen,
+  CommunityTagSearch: CommunityTagSearchScreen,
 },
   {
     headerMode: 'none',

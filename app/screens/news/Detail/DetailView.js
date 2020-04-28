@@ -9,7 +9,7 @@ import newsService from '../../../services/news'
 import { convertTimestamptoDate } from '../../../assets/javascripts/date'
 import Spinner from '../../../components/commons/Spinner'
 import PostPopupModal from '../../../components/modals/PostPopupModal'
-import { PRIMARY_COLOR } from '../../../assets/css/color'
+import { PRIMARY_COLOR, SECONDARY_COLOR } from '../../../assets/css/color'
 
 class DetailView extends React.Component {
 
@@ -140,6 +140,13 @@ class DetailView extends React.Component {
             return 'ข่าวมหาลัย'
     }
 
+    goTag = () => {
+        const { navigation } = this.props
+        const { news } = this.state
+        if (news.tags[0])
+            navigation.navigate(news.tags[0] + 'TagNews')
+    }
+
     render() {
         const { news, loading, refreshing, } = this.state
         return (
@@ -175,17 +182,26 @@ class DetailView extends React.Component {
                                         <Text style={styles.posterText}>
                                             {news.author.displayName}
                                         </Text>
-
                                         <Text style={styles.titleText}>
                                             {news.title}
                                         </Text>
-                                        <View style={[styles.textIconContainer, styles.iconContainerDate]}>
-                                            <FontAwesome name='calendar' size={15} color='grey' />
-                                            <View style={styles.iconTextContainer}>
-                                                <Text style={styles.dateText}>
-                                                    {convertTimestamptoDate(news.createdAt)}
-                                                </Text>
+                                        <View style={styles.footerInfoContainer}>
+                                            <View style={styles.dateIconContainer}>
+                                                <FontAwesome name='calendar' size={15} color='grey' />
+                                                <View style={styles.iconTextContainer}>
+                                                    <Text style={styles.dateText}>
+                                                        {convertTimestamptoDate(news.createdAt)}
+                                                    </Text>
+                                                </View>
                                             </View>
+                                            <TouchableOpacity onPress={this.goTag}>
+                                                <View style={styles.tagIconContainer}>
+                                                    <FontAwesome name='tag' size={15} color={SECONDARY_COLOR} />
+                                                    <Text style={styles.tagText}>
+                                                        {` ${news.tags?.join(', ')}`}
+                                                    </Text>
+                                                </View>
+                                            </TouchableOpacity>
                                         </View>
                                     </View>
                                 </View>
@@ -237,7 +253,7 @@ class DetailView extends React.Component {
                         <Spinner />
                 }
                 <PostPopupModal childRef={(c) => this.popupRef = c} onReportPressed={this.goReport} onDeletePressed={this.goDelete} />
-            </View>
+            </View >
         )
     }
 }

@@ -31,7 +31,7 @@ class TagCommunityView extends React.Component {
 
     async fetchNews() {
         try {
-            const tag = this.props.navigation.state.routeName
+            const tag = this.props.navigation.state.params.tag.text
             const res = await newsService.getCommunitiesByTags([tag], this.page)
             this.setState({
                 news: this.page === 1 ? res.data.articles : [

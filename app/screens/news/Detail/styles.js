@@ -43,15 +43,19 @@ export default StyleSheet.create({
     textIconContainer: {
         flexDirection: 'row',
         alignItems: 'center',
-        paddingRight: 10
+        paddingRight: 10,
     },
     iconContainer: {
         paddingTop: 5,
         flexDirection: 'row',
         // justifyContent: 'center'
     },
-    iconContainerDate: {
+    dateIconContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        // paddingRight: 10,
         paddingTop: 5,
+        flex: 1,
     },
     dateText: {
         fontFamily: REGULAR_FONT,
@@ -107,6 +111,24 @@ export default StyleSheet.create({
     descriptionHeaderContainer: {
         flexDirection: 'row',
         justifyContent: 'space-between',
+        alignItems: 'center'
+    },
+    tagIconContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        borderColor: SECONDARY_COLOR,
+        borderWidth: 1,
+        height: 20,
+        padding: 12,
+        borderRadius: 30,
+    },
+    tagText: {
+        color: SECONDARY_COLOR,
+        fontFamily: REGULAR_FONT
+    },
+    footerInfoContainer: {
+        flex: 1,
+        flexDirection: 'row',
         alignItems: 'center'
     }
 })

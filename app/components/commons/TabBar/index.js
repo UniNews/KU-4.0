@@ -15,7 +15,10 @@ class NewsTabView extends React.Component {
 
     goSearch = () => {
         const { navigation } = this.props
-        navigation.navigate('TagSearch')
+        if (navigation.state.routeName === 'NewsHome')
+            navigation.navigate('NewsTagSearch')
+        else if (navigation.state.routeName === 'CommunityHome')
+            navigation.navigate('CommunityTagSearch')
     }
 
     render() {

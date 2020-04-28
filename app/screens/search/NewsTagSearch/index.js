@@ -5,7 +5,7 @@ import constants from './../../../configs/constants'
 
 let tabs = {}
 for (let tag of constants.TAGS) {
-    tabs[tag.text] = {
+    tabs[tag.text + 'TagNews'] = {
         screen: TagNews,
         params: {
             tag
@@ -19,6 +19,8 @@ const searchTab = createMaterialTopTabNavigator(tabs, {
     tabBarOptions: {
         scrollEnabled: true,
     },
+    lazy: true,
+    backBehavior: 'none'
 })
 
 export default searchTab
