@@ -11,6 +11,7 @@ class SearchTabView extends React.Component {
         super(props)
         this.state = {
             query: '',
+            history: []
         }
     }
 
@@ -18,6 +19,14 @@ class SearchTabView extends React.Component {
         this.setState({
             query: text,
         })
+    }
+
+    componentDidMount() {
+        let history = localStorage.getItem('history')
+        if (history) {
+            history = JSON.parse(localStorage.getItem('history'))
+            this.setState({ history: data.history });
+        }
     }
 
     search = () => {

@@ -6,3 +6,8 @@ export function wp(percentage) {
     const value = (percentage * viewportWidth) / 100;
     return Math.round(value);
 }
+
+export function hp(percentage) {
+    const value = (percentage * viewportHeight) / 100;
+    return Math.round(value);
+}

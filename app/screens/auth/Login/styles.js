@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native'
-import { wp, viewportWidth } from '../../../assets/javascripts/spacing'
+import { wp, viewportWidth, hp } from '../../../assets/javascripts/spacing'
 import { BOLD_FONT, REGULAR_FONT } from '../../../assets/css/typography'
 const textInputContainerHorizontalMargin = viewportWidth - wp(20)
 
@@ -8,18 +8,6 @@ export default StyleSheet.create({
         flex: 1,
     },
     innerContainer: {
-        // flex: 1,
-        // backgroundColor: "white"
-    },
-    logoText: {
-        fontSize: 50,
-        color: 'white',
-        fontFamily: BOLD_FONT
-    },
-    caption: {
-        fontSize: 25,
-        color: 'white',
-        fontFamily: REGULAR_FONT
     },
     headLogin: {
         marginBottom: 15,
@@ -28,14 +16,10 @@ export default StyleSheet.create({
         fontFamily: BOLD_FONT
     },
     logoContainer: {
-        alignItems: 'center',
-        marginVertical: 60,
-    },
-    logoTextContainer: {
-        flexDirection: 'row',
-    },
-    secondLogoText: {
-        color: '#80FFF8'
+        height: hp(40),
+        width: wp(100),
+        // backgroundColor: 'black',
+        position: 'absolute',
     },
     textInputContainer: {
         marginVertical: 5,
@@ -48,9 +32,7 @@ export default StyleSheet.create({
     },
     inputContainer: {
         alignItems: 'center',
-        // justifyContent: 'center',
-        // flex: 1,
-        // backgroundColor: 'white'
+        paddingTop: hp(35),
     },
     icon: {
         marginHorizontal: 10
@@ -141,13 +123,9 @@ export default StyleSheet.create({
         alignItems: 'center',
         alignSelf: 'center'
     },
-    footerContainer: {
-        // height: 500,
-        // position: 'absolute',
-        // bottom: 0,
-        // flex: 1,
-        // backgroundColor: 'black',
-        // justifyContent: 'flex-end'
-        // backgroundColor: 'white'
+    imageAvatar: {
+        width: '100%',
+        height: '100%',
+        resizeMode: 'cover',
     }
 })

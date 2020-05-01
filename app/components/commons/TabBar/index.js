@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, View, TouchableOpacity } from 'react-native'
+import { Image, View, TouchableOpacity, Text } from 'react-native'
 import styles from './styles'
 import { LinearGradient } from 'expo-linear-gradient'
 import PropTypes from 'prop-types'
@@ -26,12 +26,14 @@ class NewsTabView extends React.Component {
             <View>
                 <LinearGradient start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }} colors={[KU_PRIMARY_COLOR, KU_SECONDARY_COLOR]}>
                     <View style={styles.headContainer}>
-                        <Text style={styles.logo}>
-                            UniNews
-                        </Text>
-                        <TouchableOpacity onPress={this.goSearch}>
-                            <FontAwesome name="search" color="white" size={21} />
-                        </TouchableOpacity>
+                        <View style={styles.logoContainer}>
+                            <Image style={styles.imageAvatar}
+                                source={require('../../../assets/imgs/main-logo.png')}
+                            />
+                        </View>
+                        <View style={styles.searchIcon}>
+                            <FontAwesome onPress={this.goSearch} name="search" color="white" size={21} />
+                        </View>
                     </View>
                     <MaterialTopTabBar
                         {...this.props}

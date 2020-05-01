@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, TextInput, View, TouchableWithoutFeedback, TouchableOpacity, ScrollView } from 'react-native'
+import { Text, TextInput, View, TouchableWithoutFeedback, TouchableOpacity, ScrollView, Image, KeyboardAvoidingView } from 'react-native'
 import styles from './styles'
 import { LinearGradient } from 'expo-linear-gradient'
 import { FontAwesome, Ionicons } from '@expo/vector-icons'
@@ -54,11 +54,9 @@ class LoginView extends React.Component {
                 <KeyboardShift>
                     <View style={styles.innerContainer}>
                         <View style={styles.logoContainer}>
-                            <View style={styles.logoTextContainer}>
-                                <Text style={styles.logoText}>Uni</Text>
-                                <Text style={[styles.logoText, styles.secondLogoText]}>News</Text>
-                            </View>
-                            <Text style={styles.caption}>แหล่งข้อมูลสำหรับนิสิต</Text>
+                            <Image style={styles.imageAvatar}
+                                source={require('../../../assets/imgs/enter-logo.png')}
+                            />
                         </View>
                         <View style={styles.inputContainer}>
                             <Text style={styles.headLogin}>เข้าสู่ระบบ</Text>

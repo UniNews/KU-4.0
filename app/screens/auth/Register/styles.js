@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native'
-import { wp, viewportWidth } from '../../../assets/javascripts/spacing'
+import { wp, viewportWidth, hp } from '../../../assets/javascripts/spacing'
 import { BOLD_FONT, REGULAR_FONT } from '../../../assets/css/typography'
 const textInputContainerHorizontalMargin = viewportWidth - wp(20)
 
@@ -10,16 +10,6 @@ export default StyleSheet.create({
     innerContainer: {
         flex: 1,
     },
-    logoText: {
-        fontSize: 50,
-        color: 'white',
-        fontFamily: BOLD_FONT
-    },
-    caption: {
-        fontSize: 25,
-        color: 'white',
-        fontFamily: REGULAR_FONT
-    },
     headLogin: {
         marginBottom: 15,
         fontSize: 27,
@@ -27,14 +17,10 @@ export default StyleSheet.create({
         fontFamily: BOLD_FONT
     },
     logoContainer: {
-        alignItems: 'center',
-        marginVertical: 50,
-    },
-    logoTextContainer: {
-        flexDirection: 'row',
-    },
-    secondLogoText: {
-        color: '#80FFF8'
+        height: hp(40),
+        width: wp(100),
+        // backgroundColor: 'black',
+        position: 'absolute',
     },
     textInputContainer: {
         marginVertical: 5,
@@ -58,6 +44,7 @@ export default StyleSheet.create({
     },
     inputContainer: {
         alignItems: 'center',
+        paddingTop: hp(30),
     },
     icon: {
         marginHorizontal: 10
@@ -154,5 +141,11 @@ export default StyleSheet.create({
         fontSize: 13,
         // alignSelf: 'flex-end',
         fontFamily: BOLD_FONT,
+    },
+    imageAvatar: {
+        width: '100%',
+        height: '100%',
+        bottom: wp(5),
+        resizeMode: 'cover',
     }
 })
