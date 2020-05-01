@@ -1,6 +1,6 @@
 import React from 'react'
-import { Text, View, Image, TouchableNativeFeedback } from 'react-native'
-import { Feather } from '@expo/vector-icons'
+import { Text, View, Image, TouchableNativeFeedback, ScrollView, TouchableOpacity } from 'react-native'
+import { Feather, MaterialCommunityIcons } from '@expo/vector-icons'
 import styles from './styles'
 import { LinearGradient } from 'expo-linear-gradient'
 import LoadingModal from '../../../components/modals/LoadingModal'
@@ -69,6 +69,10 @@ class MyProfileView extends React.Component {
         }
     }
 
+    goSettings = () => {
+
+    }
+
     render() {
         const { user } = this.props
         const { loading } = this.state
@@ -76,6 +80,13 @@ class MyProfileView extends React.Component {
             <View style={styles.containter}>
                 <View style={styles.headContainer}>
                     <LinearGradient style={styles.linearGradient} start={{ x: 0, y: 0 }} end={{ x: 0, y: 0.8 }} colors={['#465859', '#588E57']}>
+                        <TouchableOpacity onPress={this.goSettings} style={styles.logoutButton}>
+                            <MaterialCommunityIcons
+                                color='white'
+                                size={28}
+                                name={'settings'}
+                            />
+                        </TouchableOpacity>
                         <View style={styles.innerHeadContainer}>
                             <Image
                                 source={{ uri: user?.avatarURL }}
@@ -94,35 +105,37 @@ class MyProfileView extends React.Component {
                         </View>
                     </LinearGradient>
                 </View>
-                <TouchableNativeFeedback onPress={this.goProfileSetting}>
-                    <View style={styles.settingContainer}>
-                        <Text style={styles.settingText}>รูป และชื่อผู้ใช้</Text>
-                        <Feather name={'chevron-right'} size={20} color={'gray'} />
-                    </View>
-                </TouchableNativeFeedback>
-                <TouchableNativeFeedback onPress={this.goMyPosts}>
-                    <View style={styles.settingContainer}>
-                        <Text style={styles.settingText}>โพสต์ของฉัน</Text>
-                        <Feather name={'chevron-right'} size={20} color={'gray'} />
-                    </View>
-                </TouchableNativeFeedback>
-                <TouchableNativeFeedback onPress={this.goFollowing}>
-                    <View style={styles.settingContainer}>
-                        <Text style={styles.settingText}>กำลังติดตาม</Text>
-                        <Feather name={'chevron-right'} size={20} color={'gray'} />
-                    </View>
-                </TouchableNativeFeedback>
-                <TouchableNativeFeedback onPress={this.goFollower}>
-                    <View style={styles.settingContainer}>
-                        <Text style={styles.settingText}>ผู้ติดตาม</Text>
-                        <Feather name={'chevron-right'} size={20} color={'gray'} />
-                    </View>
-                </TouchableNativeFeedback>
-                <TouchableNativeFeedback onPress={this.logout}>
-                    <View style={styles.settingContainer}>
-                        <Text style={styles.settingText}>ออกจากระบบ</Text>
-                    </View>
-                </TouchableNativeFeedback>
+                <ScrollView>
+                    <TouchableNativeFeedback onPress={this.goProfileSetting}>
+                        <View style={styles.settingContainer}>
+                            <Text style={styles.settingText}>รูป และชื่อผู้ใช้</Text>
+                            <Feather name={'chevron-right'} size={20} color={'gray'} />
+                        </View>
+                    </TouchableNativeFeedback>
+                    <TouchableNativeFeedback onPress={this.goMyPosts}>
+                        <View style={styles.settingContainer}>
+                            <Text style={styles.settingText}>โพสต์ของฉัน</Text>
+                            <Feather name={'chevron-right'} size={20} color={'gray'} />
+                        </View>
+                    </TouchableNativeFeedback>
+                    <TouchableNativeFeedback onPress={this.goFollowing}>
+                        <View style={styles.settingContainer}>
+                            <Text style={styles.settingText}>กำลังติดตาม</Text>
+                            <Feather name={'chevron-right'} size={20} color={'gray'} />
+                        </View>
+                    </TouchableNativeFeedback>
+                    <TouchableNativeFeedback onPress={this.goFollower}>
+                        <View style={styles.settingContainer}>
+                            <Text style={styles.settingText}>ผู้ติดตาม</Text>
+                            <Feather name={'chevron-right'} size={20} color={'gray'} />
+                        </View>
+                    </TouchableNativeFeedback>
+                    <TouchableNativeFeedback onPress={this.logout}>
+                        <View style={styles.settingContainer}>
+                            <Text style={styles.settingText}>ออกจากระบบ</Text>
+                        </View>
+                    </TouchableNativeFeedback>
+                </ScrollView>
                 <LoadingModal message={'ออกจากระบบ...'} visible={loading} />
             </View>
         )

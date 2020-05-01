@@ -67,5 +67,11 @@ export default StyleSheet.create({
     },
     bioContainer: {
         width: wp(80),
-    }
+    },
+    logoutButton: {
+        alignSelf: 'flex-end',
+        position: 'absolute',
+        right: wp(30),
+        top: 15
+    },
 })
