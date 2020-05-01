@@ -1,10 +1,10 @@
 import { StyleSheet } from 'react-native'
 import { REGULAR_FONT, BOLD_FONT } from '../../../assets/css/typography'
-import { KU_SECONDARY_COLOR } from '../../../assets/css/color'
+import { KU_SECONDARY_COLOR, SECONDARY_COLOR } from '../../../assets/css/color'
 
 export default StyleSheet.create({
     container: {
-        backgroundColor: 'white'
+
     },
     inputContainer: {
         flexDirection: 'row',
@@ -36,4 +36,28 @@ export default StyleSheet.create({
     searchIconContainer: {
         paddingLeft: 15
     },
+    searchHistoryText: {
+        fontSize: 15,
+        color: SECONDARY_COLOR,
+        fontFamily: BOLD_FONT
+    },
+    searchHistoryContainer: {
+        height: '100%'
+    },
+    whiteBackgroud: {
+        backgroundColor: 'white'
+    },
+    searchHistoryTextContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        padding: 10,
+    },
+    deleteAllText: {
+        fontFamily: REGULAR_FONT,
+        color: 'grey'
+    },
+    searchItemText: {
+        fontFamily: REGULAR_FONT,
+        fontSize: 15,
+    }
 })

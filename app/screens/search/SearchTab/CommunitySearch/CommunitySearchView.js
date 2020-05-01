@@ -16,7 +16,6 @@ class CommunitySearchView extends React.Component {
             error: false,
             loading: false,
             fetching: false,
-            refreshing: false
         }
     }
 
@@ -49,7 +48,6 @@ class CommunitySearchView extends React.Component {
                 error: false,
                 loading: false,
                 fetching: false,
-                refreshing: false
             })
         }
         catch (err) {
@@ -57,7 +55,6 @@ class CommunitySearchView extends React.Component {
                 error: true,
                 loading: false,
                 fetching: false,
-                refreshing: false
             })
             const { showModal } = this.props
             showModal()
@@ -66,7 +63,7 @@ class CommunitySearchView extends React.Component {
 
     componentDidUpdate(prevProps) {
         const { query } = this.props
-        if (query && prevProps.query != query) {
+        if (query !== '' && prevProps.query != query) {
             this.page = 1
             this.setState({
                 loading: true
@@ -77,7 +74,7 @@ class CommunitySearchView extends React.Component {
 
 
     renderItem = ({ item }) => {
-        return <Thread style={styles.threadContainer} key={item._id} data={item} onThreadPressed={this.onThreadPressed} />
+        return <Thread style={styles.threadContainer} navigation={this.props.navigation} key={item._id} data={item} />
     }
 
     renderFooter = () => {
@@ -90,12 +87,6 @@ class CommunitySearchView extends React.Component {
         )
     }
 
-    onRefresh = () => {
-        this.setState({ refreshing: true, communities: [], })
-        this.page = 1
-        this.fetchCommunities()
-    }
-
     onEndReached = () => {
         if (!this.onEndReachedCalledDuringMomentum) {
             this.setState({ fetching: true })
@@ -105,16 +96,13 @@ class CommunitySearchView extends React.Component {
         }
     }
 
-    onThreadPressed = (newsId) => {
-        this.props.navigation.push('CommunityDetail', { newsId })
-    }
-
     goPostCommunity = () => {
         this.props.navigation.navigate('PostCommunity')
     }
 
     render() {
-        const { communities, refreshing, loading } = this.state
+        const { communities, loading } = this.state
+        const { query } = this.props
         return (
             <View style={styles.containter}>
                 {
@@ -122,7 +110,10 @@ class CommunitySearchView extends React.Component {
                         ?
                         <View style={styles.textContainer}>
                             <Text style={styles.indicatorText}>
-                                {`กำลังค้นหาชุมชน... `}
+                                {`กำลังค้นหา`}
+                            </Text>
+                            <Text style={styles.queryText}>
+                                {` ${query} `}
                             </Text>
                             <View>
                                 <ActivityIndicator color={PRIMARY_COLOR} />
@@ -131,8 +122,6 @@ class CommunitySearchView extends React.Component {
                         :
                         <FlatList
                             ListEmptyComponent={this.renderEmpty}
-                            refreshing={refreshing}
-                            onRefresh={this.onRefresh}
                             keyExtractor={(community) => community._id}
                             data={communities}
                             initialNumToRender={10}

@@ -16,7 +16,6 @@ class ProfileSearchView extends React.Component {
             loading: false,
             error: false,
             fetching: false,
-            refreshing: false,
         }
     }
 
@@ -27,7 +26,7 @@ class ProfileSearchView extends React.Component {
 
     componentDidUpdate(prevProps) {
         const { query } = this.props
-        if (query && prevProps.query != query) {
+        if (query !== '' && prevProps.query != query) {
             this.page = 1
             this.setState({
                 loading: true
@@ -48,7 +47,6 @@ class ProfileSearchView extends React.Component {
                 error: false,
                 loading: false,
                 fetching: false,
-                refreshing: false
             })
         }
         catch (err) {
@@ -56,7 +54,6 @@ class ProfileSearchView extends React.Component {
                 error: true,
                 loading: false,
                 fetching: false,
-                refreshing: false
             })
             const { showModal } = this.props
             showModal()
@@ -88,12 +85,6 @@ class ProfileSearchView extends React.Component {
         </View>
     }
 
-    onRefresh = () => {
-        this.setState({ refreshing: true, users: [] })
-        this.page = 1
-        this.fetchUsers()
-    }
-
     renderEmpty = () => {
         const { query } = this.props
         return (
@@ -112,7 +103,8 @@ class ProfileSearchView extends React.Component {
     }
 
     render() {
-        const { users, loading, refreshing } = this.state
+        const { users, loading } = this.state
+        const { query } = this.props
         return (
             <View style={styles.containter}>
                 {
@@ -120,8 +112,6 @@ class ProfileSearchView extends React.Component {
                         ?
                         <FlatList
                             ListEmptyComponent={this.renderEmpty}
-                            refreshing={refreshing}
-                            onRefresh={this.onRefresh}
                             keyExtractor={(news) => news._id}
                             data={users}
                             initialNumToRender={12}
@@ -136,7 +126,10 @@ class ProfileSearchView extends React.Component {
                         :
                         <View style={styles.textContainer}>
                             <Text style={styles.indicatorText}>
-                                {`กำลังค้นหาโปรไฟล์... `}
+                                {`กำลังค้นหา`}
+                            </Text>
+                            <Text style={styles.queryText}>
+                                {` ${query} `}
                             </Text>
                             <View>
                                 <ActivityIndicator color={PRIMARY_COLOR} />

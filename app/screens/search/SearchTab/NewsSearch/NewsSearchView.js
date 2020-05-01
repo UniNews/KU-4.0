@@ -15,14 +15,13 @@ class NewsSearchView extends React.Component {
             news: [],
             error: false,
             fetching: false,
-            refreshing: false,
             loading: false
         }
     }
 
     componentDidUpdate(prevProps) {
         const { query } = this.props
-        if (query && prevProps.query != query) {
+        if (query !== '' && prevProps.query != query) {
             this.page = 1
             this.setState({
                 loading: true
@@ -49,7 +48,6 @@ class NewsSearchView extends React.Component {
                 error: false,
                 loading: false,
                 fetching: false,
-                refreshing: false
             })
         }
         catch (err) {
@@ -57,7 +55,6 @@ class NewsSearchView extends React.Component {
                 error: true,
                 loading: false,
                 fetching: false,
-                refreshing: false
             })
             const { showModal } = this.props
             showModal()
@@ -72,12 +69,6 @@ class NewsSearchView extends React.Component {
                 color={PRIMARY_COLOR}
             />
         )
-    }
-
-    onRefresh = () => {
-        this.setState({ refreshing: true, news: [] })
-        this.page = 1
-        this.fetchNews()
     }
 
     onEndReached = () => {
@@ -112,7 +103,8 @@ class NewsSearchView extends React.Component {
     }
 
     render() {
-        const { news, loading, refreshing } = this.state
+        const { news, loading } = this.state
+        const { query } = this.props
         return (
             <View style={styles.containter}>
                 {
@@ -120,7 +112,10 @@ class NewsSearchView extends React.Component {
                         ?
                         <View style={styles.textContainer}>
                             <Text style={styles.indicatorText}>
-                                {`กำลังค้นหาข่าว... `}
+                                {`กำลังค้นหา`}
+                            </Text>
+                            <Text style={styles.queryText}>
+                                {` ${query} `}
                             </Text>
                             <View>
                                 <ActivityIndicator color={PRIMARY_COLOR} />
@@ -129,8 +124,6 @@ class NewsSearchView extends React.Component {
                         :
                         <FlatList
                             ListEmptyComponent={this.renderEmpty}
-                            refreshing={refreshing}
-                            onRefresh={this.onRefresh}
                             keyExtractor={(news) => news._id}
                             data={news}
                             initialNumToRender={10}

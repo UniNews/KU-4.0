@@ -1,5 +1,4 @@
 import { StyleSheet } from 'react-native'
-import { KU_SECONDARY_COLOR } from '../../../assets/css/color'
 
 export default StyleSheet.create({
     containter: {

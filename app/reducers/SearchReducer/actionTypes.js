@@ -1,2 +1,5 @@
-export const SET_QUERY = 'SET_QUERY'
-export const RESET_QUERY = 'RESET_QUERY'
+export const QUERY_SET = 'QUERY_SET'
+export const QUERY_RESET = 'QUERY_RESET'
+export const HISTORY_SET = 'HISTORY_SET'
+export const SEARCH_FAIL = 'SEARCH_FAIL'
+export const HISTORY_FAIL = 'HISTORY_FAIL'

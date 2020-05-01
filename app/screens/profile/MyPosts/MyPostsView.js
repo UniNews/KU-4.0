@@ -75,15 +75,13 @@ class MyPostsView extends React.Component {
                         ?
                         <Spinner />
                         :
-                        <View>
-                            <FlatList
-                                refreshing={refreshing}
-                                onRefresh={this.onRefresh}
-                                keyExtractor={(community) => community._id}
-                                data={communities}
-                                renderItem={this.renderItem}
-                            />
-                        </View>
+                        <FlatList
+                            refreshing={refreshing}
+                            onRefresh={this.onRefresh}
+                            keyExtractor={(community) => community._id}
+                            data={communities}
+                            renderItem={this.renderItem}
+                        />
                 }
             </View>
         )
