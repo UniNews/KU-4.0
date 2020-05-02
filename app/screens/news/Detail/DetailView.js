@@ -176,50 +176,47 @@ class DetailView extends React.Component {
                                     <TouchableWithoutFeedback onPress={this.goProfile}>
                                         <Image
                                             style={styles.imageAvatar}
-                                            source={{ uri: news.author.avatarURL }}
+                                            source={{ uri: news.author?.avatarURL }}
                                         />
                                     </TouchableWithoutFeedback>
                                     <View style={styles.innerTitleContainer}>
                                         <Text style={styles.posterText}>
-                                            {news.author.displayName}
+                                            {news.author?.displayName}
                                         </Text>
                                         <Text style={styles.titleText}>
                                             {news.title}
                                         </Text>
-                                        <View style={styles.footerInfoContainer}>
-                                            <View style={styles.dateIconContainer}>
-                                                <FontAwesome name='calendar' size={15} color='grey' />
-                                                <View style={styles.iconTextContainer}>
-                                                    <Text style={styles.dateText}>
-                                                        {convertTimestamptoDate(news.createdAt)}
-                                                    </Text>
-                                                </View>
+                                        <View style={styles.dateIconContainer}>
+                                            <FontAwesome name='calendar' size={15} color='grey' />
+                                            <View style={styles.iconTextContainer}>
+                                                <Text style={styles.dateText}>
+                                                    {convertTimestamptoDate(news.createdAt)}
+                                                </Text>
                                             </View>
-                                            {
-                                                news.tags && news.tags.length > 0
-                                                    ?
-                                                    <View style={styles.tagIconContainer}>
-
-                                                        <FontAwesome name='tag' size={15} color={SECONDARY_COLOR} />
-                                                        {
-                                                            news.tags.map((tag, index, tagArray) => {
-                                                                return <TouchableOpacity key={index} onPress={() => this.goTag(tag)} style={styles.tagButton}>
-                                                                    <Text style={styles.tagText}>
-                                                                        {` ${tag}`}{`${tagArray.length - 1 !== index ? ',' : ''}`}
-                                                                    </Text>
-                                                                </TouchableOpacity>
-                                                            })
-                                                        }
-                                                    </View>
-                                                    :
-                                                    null
-                                            }
                                         </View>
+
                                     </View>
                                 </View>
+                                {
+                                    news.tags && news.tags.length > 0
+                                        ?
 
+                                        <View style={styles.tagIconContainer}>
+                                            <FontAwesome name='tag' size={15} color={SECONDARY_COLOR} />
+                                            {
+                                                news.tags.map((tag, index, tagArray) => {
+                                                    return <TouchableOpacity key={index} onPress={() => this.goTag(tag)} style={styles.tagButton}>
+                                                        <Text style={styles.tagText}>
+                                                            {` ${tag}`}{`${tagArray.length - 1 !== index ? ',' : ''}`}
+                                                        </Text>
+                                                    </TouchableOpacity>
+                                                })
+                                            }
+                                        </View>
+                                        :
+                                        null
+                                }
                                 <Hr style={styles.hr} />
-
                                 <View style={styles.descriptionHeaderContainer}>
                                     <Text style={styles.descriptionHeaderText}>
                                         รายละเอียด

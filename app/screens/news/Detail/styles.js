@@ -48,14 +48,11 @@ export default StyleSheet.create({
     iconContainer: {
         paddingTop: 5,
         flexDirection: 'row',
-        // justifyContent: 'center'
     },
     dateIconContainer: {
         flexDirection: 'row',
         alignItems: 'center',
-        // paddingRight: 10,
         paddingTop: 5,
-        flex: 1,
     },
     dateText: {
         fontFamily: REGULAR_FONT,
@@ -114,6 +111,8 @@ export default StyleSheet.create({
         alignItems: 'center'
     },
     tagIconContainer: {
+        alignSelf: 'flex-end',
+        marginTop: 5,
         flexDirection: 'row',
         alignItems: 'center',
         borderColor: SECONDARY_COLOR,
@@ -124,15 +123,11 @@ export default StyleSheet.create({
     },
     tagText: {
         color: SECONDARY_COLOR,
-        fontFamily: REGULAR_FONT
-    },
-    footerInfoContainer: {
-        flex: 1,
-        flexDirection: 'row',
-        alignItems: 'center'
+        fontFamily: REGULAR_FONT,
     },
     tagButton: {
         height: 20,
+        flexDirection: 'row',
         alignItems: 'center',
     }
 })
