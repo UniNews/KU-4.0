@@ -7,16 +7,41 @@ import Tag from './Tag'
 import Header from '../../../components/commons/Header'
 import Button from '../../commons/Button'
 import { Feather } from '@expo/vector-icons'
+import { Dimensions } from 'react-native'
+export const { width: viewportWidth } = Dimensions.get('window')
+
+const TAG_WIDTH = 75
 
 class ExploreTabBar extends React.Component {
 
     constructor(props) {
         super(props)
+        this.state = {
+            initial: true
+        }
     }
 
     navigationHandler = (routeName) => {
         const { navigation } = this.props
         navigation.navigate(routeName)
+    }
+
+    scrollTo = (index) => {
+        if ((index + 1) * TAG_WIDTH >= viewportWidth)
+            this.scroll.scrollTo({ x: viewportWidth, y: 0, animated: true })
+        else
+            this.scroll.scrollTo({ x: 0, y: 0, animated: true })
+    }
+
+    componentDidUpdate(prevProps) {
+        const { navigation } = this.props
+        const { initial } = this.state
+        if (navigation && (prevProps.navigation !== navigation || initial)) {
+            this.scrollTo(navigation.state.index)
+            this.setState({
+                initial: false
+            })
+        }
     }
 
     goBack = () => {
@@ -56,7 +81,10 @@ class ExploreTabBar extends React.Component {
                             </Text>
                         </Button>
                     </View>
-                    <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+                    <ScrollView
+                        ref={ref => this.scroll = ref}
+                        horizontal
+                        showsHorizontalScrollIndicator={false}>
                         {routes.map((route, index) => {
                             return (
                                 <Tag

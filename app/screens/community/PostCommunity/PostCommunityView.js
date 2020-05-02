@@ -6,6 +6,7 @@ import { Feather, FontAwesome, } from '@expo/vector-icons'
 import { KU_SECONDARY_COLOR } from '../../../assets/css/color'
 import newsService from '../../../services/news'
 import constants from './../../../configs/constants'
+import Hr from '../../../components/commons/Hr'
 
 class PostCommunityView extends React.Component {
 
@@ -157,20 +158,24 @@ class PostCommunityView extends React.Component {
                                 const isPressed = toBeSelectedTags.find(element => element.text === tag.text)
                                 const IconComponent = tag.iconComponent
                                 return (
-                                    <TouchableNativeFeedback onPress={() => this.onTagPressed(tag)} key={index}  >
-                                        <View style={styles.selectTagButtonContainer}>
-                                            <View style={styles.iconContainer}>
-                                                <IconComponent style={styles.selectIcon} name={tag.outlineIconName} size={25} color={'grey'} />
-                                                <Text style={styles.selectText}>{tag.text}</Text>
+                                    <TouchableNativeFeedback onPress={() => this.onTagPressed(tag)} key={index}>
+                                        <View>
+                                            <View style={styles.selectTagButtonContainer}>
+                                                <View style={styles.iconContainer}>
+                                                    <IconComponent style={styles.selectIcon} name={tag.outlineIconName} size={25} color={'grey'} />
+                                                    <Text style={styles.selectText}>{tag.text}</Text>
+                                                </View>
+                                                {
+                                                    isPressed
+                                                        ?
+                                                        <FontAwesome name={'check-circle'} size={25} color={KU_SECONDARY_COLOR} />
+                                                        :
+                                                        <Feather name={'circle'} size={22} color={'rgba(0, 0, 0, 0.3)'} />
+                                                }
                                             </View>
-                                            {
-                                                isPressed
-                                                    ?
-                                                    <FontAwesome name={'check-circle'} size={25} color={KU_SECONDARY_COLOR} />
-                                                    :
-                                                    <Feather name={'circle'} size={22} color={'rgba(0, 0, 0, 0.3)'} />
-                                            }
+                                            <Hr />
                                         </View>
+
                                     </TouchableNativeFeedback>
                                 )
                             })}

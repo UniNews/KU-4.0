@@ -46,8 +46,6 @@ export default StyleSheet.create({
     },
     modelContainer: {
         flex: 1,
-        // backgroundColor: "black",
-        // height: '50%'
     },
     selectTagButtonContainer: {
         flexDirection: 'row',
@@ -55,8 +53,6 @@ export default StyleSheet.create({
         alignItems: 'center',
         height: 50,
         paddingHorizontal: 20,
-        borderBottomWidth: StyleSheet.hairlineWidth,
-        borderColor: 'grey',
     },
     iconContainer: {
         flexDirection: 'row',

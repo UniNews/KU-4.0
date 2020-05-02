@@ -21,7 +21,6 @@ export default StyleSheet.create({
         justifyContent: 'center',
         marginLeft: 20,
         height: 40,
-
         fontFamily: REGULAR_FONT,
     },
     searchContainer: {

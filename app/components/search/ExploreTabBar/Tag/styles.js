@@ -13,6 +13,7 @@ export default StyleSheet.create({
     tagButton: {
         marginHorizontal: 5,
         flexDirection: 'row',
+        // justifyContent: 'center',
         alignItems: 'center',
         padding: 5,
         borderRadius: 30,

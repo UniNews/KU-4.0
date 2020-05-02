@@ -23,6 +23,12 @@ export default {
             iconComponent: FontAwesome
         },
         {
+            outlineIconName: 'comment-processing-outline',
+            iconName: 'comment-processing',
+            text: 'รีวิว',
+            iconComponent: MaterialCommunityIcons
+        },
+        {
             outlineIconName: 'futbol-o',
             iconName: 'futbol-o',
             text: 'กีฬา',
@@ -32,6 +38,18 @@ export default {
             outlineIconName: 'alert-circle-outline',
             iconName: 'alert-circle',
             text: 'เตือนภัย',
+            iconComponent: MaterialCommunityIcons
+        },
+        {
+            outlineIconName: 'music-circle-outline',
+            iconName: 'music-circle',
+            text: 'ดนตรี',
+            iconComponent: MaterialCommunityIcons
+        },
+        {
+            outlineIconName: 'food-apple-outline',
+            iconName: 'food-apple',
+            text: 'อาหาร',
             iconComponent: MaterialCommunityIcons
         },
     ]

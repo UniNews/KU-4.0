@@ -5,8 +5,6 @@ import Thread from '../../../../components/community/Thread'
 import communityService from '../../../../services/news'
 import Spinner from '../../../../components/commons/Spinner'
 import { PRIMARY_COLOR } from '../../../../assets/css/color'
-import Button from '../../../../components/commons/Button'
-import { FontAwesome } from '@expo/vector-icons'
 import { connect } from 'react-redux'
 import { showModal } from '../../../../reducers/ErrorModalReducer/actions'
 
@@ -84,10 +82,6 @@ class HottestView extends React.Component {
         }
     }
 
-    goPostCommunity = () => {
-        this.props.navigation.navigate('PostCommunity')
-    }
-
     render() {
         const { communities, refreshing, loading } = this.state
         return (
@@ -115,9 +109,6 @@ class HottestView extends React.Component {
                             />
                         </View>
                 }
-                <Button onPress={this.goPostCommunity} activeOpacity={0.7} style={styles.floatingButtonContainer} >
-                    <FontAwesome name='pencil' size={25} color='white' />
-                </Button>
             </View>
         )
     }
