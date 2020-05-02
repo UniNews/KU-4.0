@@ -107,9 +107,6 @@ export default StyleSheet.create({
         fontFamily: REGULAR_FONT,
         color: 'grey'
     },
-    keyboard: {
-        flex: 1,
-    },
     nameContainer: {
         flexDirection: 'row',
         alignItems: 'center',
@@ -143,7 +140,6 @@ export default StyleSheet.create({
         height: 20,
         padding: 12,
         borderRadius: 30,
-        // flex: 1,
     },
     tagText: {
         color: SECONDARY_COLOR,

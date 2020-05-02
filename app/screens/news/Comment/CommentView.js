@@ -1,12 +1,10 @@
 import React from 'react'
 import {
   View,
-  ScrollView,
   ActivityIndicator,
-  KeyboardAvoidingView,
   TextInput,
-  RefreshControl,
-  Text
+  Text,
+  FlatList
 } from 'react-native'
 import styles from './styles'
 import Header from '../../../components/commons/Header'
@@ -16,13 +14,13 @@ import { PRIMARY_COLOR } from '../../../assets/css/color'
 import { Feather } from '@expo/vector-icons'
 import Button from '../../../components/commons/Button'
 import Spinner from '../../../components/commons/Spinner'
-import { STATUS_BAR_HEIGHT } from '../../../assets/css/device'
 import PostPopupModal from '../../../components/modals/PostPopupModal'
 
 class CommentView extends React.Component {
 
   constructor(props) {
     super(props)
+    this.initial = true // for preventing scroll to bottom at the first time
     this.state = {
       comments: [],
       loading: true,
@@ -46,7 +44,6 @@ class CommentView extends React.Component {
         loading: false,
         refreshing: false,
         error: false,
-        posting: false
       })
     }
     catch (err) {
@@ -55,7 +52,6 @@ class CommentView extends React.Component {
         loading: false,
         refreshing: false,
         error: false,
-        posting: false
       })
       this.props.showModal()
     }
@@ -73,12 +69,14 @@ class CommentView extends React.Component {
   }
 
   postComment = async () => {
-    this.setState({ posting: true })
-    const newsId = this.props.navigation.state.params.newsId
     const { msg } = this.state
-    await newsService.postComment(newsId, msg)
-    this.setState({ msg: '' })
-    this.fetchComments()
+    if (msg !== '') {
+      this.setState({ posting: true })
+      const newsId = this.props.navigation.state.params.newsId
+      await newsService.postComment(newsId, msg)
+      this.setState({ msg: '' })
+      await this.fetchComments()
+    }
   }
 
   onRefresh = () => {
@@ -103,10 +101,13 @@ class CommentView extends React.Component {
   }
 
   goProfile = (id) => {
-    const { navigation } = this.props
-    navigation.push('ProfileDetail', {
-      userId: id
-    })
+    const { navigation, user } = this.props
+    if (user._id === id)
+      navigation.navigate('MyProfile')
+    else
+      navigation.push('ProfileDetail', {
+        userId: id
+      })
   }
 
   showPopupModal = (comment) => {
@@ -127,8 +128,37 @@ class CommentView extends React.Component {
     }
   }
 
+  onLayoutScroll = () => {
+    if (this.initial)
+      this.initial = false
+    else
+      this.flatList.scrollToEnd({ animated: true })
+  }
+
+  onContentSizeChangeScroll = () => {
+    const { posting } = this.state
+    if (posting) {
+      this.flatList.scrollToEnd({ animated: true })
+      this.setState({
+        posting: false
+      })
+    }
+  }
+
+  renderComment = ({ item }) => {
+    return <Comment
+      key={item._id}
+      style={styles.commentContainer}
+      liked={item.isLiked}
+      onProfilePressed={this.goProfile}
+      onLikePressed={() => this.likeComment(item)}
+      data={item}
+      onReportPressed={this.showPopupModal}
+    />
+  }
+
   render() {
-    const { comments, loading, refreshing, posting, msg, modal } = this.state
+    const { comments, loading, refreshing, posting, msg } = this.state
     return (
       <View style={styles.container}>
         <Header
@@ -142,59 +172,44 @@ class CommentView extends React.Component {
             />
           }
         />
-        <KeyboardAvoidingView
-          style={styles.keyboardAvoidContainer}
-          behavior={'height'}
-          keyboardVerticalOffset={STATUS_BAR_HEIGHT}
-        >
-          {!loading ? (
-            <ScrollView
-              refreshControl={
-                <RefreshControl
-                  refreshing={refreshing}
-                  onRefresh={this.onRefresh}
-                />
-              }
-            >
-              {comments.map((comment) => {
-                return (
-                  <Comment
-                    key={comment._id}
-                    style={styles.commentContainer}
-                    liked={comment.isLiked}
-                    onProfilePressed={this.goProfile}
-                    onLikePressed={() => this.likeComment(comment)}
-                    data={comment}
-                    onReportPressed={this.showPopupModal}
-                  />
-                )
-              })}
-            </ScrollView>
-          ) : (
-              <Spinner />
-            )}
-          <View style={styles.inputContainer}>
-            <TextInput
-              editable={!posting}
-              onChangeText={text => this.setState({ msg: text })}
-              value={msg}
-              placeholderTextColor={'grey'}
-              style={styles.textInputField}
-              placeholder={'เขียนความคิดเห็น...'}
+        {!loading ? (
+          <View style={{ flex: 1 }}>
+            <FlatList
+              ref={ref => this.flatList = ref}
+              onContentSizeChange={this.onContentSizeChangeScroll}
+              refreshing={refreshing}
+              onRefresh={this.onRefresh}
+              onLayout={this.onLayoutScroll}
+              keyExtractor={(comments) => comments._id}
+              data={comments}
+              renderItem={this.renderComment}
             />
-            {posting ? (
-              <ActivityIndicator color={PRIMARY_COLOR} size={25} />
-            ) : (
-                <Button onPress={this.postComment} style={{ backgroundColor: 'transparent' }}>
-                  <Text style={msg === '' ? styles.idleText : styles.postText}>
-                    โพสต์
+            <View style={styles.inputContainer}>
+              <TextInput
+                editable={!posting}
+                onChangeText={text => this.setState({ msg: text })}
+                value={msg}
+                placeholderTextColor={'grey'}
+                style={styles.textInputField}
+                placeholder={'เขียนความคิดเห็น...'}
+              />
+              {posting ? (
+                <ActivityIndicator color={PRIMARY_COLOR} size={25} />
+              ) : (
+                  <Button onPress={this.postComment} style={{ backgroundColor: 'transparent' }}>
+                    <Text style={msg === '' ? styles.idleText : styles.postText}>
+                      โพสต์
                   </Text>
-                </Button>
-              )}
+                  </Button>
+                )}
+            </View>
           </View>
-        </KeyboardAvoidingView>
+
+        ) :
+          <Spinner />
+        }
         <PostPopupModal childRef={(c) => this.popupRef = c} onReportPressed={this.goReport} onDeletePressed={this.goDelete} />
-      </View>
+      </View >
     )
   }
 }

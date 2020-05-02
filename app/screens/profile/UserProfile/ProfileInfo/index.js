@@ -6,11 +6,6 @@ class ProfileInfo extends React.Component {
 
     constructor(props) {
         super(props)
-        this.tabTranslateY = this.props.screenProps.scroll.interpolate({
-            inputRange: [0, 350],
-            outputRange: [0, -350],
-            extrapolate: 'clamp',
-        })
     }
 
     render() {
@@ -25,15 +20,7 @@ class ProfileInfo extends React.Component {
                     { useNativeDriver: true }
                 )}
                 scrollEventThrottle={0}
-                style={[
-                    {
-                        transform: [
-                            {
-                                translateY: this.tabTranslateY,
-                            },
-                        ],
-                    },
-                ]}>
+            >
                 <View style={styles.profileSectionContainer}>
                     <Text style={styles.profileTitleText}>ชื่อ</Text>
                     <Text style={styles.profileValueText}>{user.displayName}</Text>

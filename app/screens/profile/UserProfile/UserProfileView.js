@@ -16,7 +16,8 @@ const Navigator = createAppContainer(createMaterialTopTabNavigator({
     'โพสต์ทั้งหมด': NewsList
 }, {
     tabBarComponent,
-    backBehavior: 'none'
+    backBehavior: 'none',
+    swipeEnabled: false
 }))
 
 class UserProfileView extends React.Component {
@@ -89,7 +90,7 @@ class UserProfileView extends React.Component {
                                 if (currentState.index === 0) {
                                     Animated.timing(scroll, {
                                         toValue: this.profileOffset,
-                                        duration: 500,
+                                        duration: 0,
                                         useNativeDriver: true
                                     }).start()
                                 }

@@ -1,21 +1,21 @@
 import React from 'react'
-import { View, TouchableWithoutFeedback, KeyboardAvoidingView, Image, Text, TouchableOpacity, TextInput, ActivityIndicator, TouchableNativeFeedback, FlatList } from 'react-native'
+import { View, TouchableWithoutFeedback, Image, Text, TouchableOpacity, TextInput, ActivityIndicator, TouchableNativeFeedback, FlatList } from 'react-native'
 import styles from './styles'
 import Header from '../../../components/commons/Header'
-import { FontAwesome, Feather, MaterialCommunityIcons, MaterialIcons, AntDesign } from '@expo/vector-icons'
+import { FontAwesome, Feather, MaterialCommunityIcons, } from '@expo/vector-icons'
 import Button from '../../../components/commons/Button'
 import { convertTimestamptoDate } from '../../../assets/javascripts/date'
 import communityService from '../../../services/news'
-import { PRIMARY_COLOR, KU_PRIMARY_COLOR, KU_SECONDARY_COLOR, SECONDARY_COLOR } from '../../../assets/css/color'
+import { PRIMARY_COLOR, SECONDARY_COLOR } from '../../../assets/css/color'
 import Comment from '../../../components/commons/Comment'
 import Spinner from '../../../components/commons/Spinner'
 import PostPopupModal from '../../../components/modals/PostPopupModal'
-import { STATUS_BAR_HEIGHT } from '../../../assets/css/device'
 
 class DetailView extends React.Component {
 
     constructor(props) {
         super(props)
+        this.initial = true // for preventing scroll to bottom at the first time
         this.state = {
             community: {},
             comments: [],
@@ -27,9 +27,19 @@ class DetailView extends React.Component {
         }
     }
 
-    componentDidMount() {
-        this.fetchCommunity()
-        this.fetchComments()
+    async componentDidMount() {
+        await this.fetchCommunity()
+        await this.fetchComments()
+        this.setState({
+            loading: false
+        })
+    }
+
+    onLayoutScroll = () => {
+        if (this.initial)
+            this.initial = false
+        else
+            this.flatList.scrollToEnd({ animated: true })
     }
 
     async fetchCommunity() {
@@ -39,17 +49,13 @@ class DetailView extends React.Component {
             this.setState({
                 community: article.data,
                 error: false,
-                loading: false,
                 fetching: false,
-                posting: false,
             })
         }
         catch (err) {
             this.setState({
                 error: true,
-                loading: false,
                 fetching: false,
-                posting: false,
             })
             this.props.showModal()
         }
@@ -68,17 +74,13 @@ class DetailView extends React.Component {
             this.setState({
                 comments: [...comments.data],
                 error: false,
-                loading: false,
                 fetching: false,
-                posting: false,
             })
         }
         catch (err) {
             this.setState({
                 error: true,
-                loading: false,
                 fetching: false,
-                posting: false,
             })
             this.props.showModal()
         }
@@ -128,10 +130,13 @@ class DetailView extends React.Component {
     }
 
     goProfile = (id) => {
-        const { navigation } = this.props
-        navigation.push('ProfileDetail', {
-            userId: id
-        })
+        const { navigation, user } = this.props
+        if (user._id === id)
+            navigation.navigate('MyProfile')
+        else
+            navigation.push('ProfileDetail', {
+                userId: id
+            })
     }
 
     goBack = () => {
@@ -140,12 +145,14 @@ class DetailView extends React.Component {
     }
 
     postComment = async () => {
-        this.setState({ posting: true })
-        const newsId = this.props.navigation.state.params.newsId
         const { myComment } = this.state
-        await communityService.postComment(newsId, myComment)
-        this.setState({ myComment: '' })
-        this.fetchComments()
+        if (myComment !== '') {
+            this.setState({ posting: true })
+            const newsId = this.props.navigation.state.params.newsId
+            await communityService.postComment(newsId, myComment)
+            this.setState({ myComment: '' })
+            await this.fetchComments()
+        }
     }
 
     onRefresh = () => {
@@ -197,6 +204,16 @@ class DetailView extends React.Component {
             data={item}
             onReportPressed={this.showCommentPopupModal}
         />
+    }
+
+    onContentSizeChangeScroll = () => {
+        const { posting } = this.state
+        if (posting) {
+            this.flatList.scrollToEnd({ animated: true })
+            this.setState({
+                posting: false
+            })
+        }
     }
 
     renderHeader = () => {
@@ -309,43 +326,44 @@ class DetailView extends React.Component {
                         }} color='white' name='dots-vertical' size={25} />
                     }
                 />
-                <KeyboardAvoidingView style={styles.keyboard} behavior='height' keyboardVerticalOffset={STATUS_BAR_HEIGHT}>
-                    {
-                        !loading ?
-                            <View style={styles.commentsContainer}>
-                                <FlatList
-                                    refreshing={refreshing}
-                                    onRefresh={this.onRefresh}
-                                    ListHeaderComponent={this.renderHeader}
-                                    keyExtractor={(comments) => comments._id}
-                                    data={comments}
-                                    renderItem={this.renderComment}
+                {
+                    !loading ?
+                        <View style={styles.commentsContainer}>
+                            <FlatList
+                                ref={ref => this.flatList = ref}
+                                refreshing={refreshing}
+                                onRefresh={this.onRefresh}
+                                ListHeaderComponent={this.renderHeader}
+                                keyExtractor={(comments) => comments._id}
+                                data={comments}
+                                renderItem={this.renderComment}
+                                onLayout={this.onLayoutScroll}
+                                onContentSizeChange={this.onContentSizeChangeScroll}
+                            />
+                            <View style={styles.inputContainer}>
+                                <TextInput
+                                    editable={!posting}
+                                    value={myComment}
+                                    onChangeText={text => this.setState({ myComment: text })}
+                                    placeholderTextColor={'grey'}
+                                    style={styles.textInputField}
+                                    placeholder={'เขียนความคิดเห็น...'}
                                 />
+                                {posting
+                                    ?
+                                    <ActivityIndicator color={PRIMARY_COLOR} size={20} />
+                                    :
+                                    <Button onPress={this.postComment} style={{ backgroundColor: 'transparent' }}>
+                                        <Text style={myComment === '' ? styles.idleText : styles.postText}>
+                                            โพสต์
+                                            </Text>
+                                    </Button>
+                                }
                             </View>
-                            :
-                            <Spinner />
-                    }
-                    <View style={styles.inputContainer}>
-                        <TextInput
-                            editable={!posting}
-                            value={myComment}
-                            onChangeText={text => this.setState({ myComment: text })}
-                            placeholderTextColor={'grey'}
-                            style={styles.textInputField}
-                            placeholder={'เขียนความคิดเห็น...'}
-                        />
-                        {posting
-                            ?
-                            <ActivityIndicator color={PRIMARY_COLOR} size={20} />
-                            :
-                            <Button onPress={this.postComment} style={{ backgroundColor: 'transparent' }}>
-                                <Text style={myComment === '' ? styles.idleText : styles.postText}>
-                                    โพสต์
-                                </Text>
-                            </Button>
-                        }
-                    </View>
-                </KeyboardAvoidingView>
+                        </View>
+                        :
+                        <Spinner />
+                }
                 <PostPopupModal childRef={(c) => this.popupRef = c} onReportPressed={this.goReport} onDeletePressed={this.goDelete} />
             </View>
         )

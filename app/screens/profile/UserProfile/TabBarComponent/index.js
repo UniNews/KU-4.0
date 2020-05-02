@@ -105,31 +105,47 @@ class tabBarComponent extends React.Component {
                                     <Text style={isFollowing ? styles.followingButtonText : styles.notFollowingButtonText}>{isFollowing ? 'ติดตามอยู่' : 'ติดตาม'}</Text>
                                 </Button>
                             </View>
-                            <View style={styles.infoContainer}>
-                                <TouchableNativeFeedback onPress={this.goFollower}>
-                                    <View style={styles.indicatorContainer}>
-                                        <Text style={styles.numberText}>
-                                            {user.followers ? user.followers.length : 0}
-                                        </Text>
-                                        <Text style={styles.indicatorText}>
-                                            ผู้ติดตาม
-                                        </Text>
-                                    </View>
-                                </TouchableNativeFeedback>
-                                <Vr style={styles.verticalLine} />
-                                <TouchableNativeFeedback onPress={this.goFollowing}>
-                                    <View style={styles.indicatorContainer}>
-                                        <Text style={styles.numberText}>
-                                            {user.followings ? user.followings.length : 0}
-                                        </Text>
-                                        <Text style={styles.indicatorText}>
-                                            กำลังติดตาม
-                                        </Text>
-                                    </View>
-                                </TouchableNativeFeedback>
-                            </View>
-                        </View>
 
+                            {
+                                user && user.role === 'user' ?
+                                    <View style={styles.infoContainer}>
+                                        <TouchableNativeFeedback onPress={this.goFollower}>
+                                            <View style={styles.indicatorContainer}>
+                                                <Text style={styles.numberText}>
+                                                    {user.followers ? user.followers.length : 0}
+                                                </Text>
+                                                <Text style={styles.indicatorText}>
+                                                    ผู้ติดตาม
+                                                </Text>
+                                            </View>
+                                        </TouchableNativeFeedback>
+                                        <Vr style={styles.verticalLine} />
+                                        <TouchableNativeFeedback onPress={this.goFollowing}>
+                                            <View style={styles.indicatorContainer}>
+                                                <Text style={styles.numberText}>
+                                                    {user.followings ? user.followings.length : 0}
+                                                </Text>
+                                                <Text style={styles.indicatorText}>
+                                                    กำลังติดตาม
+                                        </Text>
+                                            </View>
+                                        </TouchableNativeFeedback>
+                                    </View>
+                                    :
+                                    <View>
+                                        <TouchableNativeFeedback onPress={this.goFollower}>
+                                            <View style={styles.indicatorContainer}>
+                                                <Text style={styles.numberText}>
+                                                    {user.followers ? user.followers.length : 0}
+                                                </Text>
+                                                <Text style={styles.indicatorText}>
+                                                    ผู้ติดตาม
+                                            </Text>
+                                            </View>
+                                        </TouchableNativeFeedback>
+                                    </View>
+                            }
+                        </View>
                     </LinearGradient>
                     <MaterialTopTabBar
                         {...this.props}

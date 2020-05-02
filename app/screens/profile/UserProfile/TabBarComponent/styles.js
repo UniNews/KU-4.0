@@ -51,7 +51,7 @@ export default StyleSheet.create({
         paddingHorizontal: 15,
     },
     infoContainer: {
-        marginBottom: 5,
+        // marginBottom: 5,
         flexDirection: 'row',
     },
     indicatorContainer: {

@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { PRIMARY_COLOR, SECONDARY_COLOR } from '../../../assets/css/color'
+import { PRIMARY_COLOR } from '../../../assets/css/color'
 import { wp, viewportWidth } from '../../../assets/javascripts/spacing'
 import { REGULAR_FONT, BOLD_FONT } from '../../../assets/css/typography'
 const textInputContainerHorizontalMargin = viewportWidth - wp(20);
@@ -7,9 +7,6 @@ const textInputContainerHorizontalMargin = viewportWidth - wp(20);
 export default StyleSheet.create({
     container: {
         flex: 1
-    },
-    keyboardAvoidContainer: {
-        flex: 1,
     },
     newsImage: {
         height: 250,

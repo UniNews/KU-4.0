@@ -88,7 +88,7 @@ class Thread extends Component {
                                 {` ${convertTimestamptoDate(news.createdAt)}`}
                             </Text>
                         </View>
-                        <Text style={styles.descriptionText}>
+                        <Text numberOfLines={3} style={styles.descriptionText}>
                             {news.description}
                         </Text>
                         <View style={styles.bottomContainer}>
