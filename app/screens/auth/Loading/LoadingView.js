@@ -1,9 +1,10 @@
 import React from 'react'
-import { View, AsyncStorage, Vibration } from 'react-native'
+import { View, AsyncStorage, Vibration, Image } from 'react-native'
 import styles from './styles'
 import { AlertHelper } from '../../../configs/alertHelper'
-import Spinner from '../../../components/commons/Spinner'
 import { Notifications } from 'expo'
+import { LinearGradient } from 'expo-linear-gradient'
+import { KU_PRIMARY_COLOR, KU_SECONDARY_COLOR } from '../../../assets/css/color'
 
 class LoadingView extends React.Component {
 
@@ -61,9 +62,14 @@ class LoadingView extends React.Component {
 
     render() {
         return (
-            <View style={styles.container}>
-                <Spinner />
-            </View>
+            <LinearGradient colors={[KU_PRIMARY_COLOR, KU_SECONDARY_COLOR]} style={styles.container} >
+                <View style={styles.logoContainer}>
+                    <Image style={styles.imageAvatar}
+                        source={require('../../../assets/imgs/enter-logo.png')}
+                    />
+                </View>
+            </LinearGradient >
+
         )
     }
 }
