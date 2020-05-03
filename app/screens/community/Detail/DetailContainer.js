@@ -1,6 +1,7 @@
 import { connect } from 'react-redux'
 import DetailView from './DetailView'
 import { showModal } from '../../../reducers/ErrorModalReducer/actions'
+import { refreshCommunities } from '../../../reducers/LatestCommunityReducer/actions'
 
 const mapStateToProps = state => {
   return {
@@ -9,7 +10,8 @@ const mapStateToProps = state => {
 }
 
 const mapDispatchToProps = {
-  showModal
+  showModal,
+  refreshCommunities
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(DetailView)

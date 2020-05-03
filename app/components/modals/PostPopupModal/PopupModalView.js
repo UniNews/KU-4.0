@@ -72,24 +72,28 @@ class PopupModalView extends React.Component {
                 onRequestClose={this.closeModal} >
                 <TouchableWithoutFeedback onPress={this.closeHandler}>
                     <View style={styles.centeredView}>
-                        <TouchableNativeFeedback onPress={this.reportHandler}>
-                            <View style={styles.modalView}>
-                                <Text style={styles.modalText}>
-                                    รายงานโพสต์
+                        <View>
+                            <TouchableNativeFeedback onPress={this.reportHandler}>
+                                <View style={styles.modalView}>
+                                    <Text style={styles.modalText}>
+                                        รายงานโพสต์
                                 </Text>
-                            </View>
-                        </TouchableNativeFeedback>
-                        {
-                            post && (user._id === post.author._id) ?
-                                <TouchableNativeFeedback onPress={this.deleteHandler}>
-                                    <View style={styles.modalView}>
-                                        <Text style={styles.modalText}>
-                                            ลบโพสต์
+                                </View>
+                            </TouchableNativeFeedback>
+                            {
+                                post && (user._id === post.author._id)
+                                    ?
+                                    <TouchableNativeFeedback onPress={this.deleteHandler}>
+                                        <View style={styles.modalView}>
+                                            <Text style={styles.modalText}>
+                                                ลบโพสต์
                                         </Text>
-                                    </View>
-                                </TouchableNativeFeedback>
-                                : null
-                        }
+                                        </View>
+                                    </TouchableNativeFeedback>
+                                    :
+                                    null
+                            }
+                        </View>
                     </View>
                 </TouchableWithoutFeedback>
             </Modal>

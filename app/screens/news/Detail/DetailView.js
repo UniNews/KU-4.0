@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, View, ImageBackground, Image, Linking, ScrollView, TouchableOpacity, TouchableWithoutFeedback, RefreshControl } from 'react-native'
+import { Text, View, Image, Linking, ScrollView, TouchableOpacity, TouchableWithoutFeedback, RefreshControl } from 'react-native'
 import styles from './styles'
 import Hyperlink from 'react-native-hyperlink'
 import { FontAwesome, Feather, MaterialCommunityIcons } from '@expo/vector-icons'
@@ -10,6 +10,7 @@ import { convertTimestamptoDate } from '../../../assets/javascripts/date'
 import Spinner from '../../../components/commons/Spinner'
 import PostPopupModal from '../../../components/modals/PostPopupModal'
 import { PRIMARY_COLOR, SECONDARY_COLOR } from '../../../assets/css/color'
+import ImageModal from '../../../components/modals/ImageModal'
 
 class DetailView extends React.Component {
 
@@ -88,10 +89,14 @@ class DetailView extends React.Component {
         this.props.navigation.push('PostReport', { report: post._id, type: 'article' })
     }
 
-    goDelete = (post) => {
-        newsService.deleteArticle(post._id)
-            .then(res => this.props.navigation.goBack())
-            .catch(err => console.log(err.response))
+    goDelete = async (post) => {
+        try {
+            await newsService.deleteArticle(post._id)
+            this.props.navigation.goBack()
+        }
+        catch (err) {
+            this.props.showModal()
+        }
     }
 
     onRefresh = () => {
@@ -109,7 +114,8 @@ class DetailView extends React.Component {
 
     showPopupModal = () => {
         const { news } = this.state
-        this.popupRef.show(news)
+        if (news)
+            this.popupRef.show(news)
     }
 
     likePost = () => {
@@ -157,7 +163,11 @@ class DetailView extends React.Component {
                         <Feather color='white' onPress={this.goBack} size={28} name={'chevron-left'} />
                     }
                     rightIconComponent={
-                        <MaterialCommunityIcons style={styles.dotIcon} onPress={this.showPopupModal} color='white' name='dots-vertical' size={25} />
+                        !loading
+                            ?
+                            <MaterialCommunityIcons style={styles.dotIcon} onPress={this.showPopupModal} color='white' name='dots-vertical' size={25} />
+                            :
+                            null
                     }
                 />
                 {
@@ -168,9 +178,11 @@ class DetailView extends React.Component {
                                 onRefresh={this.onRefresh}
                             />
                         }>
-                            <ImageBackground style={styles.newsImage}
+                            <ImageModal
+                                height={250}
+                                style={styles.newsImage}
                                 source={{ uri: news.imageURL }} >
-                            </ImageBackground>
+                            </ImageModal>
                             <View style={styles.topContainer}>
                                 <View style={styles.titleContainer}>
                                     <TouchableWithoutFeedback onPress={this.goProfile}>

@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "KU 4.0",
-    "slug": "KU-4_0",
+    "name": "UniNews: KU",
+    "slug": "UniNews-KU",
     "privacy": "public",
     "sdkVersion": "36.0.0",
     "platforms": [
@@ -12,9 +12,9 @@
     "orientation": "portrait",
     "icon": "./app/assets/imgs/icon.png",
     "splash": {
-      "image": "./app/assets/imgs/splash.png",
+      "image": "./app/assets/imgs/main-logo.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#465859"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -23,7 +23,9 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.uninews.ku",
+      "buildNumber": "1.0.0"
     },
     "description": "",
     "androidStatusBar": {
@@ -31,6 +33,17 @@
       "translucent": true,
       "barStyle": "light-content",
       "backgroundColor": "#465859"
+    },
+    "android": {
+      "permissions": [
+        "READ_EXTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE"
+      ],
+      "package": "com.uninews.ku",
+      "versionCode": 2
+    },
+    "notification": {
+      "icon": "./app/assets/imgs/icon.png"
     }
   }
 }

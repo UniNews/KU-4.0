@@ -1,9 +1,10 @@
 import React from 'react'
-import { Text, View, Image, TouchableNativeFeedback, ScrollView } from 'react-native'
+import { Text, View, TouchableNativeFeedback, ScrollView } from 'react-native'
 import { Feather } from '@expo/vector-icons'
 import styles from './styles'
 import { LinearGradient } from 'expo-linear-gradient'
 import LoadingModal from '../../../components/modals/LoadingModal'
+import ImageModal from '../../../components/modals/ImageModal'
 
 class MyProfileView extends React.Component {
 
@@ -77,10 +78,18 @@ class MyProfileView extends React.Component {
                 <View style={styles.headContainer}>
                     <LinearGradient style={styles.linearGradient} start={{ x: 0, y: 0 }} end={{ x: 0, y: 0.8 }} colors={['#465859', '#588E57']}>
                         <View style={styles.innerHeadContainer}>
-                            <Image
-                                source={{ uri: user?.avatarURL }}
-                                style={styles.avatar}
-                            />
+
+                            <View>
+                                <ImageModal
+                                    animation={false}
+                                    width={250}
+                                    height={250}
+                                    style={styles.avatar}
+                                    source={{ uri: user?.avatarURL }}
+                                >
+                                </ImageModal>
+                            </View>
+
                             <View style={styles.nameContainer}>
                                 <Text style={styles.name}>
                                     {user?.displayName}

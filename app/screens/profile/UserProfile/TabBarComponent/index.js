@@ -8,6 +8,7 @@ import Button from '../../../../components/commons/Button'
 import Vr from '../../../../components/commons/Vr'
 import userService from '../../../../services/user'
 import { Feather } from '@expo/vector-icons'
+import ImageModal from '../../../../components/modals/ImageModal'
 
 class tabBarComponent extends React.Component {
 
@@ -93,10 +94,15 @@ class tabBarComponent extends React.Component {
                                     name={'chevron-left'}
                                 />
                             </View>
-                            <Image
-                                source={user ? { uri: user.avatarURL } : require('../../../../assets/imgs/avatar-default.png')}
-                                style={styles.avatar}
-                            />
+                            <View>
+                                <ImageModal
+                                    animation={false}
+                                    width={250}
+                                    height={250}
+                                    source={user ? { uri: user.avatarURL } : require('../../../../assets/imgs/avatar-default.png')}
+                                    style={styles.avatar}
+                                />
+                            </View>
                             <Text numberOfLines={1} style={styles.nameText}>
                                 {user.displayName}
                             </Text>

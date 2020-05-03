@@ -11,7 +11,7 @@ import { AlertHelper } from './app/configs/alertHelper'
 import { BOLD_FONT, REGULAR_FONT } from './app/assets/css/typography'
 import SafeAreaView from './app/components/commons/SafeAreaView'
 import ErrorModal from './app/components/modals/ErrorModal'
-import { View } from 'react-native'
+import Spinner from './app/components/commons/Spinner'
 
 const store = createStore(reducers, applyMiddleware(thunkMiddleware))
 
@@ -53,7 +53,7 @@ export default class App extends React.Component {
 
   render() {
     if (!this.state.fontLoaded) {
-      return null
+      return <Spinner />
     }
     return (
       <SafeAreaView>

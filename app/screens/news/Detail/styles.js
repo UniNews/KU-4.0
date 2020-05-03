@@ -1,6 +1,8 @@
 import { StyleSheet } from 'react-native'
 import { BOLD_FONT, REGULAR_FONT } from '../../../assets/css/typography'
-import { KU_PRIMARY_COLOR, SECONDARY_COLOR, KU_SECONDARY_COLOR } from '../../../assets/css/color'
+import { viewportWidth } from '../../../assets/javascripts/spacing'
+
+import { SECONDARY_COLOR, KU_SECONDARY_COLOR } from '../../../assets/css/color'
 
 export default StyleSheet.create({
     container: {
@@ -9,7 +11,7 @@ export default StyleSheet.create({
     },
     newsImage: {
         height: 250,
-        width: null,
+        width: viewportWidth,
         resizeMode: 'cover'
     },
     topIconContainer: {

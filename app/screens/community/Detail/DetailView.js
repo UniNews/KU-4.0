@@ -178,6 +178,7 @@ class DetailView extends React.Component {
         try {
             if (post.type === 'article') {
                 await communityService.deleteArticle(post._id)
+                this.props.refreshCommunities()
                 this.props.navigation.goBack()
             }
             else if (post.type === 'comment') {

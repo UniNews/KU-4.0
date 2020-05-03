@@ -34,7 +34,7 @@ export default StyleSheet.create({
         borderRadius: 150 / 2,
         borderWidth: 2,
         borderColor: 'white',
-        marginBottom: 10
+        marginBottom: 10,
     },
     headContainer: {
         alignItems: 'center',
