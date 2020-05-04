@@ -27,18 +27,20 @@ class tabBarComponent extends React.Component {
     follow = () => {
         const { setProfileThreadIsFollowing } = this.props.screenProps
         const { user } = this.state
-        user.isFollowing = !user.isFollowing
-        this.setState({ user })
-        if (user.isFollowing) {
-            userService.followUserById(user._id)
-            user.followers.push('')
+        if (typeof user.isFollowing !== 'undefined') {
+            user.isFollowing = !user.isFollowing
+            this.setState({ user })
+            if (user.isFollowing) {
+                userService.followUserById(user._id)
+                user.followers.push('')
+            }
+            else {
+                userService.unfollowUserById(user._id)
+                user.followers.pop()
+            }
+            if (setProfileThreadIsFollowing)
+                setProfileThreadIsFollowing(user.isFollowing)
         }
-        else {
-            userService.unfollowUserById(user._id)
-            user.followers.pop()
-        }
-        if (setProfileThreadIsFollowing)
-            setProfileThreadIsFollowing(user.isFollowing)
     }
 
     goBack = () => {
@@ -50,7 +52,7 @@ class tabBarComponent extends React.Component {
         const { navigation } = this.props.screenProps
         const { user } = this.state
         navigation.push('Following', {
-            userId: user._id
+            userId: user?._id
         })
     }
 
@@ -58,7 +60,7 @@ class tabBarComponent extends React.Component {
         const { navigation } = this.props.screenProps
         const { user } = this.state
         navigation.push('Follower', {
-            userId: user._id
+            userId: user?._id
         })
     }
 
@@ -96,7 +98,6 @@ class tabBarComponent extends React.Component {
                             </View>
                             <View>
                                 <ImageModal
-                                    animation={false}
                                     width={250}
                                     height={250}
                                     source={user ? { uri: user.avatarURL } : require('../../../../assets/imgs/avatar-default.png')}
@@ -133,7 +134,7 @@ class tabBarComponent extends React.Component {
                                                 </Text>
                                                 <Text style={styles.indicatorText}>
                                                     กำลังติดตาม
-                                        </Text>
+                                                </Text>
                                             </View>
                                         </TouchableNativeFeedback>
                                     </View>
@@ -146,7 +147,7 @@ class tabBarComponent extends React.Component {
                                                 </Text>
                                                 <Text style={styles.indicatorText}>
                                                     ผู้ติดตาม
-                                            </Text>
+                                                </Text>
                                             </View>
                                         </TouchableNativeFeedback>
                                     </View>

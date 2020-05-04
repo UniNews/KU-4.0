@@ -95,22 +95,24 @@ class DetailView extends React.Component {
     likePost = () => {
         const { community } = this.state
         const { user } = this.props
-        community.isLiked = !community.isLiked
         const newsId = this.props.navigation.state.params.newsId
-        if (community.isLiked) {
-            communityService.likeNews(newsId)
-            community.likes.push(user._id)
+        if (typeof community.isLiked !== 'undefined') {
+            community.isLiked = !community.isLiked
+            if (community.isLiked) {
+                communityService.likeNews(newsId)
+                community.likes.push(user._id)
+            }
+            else {
+                communityService.unlikeNews(newsId)
+                const indexToRemove = community.likes.indexOf(user._id)
+                if (indexToRemove > -1)
+                    community.likes.splice(indexToRemove, 1)
+            }
+            this.setState({ community: community })
+            const { setCommunityThreadLikes } = this.props.navigation.state.params
+            if (setCommunityThreadLikes)
+                setCommunityThreadLikes(community.likes)
         }
-        else {
-            communityService.unlikeNews(newsId)
-            const indexToRemove = community.likes.indexOf(user._id)
-            if (indexToRemove > -1)
-                community.likes.splice(indexToRemove, 1)
-        }
-        this.setState({ community: community })
-        const { setCommunityThreadLikes } = this.props.navigation.state.params
-        if (setCommunityThreadLikes)
-            setCommunityThreadLikes(community.likes)
     }
 
     likeComment = (comment) => {

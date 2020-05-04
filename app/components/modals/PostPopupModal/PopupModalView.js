@@ -81,7 +81,7 @@ class PopupModalView extends React.Component {
                                 </View>
                             </TouchableNativeFeedback>
                             {
-                                post && (user._id === post.author._id)
+                                post && (user._id === post.author?._id)
                                     ?
                                     <TouchableNativeFeedback onPress={this.deleteHandler}>
                                         <View style={styles.modalView}>

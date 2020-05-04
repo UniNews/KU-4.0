@@ -16,12 +16,14 @@ class ProfileThread extends Component {
 
     onFollowPressedHandler = () => {
         const { profile } = this.state
-        profile.isFollowing = !profile.isFollowing
-        if (profile.isFollowing)
-            userService.followUserById(profile._id)
-        else
-            userService.unfollowUserById(profile._id)
-        this.setState({ profile })
+        if (typeof profile.isFollowing !== 'undefined') {
+            profile.isFollowing = !profile.isFollowing
+            if (profile.isFollowing)
+                userService.followUserById(profile._id)
+            else
+                userService.unfollowUserById(profile._id)
+            this.setState({ profile })
+        }
     }
 
     onProfilePressedHandler = () => {

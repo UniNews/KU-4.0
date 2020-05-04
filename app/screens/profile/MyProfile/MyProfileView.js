@@ -81,7 +81,6 @@ class MyProfileView extends React.Component {
 
                             <View>
                                 <ImageModal
-                                    animation={false}
                                     width={250}
                                     height={250}
                                     style={styles.avatar}

@@ -48,18 +48,20 @@ class NewsCard extends Component {
     onLikePressedHandler = () => {
         const { user } = this.props
         const { news } = this.state
-        news.isLiked = !news.isLiked
-        if (news.isLiked) {
-            newsService.likeNews(news._id)
-            news.likes.push(user._id)
+        if (typeof news.isLiked !== 'undefined') {
+            news.isLiked = !news.isLiked
+            if (news.isLiked) {
+                newsService.likeNews(news._id)
+                news.likes.push(user._id)
+            }
+            else {
+                newsService.unlikeNews(news._id)
+                const indexToRemove = news.likes.indexOf(user._id)
+                if (indexToRemove > -1)
+                    news.likes.splice(indexToRemove, 1)
+            }
+            this.setState({ news })
         }
-        else {
-            newsService.unlikeNews(news._id)
-            const indexToRemove = news.likes.indexOf(user._id)
-            if (indexToRemove > -1)
-                news.likes.splice(indexToRemove, 1)
-        }
-        this.setState({ news })
     }
 
     render() {

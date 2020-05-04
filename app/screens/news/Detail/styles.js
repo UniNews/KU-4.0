@@ -131,5 +131,8 @@ export default StyleSheet.create({
         height: 20,
         flexDirection: 'row',
         alignItems: 'center',
+    },
+    descriptionContainer: {
+        paddingTop: 10
     }
 })

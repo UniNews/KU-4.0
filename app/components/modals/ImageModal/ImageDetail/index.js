@@ -462,13 +462,11 @@ export default class ImageDetail extends React.Component {
   }
 
   _close = () => {
-    const { isTranslucent, willClose, onClose, animation } = this.props
+    const { isTranslucent, willClose, onClose } = this.props
     if (isTranslucent) {
       StatusBar.setHidden(false)
     }
-    if (!animation) {
-      onClose()
-    }
+    onClose()
     setTimeout(() => {
       this._isAnimated = false
       if (typeof willClose === 'function') {
@@ -481,7 +479,6 @@ export default class ImageDetail extends React.Component {
         Animated.timing(this._animatedOpacity, { toValue: WINDOW_HEIGHT }),
         Animated.spring(this._animatedFrame, { toValue: 0 }),
       ]).start(() => {
-        onClose()
         this._isAnimated = false
       })
     })

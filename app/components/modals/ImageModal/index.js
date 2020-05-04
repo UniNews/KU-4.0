@@ -61,8 +61,6 @@ export default class ImageModal extends React.Component {
             y: newY,
           },
         })
-        if (animation)
-          this._root && this._originImageOpacity.setValue(0)
       })
     }
   }
@@ -101,7 +99,6 @@ export default class ImageModal extends React.Component {
       willClose,
       height,
       width,
-      animation = true
     } = this.props
     const { isOpen, origin } = this.state
     return (
@@ -157,7 +154,6 @@ export default class ImageModal extends React.Component {
           onClose={this._onClose}
           height={height}
           width={width}
-          animation={animation}
         />
       </View>
     )

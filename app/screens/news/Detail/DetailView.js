@@ -86,17 +86,19 @@ class DetailView extends React.Component {
     }
 
     goReport = (post) => {
-        this.props.navigation.push('PostReport', { report: post._id, type: 'article' })
+        if (post)
+            this.props.navigation.push('PostReport', { report: post._id, type: 'article' })
     }
 
     goDelete = async (post) => {
-        try {
-            await newsService.deleteArticle(post._id)
-            this.props.navigation.goBack()
-        }
-        catch (err) {
-            this.props.showModal()
-        }
+        if (post)
+            try {
+                await newsService.deleteArticle(post._id)
+                this.props.navigation.goBack()
+            }
+            catch (err) {
+                this.props.showModal()
+            }
     }
 
     onRefresh = () => {
@@ -122,19 +124,21 @@ class DetailView extends React.Component {
         const setNewsThreadLikes = this.props.navigation.state.params.setNewsThreadLikes
         const { user } = this.props
         const { news } = this.state
-        news.isLiked = !news.isLiked
-        if (news.isLiked) {
-            newsService.likeNews(news._id)
-            news.likes.push(user._id)
-        } else {
-            newsService.unlikeNews(news._id)
-            const indexToRemove = news.likes.indexOf(user._id)
-            if (indexToRemove > -1)
-                news.likes.splice(indexToRemove, 1)
+        if (typeof news.isLiked !== 'undefined') {
+            news.isLiked = !news.isLiked
+            if (news.isLiked) {
+                newsService.likeNews(news._id)
+                news.likes.push(user._id)
+            } else {
+                newsService.unlikeNews(news._id)
+                const indexToRemove = news.likes.indexOf(user._id)
+                if (indexToRemove > -1)
+                    news.likes.splice(indexToRemove, 1)
+            }
+            this.setState({ news })
+            if (setNewsThreadLikes)
+                setNewsThreadLikes(news.likes)
         }
-        this.setState({ news })
-        if (setNewsThreadLikes)
-            setNewsThreadLikes(news.likes)
     }
 
     newsType = () => {
@@ -261,7 +265,7 @@ class DetailView extends React.Component {
                                         </TouchableOpacity>
                                     </View>
                                 </View>
-                                <View>
+                                <View style={styles.descriptionContainer}>
                                     <Hyperlink linkStyle={{ textDecorationLine: 'underline', color: 'green', fontFamily: 'Kanit-Regular' }} onPress={(url, text) => Linking.openURL(url)}>
                                         <Text style={styles.newsInfoText}>
                                             {news.description}
