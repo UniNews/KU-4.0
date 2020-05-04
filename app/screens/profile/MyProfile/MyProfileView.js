@@ -81,8 +81,6 @@ class MyProfileView extends React.Component {
 
                             <View>
                                 <ImageModal
-                                    width={250}
-                                    height={250}
                                     style={styles.avatar}
                                     source={{ uri: user?.avatarURL }}
                                 >

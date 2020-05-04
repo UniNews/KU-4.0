@@ -81,7 +81,7 @@ export default class ImageModal extends React.Component {
   render() {
     const {
       source,
-      resizeMode,
+      resizeMode = 'contain',
       renderToHardwareTextureAndroid,
       isTranslucent,
       swipeToDismiss = true,
@@ -97,8 +97,8 @@ export default class ImageModal extends React.Component {
       onMove,
       responderRelease,
       willClose,
-      height,
-      width,
+      // height,
+      // width,
     } = this.props
     const { isOpen, origin } = this.state
     return (
@@ -152,8 +152,8 @@ export default class ImageModal extends React.Component {
           responderRelease={responderRelease}
           willClose={willClose}
           onClose={this._onClose}
-          height={height}
-          width={width}
+          // height={height}
+          // width={width}
         />
       </View>
     )

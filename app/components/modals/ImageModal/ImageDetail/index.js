@@ -538,8 +538,8 @@ export default class ImageDetail extends React.Component {
       backgroundColor = '#000000',
       renderHeader,
       renderFooter,
-      height,
-      width
+      // height,
+      // width
     } = this.props
     const animateConf = {
       transform: [
@@ -641,17 +641,14 @@ export default class ImageDetail extends React.Component {
         <Animated.View
           style={[animateConf, {
             flex: 1,
-            justifyContent: 'center',
-            position: 'absolute',
           }]}
           useNativeDriver={true}
           renderToHardwareTextureAndroid={renderToHardwareTextureAndroid === false ? false : true}>
           <Image
             resizeMode={resizeMode}
             style={{
-              height: height,
-              width: width || '100%',
-              alignSelf: 'center'
+              height: '100%',
+              width: '100%',
             }}
             source={source}
           />

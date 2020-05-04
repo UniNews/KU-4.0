@@ -40,7 +40,7 @@
         "WRITE_EXTERNAL_STORAGE"
       ],
       "package": "com.uninews.ku",
-      "versionCode": 3
+      "versionCode": 4
     },
     "notification": {
       "icon": "./app/assets/imgs/icon.png"

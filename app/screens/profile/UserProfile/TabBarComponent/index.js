@@ -98,8 +98,6 @@ class tabBarComponent extends React.Component {
                             </View>
                             <View>
                                 <ImageModal
-                                    width={250}
-                                    height={250}
                                     source={user ? { uri: user.avatarURL } : require('../../../../assets/imgs/avatar-default.png')}
                                     style={styles.avatar}
                                 />

@@ -183,7 +183,6 @@ class DetailView extends React.Component {
                             />
                         }>
                             <ImageModal
-                                height={250}
                                 style={styles.newsImage}
                                 source={{ uri: news.imageURL }} >
                             </ImageModal>
