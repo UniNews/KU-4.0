@@ -45,7 +45,7 @@
         }
       },
       "package": "com.uninews.ku",
-      "versionCode": 4
+      "versionCode": 5
     },
     "notification": {
       "icon": "./app/assets/imgs/icon.png"

@@ -1,5 +1,17 @@
 import React from 'react'
-import { View, TouchableWithoutFeedback, Image, Text, TouchableOpacity, TextInput, ActivityIndicator, TouchableNativeFeedback, FlatList } from 'react-native'
+import {
+    View,
+    TouchableWithoutFeedback,
+    Image,
+    Text,
+    TouchableOpacity,
+    TextInput,
+    ActivityIndicator,
+    TouchableNativeFeedback,
+    Platform,
+    FlatList,
+    KeyboardAvoidingView
+} from 'react-native'
 import styles from './styles'
 import Header from '../../../components/commons/Header'
 import { FontAwesome, Feather, MaterialCommunityIcons, } from '@expo/vector-icons'
@@ -331,7 +343,9 @@ class DetailView extends React.Component {
                 />
                 {
                     !loading ?
-                        <View style={styles.commentsContainer}>
+                        <KeyboardAvoidingView
+                            behavior={Platform.OS === 'ios' ? 'padding' : null}
+                            style={styles.commentsContainer}>
                             <FlatList
                                 ref={ref => this.flatList = ref}
                                 refreshing={refreshing}
@@ -363,7 +377,7 @@ class DetailView extends React.Component {
                                     </Button>
                                 }
                             </View>
-                        </View>
+                        </KeyboardAvoidingView>
                         :
                         <Spinner />
                 }

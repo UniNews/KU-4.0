@@ -88,6 +88,8 @@ export default StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         paddingRight: 10,
+        bottom: 0,
+        position: 'absolute'
     },
     textInputField: {
         marginRight: 10,
@@ -131,7 +133,7 @@ export default StyleSheet.create({
     },
     commentsContainer: {
         flex: 1,
-        justifyContent: 'space-between'
+        // justifyContent: 'space-between'
     },
     tagIconContainer: {
         flexDirection: 'row',

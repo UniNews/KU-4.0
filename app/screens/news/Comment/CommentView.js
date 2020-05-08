@@ -4,7 +4,9 @@ import {
   ActivityIndicator,
   TextInput,
   Text,
-  FlatList
+  FlatList,
+  KeyboardAvoidingView,
+  Platform
 } from 'react-native'
 import styles from './styles'
 import Header from '../../../components/commons/Header'
@@ -173,7 +175,9 @@ class CommentView extends React.Component {
           }
         />
         {!loading ? (
-          <View style={styles.contentContainer}>
+          <KeyboardAvoidingView
+            behavior={Platform.OS === 'ios' ? 'padding' : null}
+            style={styles.contentContainer}>
             <FlatList
               ref={ref => this.flatList = ref}
               onContentSizeChange={this.onContentSizeChangeScroll}
@@ -203,7 +207,7 @@ class CommentView extends React.Component {
                   </Button>
                 )}
             </View>
-          </View>
+          </KeyboardAvoidingView>
 
         ) :
           <Spinner />
