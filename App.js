@@ -18,7 +18,8 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   alertContainer: {
-    paddingBottom: 10
+    paddingBottom: 10,
+    paddingHorizontal: 10,
   },
   alertTitle: {
     fontSize: 16,
