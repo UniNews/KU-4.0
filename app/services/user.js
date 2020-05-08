@@ -56,7 +56,8 @@ export default {
     loginByGoogle: async () => {
         try {
             const { type, accessToken, user } = await Google.logInAsync({
-                androidClientId: '1045585339073-mi412ka3jab2bhktcjelgfr8jiracooq.apps.googleusercontent.com',
+                androidStandaloneAppClientId: '1045585339073-mi412ka3jab2bhktcjelgfr8jiracooq.apps.googleusercontent.com',
+                androidClientId: '1045585339073-q94tvjltprjskr44seopqrsq4qa4tauc.apps.googleusercontent.com',
                 iosClientId: '1045585339073-vgejvthvp0173sdhbmelcmbe0hq5q0v4.apps.googleusercontent.com',
                 scopes: ['profile', 'email']
             })

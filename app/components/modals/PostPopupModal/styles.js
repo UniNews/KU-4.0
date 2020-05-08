@@ -9,14 +9,16 @@ export default StyleSheet.create({
         alignItems: 'center',
     },
     modalView: {
-        elevation: 4,
-        backgroundColor: 'white',
-        padding: 20,
         alignItems: 'center',
-        borderBottomWidth: StyleSheet.hairlineWidth,
-        borderColor: 'grey',
+        padding: 20,
+
     },
     modalText: {
         fontFamily: REGULAR_FONT,
     },
+    border: {
+        backgroundColor: 'white',
+        borderRadius: 5,
+        elevation: 4,
+    }
 })

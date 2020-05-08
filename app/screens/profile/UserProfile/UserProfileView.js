@@ -17,7 +17,7 @@ const Navigator = createAppContainer(createMaterialTopTabNavigator({
 }, {
     tabBarComponent,
     backBehavior: 'none',
-    swipeEnabled: false
+    swipeEnabled: true
 }))
 
 class UserProfileView extends React.Component {
@@ -90,7 +90,7 @@ class UserProfileView extends React.Component {
                                 if (currentState.index === 0) {
                                     Animated.timing(scroll, {
                                         toValue: this.profileOffset,
-                                        duration: 0,
+                                        duration: 500,
                                         useNativeDriver: true
                                     }).start()
                                 }

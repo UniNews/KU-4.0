@@ -5,6 +5,7 @@ import { AlertHelper } from '../../../configs/alertHelper'
 import { Notifications } from 'expo'
 import { LinearGradient } from 'expo-linear-gradient'
 import { KU_PRIMARY_COLOR, KU_SECONDARY_COLOR } from '../../../assets/css/color'
+import * as Font from 'expo-font'
 
 class LoadingView extends React.Component {
 
@@ -13,6 +14,10 @@ class LoadingView extends React.Component {
     }
 
     async componentDidMount() {
+        await Font.loadAsync({
+            'Kanit-Regular': require('../../../assets/fonts/Kanit-Medium.ttf'),
+            'Kanit-Light': require('../../../assets/fonts/Kanit-Light.ttf'),
+        })
         const { autoLogin, getNotifications } = this.props
         try {
             const accessToken = await AsyncStorage.getItem('accessToken')

@@ -131,6 +131,7 @@ export default StyleSheet.create({
     },
     commentsContainer: {
         flex: 1,
+        justifyContent: 'space-between'
     },
     tagIconContainer: {
         flexDirection: 'row',

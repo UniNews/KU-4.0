@@ -137,7 +137,7 @@ class tabBarComponent extends React.Component {
                                         </TouchableNativeFeedback>
                                     </View>
                                     :
-                                    <View>
+                                    <View style={styles.infoContainer}>
                                         <TouchableNativeFeedback onPress={this.goFollower}>
                                             <View style={styles.indicatorContainer}>
                                                 <Text style={styles.numberText}>

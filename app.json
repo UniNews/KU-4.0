@@ -12,9 +12,8 @@
     "orientation": "portrait",
     "icon": "./app/assets/imgs/icon.png",
     "splash": {
-      "image": "./app/assets/imgs/main-logo.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#465859"
+      "image": "./app/assets/imgs/gradient.png",
+      "resizeMode": "cover"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -39,6 +38,12 @@
         "READ_EXTERNAL_STORAGE",
         "WRITE_EXTERNAL_STORAGE"
       ],
+      "config": {
+        "googleSignIn": {
+          "apiKey": "AIzaSyDDC5bPM-P92QqDbMan9ZuW72nsLDnbpHo",
+          "certificateHash": "0D3E7ED88AF3147CE6503BF97A55A84815B1C1B3"
+        }
+      },
       "package": "com.uninews.ku",
       "versionCode": 4
     },

@@ -6,6 +6,7 @@ import { Feather, FontAwesome } from '@expo/vector-icons'
 import { KU_SECONDARY_COLOR } from '../../../assets/css/color'
 import newsService from '../../../services/news'
 import { AlertHelper } from '../../../configs/alertHelper'
+import KeyboardShift from '../../../components/commons/KeyboardShift'
 
 const TOPICS = [
     'สแปม',
@@ -86,80 +87,83 @@ class PostReportView extends React.Component {
         const { loading, title, detail } = this.state
         return (
             <View style={styles.containter}>
-                <Header
-                    title={'รายงานโพสต์'}
-                    leftIconComponent={
-                        <Feather
-                            color='white'
-                            onPress={this.goBack}
-                            size={28}
-                            name={'chevron-left'}
-                        />
-                    }
-                    rightIconComponent={
-                        <View style={styles.saveButton}>
-                            {
-                                loading
-                                    ?
-                                    <ActivityIndicator color={'white'} />
-                                    :
-                                    <TouchableWithoutFeedback onPress={this.report}>
-                                        <Feather name={'check'} size={25} color={this.validate() ? 'white' : 'rgba(255, 255, 255, 0.4)'} />
-                                    </TouchableWithoutFeedback>
+                <KeyboardShift>
+
+                    <Header
+                        title={'รายงานโพสต์'}
+                        leftIconComponent={
+                            <Feather
+                                color='white'
+                                onPress={this.goBack}
+                                size={28}
+                                name={'chevron-left'}
+                            />
+                        }
+                        rightIconComponent={
+                            <View style={styles.saveButton}>
+                                {
+                                    loading
+                                        ?
+                                        <ActivityIndicator color={'white'} />
+                                        :
+                                        <TouchableWithoutFeedback onPress={this.report}>
+                                            <Feather name={'check'} size={25} color={this.validate() ? 'white' : 'rgba(255, 255, 255, 0.4)'} />
+                                        </TouchableWithoutFeedback>
+                                }
+                            </View>
+
+                        }
+                    />
+
+                    <View style={styles.descriptionContainer}>
+                        <Text style={styles.descriptionText}>
+                            โปรดเลือกหัวข้อที่ต้องการรายงาน
+                    </Text>
+                        <View style={styles.listContainer}>
+
+                            {TOPICS.map((topic, index) => {
+                                return <TouchableNativeFeedback onPress={() => this.selectTopic(topic)} key={index}>
+                                    <View style={styles.topicContainer}>
+                                        <View style={styles.selectIconContainer}>
+                                            {
+                                                title === topic
+                                                    ?
+                                                    <FontAwesome name={'check-circle'} size={24} color={KU_SECONDARY_COLOR} />
+                                                    :
+                                                    <Feather name={'circle'} size={22} color={'rgba(0, 0, 0, 0.3)'} />
+                                            }
+                                        </View>
+                                        <Text style={styles.topicText}>
+                                            {topic}
+                                        </Text>
+                                    </View>
+                                </TouchableNativeFeedback>
+                            })
                             }
                         </View>
-
-                    }
-                />
-
-                <View style={styles.descriptionContainer}>
-                    <Text style={styles.descriptionText}>
-                        โปรดเลือกหัวข้อที่ต้องการรายงาน
-                    </Text>
-                    <View style={styles.listContainer}>
-
-                        {TOPICS.map((topic, index) => {
-                            return <TouchableNativeFeedback onPress={() => this.selectTopic(topic)} key={index}>
-                                <View style={styles.topicContainer}>
-                                    <View style={styles.selectIconContainer}>
-                                        {
-                                            title === topic
-                                                ?
-                                                <FontAwesome name={'check-circle'} size={24} color={KU_SECONDARY_COLOR} />
-                                                :
-                                                <Feather name={'circle'} size={22} color={'rgba(0, 0, 0, 0.3)'} />
-                                        }
+                        {
+                            title === 'อื่นๆ' ?
+                                <View>
+                                    <Text style={styles.descriptionText}>
+                                        โปรดกรอกรายละเอียดเพื่อดำเนินการต่อ
+                                </Text>
+                                    <View style={styles.textInputFieldContainer}>
+                                        <TextInput
+                                            maxLength={1000}
+                                            value={detail}
+                                            placeholderTextColor={'grey'}
+                                            style={styles.textInputField}
+                                            placeholder={'รายละเอียด'}
+                                            onChangeText={this.updateDetail}
+                                            multiline
+                                        />
                                     </View>
-                                    <Text style={styles.topicText}>
-                                        {topic}
-                                    </Text>
                                 </View>
-                            </TouchableNativeFeedback>
-                        })
+                                :
+                                null
                         }
                     </View>
-                    {
-                        title === 'อื่นๆ' ?
-                            <View>
-                                <Text style={styles.descriptionText}>
-                                    โปรดกรอกรายละเอียดเพื่อดำเนินการต่อ
-                                </Text>
-                                <View style={styles.textInputFieldContainer}>
-                                    <TextInput
-                                        maxLength={1000}
-                                        value={detail}
-                                        placeholderTextColor={'grey'}
-                                        style={styles.textInputField}
-                                        placeholder={'รายละเอียด'}
-                                        onChangeText={this.updateDetail}
-                                        multiline
-                                    />
-                                </View>
-                            </View>
-                            :
-                            null
-                    }
-                </View>
+                </KeyboardShift>
             </View >
         )
     }

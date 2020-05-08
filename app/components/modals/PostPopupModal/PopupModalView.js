@@ -72,7 +72,7 @@ class PopupModalView extends React.Component {
                 onRequestClose={this.closeModal} >
                 <TouchableWithoutFeedback onPress={this.closeHandler}>
                     <View style={styles.centeredView}>
-                        <View>
+                        <View style={styles.border}>
                             <TouchableNativeFeedback onPress={this.reportHandler}>
                                 <View style={styles.modalView}>
                                     <Text style={styles.modalText}>

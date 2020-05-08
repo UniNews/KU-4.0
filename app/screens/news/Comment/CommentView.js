@@ -173,7 +173,7 @@ class CommentView extends React.Component {
           }
         />
         {!loading ? (
-          <View style={{ flex: 1 }}>
+          <View style={styles.contentContainer}>
             <FlatList
               ref={ref => this.flatList = ref}
               onContentSizeChange={this.onContentSizeChangeScroll}

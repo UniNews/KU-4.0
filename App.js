@@ -4,14 +4,12 @@ import { Provider } from 'react-redux'
 import { createStore, applyMiddleware } from 'redux'
 import thunkMiddleware from 'redux-thunk'
 import reducers from './app/reducers/index'
-import * as Font from 'expo-font'
 import { StyleSheet } from 'react-native'
 import DropdownAlert from 'react-native-dropdownalert'
 import { AlertHelper } from './app/configs/alertHelper'
 import { BOLD_FONT, REGULAR_FONT } from './app/assets/css/typography'
 import SafeAreaView from './app/components/commons/SafeAreaView'
 import ErrorModal from './app/components/modals/ErrorModal'
-import Spinner from './app/components/commons/Spinner'
 
 const store = createStore(reducers, applyMiddleware(thunkMiddleware))
 
@@ -20,7 +18,7 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   alertContainer: {
-    padding: 10
+    paddingBottom: 10
   },
   alertTitle: {
     fontSize: 16,
@@ -38,23 +36,9 @@ export default class App extends React.Component {
 
   constructor(props) {
     super(props)
-    this.state = {
-      fontLoaded: false
-    }
-  }
-
-  async componentDidMount() {
-    await Font.loadAsync({
-      'Kanit-Regular': require('./app/assets/fonts/Kanit-Medium.ttf'),
-      'Kanit-Light': require('./app/assets/fonts/Kanit-Light.ttf'),
-    })
-    this.setState({ fontLoaded: true })
   }
 
   render() {
-    if (!this.state.fontLoaded) {
-      return <Spinner />
-    }
     return (
       <SafeAreaView>
         <Provider store={store}>

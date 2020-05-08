@@ -151,6 +151,7 @@ class DetailView extends React.Component {
             return 'ข่าวของหาย'
         else if (news.newsType === 'university')
             return 'ข่าวมหาลัย'
+        else return 'ข่าว'
     }
 
     goTag = (tag) => {

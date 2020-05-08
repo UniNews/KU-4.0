@@ -111,4 +111,8 @@ export default StyleSheet.create({
         fontFamily: REGULAR_FONT,
         color: 'grey'
     },
+    contentContainer: {
+        flex: 1,
+        justifyContent: 'space-between'
+    }
 });
