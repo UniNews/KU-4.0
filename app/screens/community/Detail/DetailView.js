@@ -344,7 +344,7 @@ class DetailView extends React.Component {
                 {
                     !loading ?
                         <KeyboardAvoidingView
-                            behavior={Platform.OS === 'ios' ? 'padding' : null}
+                            behavior={__DEV__ ? null : 'padding'}
                             style={styles.commentsContainer}>
                             <FlatList
                                 ref={ref => this.flatList = ref}

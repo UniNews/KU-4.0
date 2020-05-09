@@ -6,7 +6,6 @@ import {
   Text,
   FlatList,
   KeyboardAvoidingView,
-  Platform
 } from 'react-native'
 import styles from './styles'
 import Header from '../../../components/commons/Header'
@@ -176,7 +175,7 @@ class CommentView extends React.Component {
         />
         {!loading ? (
           <KeyboardAvoidingView
-            behavior={Platform.OS === 'ios' ? 'padding' : null}
+            behavior={__DEV__ ? null : 'padding'}
             style={styles.contentContainer}>
             <FlatList
               ref={ref => this.flatList = ref}
