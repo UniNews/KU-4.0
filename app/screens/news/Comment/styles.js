@@ -89,8 +89,6 @@ export default StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         paddingRight: 10,
-        bottom: 0,
-        position: 'absolute'
     },
     textInputField: {
         marginRight: 10,

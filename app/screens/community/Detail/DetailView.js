@@ -22,6 +22,7 @@ import { PRIMARY_COLOR, SECONDARY_COLOR } from '../../../assets/css/color'
 import Comment from '../../../components/commons/Comment'
 import Spinner from '../../../components/commons/Spinner'
 import PostPopupModal from '../../../components/modals/PostPopupModal'
+import { STATUS_BAR_HEIGHT } from '../../../assets/css/device'
 
 class DetailView extends React.Component {
 
@@ -344,7 +345,8 @@ class DetailView extends React.Component {
                 {
                     !loading ?
                         <KeyboardAvoidingView
-                            behavior={__DEV__ ? null : 'padding'}
+                            keyboardVerticalOffset={STATUS_BAR_HEIGHT}
+                            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
                             style={styles.commentsContainer}>
                             <FlatList
                                 ref={ref => this.flatList = ref}

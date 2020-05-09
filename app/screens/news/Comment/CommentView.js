@@ -6,6 +6,7 @@ import {
   Text,
   FlatList,
   KeyboardAvoidingView,
+  Platform
 } from 'react-native'
 import styles from './styles'
 import Header from '../../../components/commons/Header'
@@ -16,6 +17,7 @@ import { Feather } from '@expo/vector-icons'
 import Button from '../../../components/commons/Button'
 import Spinner from '../../../components/commons/Spinner'
 import PostPopupModal from '../../../components/modals/PostPopupModal'
+import { STATUS_BAR_HEIGHT } from '../../../assets/css/device'
 
 class CommentView extends React.Component {
 
@@ -175,7 +177,8 @@ class CommentView extends React.Component {
         />
         {!loading ? (
           <KeyboardAvoidingView
-            behavior={__DEV__ ? null : 'padding'}
+            keyboardVerticalOffset={STATUS_BAR_HEIGHT}
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
             style={styles.contentContainer}>
             <FlatList
               ref={ref => this.flatList = ref}
