@@ -9,6 +9,7 @@ import Button from '../../../components/commons/Button'
 import { KU_PRIMARY_COLOR, KU_SECONDARY_COLOR } from '../../../assets/css/color'
 import LoadingModal from '../../../components/modals/LoadingModal'
 import KeyboardShift from '../../../components/commons/KeyboardShift'
+import { Notifications } from 'expo'
 
 class LoginView extends React.Component {
 
@@ -21,10 +22,24 @@ class LoginView extends React.Component {
         }
     }
 
+    handleNotification = notification => {
+        if (notification.origin === 'selected') {
+            if (this.props.navigation)
+                this.props.navigation.navigate('แจ้งเตือน')
+        }
+        else {
+            if (this.props.getNotifications)
+                this.props.getNotifications()
+        }
+    }
+
     componentDidUpdate(prevProps) {
         const { user, error, getNotifications } = this.props
         if (user) {
             getNotifications()
+            Notifications.addListener(
+                this.handleNotification
+            )
             this.props.navigation.navigate('Main')
             AlertHelper.alert('info', 'ล็อกอินสำเร็จ', 'สวัสดีคุณ ' + user.displayName)
         }

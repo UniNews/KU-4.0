@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, AsyncStorage, Vibration, Image } from 'react-native'
+import { View, AsyncStorage, Image } from 'react-native'
 import styles from './styles'
 import { AlertHelper } from '../../../configs/alertHelper'
 import { Notifications } from 'expo'
@@ -18,16 +18,11 @@ class LoadingView extends React.Component {
             'Kanit-Regular': require('../../../assets/fonts/Kanit-Medium.ttf'),
             'Kanit-Light': require('../../../assets/fonts/Kanit-Light.ttf'),
         })
-        const { autoLogin, getNotifications } = this.props
+        const { autoLogin } = this.props
         try {
             const accessToken = await AsyncStorage.getItem('accessToken')
-            if (accessToken) {
+            if (accessToken)
                 autoLogin(accessToken)
-                getNotifications()
-                Notifications.addListener(
-                    this.handleNotification
-                )
-            }
             else
                 this.goLogin()
         } catch (err) {
@@ -37,11 +32,13 @@ class LoadingView extends React.Component {
     }
 
     handleNotification = notification => {
-        if (notification.origin === 'selected')
-            this.props.navigation.navigate('แจ้งเตือน')
+        if (notification.origin === 'selected') {
+            if (this.props.navigation)
+                this.props.navigation.navigate('แจ้งเตือน')
+        }
         else {
-            this.props.getNotifications()
-            Vibration.vibrate()
+            if (this.props.getNotifications)
+                this.props.getNotifications()
         }
     }
 
@@ -56,8 +53,12 @@ class LoadingView extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        const { user, error } = this.props
+        const { user, error, getNotifications } = this.props
         if (user) {
+            getNotifications()
+            Notifications.addListener(
+                this.handleNotification
+            )
             this.goMain()
             AlertHelper.alert('info', 'ล็อกอินสำเร็จ', 'สวัสดีคุณ ' + user.displayName)
         }

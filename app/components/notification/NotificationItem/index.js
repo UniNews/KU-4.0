@@ -41,7 +41,7 @@ class NotificationItem extends Component {
                                         {data.sender?.displayName}
                                     </Text>
                                     <Text numberOfLines={2} style={styles.description}>
-                                        {data.title}
+                                        {data.type === 'follower' ? data.title : data.body}
                                     </Text>
                                     <View style={styles.dateIconContainer}>
                                         <FontAwesome name='clock-o' size={13} color='grey' />
