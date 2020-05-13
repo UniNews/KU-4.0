@@ -12,9 +12,9 @@ class CustomSafeAreaView extends Component {
       flex: 1
     }}>
       <SafeAreaView style={styles.topContainer} />
-      <SafeAreaView style={styles.bottomContainer}>
-        {this.props.children}
-      </SafeAreaView>
+      {/* <SafeAreaView style={styles.bottomContainer}> */}
+      {this.props.children}
+      {/* </SafeAreaView> */}
     </View>
 
   }

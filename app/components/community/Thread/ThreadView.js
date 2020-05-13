@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
-import { View, Text, TouchableOpacity, TouchableNativeFeedback } from 'react-native'
+import { View, Text, TouchableOpacity } from 'react-native'
 import { FontAwesome } from '@expo/vector-icons'
 import styles from './styles'
 import PropTypes from 'prop-types'
 import { convertTimestamptoDate } from '../../../assets/javascripts/date'
 import newsService from './../../../services/news'
 import { PRIMARY_COLOR } from '../../../assets/css/color'
+import PlatformTouchable from '../../commons/PlatformTouchable'
 
 class Thread extends Component {
 
@@ -75,7 +76,7 @@ class Thread extends Component {
         else
             container = styles.container
         return (
-            <TouchableNativeFeedback
+            <PlatformTouchable
                 onPress={this.onThreadPressedHandler}>
                 <View style={container}>
                     <View style={styles.innerContainer}>
@@ -120,7 +121,7 @@ class Thread extends Component {
                         </View>
                     </View>
                 </View>
-            </TouchableNativeFeedback>
+            </PlatformTouchable>
         )
     }
 }

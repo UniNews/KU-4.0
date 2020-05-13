@@ -1,6 +1,7 @@
 import React from 'react'
-import { Text, View, Modal, TouchableNativeFeedback, TouchableWithoutFeedback } from 'react-native'
+import { Text, View, Modal, TouchableWithoutFeedback } from 'react-native'
 import styles from './styles'
+import PlatformTouchable from '../../commons/PlatformTouchable'
 
 class PopupModalView extends React.Component {
 
@@ -73,23 +74,23 @@ class PopupModalView extends React.Component {
                 <TouchableWithoutFeedback onPress={this.closeHandler}>
                     <View style={styles.centeredView}>
                         <View style={styles.border}>
-                            <TouchableNativeFeedback onPress={this.reportHandler}>
+                            <PlatformTouchable onPress={this.reportHandler}>
                                 <View style={styles.modalView}>
                                     <Text style={styles.modalText}>
                                         รายงานโพสต์
                                 </Text>
                                 </View>
-                            </TouchableNativeFeedback>
+                            </PlatformTouchable>
                             {
                                 post && (user._id === post.author?._id)
                                     ?
-                                    <TouchableNativeFeedback onPress={this.deleteHandler}>
+                                    <PlatformTouchable onPress={this.deleteHandler}>
                                         <View style={styles.modalView}>
                                             <Text style={styles.modalText}>
                                                 ลบโพสต์
                                         </Text>
                                         </View>
-                                    </TouchableNativeFeedback>
+                                    </PlatformTouchable>
                                     :
                                     null
                             }

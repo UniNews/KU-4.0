@@ -1,11 +1,12 @@
 import React from 'react'
-import { SectionList, FlatList, TouchableNativeFeedback, View } from 'react-native'
+import { SectionList, FlatList, View } from 'react-native'
 import styles from './styles'
 import SliderBox from '../../../components/news/PaginationSlider'
 import SectionHeader from '../../../components/commons/SectionHeader'
 import NewsCard from '../../../components/news/NewsCard'
 import newsService from '../../../services/news'
 import Spinner from '../../../components/commons/Spinner'
+import PlatformTouchable from '../../../components/commons/PlatformTouchable'
 
 class RecommendationView extends React.Component {
 
@@ -86,13 +87,13 @@ class RecommendationView extends React.Component {
                     contentContainerStyle={styles.sectionList}
                     sections={sections}
                     renderSectionHeader={({ section }) => (
-                        <TouchableNativeFeedback onPress={() => {
+                        <PlatformTouchable onPress={() => {
                             this.goSectionHeader(section)
                         }}>
                             <View style={styles.section}>
                                 <SectionHeader title={section.title} subtitle={'เพิ่มเติม'} />
                             </View>
-                        </TouchableNativeFeedback>
+                        </PlatformTouchable>
                     )}
                     renderItem={(news) =>
                         news.section.title === 'แนะนำ' ?

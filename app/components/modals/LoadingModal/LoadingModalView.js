@@ -1,7 +1,6 @@
 import React from 'react'
 import { View, Modal, Text, ActivityIndicator } from 'react-native'
 import styles from './styles'
-import Spinner from './../../commons/Spinner'
 import { PRIMARY_COLOR } from '../../../assets/css/color'
 class LoadingModalView extends React.Component {
 

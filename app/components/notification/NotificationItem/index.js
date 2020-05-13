@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
-import { View, Image, Text, TouchableWithoutFeedback, TouchableNativeFeedback } from 'react-native'
+import { View, Image, Text, TouchableWithoutFeedback } from 'react-native'
 import styles from './styles'
 import { Feather, FontAwesome } from '@expo/vector-icons'
 import { convertTimestamptoDate } from '../../../assets/javascripts/date'
+import PlatformTouchable from '../../commons/PlatformTouchable'
 
 class NotificationItem extends Component {
 
@@ -26,7 +27,7 @@ class NotificationItem extends Component {
         const { data } = this.props
         return (
             data ?
-                <TouchableNativeFeedback onPress={this.onNotificationPressedHandler}>
+                <PlatformTouchable onPress={this.onNotificationPressedHandler}>
                     <View style={data.isRead ? styles.readBackground : styles.notReadBackground}>
                         <View style={styles.container}>
                             <View style={styles.leftContainer}>
@@ -58,7 +59,7 @@ class NotificationItem extends Component {
                             </View>
                         </View>
                     </View>
-                </TouchableNativeFeedback>
+                </PlatformTouchable>
                 :
                 null
         )

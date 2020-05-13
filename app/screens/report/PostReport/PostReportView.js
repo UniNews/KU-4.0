@@ -1,5 +1,5 @@
 import React from 'react'
-import { TouchableNativeFeedback, View, Text, TouchableWithoutFeedback, ActivityIndicator, TextInput } from 'react-native'
+import { View, Text, TouchableWithoutFeedback, ActivityIndicator, TextInput } from 'react-native'
 import styles from './styles'
 import Header from '../../../components/commons/Header'
 import { Feather, FontAwesome } from '@expo/vector-icons'
@@ -7,6 +7,8 @@ import { KU_SECONDARY_COLOR } from '../../../assets/css/color'
 import newsService from '../../../services/news'
 import { AlertHelper } from '../../../configs/alertHelper'
 import KeyboardShift from '../../../components/commons/KeyboardShift'
+import PlatformTouchable from '../../../components/commons/PlatformTouchable'
+
 
 const TOPICS = [
     'สแปม',
@@ -122,7 +124,7 @@ class PostReportView extends React.Component {
                         <View style={styles.listContainer}>
 
                             {TOPICS.map((topic, index) => {
-                                return <TouchableNativeFeedback onPress={() => this.selectTopic(topic)} key={index}>
+                                return <PlatformTouchable onPress={() => this.selectTopic(topic)} key={index}>
                                     <View style={styles.topicContainer}>
                                         <View style={styles.selectIconContainer}>
                                             {
@@ -137,7 +139,7 @@ class PostReportView extends React.Component {
                                             {topic}
                                         </Text>
                                     </View>
-                                </TouchableNativeFeedback>
+                                </PlatformTouchable>
                             })
                             }
                         </View>

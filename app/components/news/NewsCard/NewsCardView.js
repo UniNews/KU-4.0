@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
-import { View, Text, Image, TouchableNativeFeedback, TouchableOpacity } from 'react-native'
+import { View, Text, Image, TouchableOpacity } from 'react-native'
 import styles from './styles'
 import { convertTimestamptoDate } from '../../../assets/javascripts/date'
 import { FontAwesome, } from '@expo/vector-icons'
 import { PRIMARY_COLOR } from '../../../assets/css/color'
 import newsService from '../../../services/news'
+import PlatformTouchable from '../../commons/PlatformTouchable'
 
 class NewsCard extends Component {
 
@@ -70,7 +71,7 @@ class NewsCard extends Component {
         else
             inlineStyle = styles.cardContainer
         return (
-            <TouchableNativeFeedback
+            <PlatformTouchable
                 onPress={this.onNewsPressedHandler}
             >
                 <View style={[inlineStyle, styles.border]}>
@@ -129,7 +130,7 @@ class NewsCard extends Component {
                         </View>
                     </View>
                 </View>
-            </TouchableNativeFeedback>
+            </PlatformTouchable>
         )
     }
 }

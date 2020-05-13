@@ -1,10 +1,11 @@
 import React from 'react'
-import { Text, View, TouchableNativeFeedback, ScrollView } from 'react-native'
+import { Text, View, ScrollView } from 'react-native'
 import { Feather } from '@expo/vector-icons'
 import styles from './styles'
 import { LinearGradient } from 'expo-linear-gradient'
 import LoadingModal from '../../../components/modals/LoadingModal'
 import ImageModal from '../../../components/modals/ImageModal'
+import PlatformTouchable from '../../../components/commons/PlatformTouchable'
 
 class MyProfileView extends React.Component {
 
@@ -75,63 +76,63 @@ class MyProfileView extends React.Component {
         const { loading } = this.state
         return (
             <View style={styles.containter}>
-                <View style={styles.headContainer}>
-                    <LinearGradient style={styles.linearGradient} start={{ x: 0, y: 0 }} end={{ x: 0, y: 0.8 }} colors={['#465859', '#588E57']}>
-                        <View style={styles.innerHeadContainer}>
+                <ScrollView >
+                    <View style={styles.headContainer}>
+                        <LinearGradient style={styles.linearGradient} start={{ x: 0, y: 0 }} end={{ x: 0, y: 0.8 }} colors={['#465859', '#588E57']}>
+                            <View style={styles.innerHeadContainer}>
 
-                            <View>
-                                <ImageModal
-                                    style={styles.avatar}
-                                    source={{ uri: user?.avatarURL }}
-                                >
-                                </ImageModal>
-                            </View>
+                                <View>
+                                    <ImageModal
+                                        style={styles.avatar}
+                                        source={{ uri: user?.avatarURL }}
+                                    >
+                                    </ImageModal>
+                                </View>
 
-                            <View style={styles.nameContainer}>
-                                <Text style={styles.name}>
-                                    {user?.displayName}
-                                </Text>
+                                <View style={styles.nameContainer}>
+                                    <Text style={styles.name}>
+                                        {user?.displayName}
+                                    </Text>
+                                </View>
+                                <View style={styles.bioContainer}>
+                                    <Text style={styles.bio}>
+                                        {user?.bio}
+                                    </Text>
+                                </View>
                             </View>
-                            <View style={styles.bioContainer}>
-                                <Text style={styles.bio}>
-                                    {user?.bio}
-                                </Text>
-                            </View>
-                        </View>
-                    </LinearGradient>
-                </View>
-                <ScrollView>
-                    <TouchableNativeFeedback onPress={this.goProfileSetting}>
+                        </LinearGradient>
+                    </View>
+                    <PlatformTouchable onPress={this.goProfileSetting}>
                         <View style={styles.settingContainer}>
                             <Text style={styles.settingText}>รูป และชื่อผู้ใช้</Text>
                             <Feather name={'chevron-right'} size={20} color={'gray'} />
                         </View>
-                    </TouchableNativeFeedback>
-                    <TouchableNativeFeedback onPress={this.goMyPosts}>
+                    </PlatformTouchable>
+                    <PlatformTouchable onPress={this.goMyPosts}>
                         <View style={styles.settingContainer}>
                             <Text style={styles.settingText}>โพสต์ของฉัน</Text>
                             <Feather name={'chevron-right'} size={20} color={'gray'} />
                         </View>
-                    </TouchableNativeFeedback>
-                    <TouchableNativeFeedback onPress={this.goFollowing}>
+                    </PlatformTouchable>
+                    <PlatformTouchable onPress={this.goFollowing}>
                         <View style={styles.settingContainer}>
                             <Text style={styles.settingText}>กำลังติดตาม</Text>
                             <Feather name={'chevron-right'} size={20} color={'gray'} />
                         </View>
-                    </TouchableNativeFeedback>
-                    <TouchableNativeFeedback onPress={this.goFollower}>
+                    </PlatformTouchable>
+                    <PlatformTouchable onPress={this.goFollower}>
                         <View style={styles.settingContainer}>
                             <Text style={styles.settingText}>ผู้ติดตาม</Text>
                             <Feather name={'chevron-right'} size={20} color={'gray'} />
                         </View>
-                    </TouchableNativeFeedback>
-                    <TouchableNativeFeedback onPress={this.logout}>
+                    </PlatformTouchable>
+                    <PlatformTouchable onPress={this.logout}>
                         <View style={styles.settingContainer}>
                             <Text style={styles.settingText}>ออกจากระบบ</Text>
                         </View>
-                    </TouchableNativeFeedback>
+                    </PlatformTouchable>
+                    <LoadingModal message={'ออกจากระบบ...'} visible={loading} />
                 </ScrollView>
-                <LoadingModal message={'ออกจากระบบ...'} visible={loading} />
             </View>
         )
     }

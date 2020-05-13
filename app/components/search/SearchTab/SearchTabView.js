@@ -1,9 +1,10 @@
 import React from 'react'
-import { View, TouchableWithoutFeedback, TextInput, Text, TouchableOpacity, TouchableNativeFeedback, FlatList } from 'react-native'
+import { View, TouchableWithoutFeedback, TextInput, Text, TouchableOpacity, FlatList } from 'react-native'
 import styles from './styles'
 import { MaterialCommunityIcons } from '@expo/vector-icons'
 import { MaterialTopTabBar } from 'react-navigation-tabs'
 import { KU_SECONDARY_COLOR } from '../../../assets/css/color'
+import PlatformTouchable from '../../commons/PlatformTouchable'
 
 class SearchTabView extends React.Component {
 
@@ -56,7 +57,7 @@ class SearchTabView extends React.Component {
     }
 
     renderHistory = ({ item, index }) => {
-        return <TouchableNativeFeedback onPress={() => this.selectHistory(item)}>
+        return <PlatformTouchable onPress={() => this.selectHistory(item)}>
             <View style={styles.searchHistoryTextContainer}>
                 <Text style={styles.searchItemText}>
                     {item}
@@ -65,7 +66,7 @@ class SearchTabView extends React.Component {
                     <MaterialCommunityIcons name='close' color={'grey'} size={18} />
                 </TouchableOpacity>
             </View>
-        </TouchableNativeFeedback>
+        </PlatformTouchable>
     }
 
     renderHistoryHeader = () => {

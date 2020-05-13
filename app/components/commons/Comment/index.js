@@ -5,12 +5,12 @@ import {
   Image,
   TouchableOpacity,
   TouchableWithoutFeedback,
-  TouchableNativeFeedback
 } from 'react-native'
 import styles from './styles'
 import { FontAwesome, MaterialCommunityIcons } from '@expo/vector-icons'
 import { convertTimestamptoDate } from '../../../assets/javascripts/date'
 import { PRIMARY_COLOR } from '../../../assets/css/color'
+import PlatformTouchable from '../../commons/PlatformTouchable'
 
 class Comment extends Component {
   constructor(props) {
@@ -41,7 +41,7 @@ class Comment extends Component {
     else
       profileContainer = styles.profileContainer
     return (
-      <TouchableNativeFeedback
+      <PlatformTouchable
         onLongPress={this.onReportPressHandler}
       >
         <View style={profileContainer}>
@@ -88,7 +88,7 @@ class Comment extends Component {
             </View>
           </View>
         </View>
-      </TouchableNativeFeedback >
+      </PlatformTouchable >
     )
   }
 }

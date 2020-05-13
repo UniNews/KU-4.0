@@ -1,11 +1,12 @@
 import React, { Component } from 'react'
-import { View, Text, Image, TouchableOpacity, TouchableNativeFeedback } from 'react-native'
+import { View, Text, Image, TouchableOpacity } from 'react-native'
 import styles from './styles'
 import PropTypes from 'prop-types'
 import { convertTimestamptoDate } from '../../../assets/javascripts/date'
 import { FontAwesome } from '@expo/vector-icons'
 import newsService from '../../../services/news'
 import { PRIMARY_COLOR } from '../../../assets/css/color'
+import PlatformTouchable from '../../commons/PlatformTouchable'
 
 class NewsCard extends Component {
 
@@ -68,7 +69,7 @@ class NewsCard extends Component {
         const { style, onNewsPressed, ...restProps } = this.props
         const { news } = this.state
         return (
-            <TouchableNativeFeedback
+            <PlatformTouchable
                 onPress={this.onNewsPressedHandler}
                 {...restProps}
             >
@@ -122,7 +123,7 @@ class NewsCard extends Component {
                         </View>
                     </View>
                 </View>
-            </TouchableNativeFeedback>
+            </PlatformTouchable>
         )
     }
 }

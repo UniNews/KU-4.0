@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
-import { View, Image, Text, TouchableNativeFeedback } from 'react-native'
+import { View, Image, Text } from 'react-native'
 import styles from './styles'
 import PropTypes from 'prop-types'
 import Button from '../../commons/Button'
 import userService from '../../../services/user'
+import PlatformTouchable from '../../commons/PlatformTouchable'
 
 class ProfileThread extends Component {
 
@@ -48,7 +49,7 @@ class ProfileThread extends Component {
         const { profile } = this.state
         const { user } = this.props
         return (
-            <TouchableNativeFeedback onPress={this.onProfilePressedHandler}>
+            <PlatformTouchable onPress={this.onProfilePressedHandler}>
                 <View style={styles.container}>
                     <View style={styles.leftContainer}>
                         <Image
@@ -93,7 +94,7 @@ class ProfileThread extends Component {
                             null
                     }
                 </View>
-            </TouchableNativeFeedback>
+            </PlatformTouchable>
         )
     }
 }

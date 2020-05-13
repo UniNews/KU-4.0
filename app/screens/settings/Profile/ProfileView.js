@@ -10,6 +10,7 @@ import Constants from 'expo-constants'
 import { PRIMARY_COLOR } from '../../../assets/css/color'
 import Hr from '../../../components/commons/Hr'
 import KeyboardShift from '../../../components/commons/KeyboardShift'
+import * as Permissions from 'expo-permissions';
 
 class ProfileSettingView extends React.Component {
 
@@ -129,7 +130,7 @@ class ProfileSettingView extends React.Component {
                         </TouchableWithoutFeedback>
                         <Text style={styles.headerText}>
                             แก้ไขโปรไฟล์
-                    </Text>
+                        </Text>
                         {
                             <View style={styles.saveButton}>
                                 {
@@ -144,26 +145,25 @@ class ProfileSettingView extends React.Component {
                             </View>
 
                         }
-                        <View style={styles.imageContainer}>
-                            {uploading
-                                ?
-                                <ActivityIndicator color={PRIMARY_COLOR} style={styles.uploadingSpinner} />
-                                :
-                                <TouchableWithoutFeedback onPress={this.pickImage}>
-                                    <View>
-                                        <Image
-                                            source={{ uri: avatarURL }}
-                                            style={styles.avatar}
-                                        />
-                                        <View style={styles.uploadIconContainer}>
-                                            <MaterialCommunityIcons name={'image-plus'} size={30} color={'white'} />
-                                        </View>
-                                    </View>
-                                </TouchableWithoutFeedback>
-                            }
-                        </View>
                     </LinearGradient>
-
+                    <View style={styles.imageContainer}>
+                        {uploading
+                            ?
+                            <ActivityIndicator color={PRIMARY_COLOR} style={styles.uploadingSpinner} />
+                            :
+                            <TouchableWithoutFeedback onPress={this.pickImage}>
+                                <View>
+                                    <Image
+                                        source={{ uri: avatarURL }}
+                                        style={styles.avatar}
+                                    />
+                                    <View style={styles.uploadIconContainer}>
+                                        <MaterialCommunityIcons name={'image-plus'} size={30} color={'white'} />
+                                    </View>
+                                </View>
+                            </TouchableWithoutFeedback>
+                        }
+                    </View>
                     <View style={styles.descriptionContainer}>
                         <View style={styles.settingContainer}>
                             <Text style={isDisplayNameError ? styles.settingErrorTitleText : styles.settingTitleText}>{`ชื่อผู้ใช้ ${displayNameError}`}</Text>

@@ -20,13 +20,13 @@ export default StyleSheet.create({
         borderRadius: 150 / 2,
         borderWidth: 4,
         borderColor: 'white',
-
     },
     avatar: {
         width: '100%',
         height: '100%',
         borderRadius: 150 / 2,
-        alignSelf: 'center'
+        alignSelf: 'center',
+
     },
     uploadIconContainer: {
         paddingTop: 55,
@@ -42,7 +42,7 @@ export default StyleSheet.create({
     },
     linearGradient: {
         width: circleWidth,
-        height: 150
+        height: 150,
     },
     headerText: {
         paddingTop: 20,
@@ -83,7 +83,7 @@ export default StyleSheet.create({
     },
     descriptionContainer: {
         // flex: 1,
-        paddingVertical: 70,
+        marginVertical: 70,
     },
     uploadingSpinner: {
         flex: 1,

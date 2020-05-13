@@ -7,7 +7,6 @@ import {
     TouchableOpacity,
     TextInput,
     ActivityIndicator,
-    TouchableNativeFeedback,
     Platform,
     FlatList,
     KeyboardAvoidingView
@@ -23,6 +22,7 @@ import Comment from '../../../components/commons/Comment'
 import Spinner from '../../../components/commons/Spinner'
 import PostPopupModal from '../../../components/modals/PostPopupModal'
 import { STATUS_BAR_HEIGHT } from '../../../assets/css/device'
+import PlatformTouchable from '../../../components/commons/PlatformTouchable'
 
 class DetailView extends React.Component {
 
@@ -235,7 +235,7 @@ class DetailView extends React.Component {
     renderHeader = () => {
         const { community, comments } = this.state
         return <View >
-            <TouchableNativeFeedback onLongPress={() => this.showArticlePopupModal(community)}>
+            <PlatformTouchable onLongPress={() => this.showArticlePopupModal(community)}>
                 <View style={styles.headerContainer}>
                     <View style={styles.contentContainer}>
                         <View style={styles.profileContainer}>
@@ -313,7 +313,7 @@ class DetailView extends React.Component {
                         </View>
                     </View>
                 </View>
-            </TouchableNativeFeedback>
+            </PlatformTouchable>
             {
                 comments && comments.length !== 0
                     ?
